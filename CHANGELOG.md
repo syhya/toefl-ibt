@@ -6,10 +6,6 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 
 ## Unreleased
 
-No changes yet.
-
-## 1.0.0 — 2026-09-06
-
 ### Added
 
 - GPT-6 Astra development attribution and the project's purpose of exploring the model's current capabilities and limits.
