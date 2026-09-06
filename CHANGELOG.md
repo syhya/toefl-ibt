@@ -8,11 +8,31 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 
 ### Added
 
+- A bilingual [Vocabulary](docs/USER_GUIDE.md#vocabulary) page with manual entry, search, learning/mastered filters, editing, confirmed deletion, and local SQLite persistence. Duplicate additions preserve the existing entry and source.
+- Review shortcuts to collect selected words with context and source, or save a Complete the Words reference as a full word. Meanings and notes are entered manually.
+- Incorrect-question jump links and clearer question markers alongside the review filter.
 - GPT-6 Astra development attribution and the project's purpose of exploring the model's current capabilities and limits.
 - English and Simplified Chinese application language selection and paired documentation.
 - Public newcomer workflow, demonstration content, and portable resource import guidance.
 - Installation, usage, architecture, contribution, troubleshooting, and security documentation.
 - Open-source issue/PR templates and a clean-checkout CI workflow.
+
+### Changed
+
+- The task library now organizes source tests into module/part and category groups. Each entry starts the full ordered group, with item/screen counts and aggregate progress; search, pagination, and deduplication preserve group membership. Group selection retains its original branch and rejects stale content at start.
+
+- Audio replay and instant answers now require an unchecked-by-default preparation option in specialized guided practice. Strict and full-test sessions cannot enable it; old sessions without explicit consent remain off. Session API checks enforce the same rule, while first playback, audio recovery, and review after finishing remain available.
+- Test/section start actions open preparation so the study-aid choice is visible; explicit Continue actions resume saved sessions.
+
+- Review now compares each Complete the Words blank with its full reference word and accepted alternatives. Correct and incorrect answers have text labels and distinct colors; unanswered, unscored, conflicting, or unverifiable details remain neutral.
+- Choice and sentence-building review presents the response and available reference together. The comparison explains saved server results without changing frozen scores.
+- Vocabulary reads and changes follow the existing strict-session review lock, including requests from another tab.
+
+### Fixed
+
+- Eligible older Listening-only guided sessions can use **Repair audio and continue** when audio verification records are missing. Recovery requires matching questions, reference answers, and currently verified media; it preserves answers, progress, deadlines, and frozen rules, and records the repair as an interruption without claiming historical verification.
+- Audio failures now show the service error or HTTP status. Verification failures offer eligible recovery instead of a repeated playback retry; actual source changes still require matching resources or new practice.
+- **Start new practice** no longer reopens an active session whose source version does not match.
 
 ### Existing local application capabilities
 

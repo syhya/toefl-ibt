@@ -221,22 +221,11 @@ class SourceIntegrity:
             'reviewAssetSha256ByUrl': {item['url']: item['sha256'] for item in review_manifest.values()},
             'status': self.check_exam(exam)['status']}
 
-    def session_asset_matches(self, session, asset_id, path, review=False):
-        frozen = session.get('assetManifest', {}).get(asset_id)
-        if frozen:
-            return self.digest(path) == frozen['sha256']
-        frozen_review = session.get('reviewAssetManifest', {}).get(asset_id)
-        if frozen_review:
-            return review and self.digest(path) == frozen_review['sha256']
-        for url, expected in session.get('verificationSnapshot', {}).get('sourceSha256ByUrl', {}).items():
-            if self.catalog.register(url) == asset_id:
-                return self.digest(path) == expected
-        # Legacy sessions have no generated-asset snapshot. Their source media
-        # still carries its import hash; otherwise compare the recorded import
-        # manifest rather than silently trusting a replacement file.
+    def historical_media_hash(self, session, asset_id):
+        """Find only a hash already carried by the frozen question metadata."""
         def old_media(value):
             if isinstance(value, dict):
-                if canonical_url(value.get('url')).startswith('/materials/') and self.catalog.register(value['url']) == asset_id:
+                if value.get('url') and self.catalog.register(value['url']) == asset_id:
                     expected = value.get('sourceSha256')
                     if isinstance(expected, str) and HASH.fullmatch(expected):
                         return expected
@@ -250,9 +239,33 @@ class SourceIntegrity:
                     if found:
                         return found
             return None
-        expected = old_media(session['plan'])
+        return old_media(session['plan'])
+
+    def has_asset_expectation(self, session, asset_id):
+        if any((session.get(key) or {}).get(asset_id) for key in ['assetManifest', 'reviewAssetManifest', 'legacyAudioManifest']):
+            return True
+        if any(self.catalog.register(url) == asset_id for url in
+               (session.get('verificationSnapshot') or {}).get('sourceSha256ByUrl', {})):
+            return True
+        return self.historical_media_hash(session, asset_id) is not None
+
+    def session_asset_matches(self, session, asset_id, path, review=False):
+        frozen = session.get('assetManifest', {}).get(asset_id)
+        if frozen:
+            return self.digest(path) == frozen['sha256']
+        frozen_review = session.get('reviewAssetManifest', {}).get(asset_id)
+        if frozen_review:
+            return review and self.digest(path) == frozen_review['sha256']
+        for url, expected in session.get('verificationSnapshot', {}).get('sourceSha256ByUrl', {}).items():
+            if self.catalog.register(url) == asset_id:
+                return self.digest(path) == expected
+        expected = self.historical_media_hash(session, asset_id)
         if expected:
             return self.digest(path) == expected
+        recovered = (session.get('legacyAudioManifest') or {}).get(asset_id)
+        if (recovered and session.get('mode') == 'practice' and not session.get('verificationSnapshot')
+                and not session.get('assetManifest')):
+            return self.digest(path) == recovered['sha256']
         # Never replace a missing historical expectation with the latest import
         # hash: that could serve a new prompt for an old frozen question.
         return review

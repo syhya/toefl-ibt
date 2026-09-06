@@ -25,9 +25,12 @@ from .catalog import Catalog
 from .storage import Storage
 from . import engine
 from . import mistakes
+from .vocabulary import install_vocabulary_routes
 from .explanations import explain
 from .media import indexed_take
 from .integrity import SourceIntegrity
+from .legacy_audio import recovery_flags, recover_audio
+from .practice_groups import build_practice_groups, public_group, group_session_options, group_revision, SESSION_FIELDS as GROUP_SESSION_FIELDS
 from .presentation import asset_is_active, is_structured, manifest_issues, safe_stem_blocks
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -143,6 +146,8 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         if any(a['status'] == 'active' and a['mode'] == 'strict' for a in store.all(db)):
             raise engine.ExamError('Review, feedback and reference resources are locked while strict practice is active.', 403)
 
+    install_vocabulary_routes(app, store, clock, read_json, reject_during_strict)
+
     def exclusive_session_guard(db, a):
         if any(item['status'] == 'active' and item['mode'] == 'strict' and item['id'] != a['id'] for item in store.all(db)):
             raise engine.ExamError('Another strict session is active. Other sessions and their media are locked until it ends.', 403)
@@ -240,7 +245,8 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         if not review and a['mode'] == 'practice' and engine.stage(a)['timer'] == 'untimed':
             result['practiceMediaSequence'] = [{**{key: item[key] for key in ['durationSeconds', 'mediaType', 'kind', 'title'] if key in item},
                                                **(asset_url(a, item.get('url')) or {})} for item in media]
-            if q.get('displayTranscriptDuringPractice') is True and isinstance(q.get('transcript'), str):
+            if (engine.practice_aids_enabled(a) and q.get('displayTranscriptDuringPractice') is True
+                    and isinstance(q.get('transcript'), str)):
                 result['transcript'] = q['transcript']
                 result['displayTranscriptDuringPractice'] = True
                 result['transcriptLabel'] = '原文研读 · 不冒充有原音的听力考试'
@@ -304,6 +310,9 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
                                            'startedAt', 'updatedAt', 'completedAt', 'interrupted', 'rulesVersion', 'filters', 'filtered', 'supplemental', 'timingPolicy']}
         result['requiresMicrophone'] = any(part.get('section') == 'speaking' and bool(part.get('questions')) for part in a.get('plan', []))
         result['writingExpiryAcknowledgement'] = a.get('writingExpiryAcknowledgement') is True
+        result['allowPracticeAids'] = engine.practice_aids_enabled(a)
+        if isinstance(a.get('practiceGroup'), dict):
+            result['practiceGroup'] = {key: a['practiceGroup'][key] for key in GROUP_SESSION_FIELDS if key in a['practiceGroup']}
         result.update(engine.score_snapshot_metadata(a))
         full = a.get('isFullScope')
         if full is None:
@@ -364,6 +373,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
             result['runtimeSourceStatus'] = runtime['status']
         else:
             result['runtimeSourceStatus'] = 'content-version-unverified'
+        result.update(recovery_flags(a, catalog, source_integrity))
         return result
 
     def session_view(db, a, now):
@@ -387,8 +397,9 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
             elif a['phase'] == 'expired':
                 allowed.append('continue')
             if a['mode'] == 'practice' and a['phase'] != 'expired':
-                allowed.append('resume' if a['phase'] == 'paused' else 'pause')
-                if q and engine.media_sequence(q) and a['phase'] == 'response' and st['timer'] != 'untimed':
+                if a['phase'] != 'audio' or engine.practice_aids_enabled(a):
+                    allowed.append('resume' if a['phase'] == 'paused' else 'pause')
+                if engine.practice_aids_enabled(a) and q and engine.media_sequence(q) and a['phase'] == 'response' and st['timer'] != 'untimed':
                     allowed.append('replay')
         safe_stage = {key: st[key] for key in ['id', 'section', 'title', 'timer', 'seconds', 'canBack', 'route', 'instructions', 'hasDirectionsAudio', 'referenceOnly'] if key in st} if st else None
         if safe_stage:
@@ -414,7 +425,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
                 'integrity': {'interrupted': a['interrupted'], 'recordingsComplete': recording_status['status'] == 'complete',
                               'sourcesVerified': (a.get('verificationSnapshot') or {}).get('status') == 'passed',
                               'eligibleForContinuousStrict': a['mode'] == 'strict' and a['status'] == 'completed' and not a['interrupted'] and recording_status['status'] == 'complete' and (a.get('verificationSnapshot') or {}).get('status') == 'passed',
-                              'events': [event for event in a['events'] if event['type'] in ['interrupted', 'resumed', 'missing-audio', 'recording-error', 'clock-gap', 'source-changed']]},
+                              'events': [event for event in a['events'] if event['type'] in ['interrupted', 'resumed', 'missing-audio', 'recording-error', 'clock-gap', 'source-changed', 'legacy-audio-unverified', 'legacy-audio-recovered']]},
                 'progress': {'stageIndex': a['stageIndex'], 'totalStages': len(a['plan']), 'questionIndex': a['questionIndex'],
                              'totalQuestions': sum(len(s.get('questions', [])) for s in a['plan'])},
                 'timing': a['timing'], 'routes': a['routes'], 'rulesVersion': a['rulesVersion'], 'scoringPolicy': a.get('scoringPolicy'),
@@ -546,6 +557,31 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         return {'schemaVersion': 1, 'summary': audit.get('summary', {}), 'coverage': catalog.data.get('stats', {}),
                 'exams': [{'id': e['id'], 'title': e.get('title'), 'validation': e.get('validation', {}), 'warnings': e.get('warnings', [])} for e in catalog.exams.values()],
                 'warnings': audit.get('warnings', []), 'fileCount': len(catalog.data.get('materials', []))}
+
+    @app.get('/api/practice-groups')
+    def practice_groups(section: str = '', taskType: str = '', q: str = '', page: int = 1, pageSize: int = 24, deduplicate: bool = False):
+        if section and section not in ['all', *engine.ORDER]:
+            raise engine.ExamError('Invalid question section.', 422)
+        if not 1 <= pageSize <= 100 or page < 1 or len(q) > 200:
+            raise engine.ExamError('Use a positive page, pageSize 1–100 and a short search query.', 422)
+        catalog.refresh()
+        with store.transaction() as db:
+            reject_during_strict(db)
+            groups = build_practice_groups(catalog, store.all(db))
+            query = q.strip().casefold()
+            filtered = [group for group in groups if (section in ['', 'all'] or group['section'] == section)
+                        and (not query or query in group['_searchText'])]
+            task_counts = dict(Counter(group['taskType'] for group in filtered))
+            if taskType and taskType != 'all':
+                filtered = [group for group in filtered if group['taskType'] == taskType]
+            if deduplicate:
+                unique = {}
+                for group in filtered:
+                    unique.setdefault(group['_dedupeKey'], group)
+                filtered = list(unique.values())
+            return {'items': [public_group(group) for group in filtered[(page - 1) * pageSize:page * pageSize]],
+                    'total': len(filtered), 'page': page, 'pageSize': pageSize,
+                    'taskCounts': task_counts, 'deduplicate': deduplicate}
 
     @app.get('/api/questions')
     def question_library(section: str = '', taskType: str = '', q: str = '', page: int = 1, pageSize: int = 24, deduplicate: bool = False):
@@ -702,7 +738,22 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
             raise engine.ExamError('Exam not found.', 404)
         if manifest_issues(exam):
             raise engine.ExamError('The structured-content verification manifest does not match this generated exam. Reimport the source materials.', 409)
+        practice_group = None
+        if 'practiceGroupId' in payload:
+            valid_id(payload['practiceGroupId'])
+            if 'expectedGroupContentId' in payload:
+                valid_id(payload['expectedGroupContentId'])
+            payload, practice_group = group_session_options(catalog, exam, payload)
+        elif 'expectedGroupContentId' in payload:
+            raise engine.ExamError('A group content expectation requires a practice group.', 422)
         a = engine.new_session(exam, payload, clock())
+        if practice_group is not None:
+            planned_questions = [question for stage in a['plan'] for question in stage.get('questions', [])]
+            planned_ids = [question['id'] for question in planned_questions]
+            if (planned_ids != payload['questionIds'] or any(stage.get('branches') for stage in a['plan'])
+                    or group_revision(practice_group['groupId'], planned_questions, catalog.exam_digests.get(exam['id'])) != practice_group['groupContentId']):
+                raise engine.ExamError('The selected practice group could not be frozen in its complete source order. Refresh the practice library.', 409)
+            a['practiceGroup'] = practice_group
         if payload.get('mode') == 'strict':
             runtime = source_integrity.check_exam(exam)
             if runtime['status'] != 'passed':
@@ -733,6 +784,22 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
             if engine.tick(a, clock()):
                 store.save(db, a)
             return session_view(db, a, clock())
+
+    @app.post('/api/sessions/{session_id}/recover-audio')
+    async def recover_session_audio(session_id: str, request: Request):
+        payload = await read_json(request)
+        if payload:
+            raise engine.ExamError('Audio recovery expects an empty JSON object.', 422)
+        catalog.refresh()
+        with store.transaction() as db:
+            a = get_session(db, session_id)
+            reject_during_strict(db)
+            now = clock()
+            # Recovery never ticks, rewinds or submits a question. The next
+            # normal event retains the original authoritative deadline checks.
+            if recover_audio(a, catalog, source_integrity, now):
+                store.save(db, a)
+            return session_view(db, a, now)
 
     @app.post('/api/sessions/{session_id}/events')
     async def session_event(session_id: str, request: Request):
@@ -774,6 +841,8 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         with store.transaction() as db:
             reject_during_strict(db)
             a = get_session(db, session_id)
+            if a['status'] == 'active' and not engine.practice_aids_enabled(a):
+                raise engine.ExamError('Replay, immediate feedback and review resources were not enabled for this practice session.', 403)
             if a['mode'] != 'practice' or questionId not in a['visitedQuestions']:
                 raise engine.ExamError('Immediate feedback is only available for visited practice questions.', 403)
             q = next(q for st in a['plan'] for q in st.get('questions', []) if q['id'] == questionId)
@@ -854,6 +923,8 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
                 reject_during_strict(db)
                 if a['status'] == 'active' and a['mode'] != 'practice':
                     raise engine.ExamError('Review assets are locked until this session ends.', 403)
+                if a['status'] == 'active' and not engine.practice_aids_enabled(a):
+                    raise engine.ExamError('Replay, immediate feedback and review resources were not enabled for this practice session.', 403)
                 allowed = set()
                 for st in a['plan']:
                     allowed.update(catalog.register(media.get('url')) for media in st.get('practiceAudio', []))
@@ -881,12 +952,19 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
             if not path:
                 raise engine.ExamError('Asset not found.', 404)
             if not source_integrity.session_asset_matches(a, asset_id, path, review=review):
+                legacy_audio = (not a.get('verificationSnapshot') and not a.get('assetManifest')
+                                and not source_integrity.has_asset_expectation(a, asset_id)
+                                and any(catalog.register(media.get('url')) == asset_id
+                                        for stage in a['plan'] for question in stage.get('questions', [])
+                                        for media in engine.media_sequence(question)))
                 a['interrupted'] = True
-                engine.log(a, 'source-changed', {'assetId': asset_id}, clock())
+                engine.log(a, 'legacy-audio-unverified' if legacy_audio else 'source-changed', {'assetId': asset_id}, clock())
                 a['revision'] += 1
                 a['updatedAt'] = clock()
                 store.save(db, a)
-                return JSONResponse({'error': 'This media/source asset no longer matches the session snapshot. The original answers and deadline are preserved; restore the source or start a reimported practice.'}, status_code=409)
+                if legacy_audio:
+                    return JSONResponse({'code': 'legacy-audio-unverified', 'error': 'This older session has no saved audio verification. Recover verified audio to continue without changing your saved answers or progress.'}, status_code=409)
+                return JSONResponse({'code': 'source-changed', 'error': 'This media/source asset no longer matches the session snapshot. The original answers and deadline are preserved; restore the source or start a reimported practice.'}, status_code=409)
             mime = mimetypes.guess_type(path.name)[0] or 'application/octet-stream'
             if mime in ['text/html', 'image/svg+xml', 'text/javascript', 'application/javascript']:
                 mime = 'application/octet-stream'

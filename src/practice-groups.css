@@ -1,0 +1,216 @@
+.practice-group-library .practice-group-overview {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 24px 0 16px;
+}
+.practice-group-library .practice-group-overview h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.practice-group-library .practice-group-overview h2 span {
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #677b70;
+}
+.practice-group-library .practice-group-overview p {
+  margin: 0;
+  font-size: 12px;
+  color: #677b70;
+}
+.practice-exam-list {
+  display: grid;
+  gap: 22px;
+}
+.practice-exam-list.is-loading .practice-exam-panel {
+  opacity: 0.55;
+}
+.practice-exam-panel {
+  border: 1px solid #dce4da;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.practice-exam-heading {
+  padding: 20px 24px;
+  background: #edf4e9;
+  border-bottom: 1px solid #dce4da;
+}
+.practice-exam-heading > span {
+  display: block;
+  color: #5d7865;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.practice-exam-heading h3 {
+  margin: 6px 0 0;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #204e3e;
+  overflow-wrap: anywhere;
+}
+.practice-module-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 20px;
+}
+.practice-module-panel {
+  min-width: 0;
+  border: 1px solid #e0e6dd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.practice-module-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  background: #f7f9f4;
+  padding: 13px 16px;
+  border-bottom: 1px solid #e0e6dd;
+}
+.practice-module-heading h4 {
+  margin: 0;
+  color: #315b47;
+  font-size: 15px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.practice-module-heading > span {
+  color: #64745d;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.practice-category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.practice-category-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 17px 16px;
+}
+.practice-category-row + .practice-category-row {
+  border-top: 1px solid #e8ece4;
+}
+.practice-category-main {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.practice-category-main h5 {
+  margin: 0 0 7px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 650;
+  color: #254c3e;
+}
+.practice-category-main > p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 11px;
+  margin: 0;
+  color: #647769;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.practice-group-tags {
+  display: flex;
+  gap: 5px 9px;
+  flex-wrap: wrap;
+  margin-top: 7px;
+  color: #597263;
+  font-size: 10px;
+}
+.practice-group-tags > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.practice-group-tags svg {
+  width: 13px;
+  height: 13px;
+}
+.practice-category-main .practice-group-availability {
+  margin-top: 7px;
+  color: #8c642c;
+  font-size: 10px;
+}
+.practice-category-actions {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 5px;
+}
+.practice-group-state {
+  font-size: 10px;
+  font-weight: 600;
+  color: #647269;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: #f0f3ee;
+}
+.practice-group-state.in_progress {
+  color: #805724;
+  background: #fbf0d9;
+}
+.practice-group-state.completed {
+  color: #2e6349;
+  background: #e7f4e4;
+}
+.practice-category-actions > small {
+  font-size: 10px;
+  color: #6e7d71;
+}
+.practice-category-actions > .btn {
+  white-space: nowrap;
+  margin-top: 4px;
+  min-height: 32px;
+  font-size: 11px;
+}
+.practice-group-library .drill-filter-panel .search {
+  min-width: 180px;
+}
+@media (max-width: 1060px) {
+  .practice-module-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .practice-group-library .practice-group-overview {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .practice-exam-heading {
+    padding: 16px;
+  }
+  .practice-exam-heading h3 {
+    font-size: 17px;
+  }
+  .practice-module-grid {
+    padding: 12px;
+    gap: 12px;
+  }
+  .practice-module-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .practice-category-row {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+  .practice-category-actions > .btn {
+    min-height: 38px;
+  }
+  .practice-group-library .filter-row {
+    flex-wrap: wrap;
+  }
+}

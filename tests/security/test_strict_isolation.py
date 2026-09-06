@@ -20,7 +20,7 @@ def test_sentence_distractor_metadata_is_available_only_in_review(env, mode):
     catalog = env['root'] / 'generated/catalog.json'
     catalog.write_text(catalog.read_text() + ' ')
 
-    opened = begin(env, start(env, mode=mode, scope='writing'))
+    opened = begin(env, start(env, mode=mode, scope='writing', allowPracticeAids=mode == 'practice'))
     assert opened['question']['tokens'] == ['the', 'the', 'extra']
     assert 'extraTokens' not in opened['question'], 'Identifying a distractor discloses part of the solution.'
     if mode == 'practice':

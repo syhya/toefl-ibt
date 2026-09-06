@@ -10,7 +10,7 @@ import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { setLocale } from "../../src/i18n";
 import { DEFAULT_TIMING } from "../../src/api";
 import { Rules, Settings, ReviewPage } from "../../src/pages";
-import QuestionLibrary, { type QuestionItem } from "../../src/QuestionLibrary";
+import QuestionLibrary, { type PracticeGroup } from "../../src/QuestionLibrary";
 import Mistakes, { type Mistake } from "../../src/Mistakes";
 import type { Review } from "../../src/types";
 
@@ -161,22 +161,28 @@ it("keeps source text, answers, and unfinished self-assessments intact across re
   ).toBeTruthy();
 });
 
-it("localizes library controls without refetching or changing source item identity", async () => {
+it("localizes group-library controls without refetching or changing full source membership", async () => {
   vi.useFakeTimers();
-  const source: QuestionItem = {
-    questionId: "original-cloze",
+  const source: PracticeGroup = {
+    groupId: "original-cloze-group",
+    groupContentId: "group-revision-original",
+    questionIds: ["original-cloze"],
     examId: "source-test",
     examTitle: "原始资料名称",
     section: "reading",
     module: "Original module",
-    title: "Original cloze content",
+    moduleId: "original-module",
+    route: "common",
     taskType: "cloze",
-    number: 1,
+    numberStart: 1,
+    numberEnd: 10,
+    screenCount: 1,
+    itemCount: 10,
+    completedCount: 0,
     hasAudio: false,
     status: "not_started",
-    contentId: "original-content",
+    audioCount: 0,
     duplicateCount: 2,
-    auditStatus: "verified",
   };
   const fetch = vi.fn(
     async () =>
@@ -199,11 +205,10 @@ it("localizes library controls without refetching or changing source item identi
   expect(
     screen.getByRole("heading", { name: "一次专注，一种题型。" }),
   ).toBeTruthy();
-  expect(
-    screen.getByRole("heading", { name: "Original cloze content" }),
-  ).toBeTruthy();
-  expect(screen.getByText(/原始资料名称 · Original module/)).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: "开始专项练习" }));
+  expect(screen.getByRole("heading", { name: "原始资料名称" })).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "Original module" })).toBeTruthy();
+  expect(screen.getByText("10 道小题")).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: /^开始本组：/ }));
   expect(practice).toHaveBeenCalledExactlyOnceWith(source);
 });
 

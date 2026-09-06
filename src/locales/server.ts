@@ -6,6 +6,109 @@ import type { Locale } from "../i18n";
  */
 const messages: [string, string][] = [
   [
+    "Practice groups require practice mode and a fixed source route.",
+    "题组需使用专项练习模式，并保留原卷固定路线。",
+  ],
+  [
+    "Choose a practice group or individual question filters, not both.",
+    "题组不能同时使用其他题目筛选，请重新选择练习范围。",
+  ],
+  [
+    "This practice group is no longer available for this source exam. Refresh the practice library.",
+    "本套资料中的题组已不可用，请刷新专项题库后重新选择。",
+  ],
+  [
+    "The selected practice group belongs to a different section.",
+    "所选题组与练习科目不一致，请重新选择。",
+  ],
+  [
+    "This practice group changed after it was listed. Refresh the practice library before starting.",
+    "此题组内容已更新，请刷新专项题库后重新选择并开始。",
+  ],
+  [
+    "A group content expectation requires a practice group.",
+    "题组版本信息缺少对应题组，请重新选择。",
+  ],
+  [
+    "The selected practice group could not be frozen in its complete source order. Refresh the practice library.",
+    "无法按原卷顺序完整载入本题组，请刷新专项题库后重试。",
+  ],
+  [
+    "Pausing audio requires practice aids enabled before starting.",
+    "音频播放期间暂停需要在练习开始前开启辅助；未开启时可在答题阶段暂停。",
+  ],
+  ["allowPracticeAids must be a boolean.", "练习辅助设置必须为勾选或未勾选。"],
+  [
+    "Replay and immediate feedback can only be enabled for specialized practice, not full exams or strict practice.",
+    "重播和即时答案只能在专项练习开始前开启，完整流程和严格模考不能使用。",
+  ],
+  [
+    "Replay, immediate feedback and review resources were not enabled for this practice session.",
+    "本次练习未在开始前开启辅助，无法重播或即时查看答案与解析；结束后可正常复盘。",
+  ],
+  [
+    "This older session has no saved audio verification. Recover verified audio to continue without changing your saved answers or progress.",
+    "这份旧版练习缺少音频校验信息。可修复音频后继续，已答内容和当前进度会保留。",
+  ],
+  [
+    "This session cannot safely recover legacy audio. Keep its saved answers and start a new practice with verified sources.",
+    "这份旧练习的题目或资料已变化，无法直接恢复音频。已答内容会保留，请使用校验通过的资料开始新练习。",
+  ],
+  [
+    "Audio recovery expects an empty JSON object.",
+    "音频恢复请求格式不正确，请刷新后重试。",
+  ],
+  ["Unsupported vocabulary fields.", "单词本请求包含不支持的字段。"],
+  ["Choose a valid vocabulary status.", "请选择有效的词条学习状态。"],
+  [
+    "Provide at least one vocabulary field to update.",
+    "请填写至少一项要修改的词条内容。",
+  ],
+  ["Vocabulary entry not found.", "未找到此词条。"],
+  ["That word is already in your vocabulary.", "该词已在单词本中。"],
+  ["word must contain 1–120 characters.", "词语或短语需要 1–120 个字符。"],
+  ["Invalid sourceQuestionId.", "来源题目编号无效。"],
+  ["Invalid sourceSessionId.", "来源练习编号无效。"],
+  ["Invalid id.", "词条编号无效。"],
+  [
+    "page must be an integer from 1 to 1000000.",
+    "页码需要是 1 到 1000000 之间的整数。",
+  ],
+  [
+    "pageSize must be an integer from 1 to 100.",
+    "每页条数需要是 1 到 100 之间的整数。",
+  ],
+  ["word must be text.", "词语或短语需要是文本。"],
+  ["word must be at most 120 characters.", "词语或短语不能超过 120 个字符。"],
+  [
+    "word contains unsupported control characters.",
+    "词语或短语包含不支持的控制字符。",
+  ],
+  ["meaning must be text.", "释义需要是文本。"],
+  ["meaning must be at most 2000 characters.", "释义不能超过 2000 个字符。"],
+  [
+    "meaning contains unsupported control characters.",
+    "释义包含不支持的控制字符。",
+  ],
+  ["context must be text.", "上下文需要是文本。"],
+  ["context must be at most 4000 characters.", "上下文不能超过 4000 个字符。"],
+  [
+    "context contains unsupported control characters.",
+    "上下文包含不支持的控制字符。",
+  ],
+  ["sourceLabel must be text.", "来源需要是文本。"],
+  ["sourceLabel must be at most 240 characters.", "来源不能超过 240 个字符。"],
+  [
+    "sourceLabel contains unsupported control characters.",
+    "来源包含不支持的控制字符。",
+  ],
+  ["q must be text.", "搜索词需要是文本。"],
+  ["q must be at most 200 characters.", "搜索词不能超过 200 个字符。"],
+  [
+    "q contains unsupported control characters.",
+    "搜索词包含不支持的控制字符。",
+  ],
+  [
     "User-authored resource pack · Untimed guided practice.",
     "自编资源包 · 不限时专项练习。",
   ],

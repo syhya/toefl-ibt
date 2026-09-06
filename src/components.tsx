@@ -1,7 +1,7 @@
 import { tr, useI18n, LanguageSwitch, localizeDynamic } from "./i18n";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Icon, { sectionIcon } from "./Icons";
-import { ORDER, LABELS, date, size, sectionLabel } from "./api";
+import { ORDER, LABELS, date, size, sectionLabel, taskName } from "./api";
 import type { Exam, Material, SessionSummary, SectionId } from "./types";
 export function Button({
   children,
@@ -115,6 +115,7 @@ export function Layout({
       ["home", "grid", tr("Practice", "模考练习")],
       ["drills", "book", tr("Task library", "专项题库")],
       ["mistakes", "flag", tr("Mistakes", "错题集")],
+      ["vocabulary", "bookmark", tr("Vocabulary", "单词本")],
       ["library", "folder", tr("Resources", "全部资料")],
       ["history", "chart", tr("History", "练习记录")],
     ],
@@ -220,7 +221,10 @@ export function Home({
       (e) => e.strictEligible && e.structuredReady !== false,
     ),
     active = sessions.find((s) => s.status === "active"),
-    staleActive = active?.sourceVersionMatches === false,
+    staleActive =
+      active?.sourceVersionMatches === false &&
+      !active.canRecoverAudio &&
+      !active.audioRecoveryApplied,
     visible = exams.filter(
       (e) =>
         filter === "all" ||
@@ -653,7 +657,7 @@ export function History({
   sessions: SessionSummary[];
   open: (s: SessionSummary) => void;
 }) {
-  useI18n();
+  const { locale } = useI18n();
   return (
     <>
       <Heading
@@ -671,6 +675,17 @@ export function History({
             </div>
             <div className="info">
               <h3>{localizeDynamic(s.title)}</h3>
+              {s.practiceGroup && (
+                <p>
+                  {localizeDynamic(s.practiceGroup.module)} ·{" "}
+                  {taskName(s.practiceGroup.taskType, locale)} ·{" "}
+                  {tr("{count} items", "{count} 道小题", {
+                    count: s.practiceGroup.itemCount,
+                  })}
+                  {s.practiceGroup.numberStart != null &&
+                    ` · ${s.practiceGroup.numberStart}${s.practiceGroup.numberEnd != null && s.practiceGroup.numberEnd !== s.practiceGroup.numberStart ? `–${s.practiceGroup.numberEnd}` : ""}`}
+                </p>
+              )}
               <p>
                 {date(s.startedAt)} ·{" "}
                 {s.mode === "strict"
@@ -693,7 +708,9 @@ export function History({
             </span>
             <Button kind="outline small" onClick={() => open(s)}>
               {s.status === "active"
-                ? tr("Continue practice", "继续练习")
+                ? s.canRecoverAudio
+                  ? tr("Restore listening audio", "恢复听力音频")
+                  : tr("Continue practice", "继续练习")
                 : tr("Review session", "查看复盘")}
               <Icon name="arrow" />
             </Button>

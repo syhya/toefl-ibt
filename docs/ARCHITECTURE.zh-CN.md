@@ -19,6 +19,7 @@ TOEFL Local Lab 是单用户本地网页应用。React 呈现练习界面，Fast
 | `backend/presentation.py` | 结构化题面校验及白名单 |
 | `backend/media.py` | 录音容器与回放准备 |
 | `backend/mistakes.py`、`backend/explanations.py` | 跨次错题与来源/本地辅助解析 |
+| `backend/practice_groups.py` | 原模块 / 类别题组、成员版本指纹和整组进度 |
 | `shared/rules.json` | 版本化时间、证据等级和导航规则 |
 | `scripts/` | 安装、启动、导入与隔离验收工具 |
 | `tests/`、`backend/tests/` | 界面、API、安全、导入与真实资料检查 |

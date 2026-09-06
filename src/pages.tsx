@@ -20,6 +20,10 @@ import type {
 import { Button, Heading, Notice, Modal, Empty } from "./components";
 import Icon from "./Icons";
 import { StemAssets } from "./Questions";
+import AnswerComparison from "./AnswerComparison";
+import VocabularyCapture from "./VocabularyCapture";
+import type { VocabularyDraft } from "./Vocabulary";
+import "./review-enhancements.css";
 import rules from "../shared/rules.json";
 
 export function Rules() {
@@ -508,12 +512,14 @@ export function ReviewPage({
   onHistory,
   onWrongPractice,
   onNotice,
+  onAddWord,
 }: {
   review: Review;
   materials: Material[];
   onHistory: () => void;
   onWrongPractice: (ids: string[]) => void;
   onNotice: (s: string) => void;
+  onAddWord?: (draft: VocabularyDraft) => void;
 }) {
   const { t, locale } = useI18n();
   const r = review,
@@ -621,7 +627,11 @@ export function ReviewPage({
     onNotice(t("Self-assessment saved locally.", "自评已保存到本机。"));
   };
   return (
-    <>
+    <VocabularyCapture
+      onAdd={onAddWord}
+      sourceLabel={s.title}
+      sourceSessionId={s.id}
+    >
       <div className="result-hero">
         <div>
           <div
@@ -819,9 +829,24 @@ export function ReviewPage({
           onClick={() => setWrongOnly(!wrongOnly)}
         >
           {wrongOnly
-            ? t("Showing unmatched answers", "只看未匹配答案")
-            : t("Show all / filter unmatched", "查看全部 / 筛选未匹配")}
+            ? t("Show all answers", "查看全部答案")
+            : t("Only incorrect questions", "只看错题")}
         </Button>
+        {onAddWord && (
+          <Button
+            kind="outline small"
+            onClick={() =>
+              onAddWord({
+                word: "",
+                sourceLabel: s.title.slice(0, 240),
+                sourceSessionId: s.id,
+              })
+            }
+          >
+            <Icon name="bookmark" />
+            {t("Add a word", "添加生词")}
+          </Button>
+        )}
         <Button
           kind="outline small"
           disabled={!wrong.length}
@@ -837,6 +862,33 @@ export function ReviewPage({
           )}
         </span>
       </div>
+      {onAddWord && (
+        <p className="review-vocabulary-hint">
+          {t(
+            "Select a word in the passage or answers to save it to your vocabulary book.",
+            "在原文或答案中选中单词，即可加入单词本。",
+          )}
+        </p>
+      )}
+      {wrong.length > 0 && (
+        <nav
+          className="review-question-nav"
+          aria-label={t("Jump to incorrect questions", "错题定位")}
+        >
+          <span className="muted">{t("Needs correction:", "待订正：")}</span>
+          {sections.flatMap((section) =>
+            section.modules
+              .flatMap((module) => module.questions || [])
+              .filter((q) => wrong.includes(q.id))
+              .map((q) => (
+                <a key={q.id} href={`#review-${q.id}`}>
+                  {sectionLabel(section.id, locale)} {q.number ?? ""}
+                  {q.numberEnd ? `–${q.numberEnd}` : ""}
+                </a>
+              )),
+          )}
+        </nav>
+      )}
       {sections.map((section) => (
         <section key={section.id}>
           <div className="section-heading" style={{ marginTop: 28 }}>
@@ -846,14 +898,28 @@ export function ReviewPage({
             .flatMap((m) => m.questions || [])
             .filter((q) => !wrongOnly || wrong.includes(q.id))
             .map((q) => (
-              <article className="review-item" key={q.id}>
+              <article
+                className={`review-item ${wrong.includes(q.id) ? "review-item-incorrect" : ""}`}
+                key={q.id}
+                id={`review-${q.id}`}
+                data-question-id={q.id}
+                data-vocabulary-source={`${s.title} · ${sectionLabel(section.id, locale)} · ${q.number ?? ""}`}
+              >
                 <div className="review-top">
                   <h3>
                     {q.number}
                     {q.numberEnd ? `–${q.numberEnd}` : ""}.{" "}
                     {taskName(q.type, locale)}
                   </h3>
-                  <span className="pill gray">
+                  <span
+                    className={`pill ${wrong.includes(q.id) ? "review-incorrect-badge" : "gray"}`}
+                  >
+                    {wrong.includes(q.id) && (
+                      <>
+                        <Icon name="close" />
+                        {t("Needs correction", "需要订正")} ·{" "}
+                      </>
+                    )}
                     {q.grade
                       ? `${q.grade.correct} / ${q.grade.total}`
                       : localizeDynamic(q.auditStatus, locale) ||
@@ -909,43 +975,75 @@ export function ReviewPage({
                     </a>
                   </div>
                 ))}
-                <div className="review-answer">
-                  <div>
-                    <strong>{t("Your response", "你的回答")}</strong>
-                    {answerText(
-                      displayUserAnswer(q, r.answers[q.id]) ||
-                        (r.recordings[q.id]?.length
-                          ? t("Recorded; play it above", "已录音，点击上方回放")
-                          : undefined),
-                    )}
-                  </div>
-                  <div>
-                    <strong>
-                      {t(
-                        "Source reference / Review guidance",
-                        "资料参考 / 复盘提示",
+                {q.grade ||
+                [
+                  "cloze",
+                  "complete_words",
+                  "choice",
+                  "build_sentence",
+                  "short_answer",
+                ].includes(q.type) ? (
+                  <AnswerComparison
+                    question={q}
+                    answer={r.answers[q.id]}
+                    onAddWord={
+                      onAddWord
+                        ? (draft) =>
+                            onAddWord({
+                              ...draft,
+                              sourceSessionId: s.id,
+                              sourceQuestionId: q.id,
+                              sourceLabel:
+                                `${s.title} · ${sectionLabel(section.id, locale)} · ${draft.sourceLabel || q.number || ""}`.slice(
+                                  0,
+                                  240,
+                                ),
+                            })
+                        : undefined
+                    }
+                  />
+                ) : (
+                  <div className="review-answer">
+                    <div>
+                      <strong>{t("Your response", "你的回答")}</strong>
+                      {answerText(
+                        displayUserAnswer(q, r.answers[q.id]) ||
+                          (r.recordings[q.id]?.length
+                            ? t(
+                                "Recorded; play it above",
+                                "已录音，点击上方回放",
+                              )
+                            : undefined),
                       )}
-                    </strong>
-                    {q.answer != null
-                      ? answerText(displayUserAnswer(q, q.answer))
-                      : [
-                            "email",
-                            "academic_discussion",
-                            "listen_repeat",
-                            "interview",
-                            "read_aloud",
-                            "picture_writing",
-                          ].includes(q.type)
-                        ? t(
-                            "This response is not automatically scored. Use the relevant rubric to review delivery, language, and content.",
-                            "本题不自动评分。请参照适用量表核对表达、语言和内容。",
-                          )
-                        : t(
-                            "The source answer is missing or has an unresolved conflict. This item is excluded from automatic scoring; check the original question and passage.",
-                            "原资料答案缺失或存在未解决的冲突，本题未计入自动评分。请对照原题与原文核验。",
-                          )}
+                    </div>
+                    <div>
+                      <strong>
+                        {t(
+                          "Source reference / Review guidance",
+                          "资料参考 / 复盘提示",
+                        )}
+                      </strong>
+                      {q.answer != null
+                        ? answerText(displayUserAnswer(q, q.answer))
+                        : [
+                              "email",
+                              "academic_discussion",
+                              "listen_repeat",
+                              "interview",
+                              "read_aloud",
+                              "picture_writing",
+                            ].includes(q.type)
+                          ? t(
+                              "This response is not automatically scored. Use the relevant rubric to review delivery, language, and content.",
+                              "本题不自动评分。请参照适用量表核对表达、语言和内容。",
+                            )
+                          : t(
+                              "The source answer is missing or has an unresolved conflict. This item is excluded from automatic scoring; check the original question and passage.",
+                              "原资料答案缺失或存在未解决的冲突，本题未计入自动评分。请对照原题与原文核验。",
+                            )}
+                    </div>
                   </div>
-                </div>
+                )}
                 <Explanation question={q} />
                 <details>
                   <summary>
@@ -955,7 +1053,13 @@ export function ReviewPage({
                     )}
                   </summary>
                   <div className="passage" style={{ marginTop: 15 }}>
-                    {q.transcript || q.passage}
+                    {q.transcript ||
+                      q.passage ||
+                      q.passageTemplate?.replace(
+                        /\{\{([^{}]+)\}\}/g,
+                        (_, id: string) =>
+                          `___ (${q.blanks?.find((blank) => blank.id === id)?.number ?? id})`,
+                      )}
                   </div>
                   <StemAssets
                     question={{
@@ -1031,7 +1135,7 @@ export function ReviewPage({
           <Report value={r.events} />
         </details>
       </div>
-    </>
+    </VocabularyCapture>
   );
 }
 function RatingForm({
@@ -1156,16 +1260,10 @@ export function Feedback({
           })}
         </span>
       )}
-      <div className="review-answer">
-        <div>
-          <strong>{t("Your response", "你的回答")}</strong>
-          {answerText(displayUserAnswer(data.question, data.answer))}
-        </div>
-        <div>
-          <strong>{t("Reference answer", "参考答案")}</strong>
-          {answerText(displayUserAnswer(data.question, data.question.answer))}
-        </div>
-      </div>
+      <AnswerComparison
+        question={{ ...data.question, grade }}
+        answer={data.answer}
+      />
       <Explanation question={data.question} />
       {data.question.transcript && (
         <div className="passage" style={{ fontSize: 14, marginTop: 20 }}>

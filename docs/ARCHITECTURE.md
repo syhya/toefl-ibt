@@ -19,6 +19,7 @@ TOEFL Local Lab is a single-user local web application. React renders the practi
 | `backend/presentation.py` | Validation and allowlisting of structured presentation blocks |
 | `backend/media.py` | Recording containers and playback preparation |
 | `backend/mistakes.py`, `backend/explanations.py` | Cross-session mistake review and source-based/local explanations |
+| `backend/practice_groups.py` | Source-ordered module/category groups, membership fingerprints, and aggregate progress |
 | `shared/rules.json` | Versioned timing, evidence levels, and navigation policy |
 | `scripts/` | Installation, startup, source import, and isolated QA utilities |
 | `tests/`, `backend/tests/` | UI, API, security, import, and source-data checks |
