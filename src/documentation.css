@@ -1,0 +1,221 @@
+.documentation-view {
+  max-width: 1100px;
+  margin: 0 auto;
+  color: var(--ink, #26392f);
+}
+.documentation-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 0 24px;
+  flex-wrap: wrap;
+}
+.documentation-breadcrumb {
+  flex: 1;
+  font-size: 13px;
+  color: var(--muted, #617266);
+  line-height: 1.6;
+}
+.documentation-breadcrumb > span {
+  margin: 0 8px;
+  color: #9aa79e;
+}
+.documentation-index-link {
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: #006d73;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.documentation-state {
+  padding: 48px 24px;
+  border: 1px solid #dfe5df;
+  border-radius: 16px;
+  background: white;
+}
+.documentation-markdown {
+  padding: clamp(24px, 5vw, 64px);
+  border: 1px solid #e0e6e0;
+  border-radius: 18px;
+  background: #fff;
+  font-size: 16px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  scroll-margin-top: 96px;
+}
+.documentation-markdown > :first-child {
+  margin-top: 0;
+}
+.documentation-markdown > :last-child {
+  margin-bottom: 0;
+}
+.documentation-markdown h1,
+.documentation-markdown h2,
+.documentation-markdown h3,
+.documentation-markdown h4 {
+  color: #173d36;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  scroll-margin-top: 100px;
+}
+.documentation-markdown h1 {
+  font-size: clamp(28px, 3vw, 38px);
+  margin: 0 0 24px;
+}
+.documentation-markdown h2 {
+  font-size: 24px;
+  margin: 42px 0 16px;
+  padding-top: 24px;
+  border-top: 1px solid #e9eeea;
+}
+.documentation-markdown h3 {
+  font-size: 20px;
+  margin: 30px 0 12px;
+}
+.documentation-markdown h4 {
+  font-size: 17px;
+  margin: 24px 0 10px;
+}
+.documentation-markdown p {
+  margin: 14px 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+.documentation-markdown ul,
+.documentation-markdown ol {
+  padding-left: 25px;
+  margin: 16px 0;
+}
+.documentation-markdown li {
+  padding-left: 4px;
+  margin: 6px 0;
+}
+.documentation-markdown li p {
+  margin: 8px 0;
+}
+.documentation-markdown a {
+  color: #006d73;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.documentation-markdown a:hover {
+  color: #004e52;
+}
+.documentation-markdown a:focus-visible,
+.documentation-index-link:focus-visible {
+  outline: 2px solid #00838b;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.documentation-markdown code {
+  background: #f0f4f1;
+  color: #285341;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.87em;
+  letter-spacing: normal;
+}
+.documentation-markdown pre {
+  max-width: 100%;
+  margin: 22px 0;
+  padding: 20px 22px;
+  overflow-x: auto;
+  border: 1px solid #dfe8e1;
+  border-radius: 10px;
+  background: #f7f9f7;
+  color: #26392f;
+  font-size: 14px;
+  line-height: 1.65;
+  overflow-wrap: normal;
+  white-space: pre;
+}
+.documentation-markdown pre code {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  white-space: pre;
+}
+.documentation-markdown blockquote {
+  margin: 22px 0;
+  padding: 2px 20px;
+  border-left: 3px solid #72aaa1;
+  background: #f4f8f5;
+  color: #496259;
+}
+.documentation-table {
+  overflow-x: auto;
+  margin: 22px 0;
+  border: 1px solid #e0e6e0;
+  border-radius: 10px;
+}
+.documentation-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.documentation-table th,
+.documentation-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5eae5;
+  text-align: left;
+  vertical-align: top;
+}
+.documentation-table th {
+  background: #f3f7f3;
+  color: #294b3d;
+  font-weight: 650;
+}
+.documentation-table tr:last-child td {
+  border-bottom: 0;
+}
+.documentation-markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.documentation-markdown hr {
+  border: 0;
+  border-top: 1px solid #e0e6e0;
+  margin: 32px 0;
+}
+.documentation-local-reference {
+  color: #4e655a;
+}
+.documentation-local-reference small {
+  font-size: 0.75em;
+  color: #77877d;
+}
+@media (max-width: 640px) {
+  .documentation-toolbar {
+    gap: 12px;
+  }
+  .documentation-breadcrumb {
+    flex-basis: calc(100% - 100px);
+  }
+  .documentation-index-link {
+    margin-left: auto;
+  }
+  .documentation-markdown {
+    padding: 24px 18px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+  .documentation-markdown h2 {
+    font-size: 21px;
+  }
+  .documentation-markdown pre {
+    padding: 16px;
+    font-size: 12px;
+  }
+}

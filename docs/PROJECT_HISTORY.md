@@ -1,0 +1,19 @@
+# Project history before bilingual onboarding
+
+English | [简体中文](PROJECT_HISTORY.zh-CN.md)
+
+This page records the project's position before the 2026-09-06 bilingual/open-source onboarding work. Use the current [README](../README.md) to install. Private collection numbers here do not describe bundled public content.
+
+The original application was developed around the owner's local source tree. By the dated September 5–6 checks it used React/TypeScript/Vite, FastAPI, SQLite, local fonts, server deadlines, original media, segmented recording, frozen objective scores, and cross-session mistakes. Installation created an isolated Python environment and production frontend; normal offline practice did not call AI services or require accounts/payments.
+
+The private collection held 393 learning resources: 56 PDFs, 319 audio files, and eighteen videos. Its eighteen archives included fifteen iBT arrangements and three Essentials supplements, with 1,815 item occurrences, 1,518 structured screens, and 1,608 deduplicated questions. Fourteen archives supported complete local strict timing; Student 1 retained a paper/audio Interview mismatch and Essentials remained untimed. These were overlapping source arrangements, not eighteen independent official iBT tests.
+
+Structured HTML replaced active full-question screenshots. Necessary source visuals included 742 references to 469 crops, with source portraits in eighty sentence-building screens and eighteen discussions. Original full-question crops were review-only. Source checks bound original files, ten private curation manifests, and 1,886 derived hashes. Local Open Sans/OFL assets and a proportional 1024×768 examination canvas followed the dated official/PDF interface evidence.
+
+The v5 rule version was `2026-09-05-client-expiry-v5`. Sequence was Reading → Listening → Writing → Speaking, with separate directions/media/response/recording phases. Email seven minutes, Discussion ten minutes, and Interview 45 seconds had official text support; other values were source observations or disclosed defaults, including Build's unverified initial six minutes. Simulated adaptive routing used a local 70% threshold, not ETS's proprietary algorithm.
+
+Long-writing expiry retained accepted answers read-only until Continue. Strict mode restricted pause, replay, navigation, immediate review, and outside clipboard import. Browser/source access and device faults were recorded as local workflow boundaries, not proctoring certification. Recording final markers and segment counts distinguished incomplete uploads from complete playback; later self-assessment/valid audio did not rewrite frozen objective results. Unknown objective keys were excluded rather than invented, and self-scores were not official ETS results.
+
+The dated regression log recorded 254 checks, and full Experience 1 browser/restart acceptance covered nine stages, 79 screens, 97 units, 43 original media playbacks, eleven synthetic-microphone recordings, and objective 84/84. A later v5 run naturally exhausted Discussion's 600 seconds. Those reports identify their own build/version boundaries and do not prove every later revision or real microphone quality.
+
+The new public workflow adds original demonstration content and portable authored resources so newcomers can use the application without private files. Historical private import/OCR still requires matching sources and curation manifests. The full evidence, corrections, and limitations remain in [acceptance](ACCEPTANCE.md), [data QA](DATA_QA.md), [materials](MATERIALS.md), [rules](OFFICIAL_RULES.md), and [interface references](EXAM_UI_REFERENCE.md).

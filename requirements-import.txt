@@ -1,0 +1,7 @@
+# Only needed when regenerating generated/. Runtime API dependencies are in backend/requirements.txt.
+# System dependency: tesseract with the eng language data.
+PyMuPDF
+pypdf[crypto]
+Pillow
+mutagen
+imageio-ffmpeg

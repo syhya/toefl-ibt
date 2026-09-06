@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 2,
+  "rulesVersion": "2026-09-05-client-expiry-v5",
+  "effectiveFrom": "2026-01-21",
+  "verifiedAt": "2026-09-05",
+  "productDisclosure": "严格计时·本地模拟。按选定练习配置执行；非 ETS 官方系统，未复现官方自适应或评分。",
+  "sectionOrder": [
+    "reading",
+    "listening",
+    "writing",
+    "speaking"
+  ],
+  "evidenceLevels": {
+    "verified": "ETS 官方文字明确说明",
+    "observed_material": "用户提供 PDF 中直接观察到，非生产系统全面核验",
+    "approximation": "本地练习配置，未获得官方精确值",
+    "unsupported": "当前不实现且不得声称已实现",
+    "observed_client": "用户提供的当前ETS Sampler会话直接观察，不能自动泛化为全部生产考试规则"
+  },
+  "sources": {
+    "content": "https://www.ets.org/toefl/test-takers/ibt/about/content.html",
+    "overview": "https://www.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf",
+    "specifications": "https://www.eu.ets.org/pdfs/toefl/toefl-enki-test-specifications-2026.pdf",
+    "teacherTest1": "https://www.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-teachers-resources-practice-test-1.pdf",
+    "teacherTest2": "https://www.eu.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-teachers-resources-practice-test-2.pdf",
+    "technicalManual": "https://rr.ets.org/index.php/etsrr/article/download/28/17/34",
+    "homeTestDay": "https://www.ets.org/toefl/test-takers/ibt/test-day/at-home-test-day.html",
+    "pack1": "data/2026新托福 18套题+备考资料/00. TPO1-6 全套（包含音频、听力原文和答案）/2026新托福Pack-1/2026新托福Pack-1.pdf",
+    "compatClient": "https://ibt2-toefl-pt.ets.org/ibt2tcweb/themes/toeflCompat/index.html"
+  },
+  "referenceElapsed": {
+    "useForEnforcedTimer": false,
+    "note": "官方约计的基础用时及蓝图估算，不能直接作为答题截止时间；题数和用时会变化，说明页不在这些用时内。",
+    "sourceIds": [
+      "content",
+      "specifications"
+    ],
+    "reading": {
+      "baseItemCount": 50,
+      "baseSeconds": 1800,
+      "routerRangeSeconds": [
+        1080,
+        1260
+      ],
+      "secondModuleSeconds": 540
+    },
+    "listening": {
+      "baseItemCount": 47,
+      "baseSeconds": 1740,
+      "routerSeconds": 1080,
+      "secondLowerSeconds": 420,
+      "secondUpperSeconds": 660
+    },
+    "writing": {
+      "baseItemCount": 12,
+      "baseSeconds": 1380
+    },
+    "speaking": {
+      "baseItemCount": 11,
+      "baseSeconds": 480
+    }
+  },
+  "verifiedRules": {
+    "reading": {
+      "evidence": "verified",
+      "sourceIds": [
+        "teacherTest1",
+        "teacherTest2"
+      ],
+      "timerScope": "module",
+      "exactModuleSeconds": null,
+      "backWithinModule": true,
+      "backToCompletedModule": false
+    },
+    "listening": {
+      "evidence": "verified",
+      "sourceIds": [
+        "teacherTest1",
+        "specifications"
+      ],
+      "timerScope": "question",
+      "exactResponseSecondsByType": null,
+      "back": false,
+      "stimulusReplayCount": 0
+    },
+    "writing": {
+      "evidence": "verified",
+      "sourceIds": [
+        "teacherTest1",
+        "specifications",
+        "technicalManual"
+      ],
+      "taskOrder": [
+        "build_sentence",
+        "email",
+        "discussion"
+      ],
+      "buildSentenceCount": 10,
+      "buildSentenceExactSeconds": null,
+      "buildSentenceTimerScope": "task",
+      "emailCount": 1,
+      "emailSeconds": 420,
+      "discussionCount": 1,
+      "discussionSeconds": 600,
+      "discussionRecommendedMinWords": 100,
+      "discussionMinWordsBlocksSubmission": false,
+      "externalPasteAllowed": false
+    },
+    "speaking": {
+      "evidence": "verified",
+      "sourceIds": [
+        "overview",
+        "teacherTest1",
+        "specifications"
+      ],
+      "taskOrder": [
+        "listen_repeat",
+        "interview"
+      ],
+      "preparationSeconds": 0,
+      "repeatCount": 7,
+      "repeatResponseRangeSeconds": [
+        8,
+        12
+      ],
+      "repeatExactSequenceSeconds": null,
+      "repeatAttempts": 1,
+      "interviewCount": 4,
+      "interviewResponseSeconds": 45
+    },
+    "scoring": {
+      "evidence": "verified",
+      "sourceIds": [
+        "technicalManual"
+      ],
+      "buildSentencePoints": [
+        0,
+        1
+      ],
+      "subjectiveTaskRubricPoints": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "linearAccuracyToOfficialBandValid": false
+    }
+  },
+  "observedMaterials": {
+    "pack1": {
+      "evidence": "observed_material",
+      "sourceId": "pack1",
+      "pageNumbering": "physical-pdf-pages-1-based",
+      "readingModuleBeginSnapshots": [
+        {
+          "module": 1,
+          "seconds": 690,
+          "page": 2
+        },
+        {
+          "module": 2,
+          "seconds": 540,
+          "page": 18
+        }
+      ],
+      "listeningResponseSecondsByType": {
+        "choose_response": 20,
+        "conversation": 20,
+        "announcement": 20,
+        "academic_talk": 30
+      },
+      "listeningTwentySecondPages": [
+        27,
+        30,
+        37,
+        39,
+        42,
+        43
+      ],
+      "listeningThirtySecondPages": [
+        48,
+        49,
+        51,
+        66
+      ],
+      "audioPagesWithoutResponseClock": [
+        35,
+        38,
+        41,
+        47
+      ],
+      "buildSentenceRemainingSnapshot": {
+        "seconds": 347,
+        "page": 74,
+        "provesInitialTimer": false
+      },
+      "buildSentenceBackAndReviewPages": [
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84
+      ],
+      "repeatSequenceSeconds": [
+        8,
+        8,
+        10,
+        10,
+        10,
+        12,
+        12
+      ],
+      "repeatPages": [
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ],
+      "interviewSeconds": 45,
+      "interviewPage": 101,
+      "caveat": "截图版本和日期未知，开头仍显示旧预览题量；不能泛化成现行所有正式考试规则。"
+    }
+  },
+  "simulationDefaults": {
+    "evidence": "approximation",
+    "readingWritingStageBeginScreens": true,
+    "stageBeginEvidence": "Pack 1 physical PDF pages 18, 85 and 87: Reading Module 2, Email and Academic Discussion have Begin screens; their response timers start after Begin.",
+    "readingModuleSeconds": null,
+    "readingNote": "必须由具体套题配置提供；有截图证据时引用，否则显示练习设定。",
+    "listeningResponseSecondsByType": {
+      "choose_response": 20,
+      "conversation": 20,
+      "announcement": 20,
+      "academic_talk": 30
+    },
+    "listeningTimingEvidence": "observed_material",
+    "listeningTimerStarts": "after_stimulus_when_question_is_presented",
+    "listenRepeatSequenceSeconds": [
+      8,
+      8,
+      10,
+      10,
+      10,
+      12,
+      12
+    ],
+    "listenRepeatTimingEvidence": "observed_material",
+    "buildSentenceSeconds": 360,
+    "buildSentenceNote": "6 分钟仅为本地默认，不能通过 23-7-10 的约数推定正式精确时限。",
+    "userPauseAllowed": false,
+    "audioSeekAllowed": false,
+    "audioRateChangeAllowed": false,
+    "timeCarryoverAllowed": false,
+    "lateAnswersAllowed": false,
+    "technicalFailureInvalidatesStrictAttempt": true,
+    "adaptivity": "fixed_practice_route",
+    "writingExpiryAcknowledgement": true,
+    "writingExpiryAcknowledgementNote": "邮件与讨论截止后保留只读题面，Continue后离开；源为当前Sampler写作到时弹窗。旧会话缺少冻结策略标记时保持旧流程。"
+  },
+  "unsupported": [
+    "ETS adaptive routing thresholds and calibrated item parameters",
+    "Identification of operational unscored items",
+    "Official raw-to-band conversion and ETS AI scoring",
+    "Secure browser lockdown and proctoring",
+    "Full pixel and behavior parity with current production ETS client"
+  ],
+  "strictContentGate": {
+    "completeQuestionsRequired": true,
+    "verifiedOrderRequired": true,
+    "verifiedAnswersRequiredForScoring": true,
+    "unresolvedAnswersExcludedFromScoring": true,
+    "matchedOriginalAudioRequired": true,
+    "verifiedAudioBoundariesRequired": true,
+    "syntheticAudioAllowed": false,
+    "missingQuestionPlaceholdersAllowed": false
+  },
+  "clientObservations": {
+    "evidence": "observed_client",
+    "sourceId": "compatClient",
+    "writingExpiry": {
+      "observedTask": "academic_discussion",
+      "heading": "Writing Time Expired",
+      "acknowledgement": "Continue",
+      "answerEditingAfterDeadline": false,
+      "underlyingQuestionRetained": true
+    },
+    "speakingDirectionsToolbarHeightPx": 50
+  }
+}

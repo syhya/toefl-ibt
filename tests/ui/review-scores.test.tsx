@@ -1,0 +1,286 @@
+import { setLocale } from "../../src/i18n";
+import React from "react";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
+import { ReviewPage } from "../../src/pages";
+import type { Review } from "../../src/types";
+
+beforeEach(() => setLocale("zh-CN"));
+
+afterEach(() => {
+  setLocale("en");
+  cleanup();
+  vi.unstubAllGlobals();
+});
+
+function reviewFixture(): Review {
+  return {
+    session: {
+      id: "review-score-fixture",
+      examId: "selected-source-exam",
+      title: "Isolated scoring review",
+      mode: "practice",
+      scope: "all",
+      routeMode: "fixed",
+      route: "upper",
+      status: "completed",
+      phase: "complete",
+      stageIndex: 4,
+      questionIndex: 0,
+      revision: 1,
+      serverNow: 1000000,
+      startedAt: 1000,
+      deadline: null,
+      remainingSeconds: null,
+      allowedActions: [],
+      integrity: { interrupted: false },
+    },
+    sections: [
+      {
+        id: "reading",
+        modules: [
+          {
+            id: "r",
+            title: "Reading source",
+            questions: [
+              {
+                id: "cloze",
+                type: "cloze",
+                number: 1,
+                numberEnd: 3,
+                grade: { correct: 2, total: 3 },
+              },
+              {
+                id: "reading-choice",
+                type: "choice",
+                number: 4,
+                grade: { correct: 1, total: 1 },
+              },
+              { id: "unresolved-key", type: "choice", number: 5, grade: null },
+            ],
+          },
+        ],
+      },
+      {
+        id: "listening",
+        modules: [
+          {
+            id: "l",
+            title: "Listening source",
+            questions: [
+              {
+                id: "listening-choice",
+                type: "choice",
+                number: 1,
+                grade: { correct: 0, total: 1 },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "writing",
+        modules: [
+          {
+            id: "w",
+            title: "Writing source",
+            questions: [
+              {
+                id: "build",
+                type: "build_sentence",
+                number: 1,
+                grade: { correct: 1, total: 1 },
+              },
+              { id: "email", type: "email", number: 11, grade: null },
+              {
+                id: "discussion",
+                type: "academic_discussion",
+                number: 12,
+                grade: null,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "speaking",
+        modules: [
+          {
+            id: "s",
+            title: "Speaking source",
+            questions: [
+              { id: "repeat", type: "listen_repeat", number: 1, grade: null },
+              { id: "interview", type: "interview", number: 8, grade: null },
+            ],
+          },
+        ],
+      },
+    ],
+    answers: {},
+    recordings: {},
+    score: { correct: 4, total: 6 },
+    ratings: {
+      email: { value: 4 },
+      repeat: { value: 0 },
+      "outside-this-selection": { value: 5 },
+    },
+    events: [],
+  };
+}
+
+function show(review: Review) {
+  return render(
+    <ReviewPage
+      review={review}
+      materials={[]}
+      onHistory={vi.fn()}
+      onWrongPractice={vi.fn()}
+      onNotice={vi.fn()}
+    />,
+  );
+}
+function rowValues(name: string) {
+  const table = screen.getByRole("table", { name: "本次分科评分概览" });
+  const row = within(table)
+    .getByRole("rowheader", { name, exact: true })
+    .closest("tr")!;
+  return within(row)
+    .getAllByRole("cell")
+    .map((cell) => cell.textContent);
+}
+
+it("summarizes selected objective units and keeps ungraded questions and subjective self-ratings distinct", () => {
+  show(reviewFixture());
+  expect(rowValues("阅读")).toEqual(["3 / 4", "75%", "—", "—"]);
+  expect(rowValues("听力")).toEqual(["0 / 1", "0%", "—", "—"]);
+  expect(rowValues("写作")).toEqual(["1 / 1", "100%", "已评 1 / 2", "4.0 / 5"]);
+  expect(rowValues("口语")).toEqual(["—", "—", "已评 1 / 2", "0.0 / 5"]);
+  expect(rowValues("本次合计")).toEqual([
+    "4 / 6",
+    "67%",
+    "已评 2 / 4",
+    "2.0 / 5",
+  ]);
+  expect(screen.getByText(/未自评不按0分处理/)).toBeTruthy();
+  expect(screen.getByText(/不合成或换算 ETS 1–6 或120分/)).toBeTruthy();
+});
+
+it("limits a filtered review to its selected questions even when broader exam metadata and ratings exist", () => {
+  const review = reviewFixture();
+  review.exam = {
+    id: "original-exam",
+    title: "Whole source",
+    family: "fixture",
+    strictEligible: true,
+    warnings: [],
+    sections: review.sections,
+  };
+  review.session.filtered = true;
+  review.sections = [
+    {
+      id: "writing",
+      modules: [
+        {
+          id: "selected",
+          title: "Only selected email",
+          questions: [{ id: "email", type: "email", number: 11, grade: null }],
+        },
+      ],
+    },
+  ];
+  show(review);
+  const table = screen.getByRole("table", { name: "本次分科评分概览" });
+  expect(within(table).queryByRole("rowheader", { name: "阅读" })).toBeNull();
+  expect(within(table).queryByRole("rowheader", { name: "口语" })).toBeNull();
+  expect(rowValues("写作")).toEqual(["—", "—", "已评 1 / 1", "4.0 / 5"]);
+  expect(rowValues("本次合计")).toEqual(["—", "—", "已评 1 / 1", "4.0 / 5"]);
+});
+
+it("shows unrated or invalid ratings as pending rather than adding zero to the average", () => {
+  const review = reviewFixture();
+  review.ratings = { email: { value: 6 }, discussion: { value: -1 } };
+  show(review);
+  expect(rowValues("写作")).toEqual(["1 / 1", "100%", "已评 0 / 2", "待自评"]);
+  expect(rowValues("口语")).toEqual(["—", "—", "已评 0 / 2", "待自评"]);
+  expect(rowValues("本次合计")).toEqual([
+    "4 / 6",
+    "67%",
+    "已评 0 / 4",
+    "待自评",
+  ]);
+});
+
+it("updates the section and whole-session self-rating averages immediately after a successful local save", async () => {
+  const review = reviewFixture();
+  const fetch = vi.fn(
+    async () =>
+      new Response(JSON.stringify({ questionId: "discussion", value: 2 }), {
+        status: 200,
+      }),
+  );
+  vi.stubGlobal("fetch", fetch);
+  vi.stubGlobal("FormData", window.FormData);
+  show(review);
+  const article = screen
+    .getByRole("heading", { name: "12. 学术讨论" })
+    .closest("article")!;
+  fireEvent.change(within(article).getByRole("combobox", { name: "自评分" }), {
+    target: { value: "2" },
+  });
+  await act(async () => {
+    fireEvent.submit(article.querySelector("form")!);
+  });
+  expect(fetch).toHaveBeenCalledOnce();
+  const [url, options] = fetch.mock.calls[0] as unknown as [
+    string,
+    RequestInit,
+  ];
+  expect(url).toBe("/api/sessions/review-score-fixture/ratings");
+  expect(options.method).toBe("PUT");
+  expect(JSON.parse(String(options.body))).toEqual({
+    questionId: "discussion",
+    value: 2,
+    notes: "",
+  });
+  expect(rowValues("写作")).toEqual(["1 / 1", "100%", "已评 2 / 2", "3.0 / 5"]);
+  expect(rowValues("本次合计")).toEqual([
+    "4 / 6",
+    "67%",
+    "已评 3 / 4",
+    "2.0 / 5",
+  ]);
+  expect(review.ratings).not.toHaveProperty("discussion");
+});
+
+it("does not claim an unsaved self-rating when SQLite persistence fails", async () => {
+  const review = reviewFixture();
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(
+      async () =>
+        new Response(JSON.stringify({ error: "Local rating save failed" }), {
+          status: 503,
+        }),
+    ),
+  );
+  vi.stubGlobal("FormData", window.FormData);
+  show(review);
+  const article = screen
+    .getByRole("heading", { name: "12. 学术讨论" })
+    .closest("article")!;
+  fireEvent.change(within(article).getByRole("combobox", { name: "自评分" }), {
+    target: { value: "5" },
+  });
+  await act(async () => {
+    fireEvent.submit(article.querySelector("form")!);
+  });
+  expect(screen.getByText(/Local rating save failed/)).toBeTruthy();
+  expect(rowValues("写作")).toEqual(["1 / 1", "100%", "已评 1 / 2", "4.0 / 5"]);
+});

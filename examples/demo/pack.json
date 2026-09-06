@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "id": "welcome-demo",
+  "title": "Welcome demo / 入门演示",
+  "sections": [
+    {
+      "id": "reading",
+      "questions": [
+        {
+          "id": "library-notice",
+          "type": "choice",
+          "taskType": "daily_life",
+          "passage": "Community Library Notice\nThe library will close at 4 p.m. on Friday for a staff workshop. Normal opening hours resume on Saturday. Books may be returned through the outdoor return box at any time.",
+          "prompt": "What can visitors do after the library closes on Friday?",
+          "choices": [
+            {"id": "A", "text": "Join the staff workshop"},
+            {"id": "B", "text": "Return books outside"},
+            {"id": "C", "text": "Use the reading room"}
+          ],
+          "answer": "B"
+        },
+        {
+          "id": "garden-words",
+          "type": "cloze",
+          "prompt": "Enter only the missing letters.",
+          "passageTemplate": "A community garden is a place where people grow plants together. Volunteers wa{{b1}} the plants and share fresh vegetables with their neigh{{b2}}.",
+          "blanks": [
+            {"id": "b1", "number": 1, "prefix": "wa", "length": 3, "answer": "ter"},
+            {"id": "b2", "number": 2, "prefix": "neigh", "length": 4, "answer": "bors"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "writing",
+      "questions": [
+        {
+          "id": "volunteer-email",
+          "type": "email",
+          "prompt": "You want to help at the community library. Write an email to the volunteer coordinator. Introduce yourself, explain when you are available, and ask about a suitable activity. This is a short, untimed interface demonstration."
+        },
+        {
+          "id": "community-discussion",
+          "type": "academic_discussion",
+          "prompt": "Contribute to the discussion in your own words.",
+          "recommendedWords": 100,
+          "stemBlocks": [
+            {"type": "instruction", "text": "Your professor is teaching a class on community planning. Respond to the question and explain your opinion."},
+            {"type": "dialogue", "turns": [
+              {"speaker": "Professor Lee", "text": "A town can fund one new project: a public garden or a small community library. Which would you support, and why?"},
+              {"speaker": "Alex", "text": "I would support the garden. People of different ages could work together and learn about growing food."},
+              {"speaker": "Sam", "text": "I prefer the library. It would offer books, quiet study space, and activities throughout the year."}
+            ]}
+          ]
+        }
+      ]
+    }
+  ]
+}

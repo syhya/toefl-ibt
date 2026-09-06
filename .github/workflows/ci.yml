@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  public-checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install isolated dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install -r backend/requirements.txt -r requirements-import.txt
+          npm ci
+      - name: Type, UI, API, security, and import tests
+        run: npm test
+      - name: Smoke-test portable-only catalog
+        run: |
+          npm run demo
+          npm run test:data
+      - name: Check paired documentation and links
+        run: python scripts/check_docs.py
+      - name: Build production frontend
+        run: npm run build
+      - name: Check whitespace
+        run: git diff --check

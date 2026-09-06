@@ -1,0 +1,32 @@
+name: Bug report / 问题反馈
+description: Report a reproducible application problem / 反馈可复现的软件问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include private PDFs, answers, recordings, or account URLs. Security issues: read SECURITY.md. / 请勿附私有 PDF、答案、录音或账号链接。安全问题请读 SECURITY.md。"
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and expected behavior / 问题与预期行为
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce / 复现步骤
+      description: Prefer the bundled demo or a small original resource. / 优先使用内置演示或小型自编资源。
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Revision, OS, browser, Node, Python / 版本和运行环境
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Relevant logs or screenshots / 相关日志或截图
+      description: Remove personal data before posting. / 提交前去掉个人数据。

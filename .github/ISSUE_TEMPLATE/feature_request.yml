@@ -1,0 +1,23 @@
+name: Feature request / 功能建议
+description: Propose a user-focused improvement / 提议改善使用体验
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User need / 用户需求
+      description: Explain the task you cannot complete or the difficulty you face. / 说明无法完成的任务或困难。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior / 建议行为
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives and evidence / 替代方案与依据
+      description: Link primary sources for exam-rule changes. / 考试规则变更请附一手来源。
