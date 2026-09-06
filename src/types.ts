@@ -79,6 +79,10 @@ export type Blank = {
   missingLetters?: string;
   fullWord?: string;
   answer?: string;
+  acceptedAnswers?: string[];
+  auditStatus?: string;
+  answerConflict?: unknown;
+  sourceReferenceAnswer?: string;
 };
 export type Question = {
   id: string;
@@ -255,6 +259,24 @@ export type Session = {
   timing?: Timing;
   ruleVersion?: string;
   rulesVersion?: string;
+  sourceVersionMatches?: boolean;
+  canRecoverAudio?: boolean;
+  audioRecoveryApplied?: boolean;
+  allowPracticeAids?: boolean;
+  practiceGroup?: PracticeGroupSummary;
+};
+export type PracticeGroupSummary = {
+  groupId: string;
+  groupContentId: string;
+  moduleId: string;
+  module: string;
+  taskType: string;
+  numberStart?: number;
+  numberEnd?: number;
+  screenCount: number;
+  itemCount: number;
+  sourceScreenCount?: number;
+  unavailableCount?: number;
 };
 export type SessionSummary = Pick<
   Session,
@@ -264,6 +286,9 @@ export type SessionSummary = Pick<
   isFullScope?: boolean;
   interrupted?: boolean;
   sourceVersionMatches?: boolean;
+  canRecoverAudio?: boolean;
+  audioRecoveryApplied?: boolean;
+  practiceGroup?: PracticeGroupSummary;
 };
 export type Recording = {
   takeId: string;

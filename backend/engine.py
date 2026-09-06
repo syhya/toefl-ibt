@@ -227,11 +227,33 @@ def make_plan(exam, options, timing):
     return plan
 
 
+def practice_aids_enabled(session):
+    """A saved opt-in and server-derived eligibility are both required.
+
+    Old sessions have neither marker and remain off. Client event payloads
+    cannot grant this permission after a session has started.
+    """
+    return (session.get('mode') == 'practice' and session.get('allowPracticeAids') is True
+            and session.get('practiceAidsEligible') is True)
+
+
+def _plan_question_ids(plan):
+    result = set()
+    for stage in plan:
+        result.update((stage['section'], question['id']) for question in stage.get('questions', []))
+        for branch in stage.get('branches', {}).values():
+            result.update(_plan_question_ids(branch))
+    return result
+
+
 def new_session(exam, options, now):
     timing = timing_config(options.get('timing'))
     mode = options.get('mode', 'practice')
     if mode not in ['strict', 'practice']:
         raise ExamError('Choose strict or practice mode.', 422)
+    allow_practice_aids = options.get('allowPracticeAids', False)
+    if type(allow_practice_aids) is not bool:
+        raise ExamError('allowPracticeAids must be a boolean.', 422)
     if exam.get('supplemental') and (mode != 'practice' or options.get('routeMode', 'fixed') != 'fixed'):
         raise ExamError('Supplementary materials use practice mode only; they are not TOEFL iBT 2026 mock exams.', 422)
     if mode == 'strict':
@@ -256,6 +278,16 @@ def new_session(exam, options, now):
                 if presentation_issues:
                     raise ExamError('A structured question presentation is not source-verified or valid: ' + ', '.join(presentation_issues), 422)
     filters = {key: options[key] for key in ['taskType', 'questionIds', 'types', 'questionTypes'] if options.get(key)}
+    aids_eligible = mode == 'practice' and selected_scope != 'all'
+    if mode == 'practice' and selected_scope == 'all' and filters:
+        unfiltered_options = {key: value for key, value in options.items()
+                              if key not in ['taskType', 'questionIds', 'types', 'questionTypes']}
+        unfiltered_plan = make_plan(exam, unfiltered_options, timing)
+        # A filter name is not proof of a subset: selecting every question or
+        # every type must not turn a full exam into an assisted practice.
+        aids_eligible = _plan_question_ids(plan) < _plan_question_ids(unfiltered_plan)
+    if allow_practice_aids and not aids_eligible:
+        raise ExamError('Replay and immediate feedback can only be enabled for specialized practice, not full exams or strict practice.', 422)
     full_scope = not filters and not unavailable_source and (options.get('scope', 'all') != 'all' or {s['section'] for s in plan} == set(ORDER))
     if mode == 'strict':
         for st in plan:
@@ -280,7 +312,8 @@ def new_session(exam, options, now):
             'timingPolicy': exam.get('timingPolicy', 'configured'), 'adaptiveThreshold': .70, 'routes': {},
             'examWarnings': exam.get('warnings', []), 'pausedMilliseconds': 0, 'filters': filters,
             'isFullScope': full_scope, 'filtered': bool(filters), 'supplemental': bool(exam.get('supplemental')),
-            'writingExpiryAcknowledgement': True}
+            'writingExpiryAcknowledgement': True, 'allowPracticeAids': allow_practice_aids,
+            'practiceAidsEligible': aids_eligible}
 
 
 def stage(a):
@@ -509,6 +542,8 @@ def apply_event(a, payload, now):
     elif action == 'pause':
         if a['mode'] != 'practice' or a['phase'] == 'paused':
             raise ExamError('Pause is only available in practice mode.')
+        if a['phase'] == 'audio' and not practice_aids_enabled(a):
+            raise ExamError('Pausing audio requires practice aids enabled before starting.')
         a['pausedState'] = {'phase': a['phase'], 'pausedAt': now, 'remaining': max(0, a['deadline'] - now) if a['deadline'] else None,
                             'audioRemaining': max(0, a['audioEarliestEnd'] - now) if a['audioEarliestEnd'] else None}
         a.update(phase='paused', deadline=None, audioEarliestEnd=None)
@@ -524,6 +559,8 @@ def apply_event(a, payload, now):
             a['interrupted'] = True
         log(a, 'resumed', q['id'], now)
     elif action == 'replay':
+        if not practice_aids_enabled(a):
+            raise ExamError('Replay, immediate feedback and review resources were not enabled for this practice session.')
         if a['mode'] != 'practice' or not media_sequence(q):
             raise ExamError('Replay is only available in practice mode.')
         if st['timer'] == 'untimed':

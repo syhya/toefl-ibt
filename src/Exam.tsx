@@ -59,6 +59,8 @@ type Props = {
   offlineReason?: string;
   acquireMic: () => Promise<MediaStream>;
   onFeedback: () => void;
+  onRecoverAudio?: () => Promise<void>;
+  referencePlayback?: Map<string, ReferencePlayback>;
 };
 export default function Exam({
   session: s,
@@ -71,6 +73,8 @@ export default function Exam({
   offlineReason,
   acquireMic,
   onFeedback,
+  onRecoverAudio,
+  referencePlayback: sharedReferencePlayback,
 }: Props) {
   useI18n();
   const q = s.question!,
@@ -99,6 +103,11 @@ export default function Exam({
     noticeRef = useRef(onNotice),
     serverOffset = useRef(s.serverNow - Date.now()),
     lastServerTime = useRef(s.serverNow);
+  const localReferencePlayback = useRef(new Map<string, ReferencePlayback>());
+  const referencePlayback =
+    sharedReferencePlayback ?? localReferencePlayback.current;
+  const practiceAidsEnabled =
+    s.mode === "practice" && s.allowPracticeAids === true;
   latest.current = s;
   sendRef.current = send;
   noticeRef.current = onNotice;
@@ -705,6 +714,9 @@ export default function Exam({
                 {st.directionsAudio && (
                   <PromptMedia
                     media={st.directionsAudio}
+                    onRecoverAudio={
+                      s.canRecoverAudio ? onRecoverAudio : undefined
+                    }
                     onEnded={() => {}}
                     onError={() =>
                       onNotice(tx("Task directions audio could not play."))
@@ -805,6 +817,9 @@ export default function Exam({
                     <ReferenceMedia
                       key={`${q.id}:${media.url}`}
                       media={media}
+                      allowReplay={practiceAidsEnabled}
+                      playback={referencePlayback}
+                      playbackKey={`${s.id}:${media.assetId || media.url}`}
                       label={tx("Original prompt {number}", {
                         number: index + 1,
                       })}
@@ -829,6 +844,9 @@ export default function Exam({
                       <ReferenceMedia
                         key={media.url}
                         media={media}
+                        allowReplay={practiceAidsEnabled}
+                        playback={referencePlayback}
+                        playbackKey={`${s.id}:${media.assetId || media.url}`}
                         label={tx("Supplemental reference track")}
                       />
                     ))}
@@ -893,6 +911,9 @@ export default function Exam({
                         <PromptMedia
                           key={`${q.id}:${s.mediaIndex || 0}:${q.audio.url}`}
                           media={q.audio}
+                          onRecoverAudio={
+                            s.canRecoverAudio ? onRecoverAudio : undefined
+                          }
                           label={tx("Question audio")}
                           onVideoFrame={(url) =>
                             setVideoFrame({ questionId: q.id, url })
@@ -1209,7 +1230,7 @@ export default function Exam({
                         </p>
                       </div>
                     )}
-                    {s.mode === "practice" && (
+                    {practiceAidsEnabled && (
                       <div
                         style={{
                           display: "flex",
@@ -1466,13 +1487,14 @@ function Wave() {
     </div>
   );
 }
-function PromptMedia({
+export function PromptMedia({
   media,
   onEnded,
   onError,
   onStarted,
   label,
   onVideoFrame,
+  onRecoverAudio,
 }: {
   media: Media;
   onEnded: () => void;
@@ -1480,12 +1502,22 @@ function PromptMedia({
   onStarted?: () => void;
   label: string;
   onVideoFrame?: (url: string) => void;
+  onRecoverAudio?: () => Promise<void>;
 }) {
   useI18n();
   const ref = useRef<HTMLMediaElement | null>(null),
     [blocked, setBlocked] = useState(false),
     [failed, setFailed] = useState(false),
     [stalled, setStalled] = useState(false),
+    [diagnosing, setDiagnosing] = useState(false),
+    [diagnostic, setDiagnostic] = useState<{
+      status: number;
+      code?: string;
+      message?: string;
+    } | null>(null),
+    [unsupported, setUnsupported] = useState(false),
+    [recovering, setRecovering] = useState(false),
+    [recoveryError, setRecoveryError] = useState(""),
     [volume, setVolume] = useState(() => {
       const stored = Number(
         sessionStorage.getItem("toefl-exam-volume") || "0.8",
@@ -1496,18 +1528,177 @@ function PromptMedia({
     errorRef = useRef(onError),
     started = useRef(false),
     alive = useRef(true),
+    attempt = useRef(0),
+    mediaUrl = useRef(media.url),
+    diagnosedAttempt = useRef<number | null>(null),
+    diagnosisController = useRef<AbortController | null>(null),
+    recoveryPending = useRef(false),
     reportedInterruption = useRef(false),
     stallTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   endRef.current = onEnded;
   errorRef.current = onError;
+  mediaUrl.current = media.url;
+
+  function current(generation: number, url: string) {
+    return (
+      alive.current &&
+      attempt.current === generation &&
+      mediaUrl.current === url
+    );
+  }
+  async function diagnose(generation: number, url: string) {
+    if (diagnosedAttempt.current === generation) return;
+    diagnosedAttempt.current = generation;
+    diagnosisController.current?.abort();
+    const controller = new AbortController();
+    diagnosisController.current = controller;
+    setDiagnosing(true);
+    const timeout = setTimeout(() => {
+      controller.abort();
+      if (current(generation, url)) setDiagnosing(false);
+    }, 5000);
+    try {
+      // The media element does not expose HTTP errors. Probe only its already
+      // authorized URL and request one byte, never fetch a different source.
+      const response = await fetch(url, {
+        headers: { Range: "bytes=0-0" },
+        signal: controller.signal,
+      });
+      if (controller.signal.aborted || !current(generation, url)) {
+        await response.body?.cancel().catch(() => {});
+        return;
+      }
+      if (response.ok) {
+        await response.body?.cancel().catch(() => {});
+        return;
+      }
+      let body: unknown;
+      if (response.headers.get("content-type")?.includes("json")) {
+        body = await response.json().catch(() => null);
+      } else {
+        await response.body?.cancel().catch(() => {});
+      }
+      if (controller.signal.aborted || !current(generation, url)) return;
+      const error =
+        body && typeof body === "object"
+          ? (body as Record<string, unknown>)
+          : {};
+      setDiagnostic({
+        status: response.status,
+        code: typeof error.code === "string" ? error.code : undefined,
+        message:
+          typeof error.error === "string" && error.error
+            ? error.error
+            : undefined,
+      });
+    } catch {
+      // Network and decoder failures retain a retry action. Aborted or stale
+      // requests must not replace the error for a newer question or attempt.
+    } finally {
+      clearTimeout(timeout);
+      if (!controller.signal.aborted && current(generation, url))
+        setDiagnosing(false);
+    }
+  }
+  function mediaFailed(
+    generation = attempt.current,
+    url = media.url,
+    notSupported = false,
+  ) {
+    if (!current(generation, url)) return;
+    setFailed(true);
+    setBlocked(true);
+    setUnsupported(notSupported || ref.current?.error?.code === 4);
+    reportInterruption();
+    void diagnose(generation, url);
+  }
+  function play(element: HTMLMediaElement, generation: number, url: string) {
+    const rejected = (error: unknown) => {
+      if (!current(generation, url)) return;
+      const name =
+        error && typeof error === "object" && "name" in error ? error.name : "";
+      if (name === "AbortError") return;
+      if (name === "NotAllowedError") {
+        setBlocked(true);
+        return;
+      }
+      mediaFailed(generation, url, name === "NotSupportedError");
+    };
+    try {
+      void Promise.resolve(element.play()).catch(rejected);
+    } catch (error) {
+      rejected(error);
+    }
+  }
+  function retryPlayback() {
+    const element = ref.current;
+    if (!element || !alive.current) return;
+    diagnosisController.current?.abort();
+    const generation = ++attempt.current;
+    setDiagnostic(null);
+    setDiagnosing(false);
+    setRecoveryError("");
+    setUnsupported(false);
+    setStalled(false);
+    setFailed(false);
+    setBlocked(false);
+    try {
+      element.load();
+      play(element, generation, media.url);
+    } catch {
+      mediaFailed(generation, media.url);
+    }
+  }
+  async function recoverAudio() {
+    if (!onRecoverAudio || recoveryPending.current) return;
+    const generation = attempt.current;
+    const url = media.url;
+    recoveryPending.current = true;
+    setRecovering(true);
+    setRecoveryError("");
+    try {
+      await onRecoverAudio();
+      if (!current(generation, url)) return;
+      recoveryPending.current = false;
+      setRecovering(false);
+      retryPlayback();
+    } catch (error) {
+      if (current(generation, url)) {
+        setRecoveryError(
+          error instanceof Error
+            ? error.message
+            : tx("Audio repair failed. Please try again."),
+        );
+      }
+    } finally {
+      if (current(generation, url)) {
+        recoveryPending.current = false;
+        setRecovering(false);
+      }
+    }
+  }
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
     alive.current = true;
+    const generation = ++attempt.current;
+    started.current = false;
+    reportedInterruption.current = false;
+    recoveryPending.current = false;
+    setBlocked(false);
+    setFailed(false);
+    setStalled(false);
+    setDiagnostic(null);
+    setDiagnosing(false);
+    setRecovering(false);
+    setRecoveryError("");
+    setUnsupported(false);
     element.volume = volume;
-    element.play().catch(() => setBlocked(true));
+    play(element, generation, media.url);
     return () => {
       alive.current = false;
+      attempt.current++;
+      diagnosisController.current?.abort();
       clearTimeout(stallTimer.current);
       element.pause();
     };
@@ -1535,6 +1726,7 @@ function PromptMedia({
     src: media.url,
     preload: "auto",
     onEnded: () => {
+      if (!alive.current || failed || recovering) return;
       clearTimeout(stallTimer.current);
       const video = ref.current;
       if (
@@ -1560,17 +1752,17 @@ function PromptMedia({
       }
       endRef.current();
     },
-    onError: () => {
-      setFailed(true);
-      setBlocked(true);
-      reportInterruption();
-    },
+    onError: () => mediaFailed(),
     onWaiting: watchStall,
     onStalled: watchStall,
     onPlaying: () => {
       clearTimeout(stallTimer.current);
       setStalled(false);
       setBlocked(false);
+      setFailed(false);
+      setDiagnostic(null);
+      diagnosisController.current?.abort();
+      setDiagnosing(false);
       if (!started.current) {
         started.current = true;
         onStarted?.();
@@ -1606,26 +1798,57 @@ function PromptMedia({
         </p>
       )}
       {blocked && (
-        <>
+        <div role="alert" aria-busy={diagnosing || recovering}>
           <p>
-            {failed
-              ? tx("Audio could not load. Check your local server and retry.")
-              : tx("Your browser requires a click before playing audio.")}
+            {diagnostic?.message
+              ? localizeDynamic(diagnostic.message)
+              : diagnostic
+                ? tx("Audio request failed (HTTP {status}).", {
+                    status: diagnostic.status,
+                  })
+                : failed
+                  ? tx(
+                      unsupported
+                        ? "This audio format could not play in your browser."
+                        : "Audio could not load. Check your local server and retry.",
+                    )
+                  : tx("Your browser requires a click before playing audio.")}
           </p>
-          <Button
-            kind="outline"
-            onClick={() => {
-              if (failed) {
-                ref.current?.load();
-                setFailed(false);
-              }
-              ref.current?.play().catch(() => setBlocked(true));
-            }}
-          >
-            {tx("Play audio")}
-            <Icon name="play" />
-          </Button>
-        </>
+          {diagnosing && <p role="status">{tx("Checking audio access…")}</p>}
+          {recoveryError && (
+            <p className="error-message">{localizeDynamic(recoveryError)}</p>
+          )}
+          {diagnostic?.status === 409 ? (
+            onRecoverAudio &&
+            diagnostic.code !== "source-changed" && (
+              <Button
+                kind="outline"
+                disabled={recovering}
+                onClick={() => void recoverAudio()}
+              >
+                {tx(
+                  recovering ? "Repairing audio…" : "Repair audio and continue",
+                )}
+                <Icon name="play" />
+              </Button>
+            )
+          ) : (
+            <Button
+              kind="outline"
+              disabled={diagnosing || recovering}
+              onClick={() => {
+                if (failed) {
+                  retryPlayback();
+                } else if (ref.current) {
+                  play(ref.current, attempt.current, media.url);
+                }
+              }}
+            >
+              {tx("Play audio")}
+              <Icon name="play" />
+            </Button>
+          )}
+        </div>
       )}
       <label className="field" style={{ maxWidth: 190, margin: "20px auto 0" }}>
         {tx("Volume")}
@@ -1646,32 +1869,129 @@ function PromptMedia({
     </>
   );
 }
-function ReferenceMedia({ media, label }: { media: Media; label: string }) {
-  useI18n();
+export type ReferencePlayback = { position: number; completed: boolean };
+function ReferenceMedia({
+  media,
+  label,
+  allowReplay,
+  playback,
+  playbackKey,
+}: {
+  media: Media;
+  label: string;
+  allowReplay: boolean;
+  playback: Map<string, ReferencePlayback>;
+  playbackKey: string;
+}) {
+  const { t } = useI18n();
   const ref = useRef<HTMLMediaElement | null>(null);
+  let progress = playback.get(playbackKey);
+  if (!progress) {
+    progress = { position: 0, completed: false };
+    playback.set(playbackKey, progress);
+  }
+  const saved = progress;
+  const [playing, setPlaying] = useState(false);
+  const [completed, setCompleted] = useState(saved.completed);
+  const [error, setError] = useState("");
   useEffect(() => {
     const node = ref.current;
-    return () => node?.pause();
-  }, [media.url]);
-  return media.mediaType === "video" ? (
-    <video
-      ref={(node) => {
-        ref.current = node;
-      }}
-      src={media.url}
-      controls
-      preload="metadata"
-      aria-label={label}
-    />
-  ) : (
-    <audio
-      ref={(node) => {
-        ref.current = node;
-      }}
-      src={media.url}
-      controls
-      preload="metadata"
-      aria-label={label}
-    />
+    return () => {
+      if (node && Number.isFinite(node.currentTime))
+        saved.position = Math.max(saved.position, node.currentTime);
+      node?.pause();
+    };
+  }, [media.url, saved]);
+  const props = {
+    src: media.url,
+    controls: allowReplay,
+    preload: "metadata",
+    "aria-label": label,
+    onLoadedMetadata: () => {
+      if (!allowReplay && ref.current && saved.position > 0 && !saved.completed)
+        ref.current.currentTime = saved.position;
+    },
+    onTimeUpdate: () => {
+      if (ref.current)
+        saved.position = Math.max(saved.position, ref.current.currentTime);
+    },
+    onPlaying: () => {
+      if (!allowReplay && saved.completed) {
+        ref.current?.pause();
+        return;
+      }
+      setError("");
+      setPlaying(true);
+    },
+    onPause: () => setPlaying(false),
+    onEnded: () => {
+      saved.completed = true;
+      setCompleted(true);
+      setPlaying(false);
+    },
+    onError: () => {
+      setPlaying(false);
+      setError(tx("Audio could not load. Check your local server and retry."));
+    },
+  };
+  const play = () => {
+    const node = ref.current;
+    if (!node || saved.completed) return;
+    setError("");
+    if (node.error) node.load();
+    void node
+      .play()
+      .catch((cause: unknown) =>
+        setError(
+          cause instanceof Error
+            ? cause.message
+            : tx("Audio could not load. Check your local server and retry."),
+        ),
+      );
+  };
+  return (
+    <div>
+      {media.mediaType === "video" ? (
+        <video
+          {...props}
+          ref={(node) => {
+            ref.current = node;
+          }}
+          playsInline
+        />
+      ) : (
+        <audio
+          {...props}
+          ref={(node) => {
+            ref.current = node;
+          }}
+        />
+      )}
+      {!allowReplay &&
+        (completed ? (
+          <p role="status">
+            {t(
+              "Audio already played. Replay was not enabled for this practice.",
+              "音频已播放，本次练习未开启重播。",
+            )}
+          </p>
+        ) : (
+          <Button
+            kind="outline small"
+            onClick={() => (playing ? ref.current?.pause() : play())}
+          >
+            {playing
+              ? t("Pause audio", "暂停音频")
+              : saved.position > 0
+                ? t("Resume audio", "继续播放音频")
+                : tx("Play audio")}
+          </Button>
+        ))}
+      {error && (
+        <p className="error-message" role="alert">
+          {localizeDynamic(error)}
+        </p>
+      )}
+    </div>
   );
 }

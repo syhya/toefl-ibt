@@ -156,6 +156,74 @@ function rowValues(name: string) {
     .map((cell) => cell.textContent);
 }
 
+it("keeps blank provenance, exposes template text, and links directly to the incorrect blank", () => {
+  const review = reviewFixture();
+  review.sections = [
+    {
+      id: "reading",
+      modules: [
+        {
+          id: "reading",
+          questions: [
+            {
+              id: "cloze-six",
+              type: "cloze",
+              number: 1,
+              numberEnd: 6,
+              passageTemplate: "The task was complet{{b6}} finished.",
+              blanks: [
+                {
+                  id: "b6",
+                  number: 6,
+                  prefix: "complet",
+                  length: 3,
+                  answer: "ely",
+                  fullWord: "completely",
+                  missingLetters: "ely",
+                },
+              ],
+              grade: { correct: 0, total: 1 },
+            },
+          ],
+        },
+      ],
+    },
+  ];
+  review.answers = { "cloze-six": { b6: "tly" } };
+  review.score = { correct: 0, total: 1 };
+  const onAddWord = vi.fn();
+  render(
+    <ReviewPage
+      review={review}
+      materials={[]}
+      onHistory={vi.fn()}
+      onWrongPractice={vi.fn()}
+      onNotice={vi.fn()}
+      onAddWord={onAddWord}
+    />,
+  );
+  const jump = screen.getByRole("link", { name: "第 6 题", exact: true });
+  expect(jump.getAttribute("href")).toBe("#answer-cloze-six-b6");
+  expect(
+    document
+      .getElementById("answer-cloze-six-b6")
+      ?.classList.contains("is-incorrect"),
+  ).toBe(true);
+  expect(
+    screen.getByText("The task was complet___ (6) finished."),
+  ).toBeTruthy();
+  fireEvent.click(
+    screen.getByRole("button", { name: "添加 completely 到单词本 · 第 6 题" }),
+  );
+  expect(onAddWord).toHaveBeenCalledWith({
+    word: "completely",
+    context: "The task was completely finished.",
+    sourceSessionId: review.session.id,
+    sourceQuestionId: "cloze-six",
+    sourceLabel: "Isolated scoring review · 阅读 · 第 6 题",
+  });
+});
+
 it("summarizes selected objective units and keeps ungraded questions and subjective self-ratings distinct", () => {
   show(reviewFixture());
   expect(rowValues("阅读")).toEqual(["3 / 4", "75%", "—", "—"]);

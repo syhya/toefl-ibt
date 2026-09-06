@@ -171,7 +171,7 @@ def test_shared_listening_track_only_once_and_asset_access_follows_current_quest
 
 
 def test_practice_pause_freezes_only_remaining_time_and_feedback_is_visited_only(env):
-    a = begin(env, start(env, scope='reading'))
+    a = begin(env, start(env, scope='reading', allowPracticeAids=True))
     env['clock'][0] += 3000
     a = action(env, a, 'pause').json()
     assert a['phase'] == 'paused' and a['deadline'] is None
@@ -199,7 +199,7 @@ def test_jump_back_and_next_register_only_visited_questions_without_restarting_t
     path.write_text(json.dumps(exam))
     catalog_path = env['root'] / 'generated/catalog.json'
     catalog_path.write_text(catalog_path.read_text() + ' ')
-    a = begin(env, start(env, scope=section_id))
+    a = begin(env, start(env, scope=section_id, allowPracticeAids=True))
     deadline = a['deadline']
     assert a['stage']['timer'] == ('untimed' if untimed else 'shared')
 
@@ -342,7 +342,7 @@ def test_recording_chunks_retry_combine_in_order_and_new_take_never_overwrites_o
 
 
 def test_sentence_token_identity_partial_answer_and_task_locking(env):
-    a = begin(env, start(env, scope='writing'))
+    a = begin(env, start(env, scope='writing', allowPracticeAids=True))
     assert action(env, a, 'answer', answer={'tokenOrder': ['0', '0']}).status_code == 422
     # Token identities must not become distinct simply by changing their
     # numeric spelling, or reuse could be mistaken for a valid word order.
@@ -790,7 +790,7 @@ def test_untimed_practice_exposes_only_current_clean_clips_and_explicit_text_stu
     first = listening['modules'][0]['questions'][0]
     first.update(transcript='Supplied paper transcript for text study.', displayTranscriptDuringPractice=True)
     path.write_text(json.dumps(exam)); catalog = env['root'] / 'generated/catalog.json'; catalog.write_text(catalog.read_text() + ' ')
-    a = begin(env, start(env, scope='listening'))
+    a = begin(env, start(env, scope='listening', allowPracticeAids=True))
     assert a['stage']['timer'] == 'untimed'
     assert a['stage']['practiceAudio'] == []
     assert len(a['question']['practiceMediaSequence']) == 1

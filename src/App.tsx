@@ -1,5 +1,5 @@
 import { tr, useI18n, LanguageSwitch, localizeDynamic } from "./i18n";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type {
   Answer,
   Catalog,
@@ -32,10 +32,18 @@ import {
   Notice,
 } from "./components";
 import { Feedback, ReviewPage, Rules, Settings, Validation } from "./pages";
-import Exam from "./Exam";
-import QuestionLibrary, { type QuestionItem } from "./QuestionLibrary";
+import Exam, { type ReferencePlayback } from "./Exam";
+import QuestionLibrary, {
+  practiceGroupTaskName,
+  type PracticeGroup,
+  type QuestionItem,
+} from "./QuestionLibrary";
 import Icon from "./Icons";
 import Mistakes from "./Mistakes";
+import VocabularyPage, {
+  VocabularyEntryDialog,
+  type VocabularyDraft,
+} from "./Vocabulary";
 import GettingStarted from "./GettingStarted";
 import {
   flushRecordings,
@@ -77,6 +85,17 @@ export default function App() {
     [pendingAudio, setPendingAudio] = useState(0),
     [selectedScope, setSelectedScope] = useState("all"),
     [selectionLabel, setSelectionLabel] = useState("");
+  const [vocabularyDraft, setVocabularyDraft] =
+    useState<VocabularyDraft | null>(null);
+  const [selectedGroup, setSelectedGroup] = useState<PracticeGroup | null>(
+    null,
+  );
+  // Leaving the exam keeps the one-pass state of untimed original audio.
+  const referencePlayback = useRef(new Map<string, ReferencePlayback>());
+  const [audioRecoveryTarget, setAudioRecoveryTarget] =
+    useState<Session | null>(null);
+  const [audioRecoveryBusy, setAudioRecoveryBusy] = useState(false);
+  const [audioRecoveryError, setAudioRecoveryError] = useState("");
   const active = useRef<Session | null>(null),
     pageRef = useRef(page),
     streamRef = useRef<MediaStream | null>(null),
@@ -412,19 +431,14 @@ export default function App() {
   };
   const choose = async (exam: ExamInfo, scope = "all") => {
     try {
-      const ongoing = sessions.find(
-        (s) =>
-          s.examId === exam.id && s.scope === scope && s.status === "active",
-      );
-      if (ongoing) {
-        await openSession(ongoing);
-        return;
-      }
+      // Test/section entry always opens setup. Only explicit Continue actions
+      // resume an existing attempt, whose saved aid preference stays unchanged.
       setSelectedScope(scope);
       setSelectionLabel("");
       const detail = await api<ExamInfo>(`/api/exams/${exam.id}`);
       setSelected({ ...exam, ...detail });
       setWrongIds(undefined);
+      setSelectedGroup(null);
     } catch (error) {
       notice(String(error));
     }
@@ -438,15 +452,33 @@ export default function App() {
       setSelectedScope(item.section);
       setSelectionLabel(label);
       setWrongIds([item.questionId]);
+      setSelectedGroup(null);
       setSelected(exam);
     } catch (error) {
       notice(String(error));
+    }
+  };
+  const groupPractice = async (group: PracticeGroup) => {
+    try {
+      const exam = await api<ExamInfo>(`/api/exams/${group.examId}`);
+      setSelectedScope(group.section);
+      setSelectionLabel("");
+      setWrongIds(undefined);
+      setSelectedGroup(group);
+      setSelected(exam);
+    } catch (error) {
+      notice(error instanceof Error ? error.message : String(error));
     }
   };
   const openSession = async (summary: Pick<SessionSummary, "id">) => {
     try {
       const s = await api<Session>(`/api/sessions/${summary.id}`);
       if (s.status === "active") {
+        if (s.canRecoverAudio) {
+          setAudioRecoveryTarget(s);
+          setAudioRecoveryError("");
+          return;
+        }
         await acquireLock(s.id);
         const resumed = await sendEvent(s.id, {
           action: "interrupt",
@@ -477,12 +509,29 @@ export default function App() {
       notice(error instanceof Error ? error.message : String(error));
     }
   };
+  const recoverAudio = async (id: string) => {
+    const recovered = await post<Session>(
+      `/api/sessions/${id}/recover-audio`,
+      {},
+    );
+    if (active.current?.id === id) apply(recovered);
+    // A history refresh must not turn a successful repair into a failed
+    // playback retry after the server has already withdrawn the repair action.
+    await refreshHistory().catch(() => {});
+    notice(
+      tr(
+        "Audio access repaired. Your answers and progress were kept.",
+        "音频加载已修复，已答内容和练习进度均已保留。",
+      ),
+    );
+  };
   const start = async (options: {
     mode: string;
     scope: string;
     taskType?: string;
     routeMode: string;
     route: string;
+    allowPracticeAids: boolean;
   }) => {
     if (
       options.scope === "speaking" ||
@@ -494,8 +543,22 @@ export default function App() {
     const s = await post<Session>("/api/sessions", {
       examId: selected!.id,
       ...options,
+      allowPracticeAids:
+        options.allowPracticeAids === true &&
+        options.mode === "practice" &&
+        (options.scope !== "all" || !!options.taskType || !!wrongIds?.length),
       timing,
-      questionIds: wrongIds,
+      ...(selectedGroup
+        ? {
+            practiceGroupId: selectedGroup.groupId,
+            expectedGroupContentId: selectedGroup.groupContentId,
+            mode: "practice",
+            scope: selectedGroup.section,
+            routeMode: "fixed",
+            route: selectedGroup.route === "lower" ? "lower" : "upper",
+            taskType: undefined,
+          }
+        : { questionIds: wrongIds }),
     });
     await acquireLock(s.id);
     apply(s, true);
@@ -537,17 +600,42 @@ export default function App() {
       setSelectionLabel(tr("Mistake review", "错题复习"));
       setSelected(exam);
       setWrongIds(ids);
+      setSelectedGroup(null);
     }
   };
-  useEffect(() => setFeedback(null), [session?.question?.id, session?.status]);
+  useEffect(
+    () => setFeedback(null),
+    [
+      session?.id,
+      session?.question?.id,
+      session?.status,
+      session?.mode,
+      session?.allowPracticeAids,
+    ],
+  );
   const showFeedback = async () => {
-    if (!session?.question) return;
+    const current = active.current;
+    if (
+      !current?.question ||
+      current.mode !== "practice" ||
+      current.allowPracticeAids !== true
+    )
+      return;
     try {
-      setFeedback(
-        await api(
-          `/api/sessions/${session.id}/feedback?questionId=${encodeURIComponent(session.question.id)}`,
-        ),
+      const result = await api<{
+        question: Question;
+        answer?: Answer;
+        grade?: unknown;
+      }>(
+        `/api/sessions/${current.id}/feedback?questionId=${encodeURIComponent(current.question.id)}`,
       );
+      if (
+        active.current?.id === current.id &&
+        active.current.question?.id === current.question.id &&
+        active.current.mode === "practice" &&
+        active.current.allowPracticeAids === true
+      )
+        setFeedback(result);
     } catch (error) {
       notice(String(error));
     }
@@ -579,6 +667,7 @@ export default function App() {
     content = (
       <Exam
         session={session}
+        referencePlayback={referencePlayback.current}
         stream={stream}
         send={send}
         onLeave={() => void leave().catch((error) => notice(error.message))}
@@ -588,6 +677,7 @@ export default function App() {
         offlineReason={offlineReason}
         acquireMic={acquireMic}
         onFeedback={() => void showFeedback()}
+        onRecoverAudio={() => recoverAudio(session.id)}
       />
     );
   else if (page === "exam")
@@ -624,7 +714,7 @@ export default function App() {
             go={(next) => void go(next)}
           />
         ) : page === "drills" ? (
-          <QuestionLibrary practice={(item) => void singlePractice(item)} />
+          <QuestionLibrary practice={(group) => void groupPractice(group)} />
         ) : page === "mistakes" ? (
           <Mistakes
             practice={(item) =>
@@ -632,6 +722,8 @@ export default function App() {
             }
             review={(id) => void openSession({ id })}
           />
+        ) : page === "vocabulary" ? (
+          <VocabularyPage onNotice={notice} />
         ) : page === "library" ? (
           <Library materials={catalog.materials} />
         ) : page === "history" ? (
@@ -664,6 +756,7 @@ export default function App() {
             onHistory={() => void go("history")}
             onWrongPractice={wrongPractice}
             onNotice={notice}
+            onAddWord={setVocabularyDraft}
           />
         ) : (
           <Empty>
@@ -713,7 +806,9 @@ export default function App() {
       )}
       {selected && catalog && (
         <Prepare
+          key={`${selected.id}:${selectedScope}:${selectedGroup?.groupId || ""}:${selectedGroup?.groupContentId || ""}:${wrongIds?.join("|") || ""}`}
           exam={selected}
+          practiceGroup={selectedGroup || undefined}
           initialScope={selectedScope}
           selectionLabel={selectionLabel}
           materials={catalog.materials}
@@ -730,6 +825,74 @@ export default function App() {
       {feedback && (
         <Feedback data={feedback} onClose={() => setFeedback(null)} />
       )}
+      {vocabularyDraft && (
+        <VocabularyEntryDialog
+          draft={vocabularyDraft}
+          onClose={() => setVocabularyDraft(null)}
+          onSaved={() => setVocabularyDraft(null)}
+          onNotice={notice}
+        />
+      )}
+      {audioRecoveryTarget && (
+        <Modal
+          onClose={() => {
+            if (audioRecoveryBusy) return;
+            setAudioRecoveryTarget(null);
+            sessionStorage.removeItem("toefl-active-session");
+          }}
+          actions={
+            <>
+              <Button
+                kind="outline"
+                disabled={audioRecoveryBusy}
+                onClick={() => {
+                  setAudioRecoveryTarget(null);
+                  sessionStorage.removeItem("toefl-active-session");
+                }}
+              >
+                {tr("Later", "稍后处理")}
+              </Button>
+              <Button
+                disabled={audioRecoveryBusy}
+                onClick={async () => {
+                  if (audioRecoveryBusy) return;
+                  const id = audioRecoveryTarget.id;
+                  setAudioRecoveryBusy(true);
+                  setAudioRecoveryError("");
+                  try {
+                    await recoverAudio(id);
+                    setAudioRecoveryTarget(null);
+                    await openSession({ id });
+                  } catch (error) {
+                    setAudioRecoveryError(
+                      error instanceof Error ? error.message : String(error),
+                    );
+                  } finally {
+                    setAudioRecoveryBusy(false);
+                  }
+                }}
+              >
+                {audioRecoveryBusy
+                  ? tr("Repairing…", "正在修复…")
+                  : tr("Repair audio and continue", "修复音频并继续")}
+              </Button>
+            </>
+          }
+        >
+          <h2>{tr("Restore listening audio", "恢复听力音频")}</h2>
+          <p>
+            {tr(
+              "This older practice has no audio verification record. Its questions match the current materials. Repair will verify and bind the current audio while keeping your answers, position, and original timing. The recovery will be recorded; earlier playback remains unverified.",
+              "这份旧版练习缺少音频校验记录，题目内容与当前资料一致。修复会校验并关联当前音频，保留已答内容、当前题号和原计时设置，同时记录本次恢复；不会把此前的播放补记为已校验。",
+            )}
+          </p>
+          {audioRecoveryError && (
+            <p className="error-message" role="alert">
+              {localizeDynamic(audioRecoveryError)}
+            </p>
+          )}
+        </Modal>
+      )}
       <div
         id="toast"
         className={toast ? "visible" : ""}
@@ -742,7 +905,7 @@ export default function App() {
   );
 }
 
-function Prepare({
+export function Prepare({
   exam,
   initialScope = "all",
   selectionLabel,
@@ -752,6 +915,7 @@ function Prepare({
   start,
   close,
   wrongCount,
+  practiceGroup,
 }: {
   exam: ExamInfo;
   initialScope?: string;
@@ -765,18 +929,26 @@ function Prepare({
     taskType?: string;
     routeMode: string;
     route: string;
+    allowPracticeAids: boolean;
   }) => Promise<void>;
   close: () => void;
   wrongCount?: number;
+  practiceGroup?: PracticeGroup;
 }) {
-  useI18n();
+  const { locale } = useI18n();
+  const practiceAidsHintId = useId();
   const [mode, setMode] = useState(
-      exam.strictEligible && !wrongCount ? "strict" : "practice",
+      exam.strictEligible && !wrongCount && !practiceGroup
+        ? "strict"
+        : "practice",
     ),
-    [scope, setScope] = useState(initialScope),
+    [scope, setScope] = useState(practiceGroup?.section || initialScope),
     [taskType, setTaskType] = useState(""),
+    [allowPracticeAids, setAllowPracticeAids] = useState(false),
     [routeMode, setRouteMode] = useState("fixed"),
-    [route, setRoute] = useState("upper"),
+    [route, setRoute] = useState(
+      practiceGroup?.route === "lower" ? "lower" : "upper",
+    ),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [micMessage, setMicMessage] = useState(
@@ -785,7 +957,10 @@ function Prepare({
         : tr("Microphone not checked", "麦克风尚未检测"),
     ),
     [preview, setPreview] = useState("");
-  const canStrict = exam.strictEligible || !!exam.scopedEligibility?.[scope],
+  const practiceAidsEligible =
+      mode === "practice" &&
+      (scope !== "all" || !!taskType || !!wrongCount || !!practiceGroup),
+    canStrict = exam.strictEligible || !!exam.scopedEligibility?.[scope],
     canAdaptive =
       scope === "all"
         ? exam.adaptiveEligible
@@ -802,8 +977,22 @@ function Prepare({
         !wrongCount &&
         exam.sections?.some((s) => s.id === "speaking"));
   useEffect(() => {
-    if (!canStrict && mode === "strict") setMode("practice");
-  }, [canStrict, mode]);
+    if ((!canStrict || practiceGroup) && mode === "strict") setMode("practice");
+  }, [canStrict, mode, practiceGroup]);
+  useEffect(
+    () => setAllowPracticeAids(false),
+    [
+      mode,
+      scope,
+      taskType,
+      exam.id,
+      initialScope,
+      wrongCount,
+      selectionLabel,
+      practiceGroup?.groupId,
+      practiceGroup?.groupContentId,
+    ],
+  );
   useEffect(
     () => () => {
       if (preview) URL.revokeObjectURL(preview);
@@ -881,11 +1070,16 @@ function Prepare({
       );
     try {
       await start({
-        mode,
-        scope,
-        taskType: taskType || undefined,
-        routeMode,
-        route,
+        mode: practiceGroup ? "practice" : mode,
+        scope: practiceGroup?.section || scope,
+        taskType: practiceGroup ? undefined : taskType || undefined,
+        routeMode: practiceGroup ? "fixed" : routeMode,
+        route: practiceGroup
+          ? practiceGroup.route === "lower"
+            ? "lower"
+            : "upper"
+          : route,
+        allowPracticeAids: practiceAidsEligible && allowPracticeAids,
       });
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error));
@@ -925,22 +1119,56 @@ function Prepare({
       </div>
       <h2>{localizeDynamic(exam.title)}</h2>
       <p>
-        {wrongCount
+        {practiceGroup
           ? tr(
-              "{label} · {count} selected questions in original source order.",
-              "{label} · 本次选择 {count} 道题，保持原始资料来源。",
+              "{module} · {task} · {count} items in source order.",
+              "{module} · {task} · 按原始顺序练习 {count} 道小题。",
               {
-                label:
-                  localizeDynamic(selectionLabel) ||
-                  tr("Guided practice", "专项练习"),
-                count: wrongCount,
+                module: localizeDynamic(practiceGroup.module, locale),
+                task: practiceGroupTaskName(practiceGroup.taskType, locale),
+                count: practiceGroup.itemCount,
               },
             )
-          : tr(
-              "Choose a section, check your equipment, and read the directions. Answers and recordings stay on this computer.",
-              "选择练习范围，检查设备，然后进入考试说明。你的作答与录音只在本机处理。",
-            )}
+          : wrongCount
+            ? tr(
+                "{label} · {count} selected questions in original source order.",
+                "{label} · 本次选择 {count} 道题，保持原始资料来源。",
+                {
+                  label:
+                    localizeDynamic(selectionLabel) ||
+                    tr("Guided practice", "专项练习"),
+                  count: wrongCount,
+                },
+              )
+            : tr(
+                "Choose a section, check your equipment, and read the directions. Answers and recordings stay on this computer.",
+                "选择练习范围，检查设备，然后进入考试说明。你的作答与录音只在本机处理。",
+              )}
       </p>
+      {practiceGroup && (
+        <p className="muted" style={{ fontSize: 12 }}>
+          {practiceGroup.numberStart != null &&
+            `${
+              practiceGroup.numberEnd != null &&
+              practiceGroup.numberEnd !== practiceGroup.numberStart
+                ? tr("Questions {start}–{end}", "第 {start}–{end} 题", {
+                    start: practiceGroup.numberStart,
+                    end: practiceGroup.numberEnd,
+                  })
+                : tr("Question {number}", "第 {number} 题", {
+                    number: practiceGroup.numberStart,
+                  })
+            } · `}
+          {tr(
+            "The source module and branch are fixed for this group.",
+            "本组固定使用所选原卷模块与分支。",
+          )}
+          {practiceGroup.route !== "common" &&
+            ` ${practiceGroup.route === "lower" ? tr("Lower branch", "较低难度分支") : tr("Upper branch", "较高难度分支")}`}
+          {!!practiceGroup.unavailableCount &&
+            ` ${tr("Some source questions are unavailable; only available questions are included.", "部分原题暂不可练习，本组仅包含可用题目。")}`}
+        </p>
+      )}
       {exam.resourcesOnly ? (
         <>
           <Notice>
@@ -962,13 +1190,13 @@ function Prepare({
         <>
           <div className="choice-mode">
             <label
-              className={`mode-option ${!canStrict || wrongCount ? "disabled" : ""}`}
+              className={`mode-option ${!canStrict || wrongCount || practiceGroup ? "disabled" : ""}`}
             >
               <input
                 type="radio"
                 name="mode"
                 checked={mode === "strict"}
-                disabled={!canStrict || !!wrongCount}
+                disabled={!canStrict || !!wrongCount || !!practiceGroup}
                 onChange={() => {
                   setMode("strict");
                   setTaskType("");
@@ -1002,8 +1230,8 @@ function Prepare({
               <small>
                 {" "}
                 {tr(
-                  "Pause, replay, and check explanations",
-                  "可暂停、重听和即时解析",
+                  "Pause responses; optional replay and instant answers for targeted practice",
+                  "答题时可暂停；专项练习可自行开启重播与即时解析",
                 )}{" "}
                 <br />{" "}
                 {tr(
@@ -1013,13 +1241,38 @@ function Prepare({
               </small>
             </label>
           </div>
+          <label className="check-row">
+            <input
+              type="checkbox"
+              checked={practiceAidsEligible && allowPracticeAids}
+              disabled={!practiceAidsEligible || busy}
+              aria-describedby={practiceAidsHintId}
+              onChange={(event) => setAllowPracticeAids(event.target.checked)}
+            />
+            <span>
+              {tr(
+                "Enable audio replay and instant answers",
+                "允许重播音频和即时查看答案与解析",
+              )}
+            </span>
+          </label>
+          <p
+            id={practiceAidsHintId}
+            className="muted"
+            style={{ marginTop: 5, fontSize: 12 }}
+          >
+            {tr(
+              "Off by default. Available only for specialized guided practice; full tests show answers after finishing.",
+              "默认关闭，仅专项练习可勾选；完整考试结束后统一查看答案与解析。",
+            )}
+          </p>
           <div className={`settings-grid ${mode === "strict" ? "two" : "one"}`}>
             <label className="field">
               {" "}
               {tr("Practice scope", "练习范围")}{" "}
               <select
                 value={scope}
-                disabled={!!wrongCount}
+                disabled={!!wrongCount || !!practiceGroup}
                 onChange={(e) => {
                   setScope(e.target.value);
                   setTaskType("");
@@ -1073,7 +1326,7 @@ function Prepare({
               </label>
             )}
           </div>
-          {canAdaptive && routeMode === "fixed" && (
+          {canAdaptive && routeMode === "fixed" && !practiceGroup && (
             <label className="field" style={{ marginTop: 15 }}>
               {" "}
               {tr("Fixed second-module branch", "固定第二模块分支")}{" "}

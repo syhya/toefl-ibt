@@ -70,8 +70,8 @@ The separate `scripts/import_materials.py` pipeline handles the original private
 
 ## Practice and review
 
-- Start a whole available archive or use **R / L / W / S** for one section; choose a task from the question bank for focused work.
-- Guided practice offers supported pause/replay/review tools. Strict mode is available only for eligible curated scopes and uses server deadlines and navigation restrictions. Supplementary resources, including custom packs and Essentials, stay untimed.
+- Start a whole available archive or use **R / L / W / S** for one section. The task library groups consecutive questions by source test, module/part, and category; each entry starts the complete group.
+- Guided practice supports pause; specialized sessions offer audio replay and instant answers only when explicitly enabled before starting. Full-test sessions keep those aids off; completed-session review remains available. Strict mode is available only for eligible curated scopes and uses server deadlines and navigation restrictions. Supplementary resources, including custom packs and Essentials, stay untimed.
 - Reading blanks show missing-letter counts; choices preserve source text. Sentence building supports tokens and fixed fragments. Email/discussion use split source/editor layouts and word count.
 - Speaking saves local recording segments, tracks incomplete uploads, and supports playback/download. Test the real microphone on this local site before relying on it.
 - History preserves accepted answers, objective results, writing, recordings, and rubric self-assessment. A mistake collection retains previous errors and later mastery.

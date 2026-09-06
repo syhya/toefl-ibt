@@ -2,6 +2,13 @@ import { tr } from "../i18n";
 
 /** UI copy only. Verified passages, choices, dialogue and audio stay in English. */
 export const examMessages: Record<string, string> = {
+  "Audio request failed (HTTP {status}).": "音频请求失败（HTTP {status}）。",
+  "This audio format could not play in your browser.":
+    "当前浏览器无法播放此音频格式。",
+  "Checking audio access…": "正在检查音频访问…",
+  "Repair audio and continue": "修复音频并继续",
+  "Repairing audio…": "正在修复音频…",
+  "Audio repair failed. Please try again.": "音频修复失败，请重试。",
   "Essentials Listening · untimed study": "Essentials 听力 · 不限时学习",
   "Essentials Reading · untimed": "Essentials 阅读 · 不限时",
   "Essentials · Academic Discussion": "Essentials · 学术讨论",

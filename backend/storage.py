@@ -1,4 +1,4 @@
-"""SQLite persistence for sessions, idempotent requests, ratings and audio chunks.
+"""SQLite persistence for sessions, vocabulary, ratings and audio chunks.
 
 Session JSON freezes the selected plan and deadline; append-only recording rows
 refer to separately stored chunk files. Transactions serialize competing browser
@@ -47,6 +47,14 @@ class Storage:
                     notes TEXT NOT NULL, updated_at INTEGER NOT NULL,
                     PRIMARY KEY(session_id, question_id)
                 );
+                CREATE TABLE IF NOT EXISTS vocabulary (
+                    id TEXT PRIMARY KEY, word TEXT NOT NULL, word_key TEXT NOT NULL UNIQUE,
+                    meaning TEXT NOT NULL, context TEXT NOT NULL, source_label TEXT NOT NULL,
+                    source_question_id TEXT, source_session_id TEXT,
+                    status TEXT NOT NULL CHECK(status IN ('learning', 'mastered')),
+                    search_text TEXT NOT NULL, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL
+                );
+                CREATE INDEX IF NOT EXISTS vocabulary_updated_at ON vocabulary(updated_at DESC, id);
             ''')
 
     def connect(self):

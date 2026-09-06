@@ -1,0 +1,59 @@
+.vocabulary-selection {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: min(620px, calc(100vw - 32px));
+  padding: 12px 14px;
+  border: 1px solid #ccdcd2;
+  border-radius: 12px;
+  background: #fff;
+  color: #173f37;
+  box-shadow: 0 8px 32px #173f3726;
+}
+.vocabulary-selection > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 700;
+}
+.vocabulary-selection .btn {
+  flex-shrink: 0;
+}
+.vocabulary-selection-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #64766d;
+  cursor: pointer;
+}
+.vocabulary-selection-close svg {
+  width: 18px;
+  height: 18px;
+}
+.vocabulary-selection-close:hover {
+  background: #f0f5f1;
+}
+.vocabulary-selection-close:focus-visible {
+  outline: 2px solid #24634f;
+}
+@media (max-width: 600px) {
+  .vocabulary-selection {
+    right: 16px;
+    bottom: 16px;
+    gap: 8px;
+    padding: 10px;
+  }
+  .vocabulary-selection > span {
+    font-size: 14px;
+  }
+}

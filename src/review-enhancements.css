@@ -1,0 +1,52 @@
+.review-item-incorrect {
+  border-color: #e8c7c0;
+  border-left: 4px solid #bb5345;
+}
+.pill.review-incorrect-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #993b31;
+  background: #fff0ec;
+  border: 1px solid #efd1ca;
+}
+.review-incorrect-badge svg {
+  width: 13px;
+  height: 13px;
+}
+.review-vocabulary-hint {
+  color: #5d776b;
+  font-size: 12px;
+  margin: 14px 0;
+}
+.review-question-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 14px 0 24px;
+}
+.review-question-nav a {
+  padding: 6px 10px;
+  border: 1px solid #e6c8c1;
+  border-radius: 6px;
+  background: #fff4f1;
+  color: #923d32;
+  text-decoration: none;
+  font-size: 12px;
+}
+.review-question-nav a:focus-visible {
+  outline: 2px solid #923d32;
+  outline-offset: 2px;
+}
+.review-question-nav a:hover {
+  background: #ffe9e3;
+}
+.review-item {
+  scroll-margin-top: 100px;
+}
+@media (max-width: 820px) {
+  .review-item {
+    scroll-margin-top: 145px;
+  }
+}
