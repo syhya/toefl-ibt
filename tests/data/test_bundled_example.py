@@ -28,7 +28,7 @@ def test_complete_native_practice_test_one_keeps_all_source_tasks_and_clocks():
     modules = {m['id']: m for s in exam['sections'] for m in s['modules']}
     assert len(modules) == 9
     plan = make_plan(exam, {'mode': 'practice', 'scope': 'all'}, DEFAULT_TIMING)
-    assert [stage['seconds'] for stage in plan if stage['timer'] == 'shared'] == [690, 540, 360, 420, 600]
+    assert [stage['seconds'] for stage in plan if stage['timer'] == 'shared'] == [1260, 540, 360, 420, 600]
     assert [q['_responseSeconds'] for stage in plan if stage['section'] == 'speaking' for q in stage['questions'] if q['type'] == 'listen_repeat'] == [8, 8, 10, 10, 10, 12, 12]
     assert [q['_responseSeconds'] for stage in plan if stage['section'] == 'speaking' for q in stage['questions'] if q['type'] == 'interview'] == [45] * 4
 

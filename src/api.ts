@@ -52,7 +52,7 @@ export const LABELS = {
   speaking: "Speaking",
 };
 export const DEFAULT_TIMING = {
-  readingCommon: 690,
+  readingCommon: 1260,
   readingSecond: 540,
   listeningResponse: 20,
   listeningAcademic: 30,

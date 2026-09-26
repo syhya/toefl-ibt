@@ -2,6 +2,14 @@
 
 ## Current working-tree verification: 2026-09-26
 
+v7 replaces the 20:30 default Reading budget with a **21:00 + 09:00 = 30:00** practice profile based on ETS blueprint estimates. It is still labelled as a local allocation, not an official initial clock for the 40-item paper. The unchanged legacy browser preset upgrades, while custom settings, source-specific durations and saved plans retain their values.
+
+- **649 checks passed**: 200 UI, 414 API/security, 35 data/import, plus type checking and production build.
+- An isolated minimal-package browser run showed Module 1 at 21:00, kept its running deadline through navigation to the last screen, and then showed Module 2 at 09:00 without carrying unused time across. API tests cover expiry, untimed Begin screens and old v6 Reading deadlines.
+- Local logs: `tmp/qa/reading-profile/`. The sample content and payload files are unchanged.
+
+## Earlier timing audit verification: 2026-09-26
+
 The [Practice Test 1 timing audit](OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26) rechecked official sources and separated verified deadlines from local presets. v6 fixes filtered repeat timing, isolates the unmatched Interview prompt instead of removing all Interview timers, and displays timing evidence on start pages. Source questions, bundle payload, strict eligibility, and saved-session plans are unchanged.
 
 - **644 checks passed**: 196 UI, 413 API/security, 35 data/import; type checking and production build passed.

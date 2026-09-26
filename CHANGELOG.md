@@ -17,6 +17,8 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 
 ### Changed
 
+- Replaced the unrelated 20:30 Reading default with a disclosed 30-minute practice profile (21:00 + 09:00), based on ETS blueprint estimates. Unchanged legacy browser presets upgrade; custom settings, source-specific clocks, and existing session deadlines remain intact.
+
 - Re-audited Practice Test 1 timing against ETS sources. Start pages now identify official limits, source settings, local presets and untimed study; shared-budget subsets explicitly retain the full task/module time. New v6 sessions preserve repeat durations by original position when filtering, and only the unmatched Interview question remains untimed while matched questions retain 45 seconds. Existing saved plans and strict source gates are unchanged.
 
 - All 13 optional local original files for the sample use lowercase English filenames. Manifest mappings and the exporter preserve unchanged bytes, source IDs, and original installation paths; private data and saved-session references are not renamed.

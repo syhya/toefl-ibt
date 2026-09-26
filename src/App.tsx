@@ -16,7 +16,6 @@ import {
   ApiError,
   post,
   sendEvent,
-  DEFAULT_TIMING,
   ORDER,
   LABELS,
   sectionLabel,
@@ -45,6 +44,7 @@ import VocabularyPage, {
   type VocabularyDraft,
 } from "./Vocabulary";
 import GettingStarted from "./GettingStarted";
+import { loadTimingSettings, saveTimingSettings } from "./timing";
 import {
   flushRecordings,
   pendingRecordings,
@@ -61,16 +61,7 @@ export default function App() {
     [review, setReview] = useState<Review | null>(null),
     [page, setPage] = useState("home"),
     [selected, setSelected] = useState<ExamInfo | null>(null),
-    [timing, setTiming] = useState<Timing>(() => {
-      try {
-        return {
-          ...DEFAULT_TIMING,
-          ...JSON.parse(localStorage.getItem("toefl-lab-settings") || "{}"),
-        };
-      } catch {
-        return DEFAULT_TIMING;
-      }
-    }),
+    [timing, setTiming] = useState<Timing>(loadTimingSettings),
     [toast, setToast] = useState(""),
     [fatal, setFatal] = useState(""),
     [offline, setOffline] = useState(false),
@@ -738,7 +729,7 @@ export default function App() {
             timing={timing}
             onSave={(next) => {
               setTiming(next);
-              localStorage.setItem("toefl-lab-settings", JSON.stringify(next));
+              saveTimingSettings(next);
               notice(
                 tr(
                   "Settings saved. They apply to new practice sessions.",
