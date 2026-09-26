@@ -9,7 +9,7 @@ from .presentation import is_interactive as presentation_is_interactive, validat
 
 ORDER = ['reading', 'listening', 'writing', 'speaking']
 RULES_VERSION = '2026-09-26-balanced-reading-v8'
-SCORING_ENGINE_VERSION = '2026-09-05-objective-snapshot-v1'
+SCORING_ENGINE_VERSION = '2026-09-26-fixed-literals-v2'
 DEFAULT_TIMING = {'readingCommon': 900, 'readingSecond': 900, 'listeningResponse': 20, 'listeningAcademic': 30,
                   'buildSentence': 360, 'email': 420, 'academicDiscussion': 600,
                   'repeat': [8, 8, 10, 10, 10, 12, 12], 'interview': 45}
@@ -37,6 +37,13 @@ def has_answer(value):
 def question_available(question):
     return (presentation_is_interactive(question) and question.get('sourcePromptAvailable') is not False
             and (not question.get('referenceOnly') or question.get('sourcePromptAvailable') is True))
+
+
+def sentence_from_tokens(question, indices):
+    selected = iter(question.get('tokens', [])[int(index)] for index in indices)
+    text = ' '.join(str(slot['fixed']) if 'fixed' in slot else str(next(selected))
+                    for slot in question['slots']) if question.get('slots') else ' '.join(selected)
+    return re.sub(r'\s+([?.!,;:])', r'\1', text)
 
 
 def grade(question, answer):
@@ -67,15 +74,29 @@ def grade(question, answer):
     accepted = [item for item in accepted if normalize(item)]
     if not accepted:
         return None
+    if question.get('type') == 'build_sentence' and question.get('structuredContentStatus') == 'source-verified':
+        # A supplied fixed literal can have different punctuation from the
+        # printed key (e.g. "Yes. She wanted" versus "Yes, she wanted"). Accept
+        # the verified token order rendered with those uneditable literals only
+        # when its words still match a reference exactly. Never ignore the
+        # learner's punctuation globally or trust an inconsistent token order.
+        order = question.get('expectedTokenOrder')
+        tokens = question.get('tokens', [])
+        gaps = sum('fixed' not in slot for slot in question.get('slots', []))
+        if (isinstance(order, list) and len(order) == gaps and gaps
+                and all(type(i) is int and 0 <= i < len(tokens) for i in order)
+                and len(set(order)) == len(order)):
+            rendered = sentence_from_tokens(question, order)
+            words = lambda value: re.findall(r"\w+(?:['-]\w+)*", normalize(value))
+            if any(words(rendered) == words(item) for item in accepted):
+                accepted.append(rendered)
     if question.get('type') == 'build_sentence' and isinstance(answer, dict):
         indices = answer.get('tokenOrder', [])
         gaps = [slot for slot in question.get('slots', []) if 'fixed' not in slot]
         if not indices or any(value == '' for value in indices) or (gaps and len(indices) != len(gaps)):
             return {'correct': 0, 'total': 1}
         try:
-            selected = iter(question.get('tokens', [])[int(index)] for index in indices)
-            answer = ' '.join(str(slot['fixed']) if 'fixed' in slot else str(next(selected)) for slot in question['slots']) if question.get('slots') else ' '.join(selected)
-            answer = re.sub(r'\s+([?.!,;:])', r'\1', answer)
+            answer = sentence_from_tokens(question, indices)
         except (ValueError, IndexError, StopIteration):
             return {'correct': 0, 'total': 1}
     if isinstance(answer, list):
@@ -333,7 +354,7 @@ def new_session(exam, options, now):
             'rulesVersion': 'supplementary-untimed-v1' if exam.get('timingPolicy') == 'untimed' else RULES_VERSION,
             'scoringPolicy': {'verifiedAnswersRequiredForScoring': True, 'unresolvedAnswersExcludedFromScoring': True},
             'timingPolicy': exam.get('timingPolicy', 'configured'), 'adaptiveThreshold': .70, 'routes': {},
-            'examWarnings': exam.get('warnings', []), 'pausedMilliseconds': 0, 'filters': filters,
+            'examWarnings': exam.get('warnings', []), 'sourceEdition': exam.get('sourceEdition'), 'pausedMilliseconds': 0, 'filters': filters,
             'isFullScope': full_scope, 'filtered': bool(filters), 'supplemental': bool(exam.get('supplemental')),
             'writingExpiryAcknowledgement': True, 'allowPracticeAids': allow_practice_aids,
             'practiceAidsEligible': aids_eligible}

@@ -103,6 +103,15 @@ export type Question = {
   terminalPunctuation?: string;
   stemBlocks?: StemBlock[];
   transcript?: string;
+  mediaSequence?: Media[];
+  sourceVariant?: {
+    id: string;
+    notice: string;
+    paperPrompt?: string;
+    paperPage?: number;
+    referenceUrl?: string;
+    referencePage?: number;
+  };
   displayTranscriptDuringPractice?: boolean;
   practiceMediaSequence?: Media[];
   choices?: { id: string; text: string }[];
@@ -151,6 +160,7 @@ export type Material = {
   examIds?: string[];
 };
 export type Exam = {
+  sourceEdition?: string;
   id: string;
   title: string;
   family: string;
@@ -217,6 +227,7 @@ export type FlowEvent = {
   details?: unknown;
 };
 export type Session = {
+  sourceEdition?: string;
   id: string;
   requiresMicrophone?: boolean;
   scoreSnapshotStatus?: "pending" | "frozen" | "legacy-recomputed";

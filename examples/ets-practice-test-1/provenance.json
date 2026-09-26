@@ -146,6 +146,7 @@
     "/assets/media/student-1/student-1-listening-m2-7-stimulus.wav": "0c293074d47f4224b01e2678bdaf99486d8cb161e52d96233f05c20f6ec2f5ac",
     "/assets/media/student-1/student-1-listening-m2-8-stimulus.wav": "2030db6e619e77f6eba616ec0824056303fbafef4a86b56773e6a16d96b60612",
     "/assets/media/student-1/student-1-listening-m2-9-stimulus.wav": "d16b8b8534ee3eacd14197a330e7bedf2683b5cf0650224243d8cc7a253c05cd",
+    "/assets/media/student-1/student-1-s-interview-1-prompt.wav": "17f20aa9e4144e560f857a14bb8e9c6b8f2d45de977e8e0071149b86c683a729",
     "/assets/media/student-1/student-1-s-interview-2-prompt.wav": "558554d4a8886f3171df0aff557aefa86dbbd398368c7ba8f225f2cab49c8b14",
     "/assets/media/student-1/student-1-s-interview-3-prompt.wav": "ef247e34d37d6dd8571b7e3348b559a50fef91413d8186b866220deebb88c02f",
     "/assets/media/student-1/student-1-s-interview-4-prompt.wav": "192a51a9288524a0585dbf4d9e11d387555da1b3ff2800c53145c58175e6f9ce",
@@ -185,9 +186,24 @@
     "scripts/verified_editions.json": "12f715f1d64ad493a0c15b041b7181a767d06c86e44681c7b829a4b2f97b9c29",
     "scripts/verified_structured_content.json": "d0f49a3c6caa967dd0e77322f8e0ccd71eaa87c832085b208cb6df95d0d6fba5",
     "scripts/verified_structured_essentials.json": "9c0b41d251f4f71e3aa36e2b813665bc7624a0f307ac1ba838659a3170725765",
-    "scripts/verified_text_corrections.json": "7fac8df49c15f0aeae627cc80f37ef8980eed52f7335e6aed2b30eeea4d21698"
+    "scripts/verified_text_corrections.json": "7fac8df49c15f0aeae627cc80f37ef8980eed52f7335e6aed2b30eeea4d21698",
+    "scripts/example_audio_edition.py": "32894805bcf75d49026a6dde400310a8faf22e01fc24b3658774a15ad09ccd59"
   },
-  "scope": "Complete supplied official student Practice Test 1 with source-verified text corrections. No authored replacement questions.",
+  "scope": "Practice Test 1 with the explicitly disclosed original-audio version of Interview question 1. No synthetic speech or authored replacement prompt.",
+  "audioEdition": {
+    "id": "student-1-interview-audio",
+    "questionId": "student-1-s-interview-1-audio",
+    "paperQuestionId": "student-1-s-interview-1",
+    "notice": "Interview question 1 follows the supplied original audio and differs from the paper PDF. See the version comparison in review.",
+    "sourceTrackSha256": "1058edbb1e4e7a65ff06bd69d097a4303a033e83d2731e2af6b24f33b4990c27",
+    "clipSha256": "17f20aa9e4144e560f857a14bb8e9c6b8f2d45de977e8e0071149b86c683a729",
+    "startSeconds": 12.22,
+    "endSeconds": 28.16,
+    "referenceUrl": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-overview.pdf",
+    "referencePdfSha256": "ce5e0eef3ea47b9964b0b1b034e96fa3b2aa0681347f17b381196cb0661249f0",
+    "referencePage": 19,
+    "publisherNote": "The clip is from user-supplied companion audio. The transcript matches the ETS overview; this is not proof of the supplied audio publisher."
+  },
   "officialPdf": {
     "title": "TOEFL iBT® Practice Test 1",
     "url": "https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf",
@@ -278,7 +294,7 @@
     "student-1-s-listen_repeat-5",
     "student-1-s-listen_repeat-6",
     "student-1-s-listen_repeat-7",
-    "student-1-s-interview-1",
+    "student-1-s-interview-1-audio",
     "student-1-s-interview-2",
     "student-1-s-interview-3",
     "student-1-s-interview-4"
@@ -359,7 +375,7 @@
     "student-1-s-listen_repeat-5": "bcbb05c00b2d41f10baf27d3b31d18f546dbc781db950d653ef7379ac15be1de",
     "student-1-s-listen_repeat-6": "e3bc6e2f2339ecbafcb314a8832767427e77891251f7e1db72785888718ba61e",
     "student-1-s-listen_repeat-7": "accb329d86d8788ec9bf63bf8a83445248850178b07244967fe9d09af16bc7b2",
-    "student-1-s-interview-1": "4529cbbdd53cd01a83b2bbbf44bddfb57e8e2bb8a232c30596ea4b2134fd65c5",
+    "student-1-s-interview-1-audio": "21b6349de09c11688e09f76b18025614dd3ca39fa5eae9125e0b91daf1a609be",
     "student-1-s-interview-2": "8fdc2a035639683d073cec1b6186cec8ea67775ebd1224021408bbb4f754ca33",
     "student-1-s-interview-3": "bba391470bc1861e86dbe7a3d572d4c28817eb66a1a06db65c9cc4b0916a0cf9",
     "student-1-s-interview-4": "ce1c5124166b3482b921f662a917ac7b74e5ce43aa669c3cf4c15b7f3d0840e9"
@@ -379,6 +395,6 @@
     "mat-ae5c697b096e": "c3d88aed64b51350cbe859e3a8a47517220ea2a7d5491b1d19fc212ca50deeec",
     "mat-89a0d7636674": "478700f538f2651ed6dcf5dd2bace4cbfa233b242a7717a3a07ba1b60e2f104f"
   },
-  "textCorrectionScreens": 40,
-  "textCorrectionFields": 74
+  "textCorrectionScreens": 39,
+  "textCorrectionFields": 71
 }

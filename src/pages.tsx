@@ -657,7 +657,7 @@ export function ReviewPage({
             {date(s.startedAt, locale)} ·{" "}
             {s.mode === "strict"
               ? t("Strict timing", "严格计时")
-              : t("Targeted practice", "专项练习")}{" "}
+              : t("Guided practice", "辅助练习")}{" "}
             ·{" "}
             {s.status === "completed"
               ? t("Completed", "已完成")
@@ -949,6 +949,33 @@ export function ReviewPage({
                 <div className="prompt" style={{ fontSize: 13 }}>
                   {q.prompt}
                 </div>
+                {q.sourceVariant?.id === "student-1-interview-audio" && (
+                  <details className="source-edition-note">
+                    <summary>
+                      {t(
+                        "Audio edition · Compare with the paper question",
+                        "音频版本 · 查看与纸面题目的差异",
+                      )}
+                    </summary>
+                    <p>
+                      {t(
+                        "This practice used the original audio prompt. The paper PDF asks a different question; its attached sample response is not used for this audio version.",
+                        "本次练习使用原始音频提问。纸面 PDF 的问题不同，纸面资料附带的示范回答不用于此音频版本。",
+                      )}
+                    </p>
+                    <p lang="en">{q.sourceVariant.paperPrompt}</p>
+                    <a
+                      href="https://www.ets.org/pdfs/toefl/toefl-ibt-test-overview.pdf#page=19"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {t(
+                        "ETS Test Overview · audio-version wording",
+                        "ETS Test Overview · 音频版题目原文",
+                      )}
+                    </a>
+                  </details>
+                )}
                 {q.choices && (
                   <p
                     className="muted"
@@ -1067,11 +1094,53 @@ export function ReviewPage({
                 <Explanation question={q} />
                 <details>
                   <summary>
-                    {t(
-                      "Show original text and question images",
-                      "展开原文与原题图",
-                    )}
+                    {q.mediaSequence?.length
+                      ? t(
+                          "Show original audio, text and question images",
+                          "展开原音、原文与原题图",
+                        )
+                      : t(
+                          "Show original text and question images",
+                          "展开原文与原题图",
+                        )}
                   </summary>
+                  {q.mediaSequence?.map((media, index) => (
+                    <div
+                      key={media.assetId || media.url}
+                      className="review-source-media"
+                    >
+                      <strong>
+                        {t(
+                          "Original question audio {number}",
+                          "原题音频 {number}",
+                          { number: index + 1 },
+                        )}
+                      </strong>
+                      {media.mediaType === "video" ? (
+                        <video
+                          controls
+                          preload="metadata"
+                          src={media.url}
+                          aria-label={t(
+                            "Original question video {number}",
+                            "原题视频 {number}",
+                            { number: index + 1 },
+                          )}
+                        />
+                      ) : (
+                        <audio
+                          controls
+                          preload="metadata"
+                          src={media.url}
+                          aria-label={t(
+                            "Original question audio {number}",
+                            "原题音频 {number}",
+                            { number: index + 1 },
+                          )}
+                        />
+                      )}
+                    </div>
+                  ))}
                   <div className="passage" style={{ marginTop: 15 }}>
                     {q.transcript ||
                       q.passage ||

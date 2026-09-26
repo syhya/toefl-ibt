@@ -2,6 +2,18 @@
 
 ## Current working-tree verification: 2026-09-26
 
+The current example is **Practice Test 1 · Audio edition**, lightweight profile v3: 97 items / 79 screens, nine stages, and 57 required payload files totaling **18,326,505 bytes**. All four sections have eligible local strict practice. The first Interview prompt intentionally follows the supplied original audio, whose wording matches ETS Test Overview page 19, while preserving the different paper prompt in review. No synthetic prompt or examiner video is claimed.
+
+- **674 checks passed**: 209 UI, 430 API/security, 35 data/import; production build and documentation checks passed. `npm audit` reported zero vulnerabilities; `pip check` found no dependency conflicts.
+- A clean minimal install completed all 79 screens in an API walkthrough: 84/84 objective units and eleven playable synthetic recording takes. Original files and the private source collection were absent.
+- Browser checks reproduced the sentence-builder cross-question gap-index defect before the fix, then verified that the next question starts at gap 1 while earlier answers remain saved. Original Interview 1 audio decoded and played to its 15.94-second end without a media error. Review distinguishes original prompts from response recordings and discloses the audio/paper variants.
+- Upgrade regressions cover explicit v2→v3 installation, unchanged old session bodies and source audio, new post-audio 45-second Interview windows, no active transcript leakage, and rollback after a post-publication validation failure. Private imported archives are not replaced.
+- All eighteen private source-integrity gates passed. Of 192 sentence-building questions, 150 have explicit verified token orders; all 150 now reconstruct to an accepted answer. The detected fixed-literal punctuation discrepancy in Pack 3 is handled without accepting wrong words/order or changing frozen score snapshots. The other 42 questions were not part of this token-order check. All 33 cloze screens' verified reference units also passed.
+
+This does not claim a fresh human-microphone end-to-end run: recording behavior was checked with mocks and explicit synthetic test audio. Browser playback and source integrity do not prove universal production-ETS timing, every source word's transcription, or official scoring. Logs are under `tmp/qa/current-version-audit/`.
+
+## Earlier balanced-reading verification: 2026-09-26
+
 v8 uses the user-selected balanced Reading preset: **15:00 + 15:00 = 30:00** for the fixed sample's two 20-item modules. This replaces the v7 21:00/09:00 preset without claiming official module timing. Source-specific durations and frozen sessions remain unchanged; default browser profiles migrate while explicit custom settings are retained.
 
 - **663 checks passed**: 204 UI, 424 API/security, 35 data/import, plus type checking and production build.
@@ -36,7 +48,7 @@ Logs are under `tmp/qa/example1-timing/`. The minimal-package and earlier full-s
 
 ## Earlier minimal-package verification: 2026-09-26
 
-The current default is the **runtime-only** Practice Test 1 package: 56 required payload files, 17,818,617 bytes (about 17.8 MB), with all 13 original PDFs/full MP3s excluded from Git. No original-source `data/` folder, private curation set, or external material download was needed for the fresh installation. Dependencies were reused from the local development environment; this is not a fresh dependency-download or remote Linux-CI claim.
+The then-current default was the **runtime-only** Practice Test 1 package: 56 required payload files, 17,818,617 bytes (about 17.8 MB), with all 13 original PDFs/full MP3s excluded from Git. No original-source `data/` folder, private curation set, or external material download was needed for the fresh installation. Dependencies were reused from the local development environment; this is not a fresh dependency-download or remote Linux-CI claim.
 
 - Full local suite: **632 passed** (193 UI, 404 backend/security, 35 data/import), plus type checking and production build.
 - Published-file-only checkout: **607 passed, 25 private-dependent checks skipped**; first `npm run demo` copied 55 files and merged the catalog, and the second call reused the installation without copying files.

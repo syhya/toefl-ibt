@@ -4,7 +4,7 @@ This document describes the original private collection and its specialized impo
 
 ## Included example versus private collection
 
-`examples/ets-practice-test-1/` contains one native `student-1` exam: 97 items / 79 screens and 52 prepared assets (33 WAV, 16 JPG, 3 PNG). Four metadata JSON files make **56 required hash-checked files, 17,818,617 bytes**; the manifest and two Markdown files are additional. The 13 original sources (2 PDFs / 11 MP3s) are optional references and remain excluded from Git. No private source collection or original-file download is required.
+`examples/ets-practice-test-1/` contains one native `student-1` exam: 97 items / 79 screens and 53 prepared assets (34 WAV, 16 JPG, 3 PNG). Four metadata JSON files make **57 required hash-checked files, 18,326,505 bytes**; the manifest and two Markdown files are additional. The 13 original sources (2 PDFs / 11 MP3s) are optional references and remain excluded from Git. No private source collection or original-file download is required.
 
 Optional local original filenames are English. The manifest maps them to unchanged installation paths; original material IDs, bytes, source URLs, and existing private filenames remain compatible. The bundled correction subset covers 40 screens / 74 fields. Companion explanations/audio have separate attribution from the ETS-hosted question paper. See [source notice](../examples/ets-practice-test-1/NOTICE.md).
 

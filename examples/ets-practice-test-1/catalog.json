@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-26T10:52:43.526876+00:00",
+  "generatedAt": "2026-09-26T14:39:46.614843+00:00",
   "sourceRoot": "data",
   "bundledExample": {
     "id": "ets-practice-test-1",
-    "version": 2,
+    "version": 3,
     "profile": "runtime-only"
   },
   "stats": {
@@ -19,7 +19,7 @@
     "ibtExamCount": 1,
     "supplementalExamCount": 0,
     "interactiveExamCount": 1,
-    "strictExamCount": 0,
+    "strictExamCount": 1,
     "questionCount": 97,
     "ibtQuestionCount": 97,
     "supplementalQuestionCount": 0,
@@ -250,7 +250,7 @@
     {
       "schemaVersion": 1,
       "id": "student-1",
-      "title": "TOEFL iBT® Practice Test 1",
+      "title": "TOEFL iBT® Practice Test 1 · Audio edition",
       "family": "student",
       "sourceMaterialIds": [
         "mat-e076415a17d6",
@@ -267,11 +267,11 @@
         "mat-ae5c697b096e",
         "mat-89a0d7636674"
       ],
-      "strictEligible": false,
+      "strictEligible": true,
       "warnings": [
         "固定纸版练习路径；ETS 自适应算法与正式评分不可本地复制。",
-        "除采访第1题纸面与原音版本不符外，其余听说原音已完成核验；该题仅供不限时原文学习，完整严格模考与口语严格专项不可用。阅读、听力和写作的严格计时资格以当前资料完整性检查为准。",
         "扫描题面已按原页核对并结构化；原裁图仅在复盘中作为来源证据。",
+        "Interview question 1 follows the supplied original audio and differs from the paper PDF. See the version comparison in review.",
         "Lightweight example: prepared questions and assets are verified; original PDFs and full audio tracks are optional and not included."
       ],
       "questionCount": 97,
@@ -363,15 +363,15 @@
         "reading": true,
         "listening": true,
         "writing": true,
-        "speaking": false
+        "speaking": true
       },
       "verificationInputs": {
         "missingFiles": [],
         "changedSourceMaterialIds": [],
         "sourceHashStatus": "passed",
         "curationSha256ByPath": {
-          "generated/assets/ets-practice-test-1/provenance.json": "0bafb30c0f03e7233299f0f8cba04004d4ccf91f5c1beb6ee65a8fe80daa69e9",
-          "generated/assets/ets-practice-test-1/text-corrections.json": "18ad7915d825b270c3aa5c7d01ce8547c410f6b9e371d0a6fb22098167aef02b"
+          "generated/assets/ets-practice-test-1/provenance-v3.json": "43cfb524c5688b79ffa2e6c01d7f793e7831393f5b2dfeb57edea1cb748a0b6b",
+          "generated/assets/ets-practice-test-1/text-corrections-v3.json": "93b053ff07b22ea4f369f5e37180a53cc7ad744711c3afba2568d14c5c57f7c1"
         },
         "assetSha256ByUrl": {
           "/assets/media/student-1/student-1-listening-m1-1-stimulus.wav": "79689fc93b657b17b79e0ded1c39459ebc6b35e515f74dbbf2b8f205a464ecfc",
@@ -397,6 +397,7 @@
           "/assets/media/student-1/student-1-listening-m2-7-stimulus.wav": "0c293074d47f4224b01e2678bdaf99486d8cb161e52d96233f05c20f6ec2f5ac",
           "/assets/media/student-1/student-1-listening-m2-8-stimulus.wav": "2030db6e619e77f6eba616ec0824056303fbafef4a86b56773e6a16d96b60612",
           "/assets/media/student-1/student-1-listening-m2-9-stimulus.wav": "d16b8b8534ee3eacd14197a330e7bedf2683b5cf0650224243d8cc7a253c05cd",
+          "/assets/media/student-1/student-1-s-interview-1-prompt.wav": "17f20aa9e4144e560f857a14bb8e9c6b8f2d45de977e8e0071149b86c683a729",
           "/assets/media/student-1/student-1-s-interview-2-prompt.wav": "558554d4a8886f3171df0aff557aefa86dbbd398368c7ba8f225f2cab49c8b14",
           "/assets/media/student-1/student-1-s-interview-3-prompt.wav": "ef247e34d37d6dd8571b7e3348b559a50fef91413d8186b866220deebb88c02f",
           "/assets/media/student-1/student-1-s-interview-4-prompt.wav": "192a51a9288524a0585dbf4d9e11d387555da1b3ff2800c53145c58175e6f9ce",
@@ -503,24 +504,23 @@
           "student-1-s-listen_repeat-5": "bcbb05c00b2d41f10baf27d3b31d18f546dbc781db950d653ef7379ac15be1de",
           "student-1-s-listen_repeat-6": "e3bc6e2f2339ecbafcb314a8832767427e77891251f7e1db72785888718ba61e",
           "student-1-s-listen_repeat-7": "accb329d86d8788ec9bf63bf8a83445248850178b07244967fe9d09af16bc7b2",
-          "student-1-s-interview-1": "4529cbbdd53cd01a83b2bbbf44bddfb57e8e2bb8a232c30596ea4b2134fd65c5",
+          "student-1-s-interview-1-audio": "21b6349de09c11688e09f76b18025614dd3ca39fa5eae9125e0b91daf1a609be",
           "student-1-s-interview-2": "8fdc2a035639683d073cec1b6186cec8ea67775ebd1224021408bbb4f754ca33",
           "student-1-s-interview-3": "bba391470bc1861e86dbe7a3d572d4c28817eb66a1a06db65c9cc4b0916a0cf9",
           "student-1-s-interview-4": "ce1c5124166b3482b921f662a917ac7b74e5ce43aa669c3cf4c15b7f3d0840e9"
         },
-        "textCorrectionsPath": "generated/assets/ets-practice-test-1/text-corrections.json"
+        "textCorrectionsPath": "generated/assets/ets-practice-test-1/text-corrections-v3.json"
       },
       "interactiveQuestionCount": 97,
       "validation": {
-        "status": "guided-practice-only",
-        "issues": [
-          "no verified item audio student-1-s-interview-1"
-        ],
-        "scope": "source material/timing eligibility is separate from complete automatic scoring"
+        "status": "passed",
+        "issues": [],
+        "scope": "Source-complete audio edition; timing remains disclosed local practice, not ETS calibration."
       },
+      "sourceEdition": "student-1-interview-audio",
       "bundledExample": {
         "id": "ets-practice-test-1",
-        "version": 2,
+        "version": 3,
         "profile": "runtime-only"
       }
     }

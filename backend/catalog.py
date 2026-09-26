@@ -109,7 +109,7 @@ class Catalog:
         """Derive availability from the current schema, not cached imported flags."""
         keep = ['id', 'title', 'family', 'strictEligible', 'resourcesOnly', 'supplemental', 'warnings',
                 'questionCount', 'screenCount', 'autoScorableCount', 'validation', 'adaptiveEligible', 'scopedEligibility', 'timingPolicy', 'sourceMaterialIds']
-        result = {key: exam[key] for key in keep if key in exam}
+        result = {key: exam[key] for key in [*keep, 'sourceEdition'] if key in exam}
         result['sections'] = []
         for section in exam.get('sections', []):
             questions = [q for module in section.get('modules', []) for q in module.get('questions', [])]

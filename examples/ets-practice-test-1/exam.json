@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "student-1",
-  "title": "TOEFL iBT® Practice Test 1",
+  "title": "TOEFL iBT® Practice Test 1 · Audio edition",
   "family": "student",
   "sourceMaterialIds": [
     "mat-e076415a17d6",
@@ -18,11 +18,11 @@
     "mat-ae5c697b096e",
     "mat-89a0d7636674"
   ],
-  "strictEligible": false,
+  "strictEligible": true,
   "warnings": [
     "固定纸版练习路径；ETS 自适应算法与正式评分不可本地复制。",
-    "除采访第1题纸面与原音版本不符外，其余听说原音已完成核验；该题仅供不限时原文学习，完整严格模考与口语严格专项不可用。阅读、听力和写作的严格计时资格以当前资料完整性检查为准。",
     "扫描题面已按原页核对并结构化；原裁图仅在复盘中作为来源证据。",
+    "Interview question 1 follows the supplied original audio and differs from the paper PDF. See the version comparison in review.",
     "Lightweight example: prepared questions and assets are verified; original PDFs and full audio tracks are optional and not included."
   ],
   "sections": [
@@ -7093,70 +7093,69 @@
           "directionsAudio": null,
           "questions": [
             {
-              "id": "student-1-s-interview-1",
+              "id": "student-1-s-interview-1-audio",
               "number": 8,
               "type": "interview",
-              "prompt": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+              "prompt": "Listen to the interviewer. Give a complete answer after the recording ends.",
               "context": "Take an Interview\n\nAn interviewer will ask you questions. Answer the questions and be sure to say as much as you can in the time allowed.\n\nNo time for preparation will be provided.\n\nYou have agreed to take part in a research study about urban life. You will have a short online interview with a researcher. The researcher will ask you some questions.",
-              "transcript": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+              "transcript": "Thank you for speaking with me today. Now, I'd like you to think back to the last time you visited a city in your country, a city that you didn't live in. Why did you travel to that city? What did you like about that city?",
               "source": {
-                "materialId": "mat-3e0bfa577216",
-                "page": 36,
-                "url": "/materials/2026%E6%96%B0%E6%89%98%E7%A6%8F%2018%E5%A5%97%E9%A2%98%2B%E5%A4%87%E8%80%83%E8%B5%84%E6%96%99/01.%20%E5%AE%98%E6%96%B9%E5%AD%A6%E7%94%9F%E7%89%88%E6%A0%B7%E9%A2%982%E5%A5%97%EF%BC%88%E5%8C%85%E5%90%AB%E9%9F%B3%E9%A2%91%E3%80%81%E7%AD%94%E6%A1%88%EF%BC%89%EF%BC%88%E7%AC%AC1%E5%A5%97%E6%9C%89%E8%A7%A3%E6%9E%90%EF%BC%89/%E6%89%98%E7%A6%8F%E6%94%B9%E9%9D%A9%E6%A0%B7%E9%A2%98%E7%AC%AC1%E5%A5%97%EF%BC%88%E9%A2%98%E7%9B%AE%EF%BC%89toefl-full-length-practice.pdf#page=36",
-                "method": "ocr-with-source",
-                "originalNumber": null,
-                "moduleId": "speaking-interview",
+                "materialId": "mat-0851ff6f24bd",
+                "url": "/materials/2026%E6%96%B0%E6%89%98%E7%A6%8F%2018%E5%A5%97%E9%A2%98%2B%E5%A4%87%E8%80%83%E8%B5%84%E6%96%99/01.%20%E5%AE%98%E6%96%B9%E5%AD%A6%E7%94%9F%E7%89%88%E6%A0%B7%E9%A2%982%E5%A5%97%EF%BC%88%E5%8C%85%E5%90%AB%E9%9F%B3%E9%A2%91%E3%80%81%E7%AD%94%E6%A1%88%EF%BC%89%EF%BC%88%E7%AC%AC1%E5%A5%97%E6%9C%89%E8%A7%A3%E6%9E%90%EF%BC%89/%E6%89%98%E7%A6%8F%E6%A0%B7%E9%A2%9801%E9%9F%B3%E9%A2%91/%E6%89%98%E7%A6%8F%E6%A0%B7%E9%A2%9801-%E5%8F%A3%E8%AF%AD-02-Interview.mp3",
+                "method": "reviewed-original-audio-edition",
                 "section": "speaking",
-                "originalNumberStatus": "not-printed",
-                "numberingNote": "原纸版此任务未印独立题号，保留原顺序；本地number仅用于导航。"
+                "moduleId": "speaking-interview"
               },
               "warnings": [
-                "Missing or ambiguous audio mapping",
-                "本题没有与题本文字完全匹配的已核验原音；仅作不限时原文专项学习。"
+                "Interview question 1 follows the supplied original audio and differs from the paper PDF. See the version comparison in review."
               ],
               "auditStatus": "parsed-with-source",
               "taskType": "interview",
               "mediaAudit": {
-                "status": "needs-review",
-                "candidates": [
-                  {
-                    "segmentId": "student-1-s-interview-1-prompt",
-                    "warnings": [
-                      "Source audio asks about the last city visited, but the supplied paper asks whether the person lives in a city/town/village. Do not label this an exact paper/audio match."
-                    ],
-                    "text": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living ina city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?"
-                  }
-                ]
+                "status": "verified-audio-edition",
+                "humanReviewed": false,
+                "verificationMethod": "original-ASR-transcript-compared-with-ETS-Test-Overview",
+                "paperAudioMatch": false,
+                "referencePdfSha256": "ce5e0eef3ea47b9964b0b1b034e96fa3b2aa0681347f17b381196cb0661249f0",
+                "referencePdfPage": 19,
+                "assetSha256": "17f20aa9e4144e560f857a14bb8e9c6b8f2d45de977e8e0071149b86c683a729"
               },
               "sourcePromptAvailable": true,
-              "referenceOnly": true,
-              "practiceMode": "text-only-source-study",
               "answerOrigin": "source-reference",
-              "explanationSource": {
-                "materialId": "mat-e076415a17d6",
-                "page": 13,
-                "url": "/materials/2026%E6%96%B0%E6%89%98%E7%A6%8F%2018%E5%A5%97%E9%A2%98%2B%E5%A4%87%E8%80%83%E8%B5%84%E6%96%99/01.%20%E5%AE%98%E6%96%B9%E5%AD%A6%E7%94%9F%E7%89%88%E6%A0%B7%E9%A2%982%E5%A5%97%EF%BC%88%E5%8C%85%E5%90%AB%E9%9F%B3%E9%A2%91%E3%80%81%E7%AD%94%E6%A1%88%EF%BC%89%EF%BC%88%E7%AC%AC1%E5%A5%97%E6%9C%89%E8%A7%A3%E6%9E%90%EF%BC%89/%E6%89%98%E7%A6%8F%E6%94%B9%E9%9D%A9%E5%90%8E%E9%A2%98%E5%BA%93%E7%AC%AC1%E5%A5%97%EF%BC%88%E8%A7%A3%E6%9E%90%EF%BC%89.pdf#page=13",
-                "origin": "user-supplied-analysis",
-                "label": "资料附带解析",
-                "official": false
-              },
-              "explanation": "资料附带解析（非 ETS 官方解析）\n\nNow, do you currently live in a big city, a small town, or a village?\n示范回答:\nI currently live in a big city, specifically Shanghai. It is one of the most developed\nand populated cities in China. I’ve lived here for more than five years, so I’ve\ngotten used to the fast pace and crowded public spaces.\nOne advantage of living here is convenience. Public transportation, food delivery,\nand services are all well developed, so I can get almost everything done quickly.\nOf course, big cities can be stressful and noisy, especially during rush hours.\nHowever, I still prefer living in a place with more opportunities and cultural diversity.",
-              "explanationAuditStatus": "source-attached-not-used-as-answer-key",
-              "contentId": "qcontent-56c66a47ce09ea0ef575",
+              "contentId": "qcontent-21b6349de09c11688e09",
               "presentationSchema": "structured-v1",
               "structuredContentStatus": "source-verified",
               "stemBlocks": [
                 {
                   "type": "instruction",
-                  "text": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?"
+                  "text": "Listen to the interviewer. Give a complete answer after the recording ends."
                 }
               ],
-              "curatedContentId": "qcontent-56c66a47ce09ea0ef575",
+              "curatedContentId": "qcontent-21b6349de09c11688e09",
               "sourceEvidenceAssets": [],
               "assets": [],
-              "textCorrection": {
-                "version": "source-text-2026-09-07",
-                "changedFields": 3
+              "sourceVariant": {
+                "id": "student-1-interview-audio",
+                "notice": "Interview question 1 follows the supplied original audio and differs from the paper PDF. See the version comparison in review.",
+                "paperPrompt": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+                "paperPage": 36,
+                "referenceUrl": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-overview.pdf",
+                "referencePage": 19
+              },
+              "audio": {
+                "url": "/assets/media/student-1/student-1-s-interview-1-prompt.wav",
+                "sourceUrl": "/materials/2026%E6%96%B0%E6%89%98%E7%A6%8F%2018%E5%A5%97%E9%A2%98%2B%E5%A4%87%E8%80%83%E8%B5%84%E6%96%99/01.%20%E5%AE%98%E6%96%B9%E5%AD%A6%E7%94%9F%E7%89%88%E6%A0%B7%E9%A2%982%E5%A5%97%EF%BC%88%E5%8C%85%E5%90%AB%E9%9F%B3%E9%A2%91%E3%80%81%E7%AD%94%E6%A1%88%EF%BC%89%EF%BC%88%E7%AC%AC1%E5%A5%97%E6%9C%89%E8%A7%A3%E6%9E%90%EF%BC%89/%E6%89%98%E7%A6%8F%E6%A0%B7%E9%A2%9801%E9%9F%B3%E9%A2%91/%E6%89%98%E7%A6%8F%E6%A0%B7%E9%A2%9801-%E5%8F%A3%E8%AF%AD-02-Interview.mp3",
+                "sourceSha256": "1058edbb1e4e7a65ff06bd69d097a4303a033e83d2731e2af6b24f33b4990c27",
+                "durationSeconds": 15.94,
+                "startSeconds": 12.22,
+                "endSeconds": 28.16,
+                "materialId": "mat-0851ff6f24bd",
+                "segmentId": "student-1-s-interview-1-prompt",
+                "groupId": "student-1-s-interview-1-audio",
+                "scope": "item",
+                "mediaType": "audio",
+                "verified": true,
+                "containsResponseWait": false
               }
             },
             {
@@ -7471,15 +7470,15 @@
     "reading": true,
     "listening": true,
     "writing": true,
-    "speaking": false
+    "speaking": true
   },
   "verificationInputs": {
     "missingFiles": [],
     "changedSourceMaterialIds": [],
     "sourceHashStatus": "passed",
     "curationSha256ByPath": {
-      "generated/assets/ets-practice-test-1/provenance.json": "0bafb30c0f03e7233299f0f8cba04004d4ccf91f5c1beb6ee65a8fe80daa69e9",
-      "generated/assets/ets-practice-test-1/text-corrections.json": "18ad7915d825b270c3aa5c7d01ce8547c410f6b9e371d0a6fb22098167aef02b"
+      "generated/assets/ets-practice-test-1/provenance-v3.json": "43cfb524c5688b79ffa2e6c01d7f793e7831393f5b2dfeb57edea1cb748a0b6b",
+      "generated/assets/ets-practice-test-1/text-corrections-v3.json": "93b053ff07b22ea4f369f5e37180a53cc7ad744711c3afba2568d14c5c57f7c1"
     },
     "assetSha256ByUrl": {
       "/assets/media/student-1/student-1-listening-m1-1-stimulus.wav": "79689fc93b657b17b79e0ded1c39459ebc6b35e515f74dbbf2b8f205a464ecfc",
@@ -7505,6 +7504,7 @@
       "/assets/media/student-1/student-1-listening-m2-7-stimulus.wav": "0c293074d47f4224b01e2678bdaf99486d8cb161e52d96233f05c20f6ec2f5ac",
       "/assets/media/student-1/student-1-listening-m2-8-stimulus.wav": "2030db6e619e77f6eba616ec0824056303fbafef4a86b56773e6a16d96b60612",
       "/assets/media/student-1/student-1-listening-m2-9-stimulus.wav": "d16b8b8534ee3eacd14197a330e7bedf2683b5cf0650224243d8cc7a253c05cd",
+      "/assets/media/student-1/student-1-s-interview-1-prompt.wav": "17f20aa9e4144e560f857a14bb8e9c6b8f2d45de977e8e0071149b86c683a729",
       "/assets/media/student-1/student-1-s-interview-2-prompt.wav": "558554d4a8886f3171df0aff557aefa86dbbd398368c7ba8f225f2cab49c8b14",
       "/assets/media/student-1/student-1-s-interview-3-prompt.wav": "ef247e34d37d6dd8571b7e3348b559a50fef91413d8186b866220deebb88c02f",
       "/assets/media/student-1/student-1-s-interview-4-prompt.wav": "192a51a9288524a0585dbf4d9e11d387555da1b3ff2800c53145c58175e6f9ce",
@@ -7611,24 +7611,23 @@
       "student-1-s-listen_repeat-5": "bcbb05c00b2d41f10baf27d3b31d18f546dbc781db950d653ef7379ac15be1de",
       "student-1-s-listen_repeat-6": "e3bc6e2f2339ecbafcb314a8832767427e77891251f7e1db72785888718ba61e",
       "student-1-s-listen_repeat-7": "accb329d86d8788ec9bf63bf8a83445248850178b07244967fe9d09af16bc7b2",
-      "student-1-s-interview-1": "4529cbbdd53cd01a83b2bbbf44bddfb57e8e2bb8a232c30596ea4b2134fd65c5",
+      "student-1-s-interview-1-audio": "21b6349de09c11688e09f76b18025614dd3ca39fa5eae9125e0b91daf1a609be",
       "student-1-s-interview-2": "8fdc2a035639683d073cec1b6186cec8ea67775ebd1224021408bbb4f754ca33",
       "student-1-s-interview-3": "bba391470bc1861e86dbe7a3d572d4c28817eb66a1a06db65c9cc4b0916a0cf9",
       "student-1-s-interview-4": "ce1c5124166b3482b921f662a917ac7b74e5ce43aa669c3cf4c15b7f3d0840e9"
     },
-    "textCorrectionsPath": "generated/assets/ets-practice-test-1/text-corrections.json"
+    "textCorrectionsPath": "generated/assets/ets-practice-test-1/text-corrections-v3.json"
   },
   "interactiveQuestionCount": 97,
   "validation": {
-    "status": "guided-practice-only",
-    "issues": [
-      "no verified item audio student-1-s-interview-1"
-    ],
-    "scope": "source material/timing eligibility is separate from complete automatic scoring"
+    "status": "passed",
+    "issues": [],
+    "scope": "Source-complete audio edition; timing remains disclosed local practice, not ETS calibration."
   },
+  "sourceEdition": "student-1-interview-audio",
   "bundledExample": {
     "id": "ets-practice-test-1",
-    "version": 2,
+    "version": 3,
     "profile": "runtime-only"
   }
 }

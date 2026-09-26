@@ -18,6 +18,7 @@ import OfficialChrome, {
   TimingNotice,
 } from "./OfficialChrome";
 import OfficialViewport from "./OfficialViewport";
+import SpeakingVisual from "./SpeakingVisual";
 import { referenceMaterialLayout } from "./reference-material-layout";
 import { readingPresentation } from "./reading-presentation";
 import {
@@ -832,6 +833,15 @@ export default function Exam({
                 </div>
               )}
               {st.timer === "untimed" &&
+                section === "speaking" &&
+                s.examId === "student-1" && (
+                  <p className="source-edition-note">
+                    {tx(
+                      "This paper-version session retains its original text-study flow. Start a new audio-edition practice to hear the interviewer and record timed responses.",
+                    )}
+                  </p>
+                )}
+              {st.timer === "untimed" &&
                 (Array.isArray(st.practiceAudio)
                   ? st.practiceAudio.length > 0
                   : !!st.practiceAudio) && (
@@ -911,6 +921,15 @@ export default function Exam({
                           <StemAssets question={q} />
                         </div>
                       )}
+                      {section === "speaking" &&
+                        !audioInstructions &&
+                        !q.assets?.length &&
+                        q.audio?.mediaType !== "video" && (
+                          <SpeakingVisual
+                            interview={q.type === "interview"}
+                            listening
+                          />
+                        )}
                       {q.audio ? (
                         <PromptMedia
                           key={`${q.id}:${s.mediaIndex || 0}:${q.audio.url}`}
@@ -987,7 +1006,12 @@ export default function Exam({
                         src={videoFrame.url}
                         alt={tx("Last frame of the original interviewer video")}
                       />
-                    ) : null}
+                    ) : (
+                      <SpeakingVisual
+                        interview={q.type === "interview"}
+                        listening={false}
+                      />
+                    )}
                   </div>
                   <div className="official-response-clock">
                     <strong>{tx("RESPONSE TIME")}</strong>
@@ -1147,16 +1171,25 @@ export default function Exam({
                         </button>
                       )}
                     </div>
-                    {!writing && (
-                      <div
-                        className="prompt"
-                        lang={q.type === "build_sentence" ? undefined : "en"}
-                      >
-                        {q.type === "build_sentence"
-                          ? tx("Make an appropriate sentence.")
-                          : q.prompt}
-                      </div>
-                    )}
+                    {!writing &&
+                      !(
+                        section === "speaking" &&
+                        q.stemBlocks?.some(
+                          (b) =>
+                            b.type !== "question" &&
+                            "text" in b &&
+                            b.text.trim() === q.prompt?.trim(),
+                        )
+                      ) && (
+                        <div
+                          className="prompt"
+                          lang={q.type === "build_sentence" ? undefined : "en"}
+                        >
+                          {q.type === "build_sentence"
+                            ? tx("Make an appropriate sentence.")
+                            : q.prompt}
+                        </div>
+                      )}
                     {!sentenceSelectionInStem && (
                       <AnswerInput
                         key={q.id}

@@ -18,7 +18,7 @@ def read(name):
 def test_complete_native_practice_test_one_keeps_all_source_tasks_and_clocks():
     exam = read('exam.json')
     assert exam['id'] == 'student-1'
-    assert exam['strictEligible'] is False
+    assert exam['strictEligible'] is True
     assert [s['id'] for s in exam['sections']] == ['reading', 'listening', 'writing', 'speaking']
     questions = [q for s in exam['sections'] for m in s['modules'] for q in m['questions']]
     assert len(questions) == exam['screenCount'] == 79
@@ -41,9 +41,10 @@ def test_bundle_carries_corrected_text_and_original_source_evidence():
     assert set(provenance['questionIds']) == set(questions)
     for qid, q in questions.items():
         assert content_digest(q) == provenance['contentSha256ByQuestionId'][qid]
-        assert q['source']['materialId'] == 'mat-3e0bfa577216' and 1 <= q['source']['page'] <= 36, qid
-    assert len(errata['questions']) == provenance['textCorrectionScreens'] == 40
-    assert sum(len(r['patches']) for r in errata['questions'].values()) == provenance['textCorrectionFields'] == 74
+        if qid != 'student-1-s-interview-1-audio':
+            assert q['source']['materialId'] == 'mat-3e0bfa577216' and 1 <= q['source']['page'] <= 36, qid
+    assert len(errata['questions']) == provenance['textCorrectionScreens'] == 39
+    assert sum(len(r['patches']) for r in errata['questions'].values()) == provenance['textCorrectionFields'] == 71
     for qid, record in errata['questions'].items():
         q = questions[qid]
         assert q['source']['materialId'] == record['materialId']
@@ -51,11 +52,14 @@ def test_bundle_carries_corrected_text_and_original_source_evidence():
         assert record['sourceSha256'] == provenance['sourceSha256ById'][record['materialId']]
         for patch in record['patches']:
             assert field_value(q, patch['path']) == patch['after']
-    interview = questions['student-1-s-interview-1']
-    assert interview['practiceMode'] == 'text-only-source-study'
-    assert interview['referenceOnly'] is True
-    assert not interview.get('audio') and not interview.get('mediaSequence')
-    assert exam['scopedEligibility'] == {'reading': True, 'listening': True, 'writing': True, 'speaking': False}
+    interview = questions['student-1-s-interview-1-audio']
+    assert not interview.get('referenceOnly')
+    assert interview['audio']['verified'] is True
+    assert interview['mediaAudit']['paperAudioMatch'] is False
+    assert 'last time you visited a city' in interview['transcript']
+    assert 'currently live' in interview['sourceVariant']['paperPrompt']
+    assert 'explanationSource' not in interview
+    assert exam['scopedEligibility'] == {'reading': True, 'listening': True, 'writing': True, 'speaking': True}
 
 
 def test_practice_test_one_bundle_hashes_do_not_depend_on_private_manifests():

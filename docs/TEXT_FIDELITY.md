@@ -27,7 +27,7 @@ The importer validates all correction candidates before publishing corrected exa
 
 ## Bundled Practice Test 1 subset
 
-`examples/ets-practice-test-1/text-corrections.json` includes 74 verified field corrections across 40 of that example's 79 screens. Its provenance and manifest bind the original material IDs/hashes; `verificationInputs.textCorrectionsPath` points to the installed subset under `generated/assets/ets-practice-test-1/`. A new installation does not need the full private errata file. The example's English bundle filenames do not alter correction identities or installed source references.
+`examples/ets-practice-test-1/text-corrections.json` includes 71 verified field corrections across 39 of that example's 79 screens in the current v3 audio edition (the prior paper edition had 74 across 40). Its provenance and manifest bind the original material IDs/hashes; `verificationInputs.textCorrectionsPath` points to the installed subset under `generated/assets/ets-practice-test-1/`. The three removed correction occurrences belonged to the replaced paper Interview 1 prompt; its original wording stays in the audio-version comparison. A new installation does not need the full private errata file. The example's English bundle filenames do not alter correction identities or installed source references.
 
 The later Complete the Words change only affects input presentation and normalization during new typing. The observed online phrase “than any other group activity” differs from “than of any other group activity” printed in the supplied Student 1 PDF; the extra `of` is therefore retained, not treated as an OCR error. See [the 2026-09-26 interface comparison](EXAM_UI_REFERENCE.md#live-reading-interaction-checked-on-2026-09-26).
 

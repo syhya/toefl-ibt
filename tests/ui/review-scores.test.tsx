@@ -146,6 +146,27 @@ function show(review: Review) {
     />,
   );
 }
+
+it("offers manual original-prompt playback in review without autoplay or optional PDFs", () => {
+  const review = reviewFixture();
+  review.sections![1].modules[0].questions![0].mediaSequence = [
+    {
+      url: "/api/sessions/review-fixture/review-assets/original-prompt",
+      mediaType: "audio",
+      durationSeconds: 16,
+    },
+  ];
+  show(review);
+  fireEvent.click(screen.getByText("展开原音、原文与原题图"));
+  const source = screen.getByLabelText("原题音频 1") as HTMLAudioElement;
+  expect(source.tagName).toBe("AUDIO");
+  expect(source.controls).toBe(true);
+  expect(source.autoplay).toBe(false);
+  expect(source.getAttribute("src")).toBe(
+    "/api/sessions/review-fixture/review-assets/original-prompt",
+  );
+});
+
 function rowValues(name: string) {
   const table = screen.getByRole("table", { name: "本次分科评分概览" });
   const row = within(table)

@@ -18,7 +18,8 @@ sys.path.insert(0, str(ROOT))
 from backend.catalog import Catalog
 from backend.integrity import SourceIntegrity
 from backend.presentation import content_digest
-from backend.prepared_sources import PROFILE
+from backend.prepared_sources import PROFILE, PROVENANCE
+from scripts.example_audio_edition import prepare_audio_edition
 
 EXAM_ID = 'student-1'
 BUNDLE_ID = 'ets-practice-test-1'
@@ -53,7 +54,7 @@ def write_json(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
 
-def export(root=ROOT, official_pdf=None):
+def export(root=ROOT, official_pdf=None, overview_pdf=None):
     catalog = Catalog(root)
     exam = deepcopy(catalog.exams[EXAM_ID])
     result = SourceIntegrity(root, catalog).check_exam(exam)
@@ -68,6 +69,8 @@ def export(root=ROOT, official_pdf=None):
     bundle = root / 'examples' / BUNDLE_ID
     original_exam_sha = sha(root / f'generated/exams/{EXAM_ID}.json')
     original_curations = deepcopy(exam['verificationInputs']['curationSha256ByPath'])
+    edition = prepare_audio_edition(exam, root, overview_pdf or root / 'tmp/qa/example1-timing/ets-overview.pdf')
+    original_curations['scripts/example_audio_edition.py'] = sha(root / 'scripts/example_audio_edition.py')
     questions = [q for s in exam['sections'] for m in s['modules'] for q in m['questions']]
     required_ids = set(exam['sourceMaterialIds'])
     urls = set()
@@ -144,7 +147,8 @@ def export(root=ROOT, official_pdf=None):
         'runtimeProfile': 'prepared-runtime-v1', 'originalSources': original_sources,
         'runtimeAssetSha256ByUrl': asset_hashes,
         'sourceCurationSha256ByPath': original_curations,
-        'scope': 'Complete supplied official student Practice Test 1 with source-verified text corrections. No authored replacement questions.',
+        'scope': 'Practice Test 1 with the explicitly disclosed original-audio version of Interview question 1. No synthetic speech or authored replacement prompt.',
+        'audioEdition': edition,
         'officialPdf': {'title': 'TOEFL iBT® Practice Test 1', 'url': SOURCE_URL, 'materialId': SOURCE_MATERIAL_ID,
             'sha256': original_pdf['sha256'], 'bytes': original_pdf['bytes'], 'pages': original_pdf['pages'],
             'verifiedAt': datetime.now(timezone.utc).date().isoformat(), 'downloadMatchesLocalBytes': True},
@@ -158,14 +162,14 @@ def export(root=ROOT, official_pdf=None):
     for name, data in [('provenance', provenance), ('text-corrections', errata)]:
         path = bundle / f'{name}.json'
         write_json(path, data)
-        entry(path, f'generated/assets/{BUNDLE_ID}/{name}.json')
+        entry(path, PROVENANCE if name == 'provenance' else f'generated/assets/{BUNDLE_ID}/{name}-v3.json')
     inputs = exam['verificationInputs']
     inputs['curationSha256ByPath'] = {f['installPath']: f['sha256'] for f in files if f['path'] in
         {'provenance.json', 'text-corrections.json'}}
-    inputs.update(assetSha256ByUrl=asset_hashes, textCorrectionsPath=f'generated/assets/{BUNDLE_ID}/text-corrections.json')
+    inputs.update(assetSha256ByUrl=asset_hashes, textCorrectionsPath=f'generated/assets/{BUNDLE_ID}/text-corrections-v3.json')
     exam['bundledExample'] = deepcopy(PROFILE)
     exam['warnings'].append('Lightweight example: prepared questions and assets are verified; original PDFs and full audio tracks are optional and not included.')
-    exam['title'] = 'TOEFL iBT® Practice Test 1'
+    exam['title'] = 'TOEFL iBT® Practice Test 1 · Audio edition'
     write_json(bundle / 'exam.json', exam)
     entry(bundle / 'exam.json', f'generated/exams/{EXAM_ID}.json')
     stats = {'fileCount': len(materials), 'materialFileCount': len(materials), 'excludedSystemFileCount': 0,
@@ -192,4 +196,6 @@ def export(root=ROOT, official_pdf=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--official-pdf', type=Path, help='Unmodified PDF downloaded from the documented ETS URL')
-    export(official_pdf=parser.parse_args().official_pdf)
+    parser.add_argument('--overview-pdf', type=Path, help='Reviewed ETS Test Overview PDF for the Interview audio edition')
+    args = parser.parse_args()
+    export(official_pdf=args.official_pdf, overview_pdf=args.overview_pdf)

@@ -117,7 +117,7 @@ def test_bundled_sample_timing_evidence_and_windows():
     assert all(s['timingBasis'] == 'local' for s in listening)
     writing = [s for s in plan if s['section'] == 'writing']
     assert [(s['seconds'], s['timingBasis']) for s in writing] == [(360, 'local'), (420, 'official'), (600, 'official')]
-    assert [s['timer'] for s in plan if s['section'] == 'speaking'] == ['item', 'untimed', 'item']
+    assert [s['timer'] for s in plan if s['section'] == 'speaking'] == ['item', 'item']
     repeat = next(s for s in plan if s['id'] == 'speaking-listen_repeat')
     selected = make_plan(exam, {'mode': 'practice', 'questionIds': [repeat['questions'][-1]['id']]}, DEFAULT_TIMING)
     assert selected[0]['responseWindows'] == [12]

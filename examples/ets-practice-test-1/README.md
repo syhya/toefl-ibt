@@ -1,6 +1,6 @@
 # TOEFL iBT® Practice Test 1
 
-This is TOEFL Local Lab's default example: **TOEFL iBT® Practice Test 1**. The questions come from the [ETS-hosted Practice Test 1 PDF](https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf), not synthetic example questions. The local question PDF was verified against that download on 2026-09-14 (Asia/Shanghai; later exports record their own local re-verification date in `provenance.json`): both have SHA-256 `33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d` (3,544,309 bytes, 36 pages).
+This is TOEFL Local Lab's default example: **TOEFL iBT® Practice Test 1**. The base questions come from the [ETS-hosted Practice Test 1 PDF](https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf), not synthetic example questions. The current v3 audio edition explicitly uses the original companion-audio variant of Interview question 1, whose wording matches the ETS Test Overview rather than the paper's residence question. The local question PDF was verified against that download on 2026-09-14 (Asia/Shanghai; later exports record their own local re-verification date in `provenance.json`): both have SHA-256 `33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d` (3,544,309 bytes, 36 pages).
 
 This lightweight package contains all prepared questions, source-derived playback clips, extracted explanations, discussion portraits and review images. Original PDFs and full MP3 tracks are optional and excluded from Git. Companion audio/explanations came from separately supplied local sources, not the official PDF URL. See [NOTICE.md](NOTICE.md).
 
@@ -14,6 +14,8 @@ npm start
 ```
 
 Open [http://127.0.0.1:4173](http://127.0.0.1:4173), select the official student sample 1, and choose a whole test or **R / L / W / S**. An empty homepage and **Help & setup** also provide **Try Practice Test 1**. Source questions and audio stay in English; the site's **EN / 中文** selector changes application controls. Only the root project README is bilingual; this package guide and the detailed documentation stay in English.
+
+For an installed lightweight v2 example, stop the service and run `npm run demo -- --upgrade` before restarting. The upgrade replaces only verified example metadata and adds the missing original prompt clip; old sessions, media and versioned proof files remain intact. Full private imports are reused, not upgraded.
 
 Installation uses prepared files and requires no OCR, question download, or private collection. Repeating the action reuses an existing verified `student-1`. An installed full personal catalog keeps its other archives and saved practice records.
 
@@ -29,11 +31,11 @@ Installation uses prepared files and requires no OCR, question download, or priv
 
 A reading cloze screen contains multiple answer blanks, so item and screen counts differ. The local flow is Reading → Listening → Writing → Speaking, preserving the supplied modules and tasks.
 
-**Reading, Listening, and Writing support eligible strict practice. Speaking and the whole test remain guided:** the first Interview question has an unresolved mismatch between the supplied paper and audio versions. The package retains that warning and the source evidence; it does not replace the question, synthesize audio, or weaken source checks to unlock strict mode. Completeness describes the included source content, not a claim that every scope is eligible for strict timing.
+**All four sections and the whole audio-edition test support eligible strict local practice.** Interview question 1 uses the original audio about a city previously visited. The paper PDF instead asks about current residence. Setup and review disclose this difference; the paper prompt remains available for comparison, but its incompatible sample answer is not attached to the audio version. No synthesized speech or invented prompt is used. Strict timing still means enforcing the selected local profile, not ETS certification.
 
 The source PDF is a paper adaptation, not an exact replica of the live test. Application rules retain their documented limits and approximate local settings in [the rules documentation](../../docs/OFFICIAL_RULES.md). Objective references support local answer checks; writing and speaking retain saved responses and self-assessment rather than official ETS scores.
 
-The [2026-09-26 timing audit](../../docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26) confirms Email 7 minutes, Discussion 10 minutes, Interview 45 seconds per matched question, and the Repeat 8–12-second range. Reading now uses a **15:00 + 15:00 = 30:00** personal practice profile, equally allocating time to its two 20-item modules; its 40-item source content is unchanged. This does not establish the paper's exact official clocks. Listening, sentence-building and the seven-item repeat sequence likewise retain disclosed local practice defaults. New v6 sessions retain a repeat question's original timing position when filtered and keep only unmatched Interview question 1 untimed; questions 2–4 use 45 seconds each. This creates ten runtime stages from the same nine source modules. Existing saved sessions are unchanged.
+The [2026-09-26 timing audit](../../docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26) confirms Email 7 minutes, Discussion 10 minutes, Interview 45 seconds per matched question, and the Repeat 8–12-second range. Reading now uses a **15:00 + 15:00 = 30:00** personal practice profile, equally allocating time to its two 20-item modules; its 40-item source content is unchanged. This does not establish the paper's exact official clocks. Listening, sentence-building and the seven-item repeat sequence likewise retain disclosed local practice defaults. The new audio edition retains repeat questions' original timing positions when filtered. All four Interview prompts play automatically and each is followed by 45 seconds to record, without a preparation period or a displayed transcript. This restores nine runtime stages from the nine source modules. Existing saved sessions are unchanged.
 
 The paper edition's Reading module 1 contains 20 items. The observed online sampler has 17 and one small cloze wording difference; the package keeps its PDF wording and source counts. The newer cloze editor retains underlines while typing and changes font/width on focus/blur, without changing the source edition. See [the dated comparison](../../docs/EXAM_UI_REFERENCE.md#live-reading-interaction-checked-on-2026-09-26).
 
@@ -49,11 +51,11 @@ The paper edition's Reading module 1 contains 20 items. The observed online samp
 
 | Required group | Files | Bytes |
 | --- | ---: | ---: |
-| Prepared assets: 33 WAV, 16 JPG, 3 PNG | 52 | 17,195,702 |
-| Exam, catalog, provenance, text corrections | 4 | 622,915 |
-| **Total payload** | **56** | **17,818,617 (about 17.8 MB)** |
+| Prepared assets: 34 WAV, 16 JPG, 3 PNG | 53 | 17,705,826 |
+| Exam, catalog, provenance, text corrections | 4 | 620,679 |
+| **Total payload** | **57** | **18,326,505 (about 18.3 MB)** |
 
-The manifest and this README/NOTICE are additional files. A first install copies 55 files and merges the separately verified catalog. It creates `generated/` content without requiring or creating original `data/` sources. No cloud download is needed after dependency setup.
+The manifest and this README/NOTICE are additional files. A first install copies 56 files and merges the separately verified catalog. It creates `generated/` content without requiring or creating original `data/` sources. No cloud download is needed after dependency setup.
 
 The provenance-aware runtime verifies the prepared question content and media. It explicitly reports that omitted original PDFs/full MP3s were not reverified on the new machine. Source identities and original hashes remain auditable metadata, not fabricated local files. Stored answer explanations, derived images and playback remain available; missing original-file links are hidden, and the resource library labels them **Original not installed**. Corrupted required media or provenance still blocks practice.
 

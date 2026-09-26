@@ -20,6 +20,7 @@ from .catalog import Catalog
 from .engine import DEFAULT_TIMING, ExamError, make_plan, new_session
 from .integrity import SourceIntegrity
 from .presentation import validate_question
+from .prepared_sources import PROFILE, LEGACY_PROFILE
 
 _LOCK = threading.RLock()
 _HASH = re.compile(r'^[0-9a-f]{64}$')
@@ -92,7 +93,7 @@ def _validate_existing(root):
     return None
 
 
-def _merge_catalog(existing, bundled):
+def _merge_catalog(existing, bundled, replace_exam=False):
     if not isinstance(bundled.get('materials'), list) or not isinstance(bundled.get('exams'), list):
         raise ExamError('Bundled example catalog is missing materials or exams.', 422)
     if len(bundled['exams']) != 1 or bundled['exams'][0].get('id') != 'student-1':
@@ -112,7 +113,10 @@ def _merge_catalog(existing, bundled):
                 raise ExamError('Bundled example conflicts with an existing source material.', 409)
             continue
         result['materials'].append(deepcopy(material))
-    result['exams'].append(deepcopy(bundled['exams'][0]))
+    if replace_exam:
+        result['exams'] = [deepcopy(bundled['exams'][0]) if item.get('id') == 'student-1' else item for item in result['exams']]
+    else:
+        result['exams'].append(deepcopy(bundled['exams'][0]))
     stats = result.setdefault('stats', {})
     # Preserve unrelated private-catalog statistics and metadata. Only these
     # aggregate counts can be recalculated from the merged public summaries.
@@ -123,11 +127,13 @@ def _merge_catalog(existing, bundled):
             stats[key] = len(result['exams'])
         elif all(type(item.get(key)) is int for item in result['exams']):
             stats[key] = sum(item[key] for item in result['exams'])
+    if all(type(item.get('strictEligible')) is bool for item in result['exams']):
+        stats['strictExamCount'] = sum(item['strictEligible'] for item in result['exams'])
     result['bundledExample'] = deepcopy(bundled.get('bundledExample', {'id': 'ets-practice-test-1', 'version': 1}))
     return result
 
 
-def _preflight(root, bundle):
+def _preflight(root, bundle, replace_exam=False):
     manifest = _read_json(_safe_path(bundle, 'manifest.json'))
     if type(manifest.get('schemaVersion')) is not int or manifest['schemaVersion'] != 1 or manifest.get('examId') != 'student-1':
         raise ExamError('Bundled example requires schemaVersion 1 and examId student-1.', 422)
@@ -155,7 +161,8 @@ def _preflight(root, bundle):
                 raise ExamError('Bundled example lists a destination more than once.', 422)
             destinations.add(destination_name)
             destination = _safe_path(root, destination_name)
-            if destination.exists() and (not destination.is_file() or _digest(destination) != record['sha256']):
+            if (destination.exists() and (not destination.is_file() or _digest(destination) != record['sha256'])
+                    and not (replace_exam and destination_name == _EXAM_PATH and destination.is_file())):
                 raise ExamError(f'Bundled example would overwrite an existing file: {destination_name}', 409)
         entries.append({**record, 'source': source, 'destination': destination})
     if not {'exam.json', 'catalog.json'} <= sources:
@@ -175,10 +182,8 @@ def _preflight(root, bundle):
         if not questions or any(q.get('presentationSchema') != 'structured-v1'
                                 or validate_question(q, strict=True) for q in questions):
             raise ExamError('Bundled example contains missing or unverified question content.', 422)
-    # The supplied interview audio disagrees with the first printed prompt.
-    # Keep that source limitation: complete paper practice is available, but
-    # the installer must not turn an incomplete speaking source into a strict
-    # full exam or quietly omit its first question.
+    # Retain all selected source questions and validate actual media. A declared
+    # audio edition is allowed; missing audio may never be promoted by a flag.
     practice = make_plan(exam, {'mode': 'practice', 'scope': 'all'}, DEFAULT_TIMING)
     if sum(len(stage['questions']) for stage in practice) != sum(
             len(module.get('questions', [])) for section in sections for module in section.get('modules', [])):
@@ -196,7 +201,7 @@ def _preflight(root, bundle):
     catalog_path = _safe_path(root, _CATALOG_PATH)
     previous_catalog = catalog_path.read_bytes() if catalog_path.exists() else None
     existing_catalog = json.loads(previous_catalog) if previous_catalog is not None else None
-    merged = _merge_catalog(existing_catalog, bundled_catalog)
+    merged = _merge_catalog(existing_catalog, bundled_catalog, replace_exam)
     return entries, exam, merged, previous_catalog
 
 
@@ -214,12 +219,13 @@ def _make_parents(path, root, created):
             raise ExamError('Bundled example destination parent is not a directory.', 409)
 
 
-def install_example(root: Path, bundle: Path | None = None):
+def install_example(root: Path, bundle: Path | None = None, *, upgrade=False):
     """Install or reuse Practice Test 1, with validation and rollback before publication.
 
     ``bundle`` is an explicit test/CLI override. HTTP callers use only the
     repository's examples/ets-practice-test-1 directory, never a user-supplied URL.
-    No database, saved answer, or existing exam revision is modified.
+    An explicit upgrade may replace a verified v2 bundled exam with v3. Private
+    imports, stored sessions, old media and versioned provenance stay untouched.
     """
     with _LOCK:
         root = Path(root).resolve()
@@ -228,7 +234,15 @@ def install_example(root: Path, bundle: Path | None = None):
         _safe_path(root, _CATALOG_PATH)
         _safe_path(root, _EXAM_PATH)
         reused = _validate_existing(root)
-        if reused is not None:
+        previous_exam = None
+        if reused is not None and upgrade:
+            existing = Catalog(root).exams['student-1']
+            if existing.get('bundledExample') == PROFILE:
+                return reused
+            if existing.get('bundledExample') != LEGACY_PROFILE:
+                raise ExamError('Only a verified lightweight v2 example can be upgraded. Private imported exams remain unchanged.', 409)
+            previous_exam = (root / _EXAM_PATH).read_bytes()
+        elif reused is not None:
             return reused
         bundle = Path(bundle) if bundle is not None else _safe_path(root, 'examples/ets-practice-test-1')
         if bundle.is_symlink():
@@ -237,7 +251,9 @@ def install_example(root: Path, bundle: Path | None = None):
         if not bundle.is_dir() or not (bundle / 'manifest.json').is_file():
             raise ExamError('The TOEFL iBT Practice Test 1 example is missing. Restore examples/ets-practice-test-1.', 404)
         try:
-            entries, exam, merged, previous_catalog = _preflight(root, bundle)
+            entries, exam, merged, previous_catalog = _preflight(root, bundle, previous_exam is not None)
+            if previous_exam is not None and exam.get('bundledExample') != PROFILE:
+                raise ExamError('The upgrade must target the current verified example profile.', 422)
             with tempfile.TemporaryDirectory(prefix='toefl-example-') as temporary:
                 stage = Path(temporary)
                 for item in entries:
@@ -255,27 +271,38 @@ def install_example(root: Path, bundle: Path | None = None):
                 report = SourceIntegrity(stage, catalog).check_exam(catalog.exams['student-1'])
                 if report['status'] != 'passed':
                     raise ExamError('Bundled example failed source integrity: ' + ', '.join(item['code'] for item in report['issues']), 422)
-                _publish(root, stage, entries, merged, previous_catalog)
+                _publish(root, stage, entries, merged, previous_catalog, previous_exam)
         except ExamError:
             raise
         except (OSError, ValueError, TypeError, KeyError) as error:
             raise ExamError(f'Bundled example could not be installed: {error}', 422) from error
-        return _result(exam, False, len(merged['materials']), sum(item['destination'] is not None for item in entries))
+        return {**_result(exam, False, len(merged['materials']), sum(item['destination'] is not None for item in entries)),
+                'upgraded': previous_exam is not None}
 
 
-def _publish(root, stage, entries, merged, previous):
+def _publish(root, stage, entries, merged, previous, previous_exam=None):
     """Create only absent files and replace the catalog as the final write."""
     created_files, created_dirs = [], []
     catalog_path = _safe_path(root, _CATALOG_PATH)
     if (catalog_path.read_bytes() if catalog_path.exists() else None) != previous:
         raise ExamError('The local catalog changed during example installation. Try again.', 409)
-    published, temp_catalog = False, None
+    published, temp_catalog, replaced_exam, temp_exam = False, None, False, None
     try:
         for item in entries:
             if item['destination'] is None:
                 continue
             target = _safe_path(root, item['installPath'])
             if target.exists():
+                if previous_exam is not None and item['installPath'] == _EXAM_PATH:
+                    if target.read_bytes() != previous_exam:
+                        raise ExamError('The installed example changed during upgrade.', 409)
+                    with tempfile.NamedTemporaryFile(prefix='.example-', dir=target.parent, delete=False) as handle:
+                        temp_exam = Path(handle.name)
+                        handle.write((stage / item['installPath']).read_bytes())
+                        handle.flush(); os.fsync(handle.fileno())
+                    temp_exam.replace(target)
+                    temp_exam, replaced_exam = None, True
+                    continue
                 if not target.is_file() or _digest(target) != item['sha256']:
                     raise ExamError('A local resource changed during example installation.', 409)
                 continue
@@ -304,6 +331,10 @@ def _publish(root, stage, entries, merged, previous):
         if SourceIntegrity(root, catalog).check_exam(catalog.exams['student-1'])['status'] != 'passed':
             raise ExamError('Installed example failed source integrity.', 422)
     except Exception:
+        if replaced_exam:
+            (root / _EXAM_PATH).write_bytes(previous_exam)
+        if temp_exam is not None:
+            temp_exam.unlink(missing_ok=True)
         if published:
             if previous is None:
                 catalog_path.unlink(missing_ok=True)

@@ -752,40 +752,6 @@
         }
       ]
     },
-    "student-1-s-interview-1": {
-      "questionType": "interview",
-      "materialId": "mat-3e0bfa577216",
-      "page": 36,
-      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
-      "patches": [
-        {
-          "path": [
-            "prompt"
-          ],
-          "before": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living ina city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
-          "after": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
-          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
-        },
-        {
-          "path": [
-            "stemBlocks",
-            0,
-            "text"
-          ],
-          "before": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living ina city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
-          "after": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
-          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
-        },
-        {
-          "path": [
-            "transcript"
-          ],
-          "before": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living ina city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
-          "after": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
-          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
-        }
-      ]
-    },
     "student-1-w-academic_discussion": {
       "questionType": "academic_discussion",
       "materialId": "mat-3e0bfa577216",

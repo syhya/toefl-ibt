@@ -415,6 +415,15 @@ export function OfficialDirections({ session }: { session: Session }) {
           <p>{tx("You will have 7 minutes to write the email.")}</p>
         </>
       )}
+      {session.phase === "directions" &&
+        speaking &&
+        session.sourceEdition === "student-1-interview-audio" && (
+          <p className="source-edition-note">
+            {tx(
+              "Audio edition: Interview question 1 differs from the paper PDF. Compare the versions in review.",
+            )}
+          </p>
+        )}
       {session.phase === "directions" && <TimingNotice stage={st} />}
     </section>
   );

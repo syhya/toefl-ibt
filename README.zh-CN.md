@@ -6,11 +6,11 @@
 
 支持中英文导航的本地 TOEFL 风格练习网站，提供结构化题目、写作编辑器、已支持校核资料的倒计时、麦克风录音与历史复盘。采用 **React + TypeScript + Vite、FastAPI、SQLite**。安装依赖和导入资源后，日常练习可离线运行，不需要账号或云端 AI。
 
-**默认样题为 TOEFL iBT® Practice Test 1，题目来源：[TOEFL iBT® Practice Test 1](https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf)。** 原题来自 ETS 网站上的这份 PDF，文档中统一使用英文资料名称 **TOEFL iBT® Practice Test 1 — Question Paper**。轻量包包含四科结构化原题、音频切片、已提取解析和必要图片，不附原始 PDF 或整轨音频；音频和解析来自单独提供的本地资料，不是上述 PDF 链接提供的下载，见[来源声明](examples/ets-practice-test-1/NOTICE.md)。2026-09-14（Asia/Shanghai）已核对本地题目 PDF 与 ETS 下载文件逐字节一致，SHA-256 记录在来源声明中。不包含作者其余私有题库与个人录音。
+**默认样题为 TOEFL iBT® Practice Test 1，题目来源：[TOEFL iBT® Practice Test 1](https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf)。** 基础题目来自 ETS 网站上的这份 PDF（访谈第 1 题明确采用单独提供的原音频版本），文档中统一使用英文资料名称 **TOEFL iBT® Practice Test 1 — Question Paper**。轻量包包含四科结构化原题、音频切片、已提取解析和必要图片，不附原始 PDF 或整轨音频；音频和解析来自单独提供的本地资料，不是上述 PDF 链接提供的下载，见[来源声明](examples/ets-practice-test-1/NOTICE.md)。2026-09-14（Asia/Shanghai）已核对本地题目 PDF 与 ETS 下载文件逐字节一致，SHA-256 记录在来源声明中。不包含作者其余私有题库与个人录音。
 
 这是独立练习工具，不是 ETS 产品。严格模式执行选定本地规则，部分时间明确标为近似设置；不复刻 ETS 专有自适应，也不把正确率换成官方 1–6 或 120 分。依据见[规则说明](docs/OFFICIAL_RULES.md)。
 
-**Practice Test 1 计时：**邮件 7 分钟、讨论 10 分钟、音频匹配的访谈题每题 45 秒已获得 ETS 明确确认。阅读现默认 **15:00＋15:00＝30:00**，这是按用户偏好为本套两个各 20 题的模块均分时间的个人练习预设，并非已核实的官方起始时限。听力每题 20／30 秒、组句 6 分钟和复述的精确逐题序列也仍是本地预设。开始页会标明依据，详见 [2026-09-26 逐项核查](docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26)。修复仅影响新练习；访谈第 1 题继续不限时研读，第 2–4 题恢复各 45 秒。
+**Practice Test 1 计时：**邮件 7 分钟、讨论 10 分钟、音频匹配的访谈题每题 45 秒已获得 ETS 明确确认。阅读现默认 **15:00＋15:00＝30:00**，这是按用户偏好为本套两个各 20 题的模块均分时间的个人练习预设，并非已核实的官方起始时限。听力每题 20／30 秒、组句 6 分钟和复述的精确逐题序列也仍是本地预设。开始页会标明依据，详见 [2026-09-26 逐项核查](docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26)。新版口语先播放四道访谈题的原音，再分别自动录音 45 秒。第 1 题与纸面 PDF 不同，其措辞对应 ETS Test Overview；复盘中保留版本对照。旧练习保持原版本。
 
 ## 快速开始
 
@@ -24,7 +24,7 @@ npm start
 
 打开 **[http://127.0.0.1:4173](http://127.0.0.1:4173)**，保持终端运行，**Control+C** 停止。不要直接打开 `index.html`。
 
-内置 **TOEFL iBT® Practice Test 1** 含 **97 个小题、79 个题面**：阅读 40 小题/22 题面、听力 34/34、写作 12/12、口语 11/11。保留原模块、修正后的结构化文字、配套原音、讨论头像、参考答案和复盘出处。空首页点击 **Try Practice Test 1 / 体验官方样题第1套** 或运行 `npm run demo`；已有 `student-1` 时直接复用，不替换个人记录。**阅读、听力、写作可使用符合条件的严格练习；口语及整套暂以辅助练习使用，因为访谈第 1 题存在尚未解决的纸面与音频版本差异。** 不替换原题或合成音频来绕过告警。默认界面英文，顶部 **EN / 中文** 切换操作界面及根目录 README；详细指南统一使用英文，原题与音频保持来源语言。
+内置 **TOEFL iBT® Practice Test 1** 含 **97 个小题、79 个题面**：阅读 40 小题/22 题面、听力 34/34、写作 12/12、口语 11/11。保留原模块、修正后的结构化文字、配套原音、讨论头像、参考答案和复盘出处。空首页点击 **Try Practice Test 1 / 体验官方样题第1套** 或运行 `npm run demo`；已有 `student-1` 时直接复用，不替换个人记录。**当前音频版本支持四科及整套的本地严格练习。** 访谈第 1 题采用已核验的配套原音版本并明确标注，不使用合成语音或自编题目。已安装轻量 v2 示例时，请先停止服务，再运行 `npm run demo -- --upgrade`；不会替换完整私有题库导入或改写旧练习。默认界面英文，顶部 **EN / 中文** 切换操作界面及根目录 README；详细指南统一使用英文，原题与音频保持来源语言。
 
 安装脚本创建 `.venv/`、安装锁定前端依赖和 Python 依赖、构建 `dist/`，不会执行 OCR、下载私有资料或修改全局 Homebrew/FFmpeg。macOS 后续可双击 [`scripts/start.command`](scripts/start.command)。
 
@@ -58,7 +58,7 @@ npm start
 
 ## 新环境需要哪些文件
 
-应用代码需附带 Git 中的 [`examples/ets-practice-test-1/`](examples/ets-practice-test-1/README.md)：**56 个经过哈希校验的文件，约 17.8 MB**，另有清单和说明。保留全部结构化题目、33 个 WAV 音频切片、16 张复盘图片和 3 张头像。两个原始 PDF 与 11 个整轨 MP3 为可选资料，已排除于 Git，新用户安装不需要它们。
+应用代码需附带 Git 中的 [`examples/ets-practice-test-1/`](examples/ets-practice-test-1/README.md)：**57 个经过哈希校验的文件，约 18.3 MB**，另有清单和说明。保留全部结构化题目、34 个 WAV 音频切片、16 张复盘图片和 3 张头像。两个原始 PDF 与 11 个整轨 MP3 为可选资料，已排除于 Git，新用户安装不需要它们。
 
 轻量安装器校验已准备的题目、全部必需媒体和绑定哈希的来源记录；原始文件身份仍保留，但不会声称已在新环境重新校验未附带的原文件。未安装原文件时不提供其打开链接，已有解析、答案、图片与音频切片仍可使用。新用户无需私有 `data/`、`generated/`、`storage/`，也不必额外下载资料。已有完整／私有安装继续保留原来源检查与文件，不能直接删除其原文件。个人数据不要上传 Git，请保留[来源声明](examples/ets-practice-test-1/NOTICE.md)。
 

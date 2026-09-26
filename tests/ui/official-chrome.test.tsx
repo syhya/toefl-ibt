@@ -437,6 +437,82 @@ describe("Exam integration with the display-only timer", () => {
     />
   );
 
+  it.each(["audio", "response"])(
+    "shows the interviewer instead of the transcript during %s",
+    (phase) => {
+      const initial = makeSession();
+      const s = makeSession({
+        phase,
+        scope: "speaking",
+        sourceEdition: "student-1-interview-audio",
+        deadline: phase === "audio" ? null : Date.now() + 45000,
+        remainingSeconds: phase === "audio" ? null : 45,
+        stage: {
+          ...initial.stage!,
+          section: "speaking",
+          timer: "item",
+          title: "Take an Interview",
+          canBack: false,
+        },
+        question: {
+          id: "audio-edition-interview",
+          type: "interview",
+          prompt: "PRIVATE QUESTION WORDING",
+          transcript: "PRIVATE TRANSCRIPT",
+          ...(phase === "audio"
+            ? {
+                audio: {
+                  url: "/test/original-interview.wav",
+                  durationSeconds: 16,
+                  mediaType: "audio",
+                },
+              }
+            : {}),
+        },
+      });
+      render(view(s));
+      expect(screen.getByText("Interviewer")).toBeTruthy();
+      expect(screen.queryByText("PRIVATE QUESTION WORDING")).toBeNull();
+      expect(screen.queryByText("PRIVATE TRANSCRIPT")).toBeNull();
+      if (phase === "response")
+        expect(screen.getByRole("timer").textContent).toBe("00:00:45");
+    },
+  );
+
+  it("shows an old text-study speaking prompt only once with an edition notice", () => {
+    const initial = makeSession();
+    const s = makeSession({
+      examId: "student-1",
+      mode: "practice",
+      scope: "speaking",
+      phase: "response",
+      deadline: null,
+      remainingSeconds: null,
+      stage: {
+        ...initial.stage!,
+        section: "speaking",
+        timer: "untimed",
+        title: "Take an Interview",
+        canBack: false,
+      },
+      question: {
+        id: "student-1-s-interview-1",
+        type: "interview",
+        prompt: "Original paper interview prompt",
+        presentationSchema: "structured-v1",
+        structuredContentStatus: "source-verified",
+        stemBlocks: [
+          { type: "instruction", text: "Original paper interview prompt" },
+        ],
+      },
+    });
+    render(view(s));
+    expect(screen.getAllByText("Original paper interview prompt")).toHaveLength(
+      1,
+    );
+    expect(screen.getByText(/This paper-version session retains/)).toBeTruthy();
+  });
+
   it("retains expired writing as read-only until Continue and cannot dismiss expiry with Escape", async () => {
     const base = makeSession();
     const send = vi.fn();

@@ -1333,6 +1333,15 @@ export function Prepare({
               </select>
             </label>
           )}
+          {exam.sourceEdition === "student-1-interview-audio" &&
+            (scope === "all" || scope === "speaking") && (
+              <p className="source-edition-note">
+                {tr(
+                  "Audio edition: Interview question 1 follows the original recording and differs from the paper PDF. You will hear the questions before the 45-second recording window; transcripts and the version comparison are available in review.",
+                  "音频版本：访谈第 1 题采用原始录音，与纸面 PDF 不同。先听面试官提问，再自动进入 45 秒录音；原文和版本对照在复盘中查看。",
+                )}
+              </p>
+            )}
           <details className="prep-disclosure">
             <summary>
               {tr(

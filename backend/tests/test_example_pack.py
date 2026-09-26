@@ -159,6 +159,15 @@ def test_existing_valid_native_pack_is_reused_even_if_bundled_revision_changes(e
     assert snapshot(root) == before
 
 
+def test_explicit_upgrade_does_not_replace_a_private_source_import(example):
+    root, bundle = example
+    install_example(root, bundle)
+    before = snapshot(root)
+    with pytest.raises(ExamError, match='Private imported exams remain unchanged'):
+        install_example(root, bundle, upgrade=True)
+    assert snapshot(root) == before
+
+
 def test_merge_preserves_other_exams_materials_settings_and_session_bytes(example):
     root, bundle = example
     original = {'schemaVersion': 2, 'generatedAt': 'private import', 'custom': {'keep': True},
@@ -303,31 +312,27 @@ def test_real_bundled_pack_is_complete_and_native_on_a_clean_install(tmp_path):
     catalog = Catalog(tmp_path)
     exam = catalog.exams['student-1']
     summary = catalog.summary(exam)
-    assert summary['strictEligible'] is False and summary['structuredReady'] is True
-    assert summary['scopedEligibility'] == {'reading': True, 'listening': True, 'writing': True, 'speaking': False}
+    assert summary['strictEligible'] is True and summary['structuredReady'] is True
+    assert summary['scopedEligibility'] == {'reading': True, 'listening': True, 'writing': True, 'speaking': True}
     assert SourceIntegrity(tmp_path, catalog).check_exam(exam)['status'] == 'passed'
     questions = [q for section in exam['sections'] for module in section['modules'] for q in module['questions']]
     assert len({q['taskType'] for q in questions}) == 12
     assert len(questions) == 79
     assert sum(len(q['blanks']) if q['type'] == 'cloze' else 1 for q in questions) == 97
     plan = make_plan(exam, {'mode': 'practice', 'scope': 'all'}, DEFAULT_TIMING)
-    assert len(plan) == 10
+    assert len(plan) == 9
     assert [stage['seconds'] for stage in plan if stage['section'] == 'writing'] == [360, 420, 600]
     assert [q['_responseSeconds'] for stage in plan for q in stage['questions'] if q['type'] == 'listen_repeat'] == [8, 8, 10, 10, 10, 12, 12]
-    assert sum('textCorrection' in q for q in questions) == 40
-    assert all(stage['timer'] != 'untimed' for stage in plan if stage['id'] != 'speaking-interview')
+    assert sum('textCorrection' in q for q in questions) == 39
+    assert all(stage['timer'] != 'untimed' for stage in plan)
     interview = next(stage for stage in plan if stage['id'] == 'speaking-interview')
-    assert interview['timer'] == 'untimed' and len(interview['questions']) == 1
-    matched_interview = next(stage for stage in plan if stage['id'] == 'speaking-interview-part-2')
-    assert matched_interview['timer'] == 'item' and len(matched_interview['questions']) == 3
-    assert matched_interview['responseWindows'] == [45, 45, 45]
-    assert interview['questions'][0]['id'] == 'student-1-s-interview-1'
-    assert not interview['questions'][0].get('audio')
-    for scope in ['reading', 'listening', 'writing']:
+    assert interview['timer'] == 'item' and len(interview['questions']) == 4
+    assert interview['responseWindows'] == [45, 45, 45, 45]
+    assert interview['questions'][0]['id'] == 'student-1-s-interview-1-audio'
+    assert interview['questions'][0]['audio']['verified'] is True
+    assert interview['questions'][0]['mediaAudit']['paperAudioMatch'] is False
+    for scope in ['reading', 'listening', 'writing', 'speaking', 'all']:
         strict_session = new_session(exam, {'mode': 'strict', 'scope': scope}, 0)
         assert strict_session['mode'] == 'strict'
-        assert all(stage['section'] == scope for stage in strict_session['plan'])
-    for scope in ['all', 'speaking']:
-        with pytest.raises(ExamError, match='not passed strict-practice'):
-            new_session(exam, {'mode': 'strict', 'scope': scope}, 0)
+        assert all(stage['section'] == scope or scope == 'all' for stage in strict_session['plan'])
     assert all(item['url'].startswith(('/materials/', '/assets/')) for item in catalog.data['materials'])

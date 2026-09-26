@@ -190,6 +190,9 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
                      'sourceReferenceAnswer', 'answerConflict', 'resolutionEvidence', 'answerEvidence', 'auditStatus',
                      'acceptedAnswers', 'sourceAnswerVariants', 'explanationConflict', 'extraTokens']
         result = {key: q[key] for key in keys if key in q}
+        if review and isinstance(q.get('sourceVariant'), dict):
+            result['sourceVariant'] = {key:q['sourceVariant'][key] for key in
+                ['id', 'notice', 'paperPrompt', 'paperPage', 'referenceUrl', 'referencePage'] if key in q['sourceVariant']}
         if is_structured(q):
             result['stemBlocks'] = safe_stem_blocks(q.get('stemBlocks'))
         if not review and result.get('warnings'):
@@ -441,7 +444,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
                               'events': [event for event in a['events'] if event['type'] in ['interrupted', 'resumed', 'missing-audio', 'recording-error', 'clock-gap', 'source-changed', 'legacy-audio-unverified', 'legacy-audio-recovered']]},
                 'progress': {'stageIndex': a['stageIndex'], 'totalStages': len(a['plan']), 'questionIndex': a['questionIndex'],
                              'totalQuestions': sum(len(s.get('questions', [])) for s in a['plan'])},
-                'timing': a['timing'], 'routes': a['routes'], 'rulesVersion': a['rulesVersion'], 'scoringPolicy': a.get('scoringPolicy'),
+                'timing': a['timing'], 'sourceEdition': a.get('sourceEdition'), 'routes': a['routes'], 'rulesVersion': a['rulesVersion'], 'scoringPolicy': a.get('scoringPolicy'),
                 'warnings': a['examWarnings'], 'notice': 'Local simulation; selected timing and adaptive defaults are not ETS calibration.'}
 
     def review_view(db, a):

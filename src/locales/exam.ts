@@ -2,6 +2,10 @@ import { tr } from "../i18n";
 
 /** UI copy only. Verified passages, choices, dialogue and audio stay in English. */
 export const examMessages: Record<string, string> = {
+  "Audio edition: Interview question 1 differs from the paper PDF. Compare the versions in review.":
+    "音频版本：访谈第 1 题与纸面 PDF 不同，版本对照可在复盘中查看。",
+  "This paper-version session retains its original text-study flow. Start a new audio-edition practice to hear the interviewer and record timed responses.":
+    "这份纸面版本练习保留原来的文字研读流程。请新建音频版练习，使用面试官原音提问和限时录音。",
   "Audio request failed (HTTP {status}).": "音频请求失败（HTTP {status}）。",
   "This audio format could not play in your browser.":
     "当前浏览器无法播放此音频格式。",

@@ -17,6 +17,8 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 
 ### Changed
 
+- The default Practice Test 1 package is now the disclosed original-audio edition (v3): all four Interview prompts play before automatic 45-second recording windows. Question 1 differs from the paper PDF; review preserves that comparison and excludes the incompatible paper sample answer. The 57-file runtime payload is about 18.3 MB. Explicit lightweight v2 upgrades keep saved sessions and old assets intact.
+
 - Reading defaults to the user-selected balanced 30-minute practice profile (15:00 + 15:00), replacing the earlier 21:00/09:00 allocation and original 20:30 total. The equal split matches this paper's two 20-item modules; it is not claimed as verified official module timing. Unchanged legacy browser presets upgrade; custom settings, source-specific clocks, and existing session deadlines remain intact.
 
 - Re-audited Practice Test 1 timing against ETS sources. Start pages now identify official limits, source settings, local presets and untimed study; shared-budget subsets explicitly retain the full task/module time. New v6 sessions preserve repeat durations by original position when filtering, and only the unmatched Interview question remains untimed while matched questions retain 45 seconds. Existing saved plans and strict source gates are unchanged.
@@ -38,6 +40,10 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 - Vocabulary reads and changes follow the existing strict-session review lock, including requests from another tab.
 
 ### Fixed
+
+- Sentence-builder selection and drag state reset on question changes, preventing a prior question's gap index from misplacing or rejecting the next answer.
+- A verified sentence token order can be graded with its printed fixed literals when only those literals' punctuation differs from the answer key; word identity/order remain exact and saved score snapshots are not rewritten.
+- Speaking now shows a neutral interviewer/speaker illustration when no original visual exists, hides transcripts during timed responses, and avoids duplicate text in older study sessions.
 
 - Restored source-reviewed reading paragraph and signature breaks in 23 emails and two academic passages (73 associated screens), including Practice Test 1's workshop email. Active practice and review share a hash-bound display projection; saved questions, answers, timing and scores are untouched. Existing explicit newlines survive rendering, and source signatures intentionally printed on one line remain unchanged.
 

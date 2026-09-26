@@ -50,3 +50,6 @@
     scroll-margin-top: 145px;
   }
 }
+.review-source-media { display: grid; gap: 8px; margin: 16px 0; }
+.review-source-media audio { width: min(100%, 480px); }
+.review-source-media video { width: min(100%, 640px); max-height: 360px; }

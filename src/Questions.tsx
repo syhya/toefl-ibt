@@ -533,6 +533,7 @@ export function AnswerInput({
   if (q.type === "build_sentence" && q.slots?.length)
     return (
       <SentenceBuilder
+        key={q.id}
         q={q}
         value={
           value &&

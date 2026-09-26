@@ -45,7 +45,7 @@ npm run check:docs
 npm start
 ```
 
-The first command should install `student-1` with 97 items, 79 screens, 13 optional source references and no original files. Running it again should report `reused: true` and preserve the catalog and records. Source-data checks for the separate private collection may skip; public bundle and importer checks must still pass. The sample cannot start a full strict test or strict Speaking because of its disclosed Interview mismatch; verify strict Reading/Listening/Writing separately.
+The first command should install `student-1` with 97 items, 79 screens, 13 optional source references and no original files. Running it again should report `reused: true` and preserve the catalog and records. Source-data checks for the separate private collection may skip; public bundle and importer checks must still pass. The current v3 audio edition supports all strict scopes. Verify that Interview question 1 uses the disclosed original-audio variant, plays before its 45-second response window, hides the transcript during practice, and preserves the paper prompt only in review. Test `--upgrade` from v2 separately; saved plans and old audio must remain unchanged.
 
 `check:docs` requires only the root README pair and rejects extra `.zh-CN.md` editions. Preserve the required asset/provenance hashes and optional-source mappings; filename changes must not alter source bytes or stored session URLs. Record validation against the current working tree, not an earlier screenshot or test count. [ACCEPTANCE.md](ACCEPTANCE.md) separates current checks from dated private-data runs.
 

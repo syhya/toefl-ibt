@@ -111,8 +111,8 @@ def test_bundled_demo_installs_official_sample_and_preserves_its_scoped_timing(c
     entries = client.get('/api/catalog').json()['exams']
     assert [entry['id'] for entry in entries] == ['student-1']
     entry = entries[0]
-    assert entry['strictEligible'] is False
-    assert entry['scopedEligibility'] == {'reading': True, 'listening': True, 'writing': True, 'speaking': False}
+    assert entry['strictEligible'] is True
+    assert entry['scopedEligibility'] == {'reading': True, 'listening': True, 'writing': True, 'speaking': True}
     assert entry['runtimeVerification']['status'] == 'passed'
     assert entry['interactiveQuestionCount'] == 97
     assert entry['interactiveScreenCount'] == 79
@@ -126,11 +126,11 @@ def test_bundled_demo_installs_official_sample_and_preserves_its_scoped_timing(c
             url = question['audio']['url']
             catalog = clean['app'].state.catalog
             assert catalog.path_for(catalog.register(url)).is_file()
-    # A known paper/audio version conflict must not be promoted into a strict exam.
-    assert not questions['student-1-s-interview-1'].get('audio')
+    assert questions['student-1-s-interview-1-audio']['mediaAudit']['paperAudioMatch'] is False
     for scope in ['all', 'speaking']:
-        rejected = client.post('/api/sessions', json={'examId': 'student-1', 'mode': 'strict', 'scope': scope})
-        assert rejected.status_code == 422, rejected.text
+        scoped = start(clean, examId='student-1', mode='strict', scope=scope)
+        assert scoped['sourceEdition'] == 'student-1-interview-audio'
+        checked_action(clean, scoped, 'finish')
     for scope in ['listening', 'writing']:
         scoped = start(clean, examId='student-1', mode='strict', scope=scope)
         assert scoped['stage']['section'] == scope

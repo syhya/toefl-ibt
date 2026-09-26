@@ -260,6 +260,16 @@
 .official-exam .official-directions p { margin: 0 0 15px; }
 .timing-notice { display: grid; gap: 5px; margin-top: 22px; padding: 14px 16px; border-left: 3px solid #0c7779; background: #f3f7f7; color: #46595a; font-size: 13px; line-height: 1.5; text-align: left; }
 .timing-notice strong { font-weight: 600; }
+.speaking-role-visual { display: flex; flex-direction: column; align-items: center; gap: 10px; width: min(420px, 100%); margin: 18px auto; text-align: center; color: #285e60; }
+.speaking-role-visual > svg { width: 150px; height: 150px; }
+.speaking-role-visual figcaption { font-size: 18px; font-weight: 600; }
+.speaking-role-visual p { max-width: 390px; margin: 0; font-size: 13px; line-height: 1.5; color: #536769; }
+.speaking-voice-bars { display: flex; align-items: center; justify-content: center; gap: 4px; height: 24px; }
+.speaking-voice-bars i { display: block; width: 4px; height: 5px; border-radius: 3px; background: #087c80; }
+.is-listening .speaking-voice-bars i { animation: speaking-wave .85s ease-in-out infinite alternate; }
+@keyframes speaking-wave { to { height: 22px; } }
+@media (prefers-reduced-motion: reduce) { .is-listening .speaking-voice-bars i { animation: none; height: 12px; } }
+.source-edition-note { margin: 16px 0; padding: 12px 15px; border-left: 3px solid #147b7e; background: #f1f7f6; color: #315658; font-size: 13px; line-height: 1.6; }
 .official-exam .exam-content.writing-confirmation-open > :not(.official-writing-confirmation) { display: none !important; }
 .official-build-prompt > img, .official-build-answer > img { border-radius: 50%; }
 .official-exam .official-audio-layout, .official-exam .official-audio-layout.single { display: block; overflow-y: auto; }

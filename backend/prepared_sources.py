@@ -6,16 +6,20 @@ ignore-missing-source switch for private archives or user-authored packs.
 import json
 import re
 
-PROFILE = {'id': 'ets-practice-test-1', 'version': 2, 'profile': 'runtime-only'}
-PROVENANCE = 'generated/assets/ets-practice-test-1/provenance.json'
+PROFILE = {'id': 'ets-practice-test-1', 'version': 3, 'profile': 'runtime-only'}
+PROVENANCE = 'generated/assets/ets-practice-test-1/provenance-v3.json'
+LEGACY_PROFILE = {'id': 'ets-practice-test-1', 'version': 2, 'profile': 'runtime-only'}
+LEGACY_PROVENANCE = 'generated/assets/ets-practice-test-1/provenance.json'
 
 
 def optional_originals(root, exam, catalog, digest):
-    if exam.get('id') != 'student-1' or exam.get('bundledExample') != PROFILE:
+    marker = exam.get('bundledExample')
+    if exam.get('id') != 'student-1' or marker not in [PROFILE, LEGACY_PROFILE]:
         return {}
+    provenance = PROVENANCE if marker == PROFILE else LEGACY_PROVENANCE
     inputs = exam.get('verificationInputs') or {}
-    expected = inputs.get('curationSha256ByPath', {}).get(PROVENANCE)
-    path = root / PROVENANCE
+    expected = inputs.get('curationSha256ByPath', {}).get(provenance)
+    path = root / provenance
     if not expected or digest(path) != expected:
         return {}
     try:
