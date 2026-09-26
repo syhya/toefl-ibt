@@ -2824,6 +2824,14 @@ button.section-chip:hover {
   line-height: 1.8;
   color: #55684a;
 }
+.explanation-reasons {
+  margin: 14px 0;
+  padding-left: 22px;
+}
+.explanation-reasons li {
+  margin: 9px 0;
+  line-height: 1.7;
+}
 .explanation-panel .explanation-warning {
   color: #a2783d;
   background: #fbf1db;

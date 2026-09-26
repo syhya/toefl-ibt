@@ -147,6 +147,49 @@ function show(review: Review) {
   );
 }
 
+it("keeps reviewed rationales in English under Chinese UI without misattributing them to the source", () => {
+  const review = reviewFixture();
+  const q = review.sections![1].modules[0].questions![0];
+  q.explanation = {
+    origin: "local_assistance",
+    label: "Reviewed explanation · Not ETS-authored",
+    language: "en",
+    reviewed: true,
+    text: "Correct answer: A. I overslept. This indirectly explains missing the seminar.",
+    evidence: ["B: The question asks about attendance, not performance."],
+    warnings: ["An unrelated next-task segment was removed."],
+    source: { page: 18, materialId: "question-paper" },
+  };
+  q.sourceReferenceAnswer = "A";
+  q.resolutionEvidence = { oldNote: "旧版中文解析校核内容" };
+  q.answerConflict = {
+    status: "resolved-from-source",
+    reason: "旧版中文键差异",
+  };
+  q.explanationConflict = { resolutionEvidence: "旧版中文解析冲突" };
+  show(review);
+  expect(screen.getByText(q.explanation.label!)).toBeTruthy();
+  const body = screen.getByText(q.explanation.text);
+  expect(body.getAttribute("lang")).toBe("en");
+  expect(
+    screen
+      .getByText(q.explanation.evidence![0])
+      .closest("ul")
+      ?.getAttribute("lang"),
+  ).toBe("en");
+  expect(
+    screen.getByText(q.explanation.evidence![0]).closest("blockquote"),
+  ).toBeNull();
+  expect(
+    screen.getByText(q.explanation.warnings![0]).getAttribute("lang"),
+  ).toBe("en");
+  expect(screen.getByText("原题来源 · 第 18 页")).toBeTruthy();
+  expect(screen.queryByText(/旧版中文解析校核内容/)).toBeNull();
+  expect(screen.queryByText(/旧版中文键差异/)).toBeNull();
+  expect(screen.queryByText(/旧版中文解析冲突/)).toBeNull();
+  expect(screen.queryByText(/资料解析来源 · 第 18 页/)).toBeNull();
+});
+
 it("offers manual original-prompt playback in review without autoplay or optional PDFs", () => {
   const review = reviewFixture();
   review.sections![1].modules[0].questions![0].mediaSequence = [

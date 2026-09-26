@@ -19,6 +19,7 @@ TOEFL Local Lab is a single-user local web application. React renders the practi
 | `backend/reading_layout.py`, `shared/reading-layouts.json` | Source-bound paragraph and line-break projection for active practice and review, without mutating saved plans or embedding private passages |
 | `backend/media.py` | Recording containers and playback preparation |
 | `backend/mistakes.py`, `backend/explanations.py` | Cross-session mistake review and source-based/local explanations |
+| `backend/reviewed_explanations.py`, `shared/example1-explanations.en.json` | English Practice Test 1 rationales bound to reviewed question/key fingerprints, served only in review or authorized guided feedback |
 | `backend/practice_groups.py` | Source-ordered module/category groups, membership fingerprints, and aggregate progress |
 | `shared/rules.json` | Versioned timing, evidence levels, and navigation policy |
 | `examples/ets-practice-test-1/` | Complete prepared exam, derived assets, optional-source provenance, and file manifest |
@@ -66,6 +67,8 @@ Only root `README.md` / `README.zh-CN.md` are maintained as a language pair. All
 The frontend requests English guide content and sets the article's language accordingly, while toolbar controls retain the chosen UI language. Reading an English guide does not switch the application language. README language links retain their explicit language-selection behavior. `scripts/check_docs.py` enforces the root pair, rejects extra translated editions, and checks local Markdown links.
 
 ## Scoring and history
+
+Practice Test 1 uses project-authored English explanations for all 79 current screens, plus a separate note for the retained paper Interview 1. These are explicitly not ETS-authored. A fingerprint binds each rationale to the question, choices, reference key, source identity and audio identity; changed content or an unresolved key withholds the note instead of attaching a stale explanation. Display-only reading paragraph restoration preserves that binding. The original companion extracts remain archival source data, but are not attributed as the source of these new rationales. Language selection does not translate the English notes. This display layer never changes saved questions, submitted answers or grading keys and requires no bundle upgrade. See the [explanation audit](TEXT_FIDELITY.md#practice-test-1-explanation-audit-2026-09-26).
 
 Reliable objective answers contribute to a raw correct/total count. Unresolved answer conflicts are excluded from the denominator. Writing and speaking retain the response and allow rubric-based self-assessment; they are not automatically converted into official ETS scores.
 

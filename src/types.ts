@@ -130,6 +130,9 @@ export type Question = {
     | string
     | {
         origin: "source" | "local_assistance" | "unavailable";
+        language?: "en";
+        reviewed?: boolean;
+        reviewedAt?: string;
         label: string;
         text: string;
         evidence?: string[];

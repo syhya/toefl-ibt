@@ -4,6 +4,7 @@ Source explanations are distinguished from mechanical local assistance. Keyword
 location is explicitly not a semantic proof, and unresolved answers stay unknown.
 """
 from .engine import grade, normalize
+from .reviewed_explanations import reviewed_explanation
 import re
 
 STOP_WORDS = set('a an the to of in on at for from by with as and or but if is are was were be been being it its this that these those he she they them their his her we our you your i me my do does did have has had can could will would should not which what who where when why how than then also some any all'.split())
@@ -220,6 +221,9 @@ def _choice(q):
 
 
 def explain(q):
+    reviewed = reviewed_explanation(q)
+    if reviewed is not None:
+        return reviewed
     if unresolved(q):
         return unavailable(q, '此题的原键与题面尚有未解决冲突，暂不自动判定正确答案，也不生成正确性结论。')
     original = _original_explanation(q)

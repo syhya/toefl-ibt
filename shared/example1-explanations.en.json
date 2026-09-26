@@ -1,0 +1,830 @@
+{
+  "schemaVersion": 1,
+  "language": "en",
+  "reviewedAt": "2026-09-26",
+  "origin": "project-reviewed-source-based",
+  "official": false,
+  "scope": {
+    "currentScreens": 79,
+    "currentItems": 97,
+    "legacyPaperInterviewScreens": 1
+  },
+  "sourceEvidence": {
+    "questionPaperSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+    "answerKeyPhysicalPages": [
+      14,
+      15,
+      26,
+      27,
+      33
+    ],
+    "note": "All 54 choice keys and 20 cloze fragments checked against the printed tables. Build 5 retains the documented word-bank/article exception. Speaking follows the selected audio edition."
+  },
+  "questions": {
+    "student-1-r1-11": {
+      "fingerprint": "b02cf3bd2d4e8bca0e2d66110561ed42acd1f22eb35e6c59b5b70e2d9ae29254",
+      "text": "Correct answer: D. A bank\n\nThe notice offers electronic monthly savings-account statements. Savings accounts are banking products, so the issuer is a bank. 'Paperless' describes how the statements are delivered, not the type of business.",
+      "evidence": [
+        "A: Internet service is not the product described.",
+        "B: The app is an access method; no computers are being sold.",
+        "C: Receiving statements without paper does not make the issuer a paper company."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-12": {
+      "fingerprint": "e0f6647056355b4404847806885b31778c3ca91c6223c8022ae251bc41448800",
+      "text": "Correct answer: C. By using the Municipal Charter app\n\nThe instructions say to access the account through the mobile app and select account preferences in the upper-right corner. That is the stated enrollment method.",
+      "evidence": [
+        "A: The notice does not direct customers to an office.",
+        "B: A website is not the method specified; the notice explicitly names the mobile app.",
+        "D: No telephone enrollment procedure is given."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-13": {
+      "fingerprint": "dfeab6180192037b7ef82977e724e15b3a9a36199ac04c523bb9557c05541b19",
+      "text": "Correct answer: B. To describe the variety of products available at the farmer's market\n\nThe post presents the market's range of produce, baked goods and handmade crafts, with live music as an additional attraction. Describing this variety is its overall purpose.",
+      "evidence": [
+        "A: Organic produce is one example, not a discussion of the benefits of organic farming.",
+        "C: The post does not compare this market with other markets.",
+        "D: It addresses shoppers, not people seeking instructions for opening a stall."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-14": {
+      "fingerprint": "be84c2349035ef180fb93300a5f57496828dee6aea42a43aaed5654c09a9b70a",
+      "text": "Correct answer: C. They provide friendly service and excellent products.\n\nThe Thompson family's stall is described as known for its quality and cordial service. 'Cordial' means warm and friendly, so C paraphrases both reasons given.",
+      "evidence": [
+        "A: Cooking advice and recipes are not mentioned.",
+        "B: The passage makes no claim that their prices are the lowest.",
+        "D: The stall's decoration is not given as a reason for its popularity."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-15": {
+      "fingerprint": "df91963831e266b021aeac127a5d39cc30f037a3a08ba165f069a88b709ff2cf",
+      "text": "Correct answer: B. To get freshly baked bread and pastries before they are gone\n\nThe writer advises shoppers to arrive early because the bread and pastries sell out quickly. Early arrival improves their chance of buying these items before the supply is gone.",
+      "evidence": [
+        "A: No free morning samples are mentioned.",
+        "C: The baker is not described as famous.",
+        "D: The post mentions no early-morning discount."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-16": {
+      "fingerprint": "6cd1fbcd6e339ca0f5aa264e7813c757703499d097f00cec55b098ed9f41c4d2",
+      "text": "Correct answer: B. Research on animal cognition\n\nThe passage describes research into whether animals recognize themselves, explaining the mirror test and findings involving several species. Animal cognition is the broad topic covering these examples.",
+      "evidence": [
+        "A: Children appear only in the introduction to establish the idea of self-recognition.",
+        "C: The author does not organize the passage around differences among the three named mammals.",
+        "D: Cleaner fish are a final example; they are not the subject of the entire passage."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-17": {
+      "fingerprint": "a4c87c47c51922b49746fd94a716b9917d86a78c73527dd332d15d7421cc7774",
+      "text": "Correct answer: A. accomplishment\n\nHere, 'milestone' refers to an important developmental achievement: recognizing oneself in a mirror. 'Accomplishment' is the closest meaning in this context.",
+      "evidence": [
+        "B: This is not a literal marker of physical distance.",
+        "C: Nothing in the sentence concerns weight.",
+        "D: The focus is the child's achievement, not a researcher's discovery."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-18": {
+      "fingerprint": "75c48ab6b4a1cd4e439a01558005984c7465c4ae5108703ce44c8e0f6661605a",
+      "text": "Correct answer: B. It helped them determine whether the animals recognized themselves.\n\nAfter seeing a mark in the mirror, an ape that tried to remove it from its own body showed that it connected the reflection with itself. The mark therefore helped researchers test self-recognition.",
+      "evidence": [
+        "A: The marks were not used to track movement.",
+        "C: Distinguishing individual animals was not the stated purpose.",
+        "D: The passage describes a test of self-recognition, not color discrimination."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-19": {
+      "fingerprint": "1ad50c8818cd93aa23880170b5948ece7808485df90274a8648d05add7333d1e",
+      "text": "Correct answer: D. They understand certain signs from other animals.\n\nThis is an EXCEPT question: choose the statement not supported by the passage. The text attributes mirror self-recognition and high intelligence to elephants and compares them with apes, but says nothing about understanding other animals' signs.",
+      "evidence": [
+        "A: The passage explicitly reports signs of self-recognition in elephants.",
+        "B: It explicitly calls elephants and dolphins highly intelligent.",
+        "C: It compares their intelligence and self-recognition with those of apes."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-20": {
+      "fingerprint": "8d90b67cc7d1fdb23f432bcad28ab667ce1f868593288b72b4e0f7cf7f3b1338",
+      "text": "Correct answer: A. To suggest that a wide range of animals may possess self-awareness\n\nThe cleaner-fish example extends the discussion beyond highly intelligent mammals. The author uses it to suggest that self-awareness may occur in a wider range of animals than previously suspected.",
+      "evidence": [
+        "B: The point is that even less intelligent animals may show self-awareness, not that all ocean animals are highly intelligent.",
+        "C: The author does not present the fish result as a flaw in the experiment.",
+        "D: In the passage, the fish reacts to its own mark; it is not an example of failing the test."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-11": {
+      "fingerprint": "926d36323acf245f65667543de33501b7a27688434118215e1f407b0d99cc8c5",
+      "text": "Correct answer: C. September 20th\n\nSeptember 10 was the date when the reservation was made. The email separately states that the workshop will take place on September 20 at 3:00 PM. The question asks for the event date.",
+      "evidence": [
+        "A: This is the reservation date, not the workshop date.",
+        "B: September 12 is not given as the event date.",
+        "D: September 30 is not given as the event date."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-12": {
+      "fingerprint": "9667f4a56132ba17db8a5757d9902357791d9a278052f4cc13a3bf3e09ebaeea",
+      "text": "Correct answer: C. A protective garment\n\nMs. Edwards is told to bring her own apron or smock. Both are garments worn to protect clothing during activities such as painting, so C is the relevant paraphrase.",
+      "evidence": [
+        "A: The email does not ask her to bring a payment method.",
+        "B: Necessary art supplies will be provided; bringing extra paint is not requested.",
+        "D: The email does not request proof of the reservation."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-13": {
+      "fingerprint": "a74961b9fe94b04ff144876da2e8abc297e834f0089e40c6b06a75f139e7d9ea",
+      "text": "Correct answer: A. To attract customers to a new fitness center\n\nThe email invites members and their guests to a new branch, promotes its facilities and activities, and encourages them to bring friends and family. Its main purpose is to attract people to the new fitness center; the discount supports that broader invitation.",
+      "evidence": [
+        "B: Personal training is a service offered by the center, not a job offered to Ms. Nguyen.",
+        "C: The celebration is a grand opening, not a celebration of her personal achievements.",
+        "D: The discount is one supporting detail, not the overall purpose of the email."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-14": {
+      "fingerprint": "117b3c5d6114786cfedc260964fd9665f0faba1c23170d705d4e211660ec8e2e",
+      "text": "Correct answer: C. She is a member at one of the fitness center's other locations.\n\nThe invitation is addressed to a valued member and describes the opening of a new branch. Together, these details support the inference that Ms. Nguyen already belongs to another location of the fitness center.",
+      "evidence": [
+        "A: Being invited does not show that she organizes the center's activities.",
+        "B: The invitation offers an opportunity to explore the new facility; it does not say she has already visited it.",
+        "D: The reference to valued members points to an existing relationship, not a newcomer unfamiliar with fitness centers."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-15": {
+      "fingerprint": "029b55949d7c26c0b6375ce5f88cad9f3e15449ec957b1e267484707709c4d49",
+      "text": "Correct answer: D. Community members of all fitness levels\n\nThe email explicitly describes a space designed for all fitness levels and emphasizes a community-focused approach. The intended users are therefore community members across different ability levels.",
+      "evidence": [
+        "A: Expert trainers are part of the service, not the only intended users.",
+        "B: The center is not limited to top-level athletes.",
+        "C: The event invites members and guests, and the facility is not described as restricted to existing members."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-16": {
+      "fingerprint": "bd2da1a99c4626573e77a6ed2a3770e8f348cf8b792fcd1bf67fde4851b36428",
+      "text": "Correct answer: D. Limiting consumer choices can lead to higher satisfaction.\n\nThe passage argues that too many options can create anxiety and reduce satisfaction, while a more limited selection can make decisions easier. D captures this central idea across the discussion and the jam experiment.",
+      "evidence": [
+        "A: The passage questions the assumption that increasing options always helps.",
+        "B: It does not claim that consumer culture is driven by a demand for fewer products.",
+        "C: It associates individualistic cultures with a greater decision-making burden, not necessarily greater contentment."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-17": {
+      "fingerprint": "d0810ed3a70d73855bf0d5971005aa7c48f45c9547c4622e11293e6bbc35d57d",
+      "text": "Correct answer: B. Anxiety about making the wrong choice\n\nThe first paragraph connects an overabundance of options with anxiety, decision fatigue and fear of making the wrong choice. B matches the anxiety described there; the explanation does not require an additional psychological claim beyond the passage.",
+      "evidence": [
+        "A: The paragraph does not describe a desire to copy other consumers.",
+        "C: A preference for particular consumer cultures is not stated.",
+        "D: Greater freedom is contrasted with the burden of too many options; it is not the stated negative effect."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-18": {
+      "fingerprint": "c6e2811b332b9bb2bac3082759adeb1d67a07fb1332656bfe497065e8deadead",
+      "text": "Correct answer: C. To provide evidence supporting the paradox of choice\n\nThe experiment illustrates the main claim: shoppers were more likely to buy jam when offered six varieties rather than twenty-four. The author uses this result as evidence that more choice is not always better.",
+      "evidence": [
+        "A: Marketing implications are discussed, but the experiment's immediate role is to support the paradox of choice.",
+        "B: The passage reports a finding, not a detailed account of research methodology.",
+        "D: The example supports an argument rather than serving mainly as criticism of modern markets."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-19": {
+      "fingerprint": "f91016f514b5bb725cd1843825893f325031902f72a4d25f1881dff174901e71",
+      "text": "Correct answer: B. organizing\n\nIn 'curating their offerings,' retailers carefully select and arrange the products they offer. Among the choices, 'organizing' best captures that deliberate management of the selection.",
+      "evidence": [
+        "A: Eliminating products is narrower than curating and does not capture selecting and arranging.",
+        "C: Increasing the number of products contradicts the point about a limited, manageable selection.",
+        "D: Changing is too general; curating implies thoughtful selection and organization."
+      ],
+      "warnings": []
+    },
+    "student-1-r2-20": {
+      "fingerprint": "cbcc0e9dd73c98133a773d94663e7b613d9d0416b2ec53a891f4facc66389ff2",
+      "text": "Correct answer: C. They generally have fewer choices available.\n\nThe final paragraph states that collectivist cultures often provide fewer choices. C follows that description directly; no outside generalization about every collectivist society is needed.",
+      "evidence": [
+        "A: The passage reports higher, not lower, contentment in the comparison.",
+        "B: It presents a heavier choice burden in individualistic cultures, not in the collectivist cultures described.",
+        "D: A preference for individual decision-making is not supported."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-1": {
+      "fingerprint": "92efdc78651059b22cf17d88649502047b4d5f853d47c06c03fbc545a0d23831",
+      "text": "Correct answer: A. As a matter of fact, I was returning a book.\n\nThe woman asks for confirmation that she saw the listener in the library earlier. A confirms the visit by explaining what the listener was doing there: returning a book. The negative question form does not require the reply to begin with 'No.'",
+      "evidence": [
+        "B: This answers a question about where to find an item, not whether the listener was in the library.",
+        "C: This concerns whether there is enough time for an action, rather than an earlier visit.",
+        "D: This discusses a future arrival time, not the past encounter."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-2": {
+      "fingerprint": "048008f96e855e4e64aef0599446eb3aaaae05817787dafdca2f849e6deb3427",
+      "text": "Correct answer: C. I can help you find it.\n\nThe speaker asks where the nearest bus stop is. Offering to help locate it is a relevant response even though it does not immediately give an address or direction.",
+      "evidence": [
+        "A: Missing a bus does not identify or help locate the stop.",
+        "B: Every 30 minutes describes frequency, not location.",
+        "D: Choosing another form of transport does not answer the location question."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-3": {
+      "fingerprint": "07729c12633a03383605610e7cc60710cbc422c1c1793f43d9e9472f4126d520",
+      "text": "Correct answer: B. Use the convenient chat feature.\n\nThe question asks how to contact customer service. B gives a specific communication method: use the chat feature.",
+      "evidence": [
+        "A: Permission to do something does not explain the contact method.",
+        "C: This would respond to a request for permission or a favor, not a request for instructions.",
+        "D: An opinion about service quality does not explain how to contact the service."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-4": {
+      "fingerprint": "a3f36610cb09c26a759f20bb29eb04b43088019a5b79a9149398fab018814124",
+      "text": "Correct answer: B. How about tomorrow night then?\n\nThe woman politely says she is unavailable this evening. Suggesting tomorrow night responds to that scheduling problem with an alternative time.",
+      "evidence": [
+        "A: She has not proposed an early time that needs rejecting.",
+        "C: Another person's arrival this afternoon does not address her availability.",
+        "D: There is no offer or proposed action here that needs to be called unnecessary."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-5": {
+      "fingerprint": "1b82165948e6eebb5da18434b60e1615a0c617316d91da5eba2f9dc5c84b9ae8",
+      "text": "Correct answer: D. Let's check the schedule online.\n\nThe speaker wants to know whether the post office is open today. Checking its online schedule is a relevant way to resolve that uncertainty.",
+      "evidence": [
+        "A: Package ownership is unrelated to the opening hours.",
+        "B: The location around the corner does not establish whether it is open.",
+        "C: Someone arriving home does not answer a question about a post office."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-6": {
+      "fingerprint": "044273d5e45887fabc0800721c9eb61e23d4aecac355152651c293f752de6e2c",
+      "text": "Correct answer: D. You haven't given me your number yet.\n\nThe woman invites the listener to send a text if needed. D points out the missing prerequisite: the listener needs her phone number before being able to text her.",
+      "evidence": [
+        "A: The woman is offering a way to contact her, not asking for help with a task.",
+        "B: The listener may still need contact information; this response does not fit the invitation.",
+        "C: This comments on the number of questions instead of responding to the offer."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-7": {
+      "fingerprint": "a52f6980616b342a46b8d87736c5c8f386ae0cd4d7ffe87c52823aeb12818656",
+      "text": "Correct answer: D. Yes, they're having a huge sale.\n\nD is the coherent confirmation: the store is open and is holding a large sale. In this exchange, the sale fits the statement about doing business over the weekend. It does not establish a general rule that every sale proves all-weekend opening.",
+      "evidence": [
+        "A: A major power outage does not naturally support an unqualified confirmation that the store is open.",
+        "B: Renovation is not a clear supporting response to the opening question.",
+        "C: Being closed all day Sunday contradicts being open all weekend."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-8": {
+      "fingerprint": "3e39a1e0e658ac445c0b6b1acb83840a8810ffe72e0c9ec306082277a7a77de9",
+      "text": "Correct answer: A. I overslept.\n\nThe original prompt is 'Did you attend the seminar?' Here, attend means to be present at or participate in the seminar, and 'Did' asks about a past event. 'I overslept' means the person woke up later than intended. In this conversation, it naturally implies 'No, I missed it because I woke up too late.' The reply is an indirect answer, not a different meaning of attend.",
+      "evidence": [
+        "B: 'Not very well' describes how well something was done; it does not naturally answer whether someone attended an event.",
+        "C: Asking about the professor does not answer whether this person attended.",
+        "D: 'I forgot to look' does not explain attendance at the seminar; look is not a substitute for attend."
+      ],
+      "warnings": [
+        "An unrelated next-task segment was removed from the old imported explanation."
+      ]
+    },
+    "student-1-l1-9": {
+      "fingerprint": "e85615c72feab5bd44e4d286e163130c541cac88d1a56009a7ada02e5311494a",
+      "text": "Correct answer: C. Go shopping\n\nAt the start, the woman asks whether the man needs anything from the supermarket, implying that she is about to go shopping. Later she asks him to shop instead. It is the man who mentions changing clothes, after confusing the date of their theater plans.",
+      "evidence": [
+        "A: The woman says the play is tomorrow, so it is not what she was about to do now.",
+        "B: Changing clothes is mentioned by the man, not the woman.",
+        "D: They discuss dinner, but her opening supermarket question and request that he shop instead establish her intended errand."
+      ],
+      "warnings": [
+        "The companion analysis selected B by confusing the speakers. The original answer key gives C; the application's scoring key remains C."
+      ]
+    },
+    "student-1-l1-10": {
+      "fingerprint": "ee8eb1329803cf93d65f7b1e1e4170f721bcb579e61be9a34d8ac0bb08aa6a1d",
+      "text": "Correct answer: B. He forgot about the timing of their plans.\n\nThe man thought they were about to go to the play, but the woman reminds him it is tomorrow. His exaggerated expression means he is very forgetful and refers here to mixing up the timing of their plans.",
+      "evidence": [
+        "A: At that point, the woman has not yet given him a shopping list that he forgot.",
+        "C: The remark occurs before they choose what to eat.",
+        "D: Salmon and salad are suggested later; he has not already forgotten to buy them."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-11": {
+      "fingerprint": "1bec704fec22cae2e034ed615aee1d0b310b81963ed85b58f5e82518fc24bfe1",
+      "text": "Correct answer: B. A room is too hot.\n\nThe room is becoming uncomfortably warm because the air-conditioning is not working properly. That is why the woman has contacted a technician.",
+      "evidence": [
+        "A: An air-conditioning leak is not mentioned.",
+        "C: No elevator problem is discussed.",
+        "D: No stuck window is mentioned."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-12": {
+      "fingerprint": "4ce6aea92a562cd970169a831affc93802b8a86982e7992cfd01de99810cbb6f",
+      "text": "Correct answer: D. Take a break early\n\nShe suggests that he go out to lunch early while they wait for the air-conditioning to be repaired. This is an early break, not an instruction to stay and meet the technician.",
+      "evidence": [
+        "A: She does not mention an assignment.",
+        "B: Her suggestion is to leave for lunch rather than wait in the room.",
+        "C: Opening a door is not suggested."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-13": {
+      "fingerprint": "befdf904fdb1bced869a3d57792d378b37cebed6c3ec4889f3bb92addfc89a3b",
+      "text": "Correct answer: A. A guest lecture\n\nThe announcement introduces a forthcoming guest lecture by Dr. Cynthia Palmer, including its topic, time and location.",
+      "evidence": [
+        "B: Giving a location for the lecture does not mean that a class has changed rooms.",
+        "C: No class requirement is announced.",
+        "D: This is a guest event, not the introduction of a new university course."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-14": {
+      "fingerprint": "fcb6e5b7aa12712df1432f70e0e431cc99cb2ff7ae955fc03adbdf049ab9b485",
+      "text": "Correct answer: D. To explain why students should arrive early\n\nThe speaker connects Dr. Palmer's popularity and the high interest in her work with the recommendation to arrive early and secure a seat. Her popularity explains the practical advice about arrival time.",
+      "evidence": [
+        "A: The speaker does not tell students to read her publications.",
+        "B: The immediate reason for mentioning popularity is the expected demand for seats, not an explanation of the invitation decision.",
+        "C: No comparison with other guest speakers is made."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-15": {
+      "fingerprint": "23fb97f2b34c00b1ce79edd316078b033c79865d51c84dc7cf5c3136e43b2788",
+      "text": "Correct answer: C. Two types of fascination\n\nThe talk contrasts hard fascination with soft fascination, illustrating how they engage attention and affect mental fatigue differently. Both types, not just one, form the main topic.",
+      "evidence": [
+        "A: The speaker explains concepts and examples rather than research methods used by psychologists.",
+        "B: Maintaining concentration is not the main advice; the talk also values room for other thoughts.",
+        "D: The speaker describes fatigue from hard fascination rather than focusing on its benefits."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-16": {
+      "fingerprint": "6ea9ae6bb38355db8af5c9c3eb928c5ddfb0fec2a49a1d6dd2c6aade1a8cbef9",
+      "text": "Correct answer: B. To introduce a concept in psychology\n\nThe absorbing movie provides a familiar example before the speaker names the concept of hard fascination. Its function is to introduce that psychological idea.",
+      "evidence": [
+        "A: The speaker does not compare different film genres or movies.",
+        "C: The example concerns absorption of attention, not mainly emotional reactions.",
+        "D: The talk is not a recommendation to watch more movies."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-17": {
+      "fingerprint": "2bec359827f2e8dcab8675a959fd3340d6cf0678724721139e26789a17a99fda",
+      "text": "Correct answer: B. Her mind has space for thoughts unrelated to nature.\n\nWhile enjoying the park, the speaker can still think about dinner plans. This illustrates soft fascination: attention is engaged without excluding unrelated thoughts.",
+      "evidence": [
+        "A: The movie example involves total absorption, unlike the walk that leaves room for other thoughts.",
+        "C: Soft fascination is described as effortless rather than requiring special effort.",
+        "D: The walk illustrates soft fascination, not the hard fascination associated with fatigue."
+      ],
+      "warnings": []
+    },
+    "student-1-l1-18": {
+      "fingerprint": "c94b6f1578d46199ccd5fdbc1076213dda7ffdd272d5e708721b296a666ed815",
+      "text": "Correct answer: A. It is involved in soft fascination.\n\nThe speaker associates the Default Mode Network with soft fascination and says it soothes the mind and helps combat mental fatigue. A states the relationship actually described in the talk.",
+      "evidence": [
+        "B: Irritability and stress are described as possible consequences of mental fatigue, not as effects attributed to the DMN.",
+        "C: The talk does not say that the DMN tires easily through overuse.",
+        "D: The speaker describes a role for the DMN rather than saying its effect is unknown."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-1": {
+      "fingerprint": "5579cc0cbac0b16d8918c91ae06e2c984857fd086ba3b2eb44bf4e143d6a5145",
+      "text": "Correct answer: B. I'm unsure, but I can find out.\n\nThe question asks who the new manager is. B acknowledges that the listener does not know and offers to find the information, making it a relevant response to an identity question.",
+      "evidence": [
+        "A: This gives a starting time, not an identity or a way to obtain it.",
+        "C: Welcoming the manager does not identify the person.",
+        "D: Knowing that the position is filled does not tell the speaker who holds it."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-2": {
+      "fingerprint": "7c806043b86c857a477161feb29fa21791893f7124d8fa0ed31088d5b95d0810",
+      "text": "Correct answer: A. Please wait while I look that up.\n\nThe speaker asks for a report's deadline. A offers to look up the requested information, so it fits even though the date is not supplied immediately.",
+      "evidence": [
+        "B: Asking for unspecified dates does not respond to the request for this report's deadline.",
+        "C: Another due date is not relevant to this deadline.",
+        "D: A yes/no confirmation does not answer a when-question."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-3": {
+      "fingerprint": "e2dcecc93f79b18ef027e2c9a96ebdfbb49f804d880d275408df9c35786592c6",
+      "text": "Correct answer: D. Let's go together.\n\nThe statement announces a plan to buy groceries. Suggesting that they go together is a natural response to that plan.",
+      "evidence": [
+        "A: A weekly frequency does not respond to the announced plan.",
+        "B: An aisle location would answer where an item is, not whether to accompany the speaker.",
+        "C: A cinema's opening hours are unrelated to buying groceries."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-4": {
+      "fingerprint": "fde3318460d08d9184ac13f10629f926871996471aa4b8335729ff5e25728a84",
+      "text": "Correct answer: B. That would be great.\n\nThe woman offers a copy of her notes. B politely accepts that offer.",
+      "evidence": [
+        "A: Naming a facility does not accept or decline the offer.",
+        "C: The time of a break does not address the copy of the notes.",
+        "D: A number of bullet points does not respond to whether the listener wants a copy."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-5": {
+      "fingerprint": "65db9afa92617377548b88cc839230eef60e5ea31aab1ab8c76926151bf86c27",
+      "text": "Correct answer: A. Should we join them?\n\nThe speaker says that Sami and Layla are heading to the cafe. A proposes joining them, directly responding to that information.",
+      "evidence": [
+        "B: No concert has been mentioned.",
+        "C: A past time does not fit the statement about what the people are doing now.",
+        "D: Praising coffee does not address whether or how to respond to their plans."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-6": {
+      "fingerprint": "d015508d0d30e11a520e35296e4001933227a6d8d859de8a29c4ba11d96a6a41",
+      "text": "Correct answer: B. I'll set up a meeting for us to talk.\n\nThe woman wants to discuss the job candidates. Arranging a meeting to talk provides a way to share the requested opinions.",
+      "evidence": [
+        "A: Revising the listener's own resume does not answer a request to discuss other candidates.",
+        "C: Someone's promotion is not a response to the request.",
+        "D: The statement is about opinions on candidates, not whether training has been completed."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-7": {
+      "fingerprint": "8cf3213fe6c451dc4981b9904e022eaf9225b1bb9892638fbdabd0478ffa840e",
+      "text": "Correct answer: C. We don't offer that.\n\nThe question asks the price of expedited, or faster, shipping. C explains that this service is not offered, so there is no price to quote. A relevant response can correct the assumption behind a question instead of supplying the expected number.",
+      "evidence": [
+        "A: This vague description does not give a cost or explain service availability.",
+        "B: Twice last week expresses frequency, not price.",
+        "D: Requesting a bill does not answer the question about shipping charges."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-8": {
+      "fingerprint": "353bd24256fffe3eeda18c6924063b3a19c0689b46cfd577c06277f90a9098dd",
+      "text": "Correct answer: B. What is her role in the company?\n\nThe speaker has already identified Ms. Lee as the person to contact. Asking about her role is a relevant follow-up to understand what she does in the company.",
+      "evidence": [
+        "A: The speaker is giving a contact instruction, not requesting the listener's assistance.",
+        "C: This comments on the person asking questions instead of clarifying the instruction.",
+        "D: It asks for the contact person even though Ms. Lee has just been named."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-9": {
+      "fingerprint": "133d1f51a5f430ae1cd55e3440f4907dfa8587d01745078009523983f98adb44",
+      "text": "Correct answer: B. A smartphone and a tablet\n\nThe man explicitly says that he is deciding whether to get a smartphone or a tablet. B names those two alternatives.",
+      "evidence": [
+        "A: A laptop is not one of the two alternatives mentioned.",
+        "C: A desktop computer is not mentioned as an alternative.",
+        "D: A smartwatch is not mentioned as an alternative."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-10": {
+      "fingerprint": "1eff9164b741e9a36956c84493d1ceadfd1cb440420d2073d6b7b244f8e08496",
+      "text": "Correct answer: B. The device is easier to use on the go.\n\nThe woman recommends a smartphone if he needs something portable and easy to use on the go. B paraphrases that reason. The larger screen is the man's reason for considering a tablet, not her reason for recommending a phone.",
+      "evidence": [
+        "A: She makes no price comparison.",
+        "C: This reverses the speakers and devices: the man values the tablet's larger screen.",
+        "D: Battery life is not discussed."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-11": {
+      "fingerprint": "89404d6cbce52c32806d1bd6356ba661f4db04c25bc29124e040f0f835382f6e",
+      "text": "Correct answer: A. To inform students about a schedule change\n\nThe announcement says that the student lounge will close temporarily tomorrow from 1 to 3 PM for repairs. Among the options, informing students of this change in availability is the main purpose.",
+      "evidence": [
+        "B: No new lounge amenities are announced.",
+        "C: The lounge already exists; this is not an announcement of a new facility.",
+        "D: The notice warns of a temporary closure rather than encouraging more use of the lounge."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-12": {
+      "fingerprint": "67c08e7b2a8af2ecece1dbfebe064a074d70c18ba4dda0ff62feccc6e3c6eb68",
+      "text": "Correct answer: C. Use alternate spaces\n\nStudents are advised to use the library or campus cafe while the lounge is closed. These are alternate spaces.",
+      "evidence": [
+        "A: Waiting inside the closed lounge is not recommended.",
+        "B: Students are not asked to help repair the pipe.",
+        "D: The speaker suggests using the library itself, not visiting its website."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-13": {
+      "fingerprint": "46f818769a1124af52d9da015649b21f697af2af424b934bd20f47143b8b4117",
+      "text": "Correct answer: B. A measure of environmental impact\n\nThe lecturer defines the ecological footprint as a measure of environmental impact, explains what it measures and gives examples of its use. B captures the organizing topic.",
+      "evidence": [
+        "A: Differences in consumption illustrate the measure; changes over time are not the central focus.",
+        "C: Damaging activities are examples within the explanation of the measure, not the whole topic.",
+        "D: Government policy appears near the end as one application, not the main topic of the entire talk."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-14": {
+      "fingerprint": "c6b2eaff75d31a26dd71734b122cb88a1e77182b43a37a9f8a73e961912c8114",
+      "text": "Correct answer: C. To illustrate the usefulness of comparing ecological footprints\n\nThe comparison shows how ecological footprints reveal differences associated with consumption levels and waste production. It illustrates why comparing footprints can be useful.",
+      "evidence": [
+        "A: The comparison supports the explanation rather than contradicting it.",
+        "B: The example emphasizes differences associated with lifestyles, not identical depletion regardless of lifestyle.",
+        "D: The lecturer does not attribute the difference to production efficiency."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-15": {
+      "fingerprint": "56515b593d454cb940eba7ac2f0a856ca7f4faa9d6e14572f265fab03c9660a4",
+      "text": "Correct answer: D. By eating locally produced food\n\nThe speaker specifically recommends locally produced food because less energy is used to transport it. D is the example actually given.",
+      "evidence": [
+        "A: Waste disposal is not the particular action recommended in the example.",
+        "B: Joining an environmental group is not mentioned.",
+        "C: Transportation contributes to a footprint, but the stated recommendation here concerns the transport of food, not a person switching travel methods."
+      ],
+      "warnings": []
+    },
+    "student-1-l2-16": {
+      "fingerprint": "41af89251e68dd5d3066b18458c499257ee46320248ba5177973c62a74ee227e",
+      "text": "Correct answer: A. How information about ecological footprints has been used in creating policies\n\nAt the end, the lecturer says that governments and organizations can use footprint data to develop sustainable-development policies, then promises examples next. Those examples should concern policy applications.",
+      "evidence": [
+        "B: The closing preview is about using the data, not collecting it.",
+        "C: No forthcoming discussion of misunderstandings is announced.",
+        "D: The lecturer promises policy examples, not a discussion of why sustainability is difficult."
+      ],
+      "warnings": []
+    },
+    "student-1-r1-cloze": {
+      "fingerprint": "096b65df63b4501e0133c7a294c2565a2d4d022df9435c63f8a471f625a7973c",
+      "text": "Enter only the missing letters in each gap, not the complete word. Use both the printed letters and the sentence structure to reconstruct the word.",
+      "evidence": [
+        "Blank 1: mi + ght = might. Might is a modal verb expressing a possible assumption; it is followed by the base form think.",
+        "Blank 2: th + at = that. That introduces the content of what we might think: a clause about prehistoric people.",
+        "Blank 3: peo + ple = people. People names the prehistoric humans discussed in the paragraph and is the subject of concentrated.",
+        "Blank 4: on + ly = only. Only is an adverb meaning exclusively. The following on is already printed: concentrated only on basic survival.",
+        "Blank 5: ba + sic = basic. Basic is an adjective modifying survival, the essential activity contrasted with dancing.",
+        "Blank 6: How + ever = However. However signals the contrast between that assumption and the evidence that dancing mattered.",
+        "Blank 7: i + s = is. Is completes it is clear; the singular subject it takes is.",
+        "Blank 8: fr + om = from. From introduces the evidence on which the conclusion is based: clear from the record.",
+        "Blank 9: rec + ord = record. Record is the singular noun in the printed phrase the record, referring to the surviving evidence. The supplied prefix and three-letter gap require ord, not ords.",
+        "Blank 10: dan + cing = dancing. Dancing is an -ing noun naming the activity; it is the subject of was important to them."
+      ],
+      "warnings": [
+        "The old companion commentary omitted only and used records. The printed gaps and answer key require only (enter ly) and record (enter ord)."
+      ]
+    },
+    "student-1-r2-cloze": {
+      "fingerprint": "a7b410a03300d9d450b41ce93410e31c50c243dbce170af0be74f4eb12e66b5e",
+      "text": "Enter only the missing letters in each gap, not the complete word. Use both the printed letters and the sentence structure to reconstruct the word.",
+      "evidence": [
+        "Blank 1: i + s = is. Is forms the passive expression is divided with the past participle divided.",
+        "Blank 2: in + to = into. Into is the preposition in divided into several regions: separating a whole into parts.",
+        "Blank 3: reg + ions = regions. Regions is plural because it follows several and names the brain's different areas.",
+        "Blank 4: wi + th = with. With introduces what each region has: specific roles.",
+        "Blank 5: ro + les = roles. Roles names the functions of the different regions; the plural form fits specific roles.",
+        "Blank 6: i + ts = its. Its is a possessive determiner referring to the brain: the cerebrum is its largest part. It has no apostrophe.",
+        "Blank 7: pa + rt = part. Part is singular in the phrase its largest part, which describes the cerebrum.",
+        "Blank 8: invo + lved = involved. Involved completes is involved in, meaning that it participates in these functions.",
+        "Blank 9: cogn + itive = cognitive. Cognitive is an adjective modifying functions, with reasoning, planning and language as examples.",
+        "Blank 10: su + ch = such. Such forms the expression such as, which introduces examples."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-1": {
+      "fingerprint": "ca8605303e798a6f4d92698576aa90bbec8d782eaf9ee25bf5757a658243787e",
+      "text": "Reference sentence: The tour guides who showed us around the old city were fantastic.\n\nThe main clause is The tour guides were fantastic. The relative clause who showed us around the old city describes tour guides. The main subject is plural, so were is required; singular was is the unused distractor.",
+      "evidence": [
+        "Word-block order: tour guides → who → showed us around → the → old city → were.",
+        "Unused word block: was."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-2": {
+      "fingerprint": "8f3ddaadf3e6319c78c9edde1912f48b8890dd1a12b0447b7434455a56d66720",
+      "text": "Reference sentence: Do you know if she will be moving to a different department?\n\nThe main question uses Do + you + know. The embedded yes/no question begins with if and uses statement order: she will be moving, not will she be moving. Keep the printed words she will be in place.",
+      "evidence": [
+        "Word-block order: do → you → know → if → moving to → a different department."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-3": {
+      "fingerprint": "ac18f07530ef28f685b21f5fdbab53a4b8c38c47e7fcbd885fbb8f520808d194",
+      "text": "Reference sentence: Can you tell me whether the cabins will be available?\n\nCan comes before you in the main question. After whether, use statement order: the cabins will be available. Do not invert will and the cabins inside the embedded clause.",
+      "evidence": [
+        "Word-block order: can → you → whether → the cabins → will be → available."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-4": {
+      "fingerprint": "7ad306d8c91ee8110556e9ce24994d2b19c3355da578cb401e9ad8d52e9b20e8",
+      "text": "Reference sentence: What time does it start?\n\nWhat time is the question phrase. This is a wh-question, not a yes/no question. Use does before the singular subject it, followed by the base verb start.",
+      "evidence": [
+        "Word-block order: what → time → does → it → start."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-5": {
+      "fingerprint": "846d35ac976e5e63037f44849470f6188270ffd63af6733d91d5407bfd3ffee1",
+      "text": "Reference sentence: Do you know how much tickets will cost?\n\nDo you know is the main question. The embedded question begins how much and uses statement order: tickets will cost. The available word bank contains tickets but does not contain the, so do not add an unavailable word.",
+      "evidence": [
+        "Word-block order: do → you → know → how → much → tickets → will cost."
+      ],
+      "warnings": [
+        "The printed answer key and companion analysis include 'the tickets', but the source word bank contains no 'the' token. The app retains the source-verified, buildable answer without that extra article."
+      ]
+    },
+    "student-1-w-build-6": {
+      "fingerprint": "3422f73fc68624ef7d14aac21732b401a69d2b9402d6fa43fd9879b64e28eb5a",
+      "text": "Reference sentence: What is the water temperature like this time of year?\n\nThe pattern What is X like? asks for a description. Here X is the water temperature, and this time of year gives the time reference. Keep the multiword block time of year together.",
+      "evidence": [
+        "Word-block order: what → is → the water → temperature → like → this → time of year."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-7": {
+      "fingerprint": "745c8773a35b59871728a0b05e410b08ac2468c077c56c452df06dcd6ecb6e9e",
+      "text": "Reference sentence: Do you have a shopping list?\n\nThis yes/no question uses Do + you + have. A shopping list is the object; shopping describes the type of list and comes before list.",
+      "evidence": [
+        "Word-block order: do → you → have → a → shopping → list."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-8": {
+      "fingerprint": "66e44cb97f457f95a960ef3d6649243953a7d22e83397ce31c8292a2e5b605d5",
+      "text": "Reference sentence: What recipes will you learn?\n\nWhat recipes is the question phrase. The modal will precedes you, and the base verb learn follows the subject: What recipes will you learn?",
+      "evidence": [
+        "Word-block order: what → recipes → will → you → learn."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-9": {
+      "fingerprint": "7524377634af46d327282378e425103db4f859912f3bcb784ed12048fe9d75f9",
+      "text": "Reference sentence: She wanted to know where she could buy a copy.\n\nShe wanted to know introduces an embedded question. Use where she could buy a copy, with she before could. The first She is already printed; the separate she token is needed inside the embedded clause.",
+      "evidence": [
+        "Word-block order: wanted → to know → where → she → could → buy → a copy."
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-10": {
+      "fingerprint": "0cce17f0944fefcd2ef2d038f4d543b5095804a190e4c6112b389fd1881fed78",
+      "text": "Reference sentence: I used the study guide that was provided by the professor.\n\nThe main clause is I used the study guide. The relative clause that was provided by the professor describes the guide. That supplies the relative-clause subject, so inserting it would duplicate that subject; it is the unused distractor.",
+      "evidence": [
+        "Word-block order: the study guide → that → was provided → by → the professor.",
+        "Unused word block: it."
+      ],
+      "warnings": []
+    },
+    "student-1-w-email": {
+      "fingerprint": "21d0f39306a0f324e18e7862d2dbb891a3bc1981c600d12a63f74145dcac3363",
+      "text": "There is no single correct email. Address all three requested points: say what you like about the new magazine, describe the problem submitting two poems, and ask whether the submissions were received. The situation is uncertain receipt, not a confirmed rejection.",
+      "evidence": [
+        "A useful structure is: greeting; specific appreciation; a clear account of the submission problem; a polite request for confirmation or next steps; closing.",
+        "Use a professional, courteous tone appropriate for an editor. Contractions are not automatically errors, and the task does not require avoiding every conversational expression.",
+        "You may supply reasonable illustrative details about the technical problem, but keep them consistent with the prompt. Do not omit the request about submission status.",
+        "Review task completion, clarity, organization, grammar and vocabulary. The prompt does not prescribe a particular model answer or paragraph count. The app does not provide an official writing score."
+      ],
+      "warnings": []
+    },
+    "student-1-w-academic_discussion": {
+      "fingerprint": "fce6c272260c5f69eafd7861d1eed079abfff4758cf192d76dedea7f12ce65df",
+      "text": "There is no single correct position on mandatory high-school volunteering. Support your own view and contribute to the discussion in your own words. You can agree, disagree or offer a qualified position, provided your reasoning addresses whether participation should be required.",
+      "evidence": [
+        "The first student emphasizes civic responsibility; the second emphasizes students' existing commitments and possible stress. Respond to these ideas or add a relevant point rather than merely copying a post.",
+        "Develop your reasoning with a specific explanation or example. The prompt does not impose an at-least-two-reasons rule, require a personal anecdote, or require a separate concluding paragraph.",
+        "Aim for at least 100 words, as the task advises for an effective response. Word count alone neither guarantees a strong response nor constitutes an automatic score rule in this application.",
+        "Check that your contribution is relevant, supported, coherent and expressed clearly. This task requires rubric-based review, not comparison with one fixed model answer."
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-1": {
+      "fingerprint": "ef6eebb35a26289f989e746dc290668f7c44e1e63318e672b1f74f2925aa2691",
+      "text": "Reference sentence: We have a variety of wildlife.\n\nRepeat the sentence as heard, once. Preserve its wording and order rather than answering it or paraphrasing it.",
+      "evidence": [
+        "Keep the complete phrase a variety of wildlife; do not replace it with a paraphrase such as many animals.",
+        "Wildlife is the final word. Check that you retain we have and the short words a and of.",
+        "Compare your recording with the original for word coverage, intelligibility and rhythm. The app does not assign an official speaking score or require one written accent transcription."
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-2": {
+      "fingerprint": "d378204dea69e1f0d0f1e705dfe6673418f5578acc3deabc9063bc711be6e945",
+      "text": "Reference sentence: Bears, wolves, and large cats are to the right.\n\nRepeat the sentence as heard, once. Preserve its wording and order rather than answering it or paraphrasing it.",
+      "evidence": [
+        "The list contains three groups: bears, wolves, and large cats. Keep all three and their plural endings.",
+        "Use are to the right after the plural list. Do not omit the or change the direction.",
+        "Compare your recording with the original for word coverage, intelligibility and rhythm. The app does not assign an official speaking score or require one written accent transcription."
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-3": {
+      "fingerprint": "eb0eadf6ec8311585f3a274a41a35a56d9c713fb087e18635d403441a5c9c34e",
+      "text": "Reference sentence: You can find sea lions and elephants further down the path.\n\nRepeat the sentence as heard, once. Preserve its wording and order rather than answering it or paraphrasing it.",
+      "evidence": [
+        "Keep the two animal names sea lions and elephants, joined by and.",
+        "Retain You can find and the full location phrase further down the path. Use the recording as the pronunciation reference.",
+        "Compare your recording with the original for word coverage, intelligibility and rhythm. The app does not assign an official speaking score or require one written accent transcription."
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-4": {
+      "fingerprint": "f0c5ee21a710b253e000ac4aec99a1286d13a40868931bf6ea81db39741105ba",
+      "text": "Reference sentence: Please, no outside food or drinks, and do not feed the animals.\n\nRepeat the sentence as heard, once. Preserve its wording and order rather than answering it or paraphrasing it.",
+      "evidence": [
+        "The sentence gives two rules: no outside food or drinks, and do not feed the animals.",
+        "Keep or within the food/drinks phrase and and before the second rule. Do not turn the negative rule into a positive instruction.",
+        "Compare your recording with the original for word coverage, intelligibility and rhythm. The app does not assign an official speaking score or require one written accent transcription."
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-5": {
+      "fingerprint": "84eee167304c039dd88cbd2e280a3b8480e208171c2a88a2da43b61f533c8c49",
+      "text": "Reference sentence: Avoid banging or tapping on the displays and enclosures.\n\nRepeat the sentence as heard, once. Preserve its wording and order rather than answering it or paraphrasing it.",
+      "evidence": [
+        "Avoid is followed by the -ing forms banging and tapping, linked by or.",
+        "Retain on the displays and enclosures, including the plural endings. Repeat the instruction rather than explaining why it is important.",
+        "Compare your recording with the original for word coverage, intelligibility and rhythm. The app does not assign an official speaking score or require one written accent transcription."
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-6": {
+      "fingerprint": "8a4a4933f43d807e6d90e30aff9ece3991c9bb47f6d5305d4e7759e4734dde19",
+      "text": "Reference sentence: For those with children, we offer summer camps and educational opportunities.\n\nRepeat the sentence as heard, once. Preserve its wording and order rather than answering it or paraphrasing it.",
+      "evidence": [
+        "Keep the introductory phrase For those with children and the subject-verb phrase we offer.",
+        "The two offerings are summer camps and educational opportunities. Do not leave out either part or add information about dates or prices.",
+        "Compare your recording with the original for word coverage, intelligibility and rhythm. The app does not assign an official speaking score or require one written accent transcription."
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-7": {
+      "fingerprint": "fa69c926b8785e1e1b14c60f9f69116540e24d998d4b4908d7cb3cea8e5ddc62",
+      "text": "Reference sentence: The visitor's center, located near the front entrance, can give you more information.\n\nRepeat the sentence as heard, once. Preserve its wording and order rather than answering it or paraphrasing it.",
+      "evidence": [
+        "The main structure is The visitor's center can give you more information.",
+        "The phrase located near the front entrance describes the center and must also be repeated. Listen for the short words near, the and can; do not omit them.",
+        "Compare your recording with the original for word coverage, intelligibility and rhythm. The app does not assign an official speaking score or require one written accent transcription."
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-1-audio": {
+      "fingerprint": "1d0584b549d197ba2604eb57d682becb1e8952b938deaf08aaa080c57178c2ad",
+      "text": "There is no single correct response. Describe a city in your country that you visited but did not live in, explain why you went there, and say what you liked about it. This is a question about a past visit, not your current place of residence.",
+      "evidence": [
+        "Name the city or identify the trip briefly, then address both questions: the reason for the visit and a specific thing you liked.",
+        "Use relevant personal details and clear past-time language. A short, developed example is more useful than a long introduction that leaves one question unanswered.",
+        "This audio-version prompt differs from the paper PDF's residence question. Use the audio transcript for this attempt; do not reuse a response that only describes where you currently live."
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-2": {
+      "fingerprint": "51645888645825ced9087837db18d5fd88db874274f36acb3abfe4f9679ea7a2",
+      "text": "There is no single correct opinion. Explain how you react to cities and why. You may find them exciting, tiring, or a mixture of both; your reasons should match the reaction you describe.",
+      "evidence": [
+        "State your reaction directly, then explain it with a specific factor such as pace, crowds, opportunities, noise or familiarity.",
+        "A concrete experience can support the explanation, but no particular personal story is required.",
+        "Do not merely list city features. Connect the features to your own reaction and why you think you respond that way."
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-3": {
+      "fingerprint": "03e1c7181863b727083187bc60f50e129310282d8814478b0393147c9b4c7feb",
+      "text": "There is no single correct position. Address whether city residents lead more interesting lives, then support your view. The examples of professional and leisure opportunities are ideas to evaluate, not claims you must agree with.",
+      "evidence": [
+        "Choose a clear position or a qualified comparison, and explain what interesting means in your argument.",
+        "Develop a relevant reason with a specific example. If you disagree, explain how people outside cities can also have interesting lives.",
+        "Stay focused on how interesting life is; a response about whether cities are cheaper or healthier needs a clear connection to that question."
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-4": {
+      "fingerprint": "458c875a81e742872182e6d7b28276a887f37eaa5d8b5685d2b172351a5119d0",
+      "text": "There is no single correct position. Explain whether city governments should create more parks to promote happiness and life satisfaction, and give reasons for your view.",
+      "evidence": [
+        "Connect your argument to residents' well-being. You might discuss recreation, social contact or relief from stress, or explain relevant constraints and trade-offs.",
+        "Either agreement or disagreement can answer the question if it is developed coherently. The prompt does not require a pro-parks opinion.",
+        "Use a concrete example or explanation and avoid unsupported claims of precise medical or psychological effects. This is rubric-based speaking practice, not a factual quiz with one model response."
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-1": {
+      "fingerprint": "f48a50ecc8be78fc83d0e6caf60bc02d584970374fd9253001bcc7714a3f9d95",
+      "text": "There is no single correct response. This retained paper-version question asks whether you currently live in a big city, a small town or a village. Identify your present type of residence and add a brief relevant detail if useful.",
+      "evidence": [
+        "Do not substitute a description of a past trip: that belongs to the different audio-edition first prompt.",
+        "This legacy paper item remains source study because its supplied audio does not match the printed question. Its saved timer and answers are not changed by this explanation."
+      ],
+      "warnings": []
+    }
+  }
+}

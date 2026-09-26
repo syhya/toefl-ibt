@@ -4,6 +4,8 @@ This is TOEFL Local Lab's default example: **TOEFL iBT® Practice Test 1**. The 
 
 This lightweight package contains all prepared questions, source-derived playback clips, extracted explanations, discussion portraits and review images. Original PDFs and full MP3 tracks are optional and excluded from Git. Companion audio/explanations came from separately supplied local sources, not the official PDF URL. See [NOTICE.md](NOTICE.md).
 
+Current review uses project-authored English explanations for every screen, maintained in `shared/example1-explanations.en.json` with the application code. These replace faulty companion commentary in the displayed review, while the raw imported extracts remain archived in this unchanged v3 package. The notes are not ETS-authored, require no extra original materials or package upgrade, and do not change saved answers or scores. See the [explanation audit](../../docs/TEXT_FIDELITY.md#practice-test-1-explanation-audit-2026-09-26).
+
 ## Install and practice
 
 From the repository root, after [installing the application](../../README.md):

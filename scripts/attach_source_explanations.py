@@ -5,6 +5,21 @@ import re
 import unicodedata
 
 
+def explanation_lines(span):
+    """Do not attach the next question or section's heading to this rationale."""
+    boundary = re.compile(
+        r'^(?:What|Why|When|Who|Where|How|Which|According|The word|The new fitness center|'
+        r'Woman:|M\s*an:|Topic\?|About her|Default M\s*ode|Part\s+\d+|'
+        r'Passage\s*:|Conversation\s*:|Announcement\s*:|Environmental Science Class Lecture|'
+        r'场景\s*[:：]|办公室空调|课堂通知|心理学播客|[一二三四五]+、|第[一二三四五]+部分)', re.I)
+    kept = []
+    for line_no, line in enumerate(span.splitlines()):
+        if line_no and boundary.match(line.strip()):
+            break
+        kept.append(line)
+    return kept
+
+
 def attach(exams,materials,root):
     root=Path(root)
     material=next((m for m in materials if '第1套' in m['name'] and '解析' in m['name'] and m['kind']=='pdf'),None)
@@ -33,7 +48,6 @@ def attach(exams,materials,root):
     l2=re.search(r'M\s*odule\s*2',text[listening.start():writing.start()])
     l2pos=listening.start()+l2.start()
     ranges=[('r1',0,r2.start(),11,10),('r2',r2.start(),listening.start(),11,10),('l1',listening.start(),l2pos,1,18),('l2',l2pos,writing.start(),1,16)]
-    next_question=re.compile(r"^(?:What|Why|When|Who|Where|How|Which|According|The word|Woman:|M\s*an:|Topic\?|About her|Default M\s*ode)",re.I)
     for prefix,start,end,first,count in ranges:
         part=text[start:end];answers=list(re.finditer(r'正确答案[：:]\s*([A-D])[.．]?\s*',part))
         if len(answers)!=count:
@@ -43,10 +57,7 @@ def attach(exams,materials,root):
             q=questions.get(f'student-1-{prefix}-{first+index}')
             if not q:continue
             span=part[m.start():answers[index+1].start() if index+1<len(answers) else len(part)]
-            lines=span.splitlines();kept=[]
-            for line_no,line in enumerate(lines):
-                if line_no and next_question.match(line.strip()):break
-                kept.append(line)
+            kept=explanation_lines(span)
             conflict=None
             if q.get('answer') and q['answer']!=m[1]:
                 conflict={'status':'conflicts-with-original-question-key','analysisAnswer':m[1],'questionAnswer':q['answer'],'questionSource':q['source'],'analysisSourcePage':page_at(start+m.start()),'resolutionEvidence':'The original question answer key is retained; the auxiliary analysis is not an authoritative replacement.'}

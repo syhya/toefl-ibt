@@ -268,7 +268,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         result['mediaCount'] = len(media)
         if review:
             result['explanation'] = explain(q)
-            if q.get('explanationSource'):
+            if q.get('explanationSource') and not result['explanation'].get('reviewed'):
                 explanation_source = q['explanationSource']
                 mapped = {key: explanation_source[key] for key in ['page', 'materialId', 'label', 'origin', 'official'] if key in explanation_source}
                 if explanation_source.get('url'):

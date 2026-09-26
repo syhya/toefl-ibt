@@ -14,6 +14,8 @@ This is an independent practice tool, not an ETS product. Strict mode enforces t
 
 ## Quick start
 
+**Example explanations:** All 79 Practice Test 1 screens have reviewed English rationales, including distractor analysis and per-blank grammar notes. They stay in English under either UI language and are labeled as project-authored, not ETS explanations. The [explanation audit](docs/TEXT_FIDELITY.md#practice-test-1-explanation-audit-2026-09-26) corrects companion-note errors without changing reference keys or saved scores; archived source extracts remain in the prepared package.
+
 Prerequisites: **Node.js 22.12+**, **Python 3.10+**, and a current Chrome or Edge browser. Internet access is needed for the initial dependency installation. Run these commands from the repository root on macOS or Linux:
 
 ```sh

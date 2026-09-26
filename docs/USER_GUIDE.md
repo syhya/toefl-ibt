@@ -83,7 +83,9 @@ Strict interruption/fault recovery records the event. You can continue available
 
 ## Review, scores, and mistakes
 
-History opens saved sessions, original accepted answers, available source explanations, writing, and recording playback/download. Where the source has no explanation, a clearly labeled local aid may compare letters/tokens or locate imported text. It does not call an AI service or invent a semantic explanation without support.
+History opens saved sessions, original accepted answers, explanations, writing, and recording playback/download. Practice Test 1 now has reviewed English explanations for all 79 screens, even when the application controls are in Chinese. Each is labeled **Reviewed explanation · Not ETS-authored**. They explain the verified answer and distractors, each cloze blank, sentence grammar, or writing/speaking response requirements. Update the application and restart it to use these notes; no material reimport or example upgrade is required. Saved answers and scores are unchanged. A note is withheld if its saved question or key differs from the reviewed version.
+
+Other collections retain available source explanations. Where a source has no explanation, a clearly labeled local aid may compare letters/tokens or locate imported text. Ordinary review does not call an AI service.
 
 Objective results count only reliable keys. An unresolved source-answer conflict is excluded from the denominator. Writing/speaking are saved for rubric-based 0–5 self-assessment; not yet assessed is not zero. The app does not convert raw accuracy or self-assessment into official ETS 1–6 or 120-point scores.
 

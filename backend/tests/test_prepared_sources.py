@@ -91,7 +91,8 @@ def test_practice_review_and_audio_remain_available_without_original_links(prepa
         q = review['sections'][0]['modules'][0]['questions'][0]
         assert review['answers'][q['id']]['b1'] == 'ght'
         assert q['explanation'] and 'url' not in q['source']
-        assert 'url' not in q['explanationSource']
+        assert q['explanation']['reviewed'] and q['explanation']['language'] == 'en'
+        assert 'explanationSource' not in q  # The new rationale is not the companion PDF's text.
         # Every prepared audio/visual is present, and source omission is not a
         # playback fallback to the mismatched or unsplit original recordings.
         for section in exam['sections']:

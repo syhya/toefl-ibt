@@ -1382,6 +1382,11 @@ function Explanation({ question: q }: { question: Question }) {
           text: q.explanation,
         }
       : q.explanation;
+  const english = explanation?.language === "en";
+  const explanationText = (text: string) =>
+    english || explanation?.origin === "source"
+      ? text
+      : localizeDynamic(text, locale);
   return (
     <section className="explanation-panel">
       <div className="explanation-heading">
@@ -1390,7 +1395,9 @@ function Explanation({ question: q }: { question: Question }) {
         <span
           className={`pill ${explanation?.origin === "source" ? "teal" : "gray"}`}
         >
-          {localizeDynamic(explanation?.label, locale) ||
+          {(english
+            ? explanation?.label
+            : localizeDynamic(explanation?.label, locale)) ||
             t("Source evidence", "原资料依据")}
         </span>
       </div>
@@ -1412,35 +1419,47 @@ function Explanation({ question: q }: { question: Question }) {
                     "查看有冲突的资料附带解析原文",
                   )}
                 </summary>
-                <p>
-                  {explanation.origin === "source"
-                    ? explanation.text
-                    : localizeDynamic(explanation.text, locale)}
+                <p lang={english ? "en" : undefined}>
+                  {explanationText(explanation.text)}
                 </p>
               </details>
             </>
           ) : (
-            <p>
-              {explanation.origin === "source"
-                ? explanation.text
-                : localizeDynamic(explanation.text, locale)}
+            <p lang={english ? "en" : undefined}>
+              {explanationText(explanation.text)}
             </p>
           )}
-          {explanation.evidence?.map((evidence, index) => (
-            <blockquote key={index}>
-              {explanation.origin === "source"
-                ? evidence
-                : localizeDynamic(evidence, locale)}
-            </blockquote>
-          ))}
+          {explanation.reviewed && explanation.evidence?.length ? (
+            <ul className="explanation-reasons" lang="en">
+              {explanation.evidence?.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            explanation.evidence?.map((evidence, index) => (
+              <blockquote key={index}>
+                {explanation.origin === "source"
+                  ? evidence
+                  : localizeDynamic(evidence, locale)}
+              </blockquote>
+            ))
+          )}
           {explanation.warnings?.map((warning, index) => (
-            <p className="explanation-warning" key={index}>
-              {localizeDynamic(warning, locale)}
+            <p
+              className="explanation-warning"
+              key={index}
+              lang={english ? "en" : undefined}
+            >
+              {explanationText(warning)}
             </p>
           ))}
           {explanation.source?.page && (
             <small className="muted">
-              {explanation.source.url ? (
+              {explanation.reviewed ? (
+                t("Question source · Page {page}", "原题来源 · 第 {page} 页", {
+                  page: explanation.source.page,
+                })
+              ) : explanation.source.url ? (
                 <a
                   href={`${explanation.source.url}${explanation.source.url.includes("#") ? "" : `#page=${explanation.source.page}`}`}
                   target="_blank"
@@ -1484,7 +1503,7 @@ function Explanation({ question: q }: { question: Question }) {
             {t("Original answer key: ", "原参考键：")}
             {answerText(q.sourceReferenceAnswer)}
           </p>
-          {q.resolutionEvidence !== undefined && (
+          {q.resolutionEvidence !== undefined && !explanation?.reviewed && (
             <Report value={q.resolutionEvidence} />
           )}
         </details>
@@ -1505,18 +1524,19 @@ function Explanation({ question: q }: { question: Question }) {
           )}
         </details>
       )}
-      {q.answerConflict !== undefined && (
-        <details>
-          <summary>
-            {t(
-              "Source differences recorded for this question",
-              "此题有来源差异记录",
-            )}
-          </summary>
-          <Report value={q.answerConflict} />
-        </details>
-      )}
-      {q.explanationConflict !== undefined && (
+      {q.answerConflict !== undefined &&
+        (!explanation?.reviewed || explanation.origin === "unavailable") && (
+          <details>
+            <summary>
+              {t(
+                "Source differences recorded for this question",
+                "此题有来源差异记录",
+              )}
+            </summary>
+            <Report value={q.answerConflict} />
+          </details>
+        )}
+      {q.explanationConflict !== undefined && !explanation?.reviewed && (
         <details open>
           <summary>
             {t(

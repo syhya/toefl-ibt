@@ -51,6 +51,25 @@ Original question files, bundle hashes, saved session plans, choices, answers, a
 
 Validation: **659 checks passed** (200 UI, 424 API/security, 35 data/import), plus production build. Browser inspection on a fresh minimal-package installation confirmed the reported email's four paragraphs and the long invitation's body paragraphs and signature line break. API regressions verify active/historical consistency, unchanged stored plans and answers, source/text mismatch rejection, and all available audited source records. Local screenshots and comparison records are under `tmp/qa/reading-layout/`; they are not distribution files.
 
+## Practice Test 1 explanation audit: 2026-09-26
+
+All **79 current question screens / 97 items** were reviewed against their question text, passages, supplied transcripts and reference keys. The original PDF's answer tables on physical pages 14, 15, 26, 27 and 33 were visually checked. Its SHA-256 is `33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d`. The current grading keys remain unchanged: several defects were in the separately supplied commentary, not the key used by the application.
+
+| Item | Finding and correction |
+| --- | --- |
+| Listening Module 1, question 8 | The prompt is “Did you attend the seminar?” Attend means be present at or participate in the event. A, “I overslept,” indirectly explains missing it. Unrelated next-task background had been appended to the explanation and is removed. |
+| Listening Module 1, question 9 | The old commentary chose changing clothes. The question concerns the woman, who initially plans to shop; the man mentions changing clothes. The verified key remains C, “Go shopping.” |
+| Reading Module 1, cloze | The commentary's `on` and `records` do not fit the given letters/gaps. The required entries remain `ly` in `only` and `ord` in `record`. Every blank now has its own grammar/context explanation. |
+| Build a Sentence, questions 4 and 5 | Question 4 is a wh-question, not a yes/no question. Question 5 retains the existing source-verified, buildable answer without the extra `the` found in the printed key/commentary but absent from the word bank. The exception remains explicit. |
+| Email and Academic Discussion | Remove unsupported hard rules such as requiring two reasons, a personal anecdote or a separate conclusion, and banning all contractions. Explain the actual prompt requirements and distinguish word-count advice from automatic scoring. |
+| Speaking | Give each repeat sentence its own guidance and each interview its own response requirements. Interview 1 follows the selected audio edition; the retained paper question has a separate explanation. No fixed “correct” opinion or official score is invented. |
+
+Every choice now has an answer rationale plus separate distractor reasons. Next-task headings and background are excluded; the companion importer also stops at these boundaries on future imports. The new notes are **English in both interface languages**, labeled **Reviewed explanation · Not ETS-authored**. They are project-authored source-based guidance, not translations presented as official commentary. The archived companion extracts remain in the original prepared package for provenance; they are not served as the current reviewed explanation.
+
+`shared/example1-explanations.en.json` holds 80 records: 79 current screens and one retained paper Interview 1. `backend/reviewed_explanations.py` verifies a normalized fingerprint of each question, source/audio identity and key before attaching its note. A changed or unresolved key withholds the rationale pending another source check. The API exposes notes only through completed review/export or explicitly authorized guided feedback, not during strict questions. Displaying a note does not modify source questions, bundle hashes, saved plans, answers, deadlines or frozen score snapshots. Updating code and restarting the service is sufficient; no example reinstall/upgrade is required.
+
+Regression checks cover all current notes, original table keys, the reported seminar item, each known commentary defect, import boundaries, language rendering, mismatch rejection and immutable historical review/export. Local source renders and audit logs are under `tmp/qa/example1-explanations/`. This is a rationale/key audit; it is not a new certification of every audio transcription, source-image pixel or ETS scoring rule.
+
 ## Verification and local evidence
 
 - `backend/tests/test_text_corrections.py` covers source binding, exact before matching, permitted paths, direct historical review after import, restart, idempotence, and immutable saved answers/scores.
