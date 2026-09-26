@@ -110,7 +110,7 @@ def test_bundled_sample_timing_evidence_and_windows():
     exam = json.loads(path.read_text())
     plan = make_plan(exam, {'mode': 'practice', 'scope': 'all'}, DEFAULT_TIMING)
     reading = [s for s in plan if s['section'] == 'reading']
-    assert [(s['seconds'], s['timingBasis']) for s in reading] == [(1260, 'local'), (540, 'local')]
+    assert [(s['seconds'], s['timingBasis']) for s in reading] == [(900, 'local'), (900, 'local')]
     assert sum(s['seconds'] for s in reading) == 30 * 60
     listening = [s for s in plan if s['section'] == 'listening']
     assert [s['responseWindows'] for s in listening] == [[20] * 14 + [30] * 4, [20] * 12 + [30] * 4]
@@ -134,12 +134,14 @@ def test_thirty_minute_reading_profile_has_separate_module_clocks_and_preserves_
         frozen = store.get(db, old['id'])
         frozen['rulesVersion'] = '2026-09-26-timing-scope-v6'
         frozen['timing']['readingCommon'] = 690
+        frozen['timing']['readingSecond'] = 540
         frozen['plan'][0]['seconds'] = 690
+        frozen['plan'][1]['seconds'] = 540
         store.save(db, frozen)
     old = begin(env, old)
     assert old['remainingSeconds'] == 690
     current = begin(env, start(env, scope='reading'))
-    assert current['remainingSeconds'] == 1260
+    assert current['remainingSeconds'] == 900
     env['clock'][0] += 30_000
     preserved = env['client'].get(f"/api/sessions/{old['id']}").json()
     assert preserved['deadline'] == old['deadline'] and preserved['remainingSeconds'] == 660
@@ -147,9 +149,9 @@ def test_thirty_minute_reading_profile_has_separate_module_clocks_and_preserves_
     env['clock'][0] = current['deadline']
     second_directions = env['client'].get(f"/api/sessions/{current['id']}").json()
     assert second_directions['phase'] == 'directions' and second_directions['deadline'] is None
-    assert second_directions['stage']['seconds'] == 540
+    assert second_directions['stage']['seconds'] == 900
     env['clock'][0] += 60_000
     second = begin(env, second_directions)
-    assert second['remainingSeconds'] == 540
+    assert second['remainingSeconds'] == 900
     env['clock'][0] = second['deadline']
     assert env['client'].get(f"/api/sessions/{current['id']}").json()['status'] == 'completed'

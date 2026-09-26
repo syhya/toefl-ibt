@@ -8,9 +8,9 @@ import uuid
 from .presentation import is_interactive as presentation_is_interactive, validate_question as validate_presentation
 
 ORDER = ['reading', 'listening', 'writing', 'speaking']
-RULES_VERSION = '2026-09-26-reading-profile-v7'
+RULES_VERSION = '2026-09-26-balanced-reading-v8'
 SCORING_ENGINE_VERSION = '2026-09-05-objective-snapshot-v1'
-DEFAULT_TIMING = {'readingCommon': 1260, 'readingSecond': 540, 'listeningResponse': 20, 'listeningAcademic': 30,
+DEFAULT_TIMING = {'readingCommon': 900, 'readingSecond': 900, 'listeningResponse': 20, 'listeningAcademic': 30,
                   'buildSentence': 360, 'email': 420, 'academicDiscussion': 600,
                   'repeat': [8, 8, 10, 10, 10, 12, 12], 'interview': 45}
 SUBJECTIVE = {'email', 'academic_discussion', 'listen_repeat', 'interview', 'read_aloud', 'picture_writing'}

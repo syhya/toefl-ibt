@@ -244,16 +244,16 @@ export function Settings({
       "readingCommon",
       t("Reading · Module 1", "阅读 · Module 1"),
       t(
-        "Seconds; default 21:00, using the blueprint's upper estimate",
-        "秒，默认 21:00，参考官方蓝图估算上限",
+        "Seconds; default 15:00, shared within Module 1",
+        "秒，默认 15:00，模块 1 内共用",
       ),
     ],
     [
       "readingSecond",
       t("Reading · Module 2", "阅读 · Module 2"),
       t(
-        "Seconds; default 09:00, using the blueprint's second-module estimate",
-        "秒，默认 09:00，参考官方蓝图第二模块估算",
+        "Seconds; default 15:00, shared within Module 2",
+        "秒，默认 15:00，模块 2 内共用",
       ),
     ],
     [
@@ -309,8 +309,8 @@ export function Settings({
         </p>
         <p>
           {t(
-            "Reading default: 21:00 + 09:00 = 30:00. This blueprint-based practice allocation is not a verified initial clock for the 40-item sample. Source-specific module limits still take precedence.",
-            "阅读默认：21:00＋09:00＝30:00。这是参考官方蓝图的练习分配，并非已核实的 40 题样题起始时限。题包自身的模块时限仍优先。",
+            "Reading default: 15:00 + 15:00 = 30:00. This personal practice allocation gives equal time to the sample's two 20-item modules; it is not a verified official module limit. Source-specific module limits still take precedence.",
+            "阅读默认：15:00＋15:00＝30:00。这是为本套两个各 20 题的模块均分时间的个人练习预设，并非已核实的官方模块时限。题包自身的模块时限仍优先。",
           )}
         </p>
         <div className="settings-grid">

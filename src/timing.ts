@@ -3,7 +3,7 @@ import type { Timing } from "./types";
 
 const SETTINGS_KEY = "toefl-lab-settings";
 const VERSION_KEY = "toefl-lab-settings-version";
-const VERSION = "2";
+const VERSION = "3";
 
 export function loadTimingSettings(): Timing {
   try {
@@ -12,15 +12,25 @@ export function loadTimingSettings(): Timing {
       return { ...DEFAULT_TIMING };
     }
     const timing = { ...DEFAULT_TIMING, ...saved };
-    const legacy = { ...DEFAULT_TIMING, readingCommon: 690 };
+    const version = localStorage.getItem(VERSION_KEY);
+    const legacy = [
+      ...(version === null
+        ? [{ ...DEFAULT_TIMING, readingCommon: 690, readingSecond: 540 }]
+        : []),
+      ...(version === null || version === "2"
+        ? [{ ...DEFAULT_TIMING, readingCommon: 1260, readingSecond: 540 }]
+        : []),
+    ];
     // Upgrade only the unchanged old preset. Explicit custom profiles, and
-    // deliberate 11:30 settings saved by this version, must survive reloads.
+    // deliberate older allocations saved by this version, survive reloads.
     const unchangedLegacy =
-      localStorage.getItem(VERSION_KEY) === null &&
-      Object.keys(saved).every((key) => key in legacy) &&
-      Object.entries(legacy).every(
-        ([key, value]) =>
-          JSON.stringify(timing[key as keyof Timing]) === JSON.stringify(value),
+      Object.keys(saved).every((key) => key in DEFAULT_TIMING) &&
+      legacy.some((preset) =>
+        Object.entries(preset).every(
+          ([key, value]) =>
+            JSON.stringify(timing[key as keyof Timing]) ===
+            JSON.stringify(value),
+        ),
       );
     return unchangedLegacy ? { ...DEFAULT_TIMING } : timing;
   } catch {

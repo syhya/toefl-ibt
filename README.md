@@ -10,7 +10,7 @@ A local TOEFL-style practice website with English and Simplified Chinese navigat
 
 This is an independent practice tool, not an ETS product. Strict mode enforces the selected local rules; some timing values are explicitly documented approximations. It does not reproduce ETS's proprietary adaptation or convert raw accuracy into official 1–6 or 120-point scores. See [rules and evidence](docs/OFFICIAL_RULES.md).
 
-**Practice Test 1 timing:** Email 7 minutes, Discussion 10 minutes, and matched Interview responses 45 seconds are confirmed by ETS. Reading now defaults to **21:00 + 09:00 = 30:00**, a practice allocation based on the ETS blueprint estimates, not verified initial clocks for this 40-item paper. Listening 20/30 seconds, sentence-building 6 minutes, and the exact repeat sequence also remain local presets. Start pages identify their basis. See the [2026-09-26 per-part audit](docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26). Timing fixes apply only to new sessions; Interview question 1 stays untimed while questions 2–4 retain 45 seconds each.
+**Practice Test 1 timing:** Email 7 minutes, Discussion 10 minutes, and matched Interview responses 45 seconds are confirmed by ETS. Reading now defaults to **15:00 + 15:00 = 30:00**, the user-selected balanced practice allocation for this paper's two 20-item modules, not verified official initial clocks. Listening 20/30 seconds, sentence-building 6 minutes, and the exact repeat sequence also remain local presets. Start pages identify their basis. See the [2026-09-26 per-part audit](docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26). Timing fixes apply only to new sessions; Interview question 1 stays untimed while questions 2–4 retain 45 seconds each.
 
 ## Quick start
 

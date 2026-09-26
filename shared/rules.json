@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "rulesVersion": "2026-09-26-reading-profile-v7",
+  "rulesVersion": "2026-09-26-balanced-reading-v8",
   "effectiveFrom": "2026-01-21",
   "verifiedAt": "2026-09-05",
   "productDisclosure": "严格计时·本地模拟。按选定练习配置执行；非 ETS 官方系统，未复现官方自适应或评分。",
@@ -237,10 +237,10 @@
     "readingWritingStageBeginScreens": true,
     "stageBeginEvidence": "Pack 1 physical PDF pages 18, 85 and 87: Reading Module 2, Email and Academic Discussion have Begin screens; their response timers start after Begin.",
     "readingModuleSeconds": [
-      1260,
-      540
+      900,
+      900
     ],
-    "readingNote": "30-minute local practice profile: Module 1 21 minutes plus Module 2 9 minutes, using the blueprint estimates. Not verified initial clocks for the 40-item student paper. Explicit source module limits and custom settings retain precedence; old sessions keep their frozen plan.",
+    "readingNote": "User-selected balanced local practice profile: 15 minutes per module, 30 minutes total, for the student sample with 20 items in each module. Not a verified official module limit. Source-specific durations, custom settings and frozen sessions retain precedence.",
     "listeningResponseSecondsByType": {
       "choose_response": 20,
       "conversation": 20,
@@ -317,8 +317,8 @@
     "repeatExactSequenceSeconds": null,
     "report": "docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26",
     "readingPracticeProfileSeconds": [
-      1260,
-      540
+      900,
+      900
     ]
   }
 }

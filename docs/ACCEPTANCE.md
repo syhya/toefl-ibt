@@ -2,6 +2,14 @@
 
 ## Current working-tree verification: 2026-09-26
 
+v8 uses the user-selected balanced Reading preset: **15:00 + 15:00 = 30:00** for the fixed sample's two 20-item modules. This replaces the v7 21:00/09:00 preset without claiming official module timing. Source-specific durations and frozen sessions remain unchanged; default browser profiles migrate while explicit custom settings are retained.
+
+- **663 checks passed**: 204 UI, 424 API/security, 35 data/import, plus type checking and production build.
+- Regression checks cover both 15-minute module clocks, their 30-minute sum, old session deadlines, migration from both earlier default profiles, and preservation of deliberately saved custom allocations.
+- Local logs: `tmp/qa/balanced-reading/`.
+
+## Earlier reading-layout verification: 2026-09-26
+
 The [reading layout audit](TEXT_FIDELITY.md#reading-layout-audit-2026-09-26) restores verified paragraph and line boundaries in 23 emails and two academic passages, covering 73 associated screens. The source-specific display projection does not mutate source files, saved plans, answers, timers or scores; original same-line signatures are retained.
 
 - **659 checks passed**: 200 UI, 424 API/security, 35 data/import; type checking and production build passed.

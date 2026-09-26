@@ -52,8 +52,8 @@ export const LABELS = {
   speaking: "Speaking",
 };
 export const DEFAULT_TIMING = {
-  readingCommon: 1260,
-  readingSecond: 540,
+  readingCommon: 900,
+  readingSecond: 900,
   listeningResponse: 20,
   listeningAcademic: 30,
   buildSentence: 360,

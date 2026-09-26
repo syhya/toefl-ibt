@@ -137,13 +137,13 @@ def test_bundled_demo_installs_official_sample_and_preserves_its_scoped_timing(c
         checked_action(clean, scoped, 'finish')
     current = start(clean, examId='student-1', mode='strict', scope='reading')
     assert current['phase'] == 'directions'
-    assert current['stage']['seconds'] == 1260
+    assert current['stage']['seconds'] == 900
     assert current['deadline'] is None
     current = begin(clean, current)
     assert current['phase'] == 'response'
     assert current['question']['id'] == 'student-1-r1-cloze'
-    assert current['remainingSeconds'] == 1260
-    assert current['deadline'] == current['serverNow'] + 1260_000
+    assert current['remainingSeconds'] == 900
+    assert current['deadline'] == current['serverNow'] + 900_000
     current = checked_action(clean, current, 'finish')
     saved = client.get('/api/sessions').json()['sessions']
     assert any(item['id'] == current['id'] for item in saved)
