@@ -8,7 +8,7 @@ import uuid
 from .presentation import is_interactive as presentation_is_interactive, validate_question as validate_presentation
 
 ORDER = ['reading', 'listening', 'writing', 'speaking']
-RULES_VERSION = '2026-09-05-client-expiry-v5'
+RULES_VERSION = '2026-09-26-timing-scope-v6'
 SCORING_ENGINE_VERSION = '2026-09-05-objective-snapshot-v1'
 DEFAULT_TIMING = {'readingCommon': 690, 'readingSecond': 540, 'listeningResponse': 20, 'listeningAcademic': 30,
                   'buildSentence': 360, 'email': 420, 'academicDiscussion': 600,
@@ -136,7 +136,6 @@ def make_plan(exam, options, timing):
     if scope not in ['all', *ORDER] or route_mode not in ['fixed', 'adaptive'] or route not in ['upper', 'lower']:
         raise ExamError('Invalid scope or route.', 422)
     plan = []
-    repeat_index = 0
     types = options.get('types') or options.get('questionTypes') or ([options['taskType']] if options.get('taskType') else None)
     selected_ids = options.get('questionIds')
     if (types or selected_ids) and options.get('mode', 'practice') != 'practice':
@@ -152,6 +151,10 @@ def make_plan(exam, options, timing):
         if not section:
             continue
         modules = section.get('modules', [])
+        # Select the response window by the source position, before any task or
+        # error-review filter. Practising sentence 7 alone must retain window 7.
+        repeat_positions = {q['id']: i for i, q in enumerate(
+            q for mod in modules for q in mod.get('questions', []) if q.get('type') == 'listen_repeat')}
         adaptive = route_mode == 'adaptive' and section_id in ['reading', 'listening']
         if adaptive:
             routes = {m.get('route', 'common') for m in modules}
@@ -176,9 +179,20 @@ def make_plan(exam, options, timing):
                         chunks[-1][1].append(question)
                     else:
                         chunks.append((question['type'], [question]))
+            elif (section_id in ['listening', 'speaking'] and options.get('mode', 'practice') == 'practice'
+                  and not any(level.get('timingPolicy') == 'untimed' or level.get('referenceOnly') for level in [exam, section, mod])):
+                # A source-study item must not remove the response timer (and
+                # automatic playback) from neighbouring, fully matched items.
+                for question in questions:
+                    needs_study = bool(question.get('referenceOnly') or question.get('type') == 'source_page'
+                                       or not (question.get('audio') or question.get('mediaSequence')))
+                    if chunks and chunks[-1][0] == needs_study:
+                        chunks[-1][1].append(question)
+                    else:
+                        chunks.append((needs_study, [question]))
             else:
                 chunks = [(None, questions)]
-            for chunk_type, items in chunks:
+            for chunk_index, (chunk_type, items) in enumerate(chunks):
                 if not items:
                     continue
                 reference_only = bool(mod.get('referenceOnly') or section.get('referenceOnly') or any(q.get('referenceOnly') or q.get('type') == 'source_page' for q in items))
@@ -187,14 +201,12 @@ def make_plan(exam, options, timing):
                 practice_audio = mod.get('practiceAudio') or section.get('practiceAudio') or []
                 if isinstance(practice_audio, dict):
                     practice_audio = [practice_audio]
-                if mod.get('directionsAudio'):
+                if mod.get('directionsAudio') and chunk_index == 0:
                     items[0]['_moduleDirectionsAudio'] = deepcopy(mod['directionsAudio'])
                 for question in items:
                     question['_section'] = section_id
                     if section_id == 'speaking':
-                        seconds = timing['interview'] if question['type'] == 'interview' else question.get('responseSeconds', timing['repeat'][min(repeat_index, 6)])
-                        if question['type'] != 'interview':
-                            repeat_index += 1
+                        seconds = timing['interview'] if question['type'] == 'interview' else question.get('responseSeconds', timing['repeat'][min(repeat_positions.get(question['id'], 0), 6)])
                     else:
                         seconds = question.get('responseSeconds', timing['listeningAcademic'] if 'academic' in question.get('taskType', '').lower() else timing['listeningResponse'])
                     if type(seconds) not in (int, float) or not math.isfinite(seconds) or not 0 < seconds <= 7200:
@@ -207,10 +219,21 @@ def make_plan(exam, options, timing):
                     seconds = timing['email'] if chunk_type == 'email' else timing['academicDiscussion'] if chunk_type == 'academic_discussion' else timing['buildSentence']
                 if type(seconds) not in (int, float) or not math.isfinite(seconds) or not 0 < seconds <= 7200:
                     raise ExamError('A module has no valid verified or configured duration.', 422)
-                created.append({'id': mod['id'] + (f'-{chunk_type}' if chunk_type else ''), 'section': section_id,
+                timer = 'untimed' if untimed else 'shared' if section_id in ['reading', 'writing'] else 'item'
+                official_seconds = {'email': 420, 'academic_discussion': 600, 'interview': 45}
+                official = all(q.get('type') in official_seconds and
+                               (seconds if timer == 'shared' else q['_responseSeconds']) == official_seconds[q['type']]
+                               for q in items)
+                timing_basis = 'untimed' if untimed else 'official' if official else 'source' if (
+                    section_id == 'reading' and mod.get('durationSeconds')) else 'local'
+                suffix = f'-{chunk_type}' if section_id == 'writing' else f'-part-{chunk_index + 1}' if chunk_index else ''
+                created.append({'id': mod['id'] + suffix, 'section': section_id,
                                 'title': mod.get('title', section_id.title()), 'route': mod_route,
-                                'instructions': mod.get('instructions'), 'hasDirectionsAudio': bool(mod.get('directionsAudio')),
-                                'timer': 'untimed' if untimed else 'shared' if section_id in ['reading', 'writing'] else 'item',
+                                'instructions': mod.get('instructions'), 'hasDirectionsAudio': bool(mod.get('directionsAudio')) and chunk_index == 0,
+                                'timer': timer, 'timingBasis': timing_basis,
+                                'responseWindows': [q['_responseSeconds'] for q in items] if timer == 'item' else [],
+                                'partialModule': timer == 'shared' and len(items) < sum(
+                                    section_id != 'writing' or q.get('type') == chunk_type for q in mod.get('questions', [])),
                                 'practiceAudio': deepcopy(practice_audio) if untimed else [], 'referenceOnly': reference_only or lacks_item_audio,
                                 'seconds': seconds, 'canBack': section_id == 'reading' or chunk_type == 'build_sentence', 'questions': items})
         if adaptive:

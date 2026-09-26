@@ -194,6 +194,9 @@ export type Stage = {
   title: string;
   timer: "shared" | "item" | "untimed";
   seconds: number;
+  timingBasis?: "official" | "source" | "local" | "untimed";
+  responseWindows?: number[];
+  partialModule?: boolean;
   questionCount: number;
   canBack: boolean;
   itemCount?: number;

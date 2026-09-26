@@ -7,9 +7,72 @@ import {
   screen,
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import OfficialChrome, { OfficialDirections } from "../../src/OfficialChrome";
+import OfficialChrome, {
+  OfficialDirections,
+  TimingNotice,
+} from "../../src/OfficialChrome";
+import { setLocale } from "../../src/i18n";
 import Exam from "../../src/Exam";
 import type { Session } from "../../src/types";
+
+it("identifies unverified sample timing and the full budget retained by a subset", () => {
+  setLocale("en");
+  const session = makeSession({ phase: "directions" });
+  session.stage = {
+    ...session.stage!,
+    timingBasis: "local",
+    partialModule: true,
+  };
+  const { rerender } = render(<OfficialDirections session={session} />);
+  expect(screen.getByLabelText("Timing for this stage").textContent).toContain(
+    "exact limit unverified",
+  );
+  expect(
+    screen.getByText("11:30 shared across this task/module."),
+  ).toBeTruthy();
+  expect(screen.getByText(/Selected questions retain the full/)).toBeTruthy();
+  act(() => setLocale("zh-CN"));
+  expect(screen.getByLabelText("本阶段计时说明").textContent).toContain(
+    "精确时限尚未核实",
+  );
+  expect(screen.getByText(/本任务／模块共用 11:30/)).toBeTruthy();
+  act(() => setLocale("en"));
+  session.stage.timingBasis = undefined;
+  rerender(<OfficialDirections session={session} />);
+  expect(screen.queryByLabelText("Timing for this stage")).toBeNull();
+});
+
+it("shows item response windows without using the irrelevant module seconds", () => {
+  setLocale("en");
+  const st = {
+    ...makeSession().stage!,
+    section: "speaking" as const,
+    timer: "item" as const,
+    timingBasis: "official" as const,
+    responseWindows: [45, 45, 45],
+  };
+  render(<TimingNotice stage={st} />);
+  expect(screen.getByText("ETS-specified limit")).toBeTruthy();
+  expect(
+    screen.getByText(/Response windows: 00:45 \/ 00:45 \/ 00:45/),
+  ).toBeTruthy();
+  expect(screen.queryByText(/11:30/)).toBeNull();
+});
+
+it("does not display a fake shared countdown on untimed reading directions", () => {
+  const session = makeSession({
+    phase: "directions",
+    remainingSeconds: null,
+    deadline: null,
+  });
+  session.stage = {
+    ...session.stage!,
+    timer: "untimed",
+    timingBasis: "untimed",
+  };
+  render(chrome(session));
+  expect(screen.queryByText("00:11:30")).toBeNull();
+});
 
 vi.mock("../../src/recording", () => ({
   saveChunk: vi.fn(),

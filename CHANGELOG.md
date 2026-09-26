@@ -17,6 +17,8 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 
 ### Changed
 
+- Re-audited Practice Test 1 timing against ETS sources. Start pages now identify official limits, source settings, local presets and untimed study; shared-budget subsets explicitly retain the full task/module time. New v6 sessions preserve repeat durations by original position when filtering, and only the unmatched Interview question remains untimed while matched questions retain 45 seconds. Existing saved plans and strict source gates are unchanged.
+
 - All 13 optional local original files for the sample use lowercase English filenames. Manifest mappings and the exporter preserve unchanged bytes, source IDs, and original installation paths; private data and saved-session references are not renamed.
 - README, package inventory, import/recovery instructions, and documentation policy now reflect the current example and distinguish it from dated private-collection audits. The default runtime payload is now approximately 17.8 MB; 13 original PDFs/full tracks are optional and excluded from Git. Missing originals do not disable prepared practice, but corrupt/missing runtime assets still fail verification.
 

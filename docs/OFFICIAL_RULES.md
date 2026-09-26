@@ -2,6 +2,8 @@
 
 First checked: 2026-08-31; independently rechecked: 2026-09-05. Applies to the test introduced on 2026-01-21. This is a dated evidence record, not a claim that all linked pages were rechecked during the bilingual documentation update. Sources are ETS pages, technical documents, and official samples; screenshots in the private `data/` collection support observations about those specific materials. See the [independent verification](ets-2026-verification.md).
 
+Practice Test 1 timing was re-audited on **2026-09-26** against the current ETS content page, blueprint, sample paper and Test Overview. See the [per-part results](#practice-test-1-timing-audit-2026-09-26); this narrower check does not refresh unrelated scoring or test-day claims below.
+
 The application is not an ETS examination client. **Strict timing means enforcing a selected local practice configuration, not reproducing every production examination rule, screen, or scoring system.**
 
 ## Evidence levels
@@ -14,6 +16,39 @@ The application is not an ETS examination client. **Strict timing means enforcin
 | `unsupported` | Public evidence and available materials cannot reproduce the capability. |
 
 The structured contract is `shared/rules.json`. `referenceElapsed` is a duration reference, not an answer timer. A `null` verified value means unknown, not zero.
+
+## Practice Test 1 timing audit: 2026-09-26
+
+**The bundled `student-1` sample does not have fully verified official deadlines for every part.** Its Reading and Listening clocks, sentence-building limit, and exact repeat sequence are practice settings. The audit leaves uncertain numbers unchanged rather than inventing a new official limit. These defaults can be used for local timed practice, but cannot establish official time-pressure fidelity.
+
+The [current ETS overview](https://www.ets.org/toefl/test-takers/ibt/about/content.html) gives approximate base times of Reading 30 minutes / 50 items, Listening 29 / 47, Writing 23 / 12, and Speaking 8 / 11, excluding directions. The bundled paper instead has 40 Reading and 34 Listening items. Its paper adaptation and the live adaptive test are different forms; neither proportional scaling nor dividing these totals establishes the paper's missing clocks.
+
+| Example 1 part | Current default for a new session | Official evidence and assessment |
+| --- | --- | --- |
+| Reading Module 1: Complete the Words, Daily Life, Academic Passage | **11:30 shared** by 20 items on 11 screens | The sample confirms a module clock, without an initial value. 11:30 comes from a different supplied TPO Pack 1; unverified for this sample. |
+| Reading Module 2: the same three task types | **09:00 shared** by 20 items on 11 screens | Same uncertainty. The blueprint also estimates 9 minutes for a second module, but that does not verify this paper's exact deadline. |
+| Listening Module 1: 18 questions | **20 seconds/question** for Response, Conversation and Announcement; **30 seconds/question** for Academic Talk | The sample confirms per-question timing, without numeric windows. The 20/30-second defaults are observations from another supplied pack, not verified universal limits. |
+| Listening Module 2: 16 questions | **20/30 seconds/question**, by the same task types | Same qualification; audio playback and answer windows are separate. |
+| Build a Sentence: 10 questions | **06:00 shared** across all ten | Sample confirms a task clock but no starting value. Six minutes remains approximate; neither 6:00 nor 6:50 is established by the official sources checked. |
+| Write an Email | **07:00**, including reading and writing | Explicitly confirmed in the sample paper and Test Overview. |
+| Write for an Academic Discussion | **10:00**, including reading and writing | Explicitly confirmed in the sample paper and Test Overview. |
+| Listen and Repeat: 7 questions | **8 / 8 / 10 / 10 / 10 / 12 / 12 seconds** after the respective prompts | ETS confirms a maximum window of **8–12 seconds** per sentence, not this sample's exact seven-value sequence. The sequence remains a local preset. |
+| Take an Interview: question 1 | **Untimed source study** | Paper/audio versions disagree, so the application cannot reproduce the original timed listening task. This is a source limitation, not the official interview rule. |
+| Take an Interview: questions 2–4 | **45 seconds each** after the matched audio | ETS explicitly confirms 45 seconds per question; no preparation period. Fixed in v6: question 1 no longer disables these questions' timers. |
+
+Sources: [ETS-hosted student paper](https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf), [Test Overview, physical pages 14–15, 17 and 19 in the 28-page version fetched for this audit](https://www.ets.org/pdfs/toefl/toefl-ibt-test-overview.pdf), and [blueprint, physical pages 2–3](https://www.eu.ets.org/pdfs/toefl/toefl-enki-test-specifications-2026.pdf). The blueprint labels its times as estimates and includes a pre-launch revision caveat. The student paper was downloaded again and still matches the package's 36-page source SHA-256 `33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d`. The fetched Test Overview SHA-256 is `ce5e0eef3ea47b9964b0b1b034e96fa3b2aa0681347f17b381196cb0661249f0`; pagination differs from older copies.
+
+### Clock behavior and fixes
+
+- Reading and sentence-building use a **shared** budget. Selecting only a subset of those questions retains the whole task/module budget; it is not a newly verified per-question limit. Start pages now state this explicitly.
+- Directions wait for Begin without consuming the response budget. Reading/Writing clocks start at Begin, continue through within-module navigation, and do not carry unused time to the next task. Listening/Speaking answer clocks start after their audio sequence ends. Delayed or repeated events cannot restart an expired response window.
+- v6 selects repeat durations by the original source position before filtering. Previously, practising the sixth or seventh sentence alone incorrectly gave the first sentence's 8 seconds. Each now retains its configured 12 seconds; explicit source timing and custom practice presets remain respected.
+- v6 separates adjacent matched and unmatched audio items into local runtime stages. Only Interview question 1 is untimed; questions 2–4 regain automatic playback and 45-second response windows. The nine source modules and all 79 screens remain unchanged; a full guided run now has **ten runtime stages**. Strict Speaking and full-test eligibility remain disabled.
+- Start pages show the actual budget and distinguish an ETS-specified value, a source configuration, a local default, or untimed study. Old sessions keep their frozen plan, deadlines and rules; they are not relabelled or retimed. Start a new session to use v6.
+
+For orientation only, the default Reading budgets sum to **20:30**. Listening response windows sum to **12:40**, plus **6:24.75** of unique prepared audio clips, or about **19:05** if every response window is used in full. Those figures describe this prepared paper and its local configuration, not the current adaptive test's 30/29-minute overview. Writing defaults sum to 23 minutes, which does **not** prove that sentence-building must be exactly 6 minutes. No complete timed Speaking total is claimed while Interview question 1 remains unmatched.
+
+Verification: **644 checks passed** (196 UI, 413 API/security, 35 data/import), plus production build and an isolated minimal-package browser check of the English/Chinese Reading start-page notice. Regression coverage includes filtered repeat positions, post-audio deadlines, matched questions following untimed study, shared-budget navigation, frozen old sessions, strict source gates, and a full 79-screen prepared-package API walkthrough. Test clocks are simulated; this is not an 83–89-minute real-time exam validation. Local logs are in `tmp/qa/example1-timing/` and are not required distribution files.
 
 ## Confirmed test sequence
 

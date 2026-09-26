@@ -2,6 +2,16 @@
 
 ## Current working-tree verification: 2026-09-26
 
+The [Practice Test 1 timing audit](OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26) rechecked official sources and separated verified deadlines from local presets. v6 fixes filtered repeat timing, isolates the unmatched Interview prompt instead of removing all Interview timers, and displays timing evidence on start pages. Source questions, bundle payload, strict eligibility, and saved-session plans are unchanged.
+
+- **644 checks passed**: 196 UI, 413 API/security, 35 data/import; type checking and production build passed.
+- New minimal install verified in an isolated browser: English and Chinese timing notices render correctly. Repeat source positions, shared clocks, post-audio deadlines, mixed timed/untimed Interview flow, old frozen sessions and all 79 prepared question screens passed API regression checks.
+- Exact Reading/Listening deadlines, the sentence-building starting value, and the exact seven-repeat sequence are still not established for this paper. No official full-test timing equivalence is claimed.
+
+Logs are under `tmp/qa/example1-timing/`. The minimal-package and earlier full-source results below remain evidence for their own revisions, not additional fresh-environment claims for v6.
+
+## Earlier minimal-package verification: 2026-09-26
+
 The current default is the **runtime-only** Practice Test 1 package: 56 required payload files, 17,818,617 bytes (about 17.8 MB), with all 13 original PDFs/full MP3s excluded from Git. No original-source `data/` folder, private curation set, or external material download was needed for the fresh installation. Dependencies were reused from the local development environment; this is not a fresh dependency-download or remote Linux-CI claim.
 
 - Full local suite: **632 passed** (193 UI, 404 backend/security, 35 data/import), plus type checking and production build.

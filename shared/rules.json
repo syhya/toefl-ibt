@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "rulesVersion": "2026-09-05-client-expiry-v5",
+  "rulesVersion": "2026-09-26-timing-scope-v6",
   "effectiveFrom": "2026-01-21",
   "verifiedAt": "2026-09-05",
   "productDisclosure": "严格计时·本地模拟。按选定练习配置执行；非 ETS 官方系统，未复现官方自适应或评分。",
@@ -26,7 +26,8 @@
     "technicalManual": "https://rr.ets.org/index.php/etsrr/article/download/28/17/34",
     "homeTestDay": "https://www.ets.org/toefl/test-takers/ibt/test-day/at-home-test-day.html",
     "pack1": "data/2026新托福 18套题+备考资料/00. TPO1-6 全套（包含音频、听力原文和答案）/2026新托福Pack-1/2026新托福Pack-1.pdf",
-    "compatClient": "https://ibt2-toefl-pt.ets.org/ibt2tcweb/themes/toeflCompat/index.html"
+    "compatClient": "https://ibt2-toefl-pt.ets.org/ibt2tcweb/themes/toeflCompat/index.html",
+    "studentTest1": "https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf"
   },
   "referenceElapsed": {
     "useForEnforcedTimer": false,
@@ -265,7 +266,9 @@
     "technicalFailureInvalidatesStrictAttempt": true,
     "adaptivity": "fixed_practice_route",
     "writingExpiryAcknowledgement": true,
-    "writingExpiryAcknowledgementNote": "邮件与讨论截止后保留只读题面，Continue后离开；源为当前Sampler写作到时弹窗。旧会话缺少冻结策略标记时保持旧流程。"
+    "writingExpiryAcknowledgementNote": "邮件与讨论截止后保留只读题面，Continue后离开；源为当前Sampler写作到时弹窗。旧会话缺少冻结策略标记时保持旧流程。",
+    "filteredRepeatUsesOriginalPosition": true,
+    "unmatchedAudioUntimesOnlyAffectedItems": true
   },
   "unsupported": [
     "ETS adaptive routing thresholds and calibrated item parameters",
@@ -295,5 +298,20 @@
       "underlyingQuestionRetained": true
     },
     "speakingDirectionsToolbarHeightPx": 50
+  },
+  "timingAudit": {
+    "checkedAt": "2026-09-26",
+    "sourceIds": [
+      "content",
+      "specifications",
+      "overview",
+      "studentTest1"
+    ],
+    "sampleId": "student-1",
+    "exactReadingModuleSeconds": null,
+    "exactListeningResponseSecondsByType": null,
+    "exactBuildSentenceSeconds": null,
+    "repeatExactSequenceSeconds": null,
+    "report": "docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26"
   }
 }

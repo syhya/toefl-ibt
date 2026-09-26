@@ -411,7 +411,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
                     allowed.append('resume' if a['phase'] == 'paused' else 'pause')
                 if engine.practice_aids_enabled(a) and q and engine.media_sequence(q) and a['phase'] == 'response' and st['timer'] != 'untimed':
                     allowed.append('replay')
-        safe_stage = {key: st[key] for key in ['id', 'section', 'title', 'timer', 'seconds', 'canBack', 'route', 'instructions', 'hasDirectionsAudio', 'referenceOnly'] if key in st} if st else None
+        safe_stage = {key: st[key] for key in ['id', 'section', 'title', 'timer', 'seconds', 'canBack', 'route', 'instructions', 'hasDirectionsAudio', 'referenceOnly', 'timingBasis', 'responseWindows', 'partialModule'] if key in st} if st else None
         if safe_stage:
             safe_stage['questionCount'] = len(st['questions'])
             safe_stage['itemCount'] = sum(len(item.get('blanks', [])) if item.get('type') == 'cloze' else 1 for item in st['questions'])

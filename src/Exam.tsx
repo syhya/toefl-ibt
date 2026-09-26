@@ -13,7 +13,10 @@ import { ORDER, LABELS, taskName, time } from "./api";
 import { Button, Modal } from "./components";
 import Icon, { sectionIcon } from "./Icons";
 import { AnswerInput, StemAssets, StructuredStem } from "./Questions";
-import OfficialChrome, { OfficialDirections } from "./OfficialChrome";
+import OfficialChrome, {
+  OfficialDirections,
+  TimingNotice,
+} from "./OfficialChrome";
 import OfficialViewport from "./OfficialViewport";
 import { referenceMaterialLayout } from "./reference-material-layout";
 import { readingPresentation } from "./reading-presentation";
@@ -749,6 +752,7 @@ export default function Exam({
                     "Directions are untimed. Your local timing profile is frozen for this session. This practice does not reproduce ETS’s proprietary adaptive algorithm or score scale.",
                   )}
                 </p>
+                <TimingNotice stage={st} />
                 {section === "speaking" && !stream?.active && (
                   <Button
                     kind="outline"

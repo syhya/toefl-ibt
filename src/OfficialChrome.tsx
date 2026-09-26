@@ -1,7 +1,7 @@
 import { LanguageSwitch, useI18n } from "./i18n";
 import { examText as tx } from "./locales/exam";
 import { useState } from "react";
-import type { Session } from "./types";
+import type { Session, Stage } from "./types";
 import { LABELS, time } from "./api";
 import Icon from "./Icons";
 
@@ -77,6 +77,7 @@ export default function OfficialChrome({
     clock =
       seconds ??
       (directions &&
+      st.timer === "shared" &&
       (st.section === "reading" || /Build a Sentence/i.test(st.title))
         ? st.seconds
         : null),
@@ -414,6 +415,60 @@ export function OfficialDirections({ session }: { session: Session }) {
           <p>{tx("You will have 7 minutes to write the email.")}</p>
         </>
       )}
+      {session.phase === "directions" && <TimingNotice stage={st} />}
     </section>
+  );
+}
+
+export function TimingNotice({ stage: st }: { stage: Stage }) {
+  const { t } = useI18n();
+  // Older saved sessions keep their frozen plan; do not infer new evidence.
+  if (!st.timingBasis) return null;
+  const windows = st.responseWindows || [];
+  const displayed = st.section === "speaking" ? windows : [...new Set(windows)];
+  const duration =
+    st.timer === "shared"
+      ? t(
+          "{time} shared across this task/module.",
+          "本任务／模块共用 {time}。",
+          { time: time(st.seconds) },
+        )
+      : st.timer === "item"
+        ? t(
+            "Response windows: {times}. The clock starts after the audio ends.",
+            "逐题作答时限：{times}。音频结束后开始计时。",
+            { times: displayed.map(time).join(" / ") },
+          )
+        : t(
+            "This source-study stage has no countdown.",
+            "此资料研读阶段不计时。",
+          );
+  const basis =
+    st.timingBasis === "official"
+      ? t("ETS-specified limit", "ETS 明确规定时限")
+      : st.timingBasis === "source"
+        ? t("Source-configured limit", "题包配置时限")
+        : st.timingBasis === "untimed"
+          ? t("Untimed source study", "不限时资料研读")
+          : t(
+              "Local practice setting — exact limit unverified for this sample",
+              "本地练习设置——本套样题的精确时限尚未核实",
+            );
+  return (
+    <aside
+      className="timing-notice"
+      aria-label={t("Timing for this stage", "本阶段计时说明")}
+    >
+      <strong>{basis}</strong>
+      <span>{duration}</span>
+      {st.partialModule && (
+        <span>
+          {t(
+            "Selected questions retain the full task/module budget, not a separate official per-question limit.",
+            "专项所选题目仍共用完整任务／模块时长，并非官方单题时限。",
+          )}
+        </span>
+      )}
+    </aside>
   );
 }

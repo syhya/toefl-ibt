@@ -311,13 +311,16 @@ def test_real_bundled_pack_is_complete_and_native_on_a_clean_install(tmp_path):
     assert len(questions) == 79
     assert sum(len(q['blanks']) if q['type'] == 'cloze' else 1 for q in questions) == 97
     plan = make_plan(exam, {'mode': 'practice', 'scope': 'all'}, DEFAULT_TIMING)
-    assert len(plan) == 9
+    assert len(plan) == 10
     assert [stage['seconds'] for stage in plan if stage['section'] == 'writing'] == [360, 420, 600]
     assert [q['_responseSeconds'] for stage in plan for q in stage['questions'] if q['type'] == 'listen_repeat'] == [8, 8, 10, 10, 10, 12, 12]
     assert sum('textCorrection' in q for q in questions) == 40
     assert all(stage['timer'] != 'untimed' for stage in plan if stage['id'] != 'speaking-interview')
     interview = next(stage for stage in plan if stage['id'] == 'speaking-interview')
-    assert interview['timer'] == 'untimed' and len(interview['questions']) == 4
+    assert interview['timer'] == 'untimed' and len(interview['questions']) == 1
+    matched_interview = next(stage for stage in plan if stage['id'] == 'speaking-interview-part-2')
+    assert matched_interview['timer'] == 'item' and len(matched_interview['questions']) == 3
+    assert matched_interview['responseWindows'] == [45, 45, 45]
     assert interview['questions'][0]['id'] == 'student-1-s-interview-1'
     assert not interview['questions'][0].get('audio')
     for scope in ['reading', 'listening', 'writing']:

@@ -33,6 +33,8 @@ A reading cloze screen contains multiple answer blanks, so item and screen count
 
 The source PDF is a paper adaptation, not an exact replica of the live test. Application rules retain their documented limits and approximate local settings in [the rules documentation](../../docs/OFFICIAL_RULES.md). Objective references support local answer checks; writing and speaking retain saved responses and self-assessment rather than official ETS scores.
 
+The [2026-09-26 timing audit](../../docs/OFFICIAL_RULES.md#practice-test-1-timing-audit-2026-09-26) confirms Email 7 minutes, Discussion 10 minutes, Interview 45 seconds per matched question, and the Repeat 8–12-second range. The exact Reading, Listening, sentence-building and seven-item repeat defaults remain local practice settings. New v6 sessions retain a repeat question's original timing position when filtered and keep only unmatched Interview question 1 untimed; questions 2–4 use 45 seconds each. This creates ten runtime stages from the same nine source modules. Existing saved sessions are unchanged.
+
 The paper edition's Reading module 1 contains 20 items. The observed online sampler has 17 and one small cloze wording difference; the package keeps its PDF wording and source counts. The newer cloze editor retains underlines while typing and changes font/width on focus/blur, without changing the source edition. See [the dated comparison](../../docs/EXAM_UI_REFERENCE.md#live-reading-interaction-checked-on-2026-09-26).
 
 ## Package format
