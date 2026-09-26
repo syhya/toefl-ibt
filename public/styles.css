@@ -3544,6 +3544,12 @@ button.section-chip:hover {
 .structured-message p {
   margin: 8px 0;
 }
+.structured-message p,
+.structured-paragraph,
+.structured-list li,
+.structured-dialogue p > span {
+  white-space: pre-line;
+}
 .structured-dialogue {
   display: grid;
   gap: 13px;

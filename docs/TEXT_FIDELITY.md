@@ -37,6 +37,20 @@ Current and historical question displays can apply a hash-bound correction when 
 
 New practice uses the corrected source text. One corrected fixed-slot comma also makes the original valid sentence in `teacher-2-w-build-7` reachable by the existing grader; historical scores are not retroactively rewritten. Restart/review tests confirm that old selected choice IDs display the corrected option text without changing the selected ID or historical result.
 
+## Reading layout audit: 2026-09-26
+
+The reported Practice Test 1 workshop email had merged its salutation, body, closing and sender into one paragraph. The source PDF's physical page 10 separates them: the closing and sender each occupy their own paragraph. Its longer invitation on page 11 also has multiple body paragraphs, followed by a signature with an ordinary line break.
+
+The review covered **32 distinct reading emails across 92 associated question screens**, including source-equivalent aliases. It restores boundaries in **23 emails / 63 screens**. Two academic passages in Teacher Practice Test 1 also lost source paragraph starts, affecting ten more screens: **25 reading texts / 73 screens fixed in total**. The two other single-paragraph academic candidates in Experience Days 2 and 3 really are continuous paragraphs and remain unchanged. No additional salutation/signoff candidates were found outside the message blocks.
+
+This is source-specific: Pack 1's webinar signature and Student Practice Test 2's heating-maintenance signature are printed on one line and remain that way. There is no global rule that inserts a newline after every occurrence of “regards.” Two teacher emails duplicated the reading instruction inside the body; only that repeated copy is removed, while the identical preceding instruction remains visible.
+
+`shared/reading-layouts.json` stores source identities, PDF hashes, exact normalized-text hashes and reviewed character spans. It does **not** publish private passage text or source images. `backend/reading_layout.py` applies the boundaries after transcription corrections, at the active/review display boundary; an unknown ID, different source page, changed wording or invalid span leaves the content alone. The two academic passages retain their printed hard paragraph starts without introducing extra blank lines. The renderer also preserves existing explicit newlines in messages, paragraphs, lists and dialogue.
+
+Original question files, bundle hashes, saved session plans, choices, answers, audio, timers and score snapshots are unchanged. Existing practice and review receive the same corrected layout without reimporting materials or retiming an attempt. This audit addresses source text flow, not universal pixel-for-pixel equivalence of every source frame, font or color.
+
+Validation: **659 checks passed** (200 UI, 424 API/security, 35 data/import), plus production build. Browser inspection on a fresh minimal-package installation confirmed the reported email's four paragraphs and the long invitation's body paragraphs and signature line break. API regressions verify active/historical consistency, unchanged stored plans and answers, source/text mismatch rejection, and all available audited source records. Local screenshots and comparison records are under `tmp/qa/reading-layout/`; they are not distribution files.
+
 ## Verification and local evidence
 
 - `backend/tests/test_text_corrections.py` covers source binding, exact before matching, permitted paths, direct historical review after import, restart, idempotence, and immutable saved answers/scores.

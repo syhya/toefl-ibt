@@ -33,6 +33,7 @@ from .legacy_audio import recovery_flags, recover_audio
 from .practice_groups import build_practice_groups, public_group, group_session_options, group_revision, SESSION_FIELDS as GROUP_SESSION_FIELDS
 from .presentation import asset_is_active, is_structured, manifest_issues, safe_stem_blocks
 from .text_corrections import TextCorrections
+from .reading_layout import project_reading_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$')
@@ -179,6 +180,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         # A source-backed transcription correction updates display only. The
         # stored plan still supplies grading, answer IDs, deadlines and media.
         q = text_corrections.project(a, q)
+        q = project_reading_layout(q)
         keys = ['id', 'type', 'taskType', 'number', 'numberEnd', 'prompt', 'passage', 'passageTemplate', 'context', 'tokens',
                 'fixedTokens', 'slots', 'wordLimit', 'recommendedWords', 'warnings', 'verificationStatus',
                 'interaction', 'sourceImageContainsQuestionAndChoices', 'referenceOnly', 'sourcePromptAvailable', 'practiceMode', 'subjective',

@@ -39,6 +39,8 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 
 ### Fixed
 
+- Restored source-reviewed reading paragraph and signature breaks in 23 emails and two academic passages (73 associated screens), including Practice Test 1's workshop email. Active practice and review share a hash-bound display projection; saved questions, answers, timing and scores are untouched. Existing explicit newlines survive rendering, and source signatures intentionally printed on one line remain unchanged.
+
 - Complete the Words now retains per-letter strokes while typing and uses the observed expanded monospace editor, completed-answer collapse on blur, and re-entry on focus. Partially filled answers remain expanded. Source wording and counts remain those of the supplied PDF, including the documented online-edition differences.
 
 - Eligible older Listening-only guided sessions can use **Repair audio and continue** when audio verification records are missing. Recovery requires matching questions, reference answers, and currently verified media; it preserves answers, progress, deadlines, and frozen rules, and records the repair as an interruption without claiming historical verification.

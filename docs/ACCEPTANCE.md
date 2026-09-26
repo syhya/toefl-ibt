@@ -2,6 +2,14 @@
 
 ## Current working-tree verification: 2026-09-26
 
+The [reading layout audit](TEXT_FIDELITY.md#reading-layout-audit-2026-09-26) restores verified paragraph and line boundaries in 23 emails and two academic passages, covering 73 associated screens. The source-specific display projection does not mutate source files, saved plans, answers, timers or scores; original same-line signatures are retained.
+
+- **659 checks passed**: 200 UI, 424 API/security, 35 data/import; type checking and production build passed.
+- A fresh minimal-package browser run confirmed the workshop email's salutation, body, closing and sender in separate paragraphs, and the longer invitation's body paragraphs and two-line signature. The fix also works in existing-session review without optional original PDFs.
+- Local logs and source comparisons: `tmp/qa/reading-layout/`. This is a text-flow audit, not a new claim of complete source-frame or typography parity.
+
+## Earlier Reading-profile verification: 2026-09-26
+
 v7 replaces the 20:30 default Reading budget with a **21:00 + 09:00 = 30:00** practice profile based on ETS blueprint estimates. It is still labelled as a local allocation, not an official initial clock for the 40-item paper. The unchanged legacy browser preset upgrades, while custom settings, source-specific durations and saved plans retain their values.
 
 - **649 checks passed**: 200 UI, 414 API/security, 35 data/import, plus type checking and production build.
