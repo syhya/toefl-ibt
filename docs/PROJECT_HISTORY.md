@@ -1,7 +1,5 @@
 # Project history before bilingual onboarding
 
-English | [简体中文](PROJECT_HISTORY.zh-CN.md)
-
 This page records the project's position before the 2026-09-06 bilingual/open-source onboarding work. Use the current [README](../README.md) to install. Private collection numbers here do not describe bundled public content.
 
 The original application was developed around the owner's local source tree. By the dated September 5–6 checks it used React/TypeScript/Vite, FastAPI, SQLite, local fonts, server deadlines, original media, segmented recording, frozen objective scores, and cross-session mistakes. Installation created an isolated Python environment and production frontend; normal offline practice did not call AI services or require accounts/payments.
@@ -16,4 +14,6 @@ Long-writing expiry retained accepted answers read-only until Continue. Strict m
 
 The dated regression log recorded 254 checks, and full Experience 1 browser/restart acceptance covered nine stages, 79 screens, 97 units, 43 original media playbacks, eleven synthetic-microphone recordings, and objective 84/84. A later v5 run naturally exhausted Discussion's 600 seconds. Those reports identify their own build/version boundaries and do not prove every later revision or real microphone quality.
 
-The new public workflow adds original demonstration content and portable authored resources so newcomers can use the application without private files. Historical private import/OCR still requires matching sources and curation manifests. The full evidence, corrections, and limitations remain in [acceptance](ACCEPTANCE.md), [data QA](DATA_QA.md), [materials](MATERIALS.md), [rules](OFFICIAL_RULES.md), and [interface references](EXAM_UI_REFERENCE.md).
+The September 6 public onboarding workflow initially added original demonstration content and portable authored resources so newcomers could use the application without private files. Historical private import/OCR still requires matching sources and curation manifests. The full evidence, corrections, and limitations remain in [acceptance](ACCEPTANCE.md), [data QA](DATA_QA.md), [materials](MATERIALS.md), [rules](OFFICIAL_RULES.md), and [interface references](EXAM_UI_REFERENCE.md).
+
+The current newcomer dataset has since changed to the complete [TOEFL iBT® Practice Test 1 reference set](../examples/ets-practice-test-1/README.md): 97 items across 79 screens with original source PDFs/audio, corrected structured text, and the original modules/tasks. The synthetic introductory questions moved to test fixtures. This later change does not alter the dated full-collection counts or verification results above.

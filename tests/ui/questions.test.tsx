@@ -151,3 +151,16 @@ describe('writing editor',()=>{
     expect(value()).toBe('My own answer');
   });
 });
+
+it('renders source-verified sentence prefaces and final punctuation without adding answer gaps',()=>{
+  const source:Question={id:'source-literals',type:'build_sentence',sentencePrefix:'Thanks.',terminalPunctuation:'?',tokens:['Are','you'],slots:[{id:'one'},{id:'two'}]};
+  render(<Editor question={source}/>);
+  const group=screen.getByRole('group',{name:'Sentence word slots'});
+  expect(group.textContent).toContain('Thanks.');
+  expect(group.textContent?.trim().endsWith('?')).toBe(true);
+  fireEvent.click(screen.getByRole('button',{name:'Use word block 1: Are'}));
+  fireEvent.click(screen.getByRole('button',{name:'Use word block 2: you'}));
+  expect(value()).toEqual({tokenOrder:['0','1']});
+  expect(screen.getByText(/2 \/ 2 gaps filled/)).toBeTruthy();
+  expect(source.slots).toEqual([{id:'one'},{id:'two'}]);
+});

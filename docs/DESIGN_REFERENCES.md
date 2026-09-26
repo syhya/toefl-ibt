@@ -1,7 +1,5 @@
 # Interface and interaction references
 
-English | [简体中文](DESIGN_REFERENCES.zh-CN.md)
-
 This is a historical record of third-party references from 2026-08-31 / 09-01. From 2026-09-05, examination screens follow observations of the user-selected current ETS Sampler and supplied PDFs; see [EXAM_UI_REFERENCE.md](EXAM_UI_REFERENCE.md). The blue blanks, gray token bank, and vertical discussion described below belong to the earlier reference site, not the current examination specification. The current source-based screens use gray letter blanks, white tokens, and split writing panels; selection/review pages retain independent branding.
 
 ## LingoLeap

@@ -169,6 +169,28 @@ def attach(exams, materials, root=ROOT, manifest_path=None):
     by_exam = {e['id']: e for e in exams}
     planned = []
     skipped = []
+    errata_cache = {}
+
+    def corrected_transcript_matches(exam, question, anchor, archive):
+        """Accept only an exact signed OCR correction of this original anchor.
+
+        The normal importer attaches audio before text errata. A subsequent
+        offline/idempotence check may instead read the corrected catalog.
+        Neither path allows arbitrary transcript edits or changes audio mapping.
+        """
+        from backend.text_corrections import MANIFEST_PATH, read_manifest as read_errata
+        expected = (exam.get('verificationInputs') or {}).get('curationSha256ByPath', {}).get(MANIFEST_PATH)
+        path = root / MANIFEST_PATH
+        if not expected or not path.is_file() or digest_bytes(path.read_bytes()) != expected:
+            return False
+        if expected not in errata_cache:
+            errata_cache[expected] = read_errata(path)['questions']
+        correction = errata_cache[expected].get(question['id'])
+        if not correction or (correction['materialId'], correction['page'], correction['sourceSha256']) != (
+                archive['sourcePdfMaterialId'], anchor['page'], archive['sourcePdfSha256']):
+            return False
+        return any(patch['path'] == ['transcript'] and text_digest(patch['before']) == anchor['transcriptSha256']
+                   and patch['after'] == question.get('transcript') for patch in correction['patches'])
     for archive in manifest['archives']:
         exam = by_exam.get(archive['examId'])
         if exam is None:
@@ -194,7 +216,8 @@ def attach(exams, materials, root=ROOT, manifest_path=None):
                     raise ValueError(f"Teacher question/source identity changed: {anchor['questionId']}")
                 if question.get('source', {}).get('page') != anchor['page']:
                     raise ValueError(f"Teacher question source page changed: {anchor['questionId']}")
-                if text_digest(question.get('transcript', '')) != anchor['transcriptSha256']:
+                if (text_digest(question.get('transcript', '')) != anchor['transcriptSha256']
+                        and not corrected_transcript_matches(exam, question, anchor, archive)):
                     raise ValueError(f"Teacher source transcript changed: {anchor['questionId']}")
             planned.append((exam, questions, archive, record, material))
     # The full mapping and playable files are validated before touching a question.

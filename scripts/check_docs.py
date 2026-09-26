@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check bilingual document counterparts and repository-relative Markdown links.
+"""Check the bilingual root README, English-only docs, and Markdown links.
 
 Code fences are examples rather than hyperlinks. External URLs and local-only
 historical evidence written as inline code are deliberately not fetched.
@@ -13,18 +13,25 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    files = sorted([*ROOT.glob('*.md'), *(ROOT / 'docs').glob('*.md'),
-                    *(ROOT / 'public/fonts').glob('README*.md')])
+    files = sorted([*ROOT.glob('*.md'), *(ROOT / 'docs').rglob('*.md'),
+                    *(ROOT / 'public/fonts').glob('README*.md'),
+                    *(ROOT / 'examples').rglob('*.md'),
+                    *(ROOT / '.github').rglob('*.md')])
     failures = []
+    for name in ['README.md', 'README.zh-CN.md']:
+        if not (ROOT / name).is_file():
+            failures.append(f'Missing bilingual project overview: {name}')
     checked_links = 0
     for path in files:
         source = re.sub(r'```[\s\S]*?```', '', path.read_text(encoding='utf-8'))
-        name = path.name
-        counterpart = name.replace('.zh-CN.md', '.md') if name.endswith('.zh-CN.md') else name[:-3] + '.zh-CN.md'
-        if not path.with_name(counterpart).is_file():
-            failures.append(f'{path.relative_to(ROOT)}: missing {counterpart}')
-        if f']({counterpart})' not in source:
-            failures.append(f'{path.relative_to(ROOT)}: missing language switch link to {counterpart}')
+        if path in [ROOT / 'README.md', ROOT / 'README.zh-CN.md']:
+            counterpart = 'README.md' if path.name == 'README.zh-CN.md' else 'README.zh-CN.md'
+            if not path.with_name(counterpart).is_file():
+                failures.append(f'{path.relative_to(ROOT)}: missing {counterpart}')
+            if f']({counterpart})' not in source:
+                failures.append(f'{path.relative_to(ROOT)}: missing language switch link to {counterpart}')
+        elif path.name.endswith('.zh-CN.md'):
+            failures.append(f'{path.relative_to(ROOT)}: only the root README has a translated edition')
         for match in re.finditer(r'\]\((<?[^)]+>?)\)', source):
             raw = match.group(1).strip().strip('<>')
             parsed = urlsplit(raw)
@@ -37,7 +44,7 @@ def main():
     if failures:
         print('\n'.join(failures), file=sys.stderr)
         return 1
-    print(f'Checked {len(files)} bilingual documents and {checked_links} local links.')
+    print(f'Checked {len(files)} Markdown documents and {checked_links} local links; only the root README is bilingual.')
     return 0
 
 

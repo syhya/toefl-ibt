@@ -1,8 +1,6 @@
 # Source screenshots and current ETS Sampler interface
 
-English | [简体中文](EXAM_UI_REFERENCE.zh-CN.md)
-
-Checked on 2026-09-05. This record separates measurements of supplied Pack screenshots from later public-client CSS and authorized Sampler observations. Earlier bitmap estimates do not override later direct evidence. Paper Teacher/Student/Experience layouts alone do not establish computer-test UI. Observed Reading/Listening/Build pages had no clock; Email/Discussion did, so the missing clock is not generalized across the Sampler.
+Baseline checked on 2026-09-05, with a separately dated live-cloze update on 2026-09-26. This record separates measurements of supplied Pack screenshots from later public-client CSS and authorized Sampler observations. Earlier bitmap estimates do not override later direct evidence. Paper Teacher/Student/Experience layouts alone do not establish computer-test UI. Observed Reading/Listening/Build pages had no clock; Email/Discussion did, so the missing clock is not generalized across the Sampler.
 
 ## Source samples and dimensions
 
@@ -35,6 +33,14 @@ Early bitmap-only estimates used Arial/Helvetica and approximately 18px/24px bod
 The task instruction is centered near the top of the content, with large whitespace before one continuous paragraph and approximately 35–45-pixel side margins. In a 1000-pixel-wide reference image, the client begins at full-image y=57, instruction text at y=161 (client y≈104), and paragraph text at y=401 (client y≈344). A separate 96-dpi rendering gives y≈165/411, consistent after width normalization. The paragraph is not at client y=151; its position is about 43% down the visible content region. Use measured proportions and side-by-side screenshots, not a vague centering rule.
 
 Missing letters remain inline with the original prefix. Light-gray continuous letter boxes and fine marks indicate the required count. There are no numbered bubbles, separate full-word fields, or extra answer list. Given letters must not become missing-letter input, and a prefix/input/suffix unit must wrap together.
+
+### Live reading interaction checked on 2026-09-26
+
+The user's open ETS Reading Part 1 page was inspected without changing answers or advancing the official session. Its paragraph uses approximately 17px Open Sans. Empty and partial fields remain expanded; editing uses `2ch Consolas, monospace`, `.2ch` letter spacing and `1.3ch` width per required letter. The gray fill is `#d3d3d3`. Independent `#696969` bottom strokes occupy `1ch` of each `1.3ch` cell at 1px thickness, so entering letters does not remove the lines. A completed field contracts to the paragraph's proportional type on blur, and expands again on focus. An incomplete field stays expanded. Tab follows the original blank order, and input accepts lowercase Latin letters only. Forced-colors mode retains a visible input edge and focus indicator.
+
+The local component keeps one accessible input per blank during this visual transition; it does not rewrite answers on blur or use completion to bypass disabled controls. Regression checks cover keyboard re-entry, partial edits, restoration, and disabled state. Real-browser checks verify the background lines and font/width changes.
+
+This observed online edition is not identical to the bundled PDF edition: it displays `Questions 1–10 of 17` and “than any other group activity”; the official student PDF, physical page 4, contains “than of any other group activity” and its first reading module has 20 items. All ten supplied prefixes and missing-letter lengths match. The project preserves the PDF wording, original item count, source hashes, and scoring data; it does not silently remove the extra word or three questions to imitate a different edition. The interaction match is not a claim of complete online-test equivalence.
 
 ## Daily Life and Academic Passage
 
@@ -91,7 +97,7 @@ On 2026-09-05, the user-provided [public ETS client entry](https://ibt2-toefl-pt
 
 - `toolbarToefl.css` and `toefl_enky.css` define default Open Sans; toolbar CSS imports it directly. Embedded content can override that default.
 - Toolbar heights are 50/30 pixels; major buttons are 40 pixels high, radius 12, horizontal padding 24, font 13px/700. Section labels are 15px; question/time labels 13px/600 with 26px line height.
-- Compatibility CSS specifies 1024-pixel container width, 686-pixel content, and 2-pixel divider. Adding 50/30 gives 768 pixels, matching the observed 4:3 canvas. Width is direct CSS evidence; total height is a structural inference supported by observation. Outer background is `#b4b4b4`. No confirmed overall scaling algorithm or enlargement rule was obtained.
+- Compatibility CSS specifies 1024-pixel container width, 686-pixel content, and 2-pixel divider. Adding 50/30 gives 768 pixels, matching the observed 4:3 canvas. Width is direct CSS evidence; total height is a structural inference supported by observation. Outer background is `#b4b4b4`. That September 5 static review did not establish an overall scaling algorithm or input-enlargement rule; the later live-cloze section records direct focus/blur observations without claiming a universal client rule.
 - Static CSS contains both purple brand variables and teal compatibility rules. The later actual session was teal; that does not establish every theme. CSS and remaining clocks do not establish initial task duration.
 
 Local read-only copies, explicit resource links, responses, and font hashes are under `tmp/qa/ets-client-static/`, without private registration parameters. Open Sans normal Latin/Latin-ext variable WOFF2 (weights 300–800) was obtained via the client's referenced Google Fonts CSS, stored under `public/fonts/`, and accompanied by copyright/OFL 1.1. Toolbar rules alone do not establish content/editor typography.

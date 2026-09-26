@@ -1,12 +1,11 @@
 # Testing and local acceptance tools
 
-English | [简体中文](TESTING.zh-CN.md)
-
 ## Standard checks
 
 ```sh
 npm test
 npm run build
+npm run check:docs
 ```
 
 `npm test` runs type checking, UI tests, backend/security tests, and source/import tests. For focused work:
@@ -18,7 +17,7 @@ npm run test:api
 npm run test:data
 ```
 
-API tests use temporary directories and independent SQLite files. Source tests read the private collection without adding test questions. A public checkout skips checks whose private materials/manifests are absent; report those as skips, not as validated private content. The CI workflow installs dependencies in `.venv/` and runs tests/build on a clean public checkout.
+API tests use temporary directories and independent SQLite files. The bundled TOEFL iBT® Practice Test 1 has public tests for package integrity, complete section/module scope, media availability, installation, and reuse. Full private-collection tests read their original sources without adding test questions; a public checkout skips checks whose private materials/manifests are absent. Report those as skips, not as validated private content. CI installs dependencies in `.venv/`, runs tests/build on a clean checkout, and exercises the bundled example through `npm run demo`.
 
 The historical 2026-09-05 log `tmp/qa/client-expiry-v5-tests.log` records 80 UI, 146 backend/security, and 28 data/import checks: 254 total. Those counts belong to that code snapshot. After a change, run relevant checks and record the actual results; do not reuse historical counts or screenshots to claim the new version passed. See [ACCEPTANCE.md](ACCEPTANCE.md).
 
@@ -26,13 +25,29 @@ The historical 2026-09-05 log `tmp/qa/client-expiry-v5-tests.log` records 80 UI,
 
 - Server deadlines, Begin transitions, automatic stage continuation, one-time source playback, stale/current-question requests, idempotence, background intervals, and recovery.
 - Source/curation hashes, original direction bindings, response clocks starting after directions, and preservation of reading content embedded in instructions.
-- Missing-letter inputs, token drag/reorder, duplicate tokens, fixed text/punctuation, editor word count, internal clipboard, and undo/redo.
+- Missing-letter input persistence, completed/partial focus and blur, lowercase entry, Tab navigation and disabled state; token drag/reorder, duplicate tokens, fixed text/punctuation, editor word count, internal clipboard, and undo/redo.
 - Frozen objective `scoreSnapshot`, restart and scoring-engine changes, explicit `legacy-recomputed` history, late recordings, and self-assessment including valid zero scores.
 - Mistake eligibility, mastery/repeated mistakes, last-error review, version changes, and strict isolation; objective and self-assessed section summaries remain distinct.
 - Same-question final video frame retention and clearing on question change.
-- Bilingual application chrome and custom-resource import behavior, with original question content preserved.
+- Bilingual application controls and root README; English-only guide bodies, legacy localized documentation aliases, and safe Markdown navigation without unintended UI-language changes; custom-resource import behavior with original question content preserved.
+- Complete bundled TOEFL iBT® Practice Test 1 installation, required source/media hashes, unchanged original module/task identities, repeat-install behavior, and coexistence with a full personal catalog.
 
-Synthetic fixtures and test audio must be explicitly identified and kept out of real `data/`, `generated/`, and user `storage/`. The intentionally bundled public demo is separately identified as original demonstration content; it is not one of the private source archives.
+Synthetic fixtures and test audio must be explicitly identified and kept out of real `data/`, `generated/`, and user `storage/`. The small synthetic portable-pack fixture lives at `tests/fixtures/portable-pack.json` and is used only for tests. The locally prepared newcomer dataset is the complete source-based [TOEFL iBT® Practice Test 1](../examples/ets-practice-test-1/README.md), installed with original media and curated flow rather than test-generated questions.
+
+## Validate a clean sample installation
+
+After installing dependencies in a fresh checkout with no private `data/`, `generated/`, or `storage/`:
+
+```sh
+npm run demo
+npm run test:data
+npm run check:docs
+npm start
+```
+
+The first command should install `student-1` with 97 items, 79 screens, 13 optional source references and no original files. Running it again should report `reused: true` and preserve the catalog and records. Source-data checks for the separate private collection may skip; public bundle and importer checks must still pass. The sample cannot start a full strict test or strict Speaking because of its disclosed Interview mismatch; verify strict Reading/Listening/Writing separately.
+
+`check:docs` requires only the root README pair and rejects extra `.zh-CN.md` editions. Preserve the required asset/provenance hashes and optional-source mappings; filename changes must not alter source bytes or stored session URLs. Record validation against the current working tree, not an earlier screenshot or test count. [ACCEPTANCE.md](ACCEPTANCE.md) separates current checks from dated private-data runs.
 
 ## Browser fixture with an adjustable test clock
 

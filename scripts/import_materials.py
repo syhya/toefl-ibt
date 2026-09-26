@@ -872,7 +872,7 @@ def audit_import(materials,exams):
     return report
 
 
-def question_bank(exams):
+def question_bank(exams, publish=True):
     """Deduplicate content, preserving every exam occurrence and source edition."""
     registry={};by_question={};source_cache={};conflicts=[]
     for exam in exams:
@@ -910,8 +910,9 @@ def question_bank(exams):
                         if blank.get('answerConflict'):conflicts.append({'questionId':q['id'],'blankId':blank['id'],'contentId':content_id,'source':q['source'],'conflict':blank['answerConflict']})
     units=lambda q:len(q['blanks']) if q['type']=='cloze' else 1
     stats={'questionOccurrences':len(by_question),'uniqueQuestionScreens':len(registry),'duplicateOccurrences':len(by_question)-len(registry),'itemOccurrences':sum(units(q) for e in exams for s in e['sections'] for m in s['modules'] for q in m['questions']),'uniqueItems':sum(units(v['question']) for v in registry.values()),'contentGroupsWithDuplicates':sum(len(v['instances'])>1 for v in registry.values()),'answerConflictOccurrences':len(conflicts),'unresolvedAnswerConflictOccurrences':sum(c['conflict'].get('status')=='needs-review' for c in conflicts)}
-    dump(OUT/'question-bank.json',{'schemaVersion':1,'stats':stats,'questions':list(registry.values())})
-    dump(OUT/'deduplication.json',{'schemaVersion':1,'method':'normalized content hash plus manually verified equivalent Pack/paid edition aliases','stats':stats,'duplicates':[{'contentId':v['id'],'canonicalQuestionId':v['canonicalQuestionId'],'instances':v['instances']} for v in registry.values() if len(v['instances'])>1],'answerConflicts':conflicts})
+    if publish:
+        dump(OUT/'question-bank.json',{'schemaVersion':1,'stats':stats,'questions':list(registry.values())})
+        dump(OUT/'deduplication.json',{'schemaVersion':1,'method':'normalized content hash plus manually verified equivalent Pack/paid edition aliases','stats':stats,'duplicates':[{'contentId':v['id'],'canonicalQuestionId':v['canonicalQuestionId'],'instances':v['instances']} for v in registry.values() if len(v['instances'])>1],'answerConflicts':conflicts})
     return stats
 
 
@@ -922,7 +923,7 @@ def runtime_verification_manifests(exams):
     file is rewritten by this function.
     """
     from urllib.parse import unquote, urlsplit
-    names=['verified_paper.json','verified_blocks.json','verified_cloze.json','verified_paid.json','verified_choices.json','verified_editions.json','verified_structured_content.json','verified_structured_essentials.json']
+    names=['verified_paper.json','verified_blocks.json','verified_cloze.json','verified_paid.json','verified_choices.json','verified_editions.json','verified_structured_content.json','verified_structured_essentials.json','verified_text_corrections.json']
     curation={f'scripts/{name}':hashlib.sha256((ROOT/'scripts'/name).read_bytes()).hexdigest() for name in names if (ROOT/'scripts'/name).is_file()}
     curation_files = set(curation)
     asset_cache={}
@@ -1030,7 +1031,7 @@ def main():
     # This importer knows one private collection layout. Fail before modifying
     # generated outputs when invoked from a public checkout or partial backup.
     required_manifests = ['cloze', 'choices', 'paid', 'paper', 'editions', 'blocks',
-                          'structured_content', 'structured_essentials', 'teacher_audio', 'pack_directions']
+                          'structured_content', 'structured_essentials', 'teacher_audio', 'pack_directions', 'text_corrections']
     missing = [name for name in required_manifests if not (ROOT / 'scripts' / f'verified_{name}.json').is_file()]
     if not DATA.is_dir() or missing:
         parser.error('The private PDF collection and matching verified_*.json files are required. '
@@ -1042,7 +1043,7 @@ def main():
         m=next(m for m in materials if m["category"]=="experience" and m["kind"]=="pdf" and f"experience-{n}" in m["examIds"])
         pages=prepare_pdf(m,args.jobs)
         exam=experience_exam(n,m,pages,materials)
-        dump(OUT/"exams"/f"{exam['id']}.json",exam);exams.append(exam)
+        exams.append(exam)
     if args.ocr_all:
         for m in materials:
             if m["kind"]=="pdf" and m.get("scanned"): prepare_pdf(m,args.jobs)
@@ -1050,7 +1051,7 @@ def main():
         m=next(m for m in materials if m["category"]=="pack" and m["kind"]=="pdf" and m["name"].startswith("2026") and f"pack-{n}" in m["examIds"])
         pages=prepare_pdf(m,args.jobs)
         exam=pack_exam(n,m,pages,materials)
-        dump(OUT/"exams"/f"{exam['id']}.json",exam);exams.append(exam)
+        exams.append(exam)
     for fam in ["student","teacher"]:
         for n in [1,2]:
             m=next(m for m in materials if m["category"]==fam and m["kind"]=="pdf" and m.get("scanned") and f"{fam}-{n}" in m["examIds"])
@@ -1078,20 +1079,22 @@ def main():
         from attach_teacher_audio import attach as attach_teacher_audio
         from teacher_audio_presentation import finalize as finalize_teacher_audio
         from attach_pack_directions import attach as attach_pack_directions
-    supplemental=build_essentials(materials,jobs=args.jobs)
+    supplemental=build_essentials(materials,jobs=args.jobs,publish=False)
     enrich_questions(exams,materials)
     explanation_stats=attach_explanations(exams,materials,ROOT)
     for exam in exams+supplemental:finalize_exam(exam)
     # Establish the source-content identity before applying separately curated
     # presentation blocks. The curation record must match this identity, so a
     # changed PDF/OCR/question cannot silently inherit an older structured stem.
-    question_bank(exams+supplemental)
+    question_bank(exams+supplemental,publish=False)
     structured_visual_stats=build_structured_visuals(ROOT,materials)
     structured_stats=apply_structured_presentations(exams+supplemental,materials,ROOT)
     teacher_audio_stats=attach_teacher_audio(exams,materials,ROOT)
     teacher_audio_stats['presentation']=finalize_teacher_audio(exams)
     pack_directions_stats=attach_pack_directions(exams,materials,ROOT)
     for exam in exams:finalize_exam(exam)
+    from backend.text_corrections import apply_import_corrections
+    text_correction_stats=apply_import_corrections(exams+supplemental,materials,ROOT)
     runtime_hash_stats=runtime_verification_manifests(exams+supplemental)
     bank_stats=question_bank(exams+supplemental)
     audit=audit_import(materials,exams+supplemental)
@@ -1102,6 +1105,7 @@ def main():
     audit['structuredVisuals']=structured_visual_stats
     audit['teacherAudio']=teacher_audio_stats
     audit['packDirections']=pack_directions_stats
+    audit['textCorrections']=text_correction_stats
     for material in materials:
         cached=CACHE/f"{material['id']}.json"
         if material['kind']=='pdf' and cached.exists():

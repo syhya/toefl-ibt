@@ -1,0 +1,1012 @@
+{
+  "schemaVersion": 1,
+  "version": "source-text-2026-09-07",
+  "description": "Source-PDF-verified transcription corrections. No global spelling heuristics. Stored responses and historical scores are not rewritten.",
+  "questions": {
+    "student-1-l1-1": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 18,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            0,
+            "text"
+          ],
+          "before": "Asa matter of fact, I was returning a book.",
+          "after": "As a matter of fact, I was returning a book.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Woman: Didn’t| just see you in the library an hour ago?",
+          "after": "Woman: Didn’t I just see you in the library an hour ago?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l1-13": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 20,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            0,
+            "text"
+          ],
+          "before": "Aguest lecture",
+          "after": "A guest lecture",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "choices",
+            1,
+            "text"
+          ],
+          "before": "Adifferent location for a class",
+          "after": "A different location for a class",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "choices",
+            3,
+            "text"
+          ],
+          "before": "Anew university science course",
+          "after": "A new university science course",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l1-2": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 18,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            3,
+            "text"
+          ],
+          "before": "I'lltake the subway instead.",
+          "after": "I'll take the subway instead.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Man:Where is the nearest bus stop?",
+          "after": "Man: Where is the nearest bus stop?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l1-3": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 18,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Woman: How dol contact customer service?",
+          "after": "Woman: How do I contact customer service?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l1-4": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 18,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Woman: !'m afraid I'm not available this evening.",
+          "after": "Woman: I'm afraid I'm not available this evening.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l1-5": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 18,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Man:Isn't the post office open today?",
+          "after": "Man: Isn't the post office open today?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l1-6": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 18,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            0,
+            "text"
+          ],
+          "before": "Ican help you with that.",
+          "after": "I can help you with that.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l1-8": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 19,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            0,
+            "text"
+          ],
+          "before": "loverslept.",
+          "after": "I overslept.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-1": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 23,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            1,
+            "text"
+          ],
+          "before": "'munsure, but I can find out.",
+          "after": "I'm unsure, but I can find out.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-11": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 24,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Listen to an announcement ina student lounge. Man: Attention everyone! The student lounge will be closed tomorrow from one P.M. to three P.M. for maintenance. We will be repairing a broken pipe in the ceiling. We apologize for any inconvenience this may cause. Please plan accordingly and consider using the library or the campus café during this time.",
+          "after": "Listen to an announcement in a student lounge. Man: Attention everyone! The student lounge will be closed tomorrow from one P.M. to three P.M. for maintenance. We will be repairing a broken pipe in the ceiling. We apologize for any inconvenience this may cause. Please plan accordingly and consider using the library or the campus café during this time.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-12": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 24,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Listen to an announcement ina student lounge. Man: Attention everyone! The student lounge will be closed tomorrow from one P.M. to three P.M. for maintenance. We will be repairing a broken pipe in the ceiling. We apologize for any inconvenience this may cause. Please plan accordingly and consider using the library or the campus café during this time.",
+          "after": "Listen to an announcement in a student lounge. Man: Attention everyone! The student lounge will be closed tomorrow from one P.M. to three P.M. for maintenance. We will be repairing a broken pipe in the ceiling. We apologize for any inconvenience this may cause. Please plan accordingly and consider using the library or the campus café during this time.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-13": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 25,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically largerthan that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "after": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically larger than that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-14": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 25,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            2,
+            "text"
+          ],
+          "before": "Toillustrate the usefulness of comparing ecological footprints",
+          "after": "To illustrate the usefulness of comparing ecological footprints",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically largerthan that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "after": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically larger than that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-15": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 25,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically largerthan that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "after": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically larger than that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-16": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 25,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically largerthan that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "after": "Listen to a talk in an environmental science class. Professor. An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically larger than that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-3": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 23,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            1,
+            "text"
+          ],
+          "before": "Inaisle 4.",
+          "after": "In aisle 4.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Man:I'm going to get some groceries.",
+          "after": "Man: I'm going to get some groceries.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-5": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 23,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Man: Samiand Layla are on their way to the café.",
+          "after": "Man: Sami and Layla are on their way to the café.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-6": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 23,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Woman:!'dlike to hear your thoughts on the job candidates.",
+          "after": "Woman: I'd like to hear your thoughts on the job candidates.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-8": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 24,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Man:Ifyou need more information, contact Ms. Lee.",
+          "after": "Man: If you need more information, contact Ms. Lee.",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-l2-9": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 24,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            0,
+            "text"
+          ],
+          "before": "Alaptop and a smartphone",
+          "after": "A laptop and a smartphone",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "choices",
+            1,
+            "text"
+          ],
+          "before": "Asmartphone and a tablet",
+          "after": "A smartphone and a tablet",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "choices",
+            3,
+            "text"
+          ],
+          "before": "Asmartphone and a smartwatch",
+          "after": "A smartphone and a smartwatch",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-r1-11": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 4,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            2,
+            "text"
+          ],
+          "before": "Apaper company",
+          "after": "A paper company",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "choices",
+            3,
+            "text"
+          ],
+          "before": "Abank",
+          "after": "A bank",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-r2-11": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 10,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "paragraphs",
+            0
+          ],
+          "before": "Read an email. edward56L@dmail.com artforeveryone@dmail.com 10/09/2025 Subject: j] Art Workshop Reservation Confirmation Dear Ms. Edwards, The reservation for the art workshop that you made on September 10th has been confirmed. The workshop will take place on September 20th at 3:00 PM. All necessary arts supplies will be provided, but please bring your own apron or smock. Best regards, Laura Bennett",
+          "after": "Dear Ms. Edwards, The reservation for the art workshop that you made on September 10th has been confirmed. The workshop will take place on September 20th at 3:00 PM. All necessary arts supplies will be provided, but please bring your own apron or smock. Best regards, Laura Bennett",
+          "evidence": "Original source page visually checked; exact text-leaf repair; answer keys and choices ordering unchanged."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "recipient"
+          ],
+          "before": null,
+          "after": "edward56L@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "sender"
+          ],
+          "before": null,
+          "after": "artforeveryone@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "date"
+          ],
+          "before": null,
+          "after": "10/09/2025",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "subject"
+          ],
+          "before": null,
+          "after": "Art Workshop Reservation Confirmation",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        }
+      ]
+    },
+    "student-1-r2-12": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 10,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "choices",
+            0,
+            "text"
+          ],
+          "before": "Apayment method",
+          "after": "A payment method",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "choices",
+            2,
+            "text"
+          ],
+          "before": "Aprotective garment",
+          "after": "A protective garment",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "paragraphs",
+            0
+          ],
+          "before": "Read an email. edward56L@dmail.com artforeveryone@dmail.com 10/09/2025 Subject: j] Art Workshop Reservation Confirmation Dear Ms. Edwards, The reservation for the art workshop that you made on September 10th has been confirmed. The workshop will take place on September 20th at 3:00 PM. All necessary arts supplies will be provided, but please bring your own apron or smock. Best regards, Laura Bennett",
+          "after": "Dear Ms. Edwards, The reservation for the art workshop that you made on September 10th has been confirmed. The workshop will take place on September 20th at 3:00 PM. All necessary arts supplies will be provided, but please bring your own apron or smock. Best regards, Laura Bennett",
+          "evidence": "Original source page visually checked; exact text-leaf repair; answer keys and choices ordering unchanged."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "recipient"
+          ],
+          "before": null,
+          "after": "edward56L@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "sender"
+          ],
+          "before": null,
+          "after": "artforeveryone@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "date"
+          ],
+          "before": null,
+          "after": "10/09/2025",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "subject"
+          ],
+          "before": null,
+          "after": "Art Workshop Reservation Confirmation",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 10 visually verified."
+        }
+      ]
+    },
+    "student-1-r2-13": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 11,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "paragraphs",
+            0
+          ],
+          "before": "Read an email. Nguyenbooklover@dmail.com part.gymworkers@dmail.com Subject: I] You're Invited - Bring Friends & Family to Our Grand Opening! Dear Ms. Nguyen, We're excited to invite you—and your friends and family—to the grand opening of our new branch at 25 Orchid Street, happening next Monday. This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training. This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments. It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels. Bring your friends and family! We're offering a special one-day-only discount on memberships for all attendees. For questions or to RSVP, contact our customer service team at 555-1234. Warm regards, John Parker",
+          "after": "Dear Ms. Nguyen, We're excited to invite you—and your friends and family—to the grand opening of our new branch at 25 Orchid Street, happening next Monday. This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training. This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments. It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels. Bring your friends and family! We're offering a special one-day-only discount on memberships for all attendees. For questions or to RSVP, contact our customer service team at 555-1234. Warm regards, John Parker",
+          "evidence": "Original source page visually checked; exact text-leaf repair; answer keys and choices ordering unchanged."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "recipient"
+          ],
+          "before": null,
+          "after": "nguyenbooklover@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "sender"
+          ],
+          "before": null,
+          "after": "part.gymworkers@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "subject"
+          ],
+          "before": null,
+          "after": "You're Invited – Bring Friends & Family to Our Grand Opening!",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        }
+      ]
+    },
+    "student-1-r2-14": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 11,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "paragraphs",
+            0
+          ],
+          "before": "Read an email. Nguyenbooklover@dmail.com part.gymworkers@dmail.com Subject: I] You're Invited - Bring Friends & Family to Our Grand Opening! Dear Ms. Nguyen, We're excited to invite you—and your friends and family—to the grand opening of our new branch at 25 Orchid Street, happening next Monday. This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training. This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments. It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels. Bring your friends and family! We're offering a special one-day-only discount on memberships for all attendees. For questions or to RSVP, contact our customer service team at 555-1234. Warm regards, John Parker",
+          "after": "Dear Ms. Nguyen, We're excited to invite you—and your friends and family—to the grand opening of our new branch at 25 Orchid Street, happening next Monday. This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training. This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments. It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels. Bring your friends and family! We're offering a special one-day-only discount on memberships for all attendees. For questions or to RSVP, contact our customer service team at 555-1234. Warm regards, John Parker",
+          "evidence": "Original source page visually checked; exact text-leaf repair; answer keys and choices ordering unchanged."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "recipient"
+          ],
+          "before": null,
+          "after": "nguyenbooklover@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "sender"
+          ],
+          "before": null,
+          "after": "part.gymworkers@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "subject"
+          ],
+          "before": null,
+          "after": "You're Invited – Bring Friends & Family to Our Grand Opening!",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        }
+      ]
+    },
+    "student-1-r2-15": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 11,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "paragraphs",
+            0
+          ],
+          "before": "Read an email. Nguyenbooklover@dmail.com part.gymworkers@dmail.com Subject: I] You're Invited - Bring Friends & Family to Our Grand Opening! Dear Ms. Nguyen, We're excited to invite you—and your friends and family—to the grand opening of our new branch at 25 Orchid Street, happening next Monday. This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training. This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments. It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels. Bring your friends and family! We're offering a special one-day-only discount on memberships for all attendees. For questions or to RSVP, contact our customer service team at 555-1234. Warm regards, John Parker",
+          "after": "Dear Ms. Nguyen, We're excited to invite you—and your friends and family—to the grand opening of our new branch at 25 Orchid Street, happening next Monday. This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training. This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments. It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels. Bring your friends and family! We're offering a special one-day-only discount on memberships for all attendees. For questions or to RSVP, contact our customer service team at 555-1234. Warm regards, John Parker",
+          "evidence": "Original source page visually checked; exact text-leaf repair; answer keys and choices ordering unchanged."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "recipient"
+          ],
+          "before": null,
+          "after": "nguyenbooklover@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "sender"
+          ],
+          "before": null,
+          "after": "part.gymworkers@dmail.com",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            1,
+            "subject"
+          ],
+          "before": null,
+          "after": "You're Invited – Bring Friends & Family to Our Grand Opening!",
+          "evidence": "Guarded missing message metadata insertion (before:null), original PDF page 11 visually verified; email recipient uses lowercase n."
+        }
+      ]
+    },
+    "student-1-r2-18": {
+      "questionType": "choice",
+      "materialId": "mat-3e0bfa577216",
+      "page": 12,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "prompt"
+          ],
+          "before": "Why does the author mention Sheena lyengar’s experiment?",
+          "after": "Why does the author mention Sheena Iyengar’s experiment?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            4,
+            "text"
+          ],
+          "before": "Why does the author mention Sheena lyengar’s experiment?",
+          "after": "Why does the author mention Sheena Iyengar’s experiment?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-s-interview-1": {
+      "questionType": "interview",
+      "materialId": "mat-3e0bfa577216",
+      "page": 36,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "prompt"
+          ],
+          "before": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living ina city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+          "after": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "stemBlocks",
+            0,
+            "text"
+          ],
+          "before": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living ina city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+          "after": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        },
+        {
+          "path": [
+            "transcript"
+          ],
+          "before": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living ina city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+          "after": "Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. [2-second pause] Now, do you currently live in a big city, a small town, or a village?",
+          "evidence": "Original PDF raster visually checked in other-contact-1..10 and other-more-contact-1..6; independent Vision OCR used only to locate candidates."
+        }
+      ]
+    },
+    "student-1-w-academic_discussion": {
+      "questionType": "academic_discussion",
+      "materialId": "mat-3e0bfa577216",
+      "page": 32,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "prompt"
+          ],
+          "before": "Write for an Academic Discussion\nAprofessor has posted a question about a topic and students have responded with their thoughts and\nideas. Make a contribution to the discussion.\nYou will have 10 minutes to write.\nYour professor is teaching a class on social studies. Write a post responding to the professor's question.\nIn your response, you should do the following.\ne Express and support your opinion.\ne Make a contribution to the discussion in your own words.\nAn effective response will contain at least 100 words.\n:\nVolunteerism refers to the act of offering your time and service without financial compensation to benefit\na community, organization, or cause. While many people volunteer mainly to help others, some\ninstitutions have mandatory volunteer programs. High schools are one example, where students may be\nrequired to complete a certain number of volunteer hours to graduate. What do you think? Should high\nschool students be required to do volunteer work? Why or why not?\nYes, I think high schools should require volunteer hours because it helps students\nbuild a sense of civic responsibility. Many teenagers don't naturally think about\n4 helping others, and this requirement can introduce them to the idea that their time\nand effort can make a real difference in the lives of others.\n* I don't think volunteer hours should be required because many students already\ni have limited free time. Some have part-time jobs or take care of younger siblings\nafter school. Adding a mandatory volunteer requirement could create extra stress\nand make it harder for those students to balance their existing responsibilities.",
+          "after": "Write for an Academic Discussion\nA professor has posted a question about a topic and students have responded with their thoughts and\nideas. Make a contribution to the discussion.\nYou will have 10 minutes to write.\nYour professor is teaching a class on social studies. Write a post responding to the professor's question.\nIn your response, you should do the following.\n• Express and support your opinion.\n• Make a contribution to the discussion in your own words.\nAn effective response will contain at least 100 words.\nVolunteerism refers to the act of offering your time and service without financial compensation to benefit\na community, organization, or cause. While many people volunteer mainly to help others, some\ninstitutions have mandatory volunteer programs. High schools are one example, where students may be\nrequired to complete a certain number of volunteer hours to graduate. What do you think? Should high\nschool students be required to do volunteer work? Why or why not?\nYes, I think high schools should require volunteer hours because it helps students\nbuild a sense of civic responsibility. Many teenagers don't naturally think about\nhelping others, and this requirement can introduce them to the idea that their time\nand effort can make a real difference in the lives of others.\nI don't think volunteer hours should be required because many students already\nhave limited free time. Some have part-time jobs or take care of younger siblings\nafter school. Adding a mandatory volunteer requirement could create extra stress\nand make it harder for those students to balance their existing responsibilities.",
+          "evidence": "Original writing PDF page and existing structured task paragraphs/requirements checked; restore bullet marks and remove avatar OCR glyph contamination."
+        }
+      ]
+    },
+    "student-1-w-build-1": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 29,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "slots",
+            0,
+            "fixed"
+          ],
+          "before": "the",
+          "after": "The",
+          "evidence": "All 70 paper Build source crops visually reviewed; existing fixed sentence text capitalization/comma restored (other-build-contact-* and other-build-rest-*)."
+        },
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": ".",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-10": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 30,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "slots",
+            0,
+            "fixed"
+          ],
+          "before": "i used",
+          "after": "I used",
+          "evidence": "All 70 paper Build source crops visually reviewed; existing fixed sentence text capitalization/comma restored (other-build-contact-* and other-build-rest-*)."
+        },
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": ".",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-2": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 29,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": "?",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-3": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 29,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": "?",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-4": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 29,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": "?",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-5": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 29,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": "?",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-6": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 30,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": "?",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-7": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 30,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": "?",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-8": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 30,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": "?",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-build-9": {
+      "questionType": "build_sentence",
+      "materialId": "mat-3e0bfa577216",
+      "page": 30,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "slots",
+            0,
+            "fixed"
+          ],
+          "before": "she",
+          "after": "She",
+          "evidence": "All 70 paper Build source crops visually reviewed; existing fixed sentence text capitalization/comma restored (other-build-contact-* and other-build-rest-*)."
+        },
+        {
+          "path": [
+            "terminalPunctuation"
+          ],
+          "before": null,
+          "after": ".",
+          "evidence": "Original sentence terminal punctuation visually read from supplied PDF question crop; display metadata only, does not add an answer gap."
+        }
+      ]
+    },
+    "student-1-w-email": {
+      "questionType": "email",
+      "materialId": "mat-3e0bfa577216",
+      "page": 31,
+      "sourceSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+      "patches": [
+        {
+          "path": [
+            "prompt"
+          ],
+          "before": "Write an Email\nYou will read some information and use the information to write an email.\nYou will have 7 minutes to write the email.\nAnew poetry magazine has asked its readers for submissions, and you decided to submit two of your\npoems. However, you had a problem using the online submission form, and you are not certain that your\nsubmissions were received.\nWrite an email to the editor of the magazine. In your email, do the following.\n¢ Tell the editor what you like about the new magazine.\ne Describe the problem you experienced.\ne Ask about the status of your submissions.\nWrite as much as you can and in complete sentences.\nYour Response:\nTo: editor@sunshinepoetrymagazine.com\nSubject: Problem using submission form",
+          "after": "Write an Email\nYou will read some information and use the information to write an email.\nYou will have 7 minutes to write the email.\nA new poetry magazine has asked its readers for submissions, and you decided to submit two of your\npoems. However, you had a problem using the online submission form, and you are not certain that your\nsubmissions were received.\nWrite an email to the editor of the magazine. In your email, do the following.\n• Tell the editor what you like about the new magazine.\n• Describe the problem you experienced.\n• Ask about the status of your submissions.\nWrite as much as you can and in complete sentences.\nYour Response:\nTo: editor@sunshinepoetrymagazine.com\nSubject: Problem using submission form",
+          "evidence": "Original writing PDF page and existing structured task paragraphs/requirements checked; restore bullet marks and remove avatar OCR glyph contamination."
+        }
+      ]
+    }
+  }
+}

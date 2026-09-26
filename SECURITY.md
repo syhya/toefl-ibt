@@ -1,7 +1,5 @@
 # Security policy
 
-English | [简体中文](SECURITY.zh-CN.md)
-
 ## Supported scope
 
 Security fixes target the current default-branch code. The project is a single-user service bound to `127.0.0.1`, with local files and browser storage. It is not designed for shared public hosting, untrusted network users, exam proctoring, or operating-system lockdown. Do not expose the service through port forwarding or a public proxy without designing and reviewing authentication and authorization first.
@@ -15,6 +13,8 @@ Include the affected revision, operating system/browser, a minimal synthetic rep
 ## Sensitive local data
 
 `storage/` includes answers and voice recordings; browser IndexedDB may contain pending uploads. `data/`, `generated/`, and `scripts/verified_*.json` may contain copyrighted material and private source evidence. Keep these files out of Git and public issue attachments. A JSON session export can contain answers and personal text, even when audio bytes are downloaded separately.
+
+The selected `examples/ets-practice-test-1/` package is the explicit resource exception, documented in its [source notice](examples/ets-practice-test-1/NOTICE.md). It contains reference keys and sources for local study, but no personal responses or recordings. Renaming its public files does not make the rest of `data/` or `generated/` safe to publish.
 
 Back up the complete storage safely before upgrades. Wait for recording uploads to finish before clearing browser data. If a credential was accidentally published, revoke it through its provider; deleting the file from a later commit does not revoke the credential or remove history.
 

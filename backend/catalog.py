@@ -160,7 +160,9 @@ class Catalog:
             safe = {key: item[key] for key in ['id', 'name', 'kind', 'category', 'bytes', 'pages', 'durationSeconds',
                                               'supplemental', 'examIds', 'warnings', 'scanned', 'sha256'] if key in item}
             asset_id = self.register(item.get('url'), library=True)
-            safe.update(assetId=asset_id, url=f'/api/library/{asset_id}' if asset_id else None)
+            available = bool(asset_id and self.path_for(asset_id))
+            safe.update(assetId=asset_id if available else None, available=available,
+                        url=f'/api/library/{asset_id}' if available else None)
             materials.append(safe)
         return {'schemaVersion': 2, 'generatedAt': self.data.get('generatedAt'), 'stats': self.data.get('stats', {}),
                 'materials': materials, 'exams': [self.summary(exam) for exam in self.exams.values()],

@@ -131,6 +131,12 @@ class RealDataIntegrity(unittest.TestCase):
             raise unittest.SkipTest("Private data/generated collection is not installed")
         initial = read_json(catalog_path)
         private_ids = {e['id'] for e in initial.get('exams', []) + initial.get('supplementalExams', [])}
+        if (initial.get('bundledExample') in [
+                {'id': 'ets-practice-test-1', 'version': 1},
+                {'id': 'ets-practice-test-1', 'version': 2, 'profile': 'runtime-only'}]
+                and private_ids == {'student-1'}
+                and not (ROOT / 'scripts/verified_paper.json').is_file()):
+            raise unittest.SkipTest('The official Practice Test 1 bundle is checked by test_bundled_example; the private 18-pack archive is not installed')
         if not private_ids and not initial.get('materials'):
             raise unittest.SkipTest("Portable packs are installed; the private source collection is not installed")
         # Portable registries are validated separately. Their generated exams do
@@ -219,12 +225,28 @@ class RealDataIntegrity(unittest.TestCase):
 
     def test_structured_questions_match_their_frozen_source_curation(self):
         from scripts.structure_questions import load as load_structured_curation
+        from backend.text_corrections import MANIFEST_PATH, read_manifest, field_value
         records = load_structured_curation(ROOT)["questions"]
+        errata_path = ROOT / MANIFEST_PATH
+        errata = read_manifest(errata_path)['questions'] if errata_path.is_file() else {}
         self.assertEqual(set(records), set(self.questions))
         errors, hashes = [], {}
         for eid, exam in self.exams.items():
             for _, _, q in items(exam):
                 record = records[q["id"]]
+                expected_text = deepcopy(record)
+                # Compare against the layered provenance independently: base
+                # source curation, followed by exact approved textual errata.
+                for patch in errata.get(q['id'], {}).get('patches', []):
+                    if patch['path'][0] not in expected_text:
+                        continue
+                    try:
+                        before = field_value(expected_text, patch['path'])
+                    except ValueError:
+                        before = None
+                    self.assertEqual(before, patch['before'], f"{q['id']}: stale layered curation")
+                    parent = field_value(expected_text, patch['path'][:-1])
+                    parent[patch['path'][-1]] = patch['after']
                 source = q["source"]
                 material = self.materials[source["materialId"]]
                 if (record.get("examId") != eid or record.get("materialId") != material["id"] or
@@ -233,7 +255,7 @@ class RealDataIntegrity(unittest.TestCase):
                     errors.append(f"{q['id']}: structured curation lacks matching source identity/evidence")
                 for field in ["stemBlocks", "prompt", "passage", "passageTemplate", "context", "choices", "transcript",
                               "tokens", "slots", "extraTokens", "fixedTokens", "interaction", "wordLimit", "recommendedWords"]:
-                    if field in record and record[field] != q.get(field):
+                    if field in expected_text and expected_text[field] != q.get(field):
                         errors.append(f"{q['id']}: {field} differs from the source curation")
                 if record.get("essentialVisualAssets", []) != q.get("assets", []):
                     errors.append(f"{q['id']}: active visual metadata differs from the source curation")

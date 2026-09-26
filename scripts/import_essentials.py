@@ -424,7 +424,7 @@ def validate_exam(exam):
         raise ValueError("Essentials must never inherit iBT strict timing")
 
 
-def build_essentials(materials, jobs=6):
+def build_essentials(materials, jobs=6, publish=True):
     h = helpers()
     exams = []
     for n in [1, 2, 3]:
@@ -462,7 +462,8 @@ def build_essentials(materials, jobs=6):
         exam["audit"]["verifiedListeningAudioQuestions"] = exam["sections"][1]["matchedAudioQuestionCount"]
         exam["audit"]["verifiedSpeakingPromptAudioQuestions"] = speaking_count - 6
         validate_exam(exam)
-        h.dump(ROOT / "generated/exams" / f"{eid}.json", exam)
+        if publish:
+            h.dump(ROOT / "generated/exams" / f"{eid}.json", exam)
         exams.append(exam)
         print(f"Essentials {n}: {exam['screenCount']} interactive source items; {excluded_count} reference-only speaking prompts", flush=True)
     return exams

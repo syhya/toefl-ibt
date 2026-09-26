@@ -1,10 +1,8 @@
 # Importing your own resources
 
-English | [简体中文](IMPORTING.zh-CN.md)
+**Start with the bundled TOEFL iBT® Practice Test 1; use portable JSON packs to add your own content.** The curated Practice Test 1 installer preserves the full reference exam and its verified media. The portable importer accepts a separate authoring schema and creates untimed supplementary resources. The historical PDF/OCR importer is specialized for the original full private collection and requires its exact directory layout and private curation manifests. Adding an arbitrary PDF to `data/` does not automatically create an interactive exam.
 
-There are two supported workflows. **Portable JSON packs are the recommended path for a new user.** The historical PDF/OCR importer is specialized for the original private collection and requires its exact directory layout and private curation manifests. Adding an arbitrary PDF to `data/` does not automatically create an interactive exam.
-
-## Try the bundled demonstration
+## Install the complete TOEFL iBT® Practice Test 1
 
 After installation, run:
 
@@ -13,7 +11,23 @@ npm run demo
 npm start
 ```
 
-Or open the empty application's **Try the demo** action. The pack at [`examples/demo/pack.json`](../examples/demo/pack.json) has four original demonstration screens: a reading choice, a missing-letter paragraph, an email, and a discussion. It is short, text-only, untimed, and not an official question set. It can be installed alongside an existing private collection without replacing it. Installing identical content again is idempotent.
+Or choose **Try Practice Test 1** on an empty homepage or in **Help & setup**. The complete package at [`examples/ets-practice-test-1/`](../examples/ets-practice-test-1/README.md) contains 97 question items across 79 screens: Reading 40 items/22 screens, Listening 34/34, Writing 12/12, and Speaking 11/11. Its prepared questions, extracted explanations, audio clips, portraits, and review evidence are included; the original PDFs and full MP3 tracks are optional and omitted. Corrected structured text and the original module/task arrangement are retained. Reading, Listening, and Writing support eligible strict practice; Speaking and the whole test remain guided because Interview question 1 has a documented paper/audio version mismatch.
+
+This is the default newcomer dataset. No OCR or private collection is needed. Installation validates the bundled files before registering Practice Test 1. An existing `student-1` in your full local collection is reused, so this action does not duplicate it or replace personal records. Repeating installation is safe. The package uses `manifest.json` and internal `exam.json`; these are not portable JSON input files and must not be passed to `import:pack`. Source attribution and third-party rights are documented in the package [notice](../examples/ets-practice-test-1/NOTICE.md).
+
+Keep every tracked example file: 52 prepared assets and four metadata JSON files, plus the manifest and notices. The runtime payload is approximately 17.8 MB. The 13 originals listed in `optionalOriginals` are provenance references, not required downloads; the local `materials/` folder is ignored by Git. Prepared-content/media hashes remain mandatory. Only the allowlisted `runtime-only` example profile permits absent originals, and it requires a matching provenance record. Private archives and portable packs do not inherit this exception.
+
+Reusing an existing verified `student-1` is intentionally a no-op, not an upgrade command. If the installed sources are changed or missing, restore that installation's matching files/catalog before retrying; replacing only the example directory does not repair an already damaged local exam. There is no `--replace` option for the native example. The `--replace` workflow below applies only to custom portable packs.
+
+## Refresh the bundled example (maintainers only)
+
+The exporter requires the verified original curated `student-1` exam and private source/errata inputs; it is not part of a new user's installation and cannot export from an already installed example snapshot. Supply an unmodified copy of the documented ETS PDF; its bytes must match the source question paper:
+
+```sh
+.venv/bin/python scripts/export_example.py --official-pdf /path/to/toefl-ibt-full-length-practice-test-1.pdf
+```
+
+The exporter derives the native example and resource hashes from those verified inputs. `MATERIAL_FILENAMES` defines the public English names, while original source URLs/installation paths stay unchanged. It rejects unresolved dependencies and stale extra files instead of publishing them. Review the resulting complete package and test a clean install before distribution; do not run the full private importer merely to start the sample.
 
 ## Import text-only JSON in the website
 
@@ -84,7 +98,7 @@ Save this as `pack.json`; the content below is an original example, not a TOEFL 
 
 ## Manifest contract
 
-The executable validation is [`backend/packs.py`](../backend/packs.py); [`examples/demo/pack.json`](../examples/demo/pack.json) is a working text-only example. Do not copy generated exam files as input: they contain internal fields that are intentionally rejected.
+The executable validation is [`backend/packs.py`](../backend/packs.py). The [minimal JSON above](#minimal-complete-pack) is the starting point for your own text-only content; the default installed reference set is TOEFL iBT® Practice Test 1. Do not copy generated exam files as input: they contain internal fields that are intentionally rejected.
 
 | Field | Requirement |
 | --- | --- |
@@ -148,9 +162,11 @@ A source PDF is provenance/reference, not an automatic OCR-to-question conversio
 
 ### Advanced structured layout
 
-Use `stemBlocks` for separate paragraphs, instructions, titles, messages, dialogue, lists, tables, highlighted sentences, form diagrams, and visuals. The demo's discussion shows a professor and two student turns. To add your own authorized portraits, put images in `assets` and add each zero-based `avatarAssetIndex` to the corresponding dialogue turn. Keep names and comments in original order. The schema is validated by [`backend/presentation.py`](../backend/presentation.py); HTML/scripts are not a supported content format. Plain JSON is sufficient for most packs.
+Use `stemBlocks` for separate paragraphs, instructions, titles, messages, dialogue, lists, tables, highlighted sentences, form diagrams, and visuals. The bundled TOEFL iBT® Practice Test 1 shows the complete source discussion with a professor, two students, and their portraits. To add your own authorized portraits, put images in `assets` and add each zero-based `avatarAssetIndex` to the corresponding dialogue turn. Keep names and comments in original order. The schema is validated by [`backend/presentation.py`](../backend/presentation.py); HTML/scripts are not a supported content format. Plain JSON is sufficient for most packs.
 
 ## Installed files and backup
+
+The curated TOEFL iBT® Practice Test 1 installer registers `generated/exams/student-1.json` in `generated/catalog.json`, with prepared media/provenance under `generated/assets/`; original `data/` files are optional for this allowlisted profile. It preserves an existing verified Practice Test 1; it does not overwrite a changed local archive. Portable custom packs use the separate revisioned paths below:
 
 ```text
 data/user-packs/<id>/<revision>/   Copied manifest and local assets
@@ -163,7 +179,7 @@ The runtime combines pack registries with any private base catalog. Back up `dat
 
 ## Original private PDF/OCR collection
 
-This advanced importer supports the original known directory, not arbitrary PDFs. It requires legally obtained source files and their matching private `scripts/verified_*.json` records, which are not distributed in the public repository. New users should use portable packs instead.
+This advanced importer supports the original known directory, not arbitrary PDFs. It requires legally obtained source files and their matching private `scripts/verified_*.json` records, which are not distributed in the public repository. Use the bundled TOEFL iBT® Practice Test 1 for a complete starting set, or portable packs for new custom content.
 
 ```sh
 .venv/bin/python -m pip install -r requirements-import.txt

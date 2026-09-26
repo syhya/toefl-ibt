@@ -110,7 +110,7 @@ def test_unverified_instruction_text_never_falls_back_to_inline_or_asr_text(env,
             path.resolve().unlink(missing_ok=True)
 
 
-def test_a_changed_curation_file_cannot_replace_the_cached_original_pdf_text(env):
+def test_a_changed_curation_file_invalidates_even_cached_original_pdf_text(env):
     path = install_directions(env)
     current = begin(env, start(env, mode='strict', scope='listening'))
     assert current['question']['audio']['instructions'] == PDF_INSTRUCTION
@@ -118,7 +118,7 @@ def test_a_changed_curation_file_cannot_replace_the_cached_original_pdf_text(env
     changed['clips']['module-cue']['sourceText'] = 'REPLACED_INSTRUCTION_TEXT'
     path.write_text(json.dumps(changed))
     restored = env['client'].get(f"/api/sessions/{current['id']}").json()
-    assert restored['question']['audio']['instructions'] == PDF_INSTRUCTION
+    assert 'instructions' not in restored['question']['audio']
     assert 'REPLACED_INSTRUCTION_TEXT' not in json.dumps(restored)
     assert restored['sourceVersionMatches'] is False
     assert restored['deadline'] is None and restored['audioEarliestEnd'] == current['audioEarliestEnd']

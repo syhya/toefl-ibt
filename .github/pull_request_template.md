@@ -1,19 +1,19 @@
-## Problem / 问题
+## Problem
 
-What user problem does this solve? / 解决什么用户问题？
+What user problem does this solve?
 
-## Change / 改动
+## Change
 
-Describe the resulting behavior. / 描述修改后的行为。
+Describe the resulting behavior.
 
-## Validation / 验证
+## Validation
 
-List commands, browser checks, and skips. / 列出命令、浏览器检查和跳过项。
+List commands, browser checks, and skips.
 
-- [ ] English and Chinese text/docs updated where needed / 按需同步双语
-- [ ] Relevant checks and build passed / 相关检查与构建通过
-- [ ] No private materials, user recordings, secrets, or generated banks included / 不包含私有资料、用户录音、秘密或生成题库
+- [ ] English documentation updated; root README and UI translations synchronized where needed
+- [ ] Relevant checks and build passed
+- [ ] No private materials, user recordings, secrets, or generated banks included
 
-## Screenshots or limitations / 截图或限制
+## Screenshots or limitations
 
-Use synthetic/publicly distributable content for screenshots. / 截图使用自编或可公开分发的内容。
+Use synthetic/publicly distributable content for screenshots.

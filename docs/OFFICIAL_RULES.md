@@ -1,7 +1,5 @@
 # TOEFL iBT 2026 rules and simulation boundaries
 
-English | [简体中文](OFFICIAL_RULES.zh-CN.md)
-
 First checked: 2026-08-31; independently rechecked: 2026-09-05. Applies to the test introduced on 2026-01-21. This is a dated evidence record, not a claim that all linked pages were rechecked during the bilingual documentation update. Sources are ETS pages, technical documents, and official samples; screenshots in the private `data/` collection support observations about those specific materials. See the [independent verification](ets-2026-verification.md).
 
 The application is not an ETS examination client. **Strict timing means enforcing a selected local practice configuration, not reproducing every production examination rule, screen, or scoring system.**
@@ -50,7 +48,7 @@ Strict practice disallows replay, seeking, playback-rate changes, timer pause, a
 
 ## Timing directly observed in supplied Pack 1
 
-Source: the private `2026新托福Pack-1.pdf` under `data/2026新托福 18套题+备考资料/00. TPO1-6 全套（包含音频、听力原文和答案）/2026新托福Pack-1/`. Page numbers below are physical PDF pages. Key pages were rendered and page-top clocks were OCR-checked.
+Source: **TPO Pack 1 — Question Paper** (`mat-e028047bd7f0` in the local `generated/catalog.json`). The catalog retains its original filename and path; this is an English documentation label. Page numbers below are physical PDF pages. Key pages were rendered and page-top clocks were OCR-checked.
 
 | Page | Observation | Permitted use |
 | --- | --- | --- |

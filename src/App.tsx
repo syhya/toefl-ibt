@@ -1180,9 +1180,15 @@ export function Prepare({
           </Notice>
           {sources.map((m) => (
             <p key={m.id}>
-              <a href={m.url} target="_blank" rel="noopener">
-                {m.name} ↗
-              </a>
+              {m.url ? (
+                <a href={m.url} target="_blank" rel="noopener">
+                  {m.name} ↗
+                </a>
+              ) : (
+                <span>
+                  {m.name} · {tr("Original not installed", "未安装原文件")}
+                </span>
+              )}
             </p>
           ))}
         </>

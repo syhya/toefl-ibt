@@ -2330,7 +2330,7 @@ dialog::backdrop {
 .cloze-blank-wrap {
   display: contents;
 }
-.cloze-placeholder {
+.cloze-completed-text {
   display: none;
 }
 .inline-blank {

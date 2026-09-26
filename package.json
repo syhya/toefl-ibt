@@ -18,7 +18,7 @@
     "test:ui": "vitest run",
     "format": "prettier --write src public/styles.css vite.config.ts",
     "test:data": ".venv/bin/python -m pytest tests/data -q",
-    "demo": ".venv/bin/python scripts/import_pack.py examples/demo/pack.json",
+    "demo": ".venv/bin/python scripts/install_example.py",
     "import:pack": ".venv/bin/python scripts/import_pack.py",
     "check:docs": "python3 scripts/check_docs.py"
   },

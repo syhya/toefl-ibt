@@ -6,6 +6,7 @@ import re
 import threading
 
 from .presentation import asset_is_active, manifest_issues
+from .prepared_sources import optional_originals
 
 HASH = re.compile(r'^[0-9a-f]{64}$')
 
@@ -103,6 +104,8 @@ class SourceIntegrity:
 
     def check_exam(self, exam):
         issues = []
+        optional = optional_originals(self.root, exam, self.catalog, self.digest)
+        omitted_originals = []
         def issue(code, **detail):
             item = {'code': code, **detail}
             if item not in issues:
@@ -152,6 +155,13 @@ class SourceIntegrity:
             expected = item.get('sha256')
             asset_id = self.catalog.register(item.get('url'), library=True)
             path = self.catalog.path_for(asset_id) if asset_id else None
+            raw_path = self.catalog.assets.get(asset_id, {}).get('path')
+            if (material_id in optional and path is None and raw_path is not None
+                    and raw_path.resolve().is_relative_to((self.root / 'data').resolve())
+                    and not raw_path.exists() and not raw_path.is_symlink()
+                    and not any(p.is_symlink() for p in raw_path.parents if p.is_relative_to(self.root))):
+                omitted_originals.append(material_id)
+                continue
             if not path or not isinstance(expected, str) or not HASH.fullmatch(expected) or self.digest(path) != expected:
                 issue('source-missing-or-changed', materialId=material_id)
         for url in active_urls(exam):
@@ -166,7 +176,11 @@ class SourceIntegrity:
             path = self.catalog.path_for(asset_id) if asset_id else None
             if not path or not isinstance(expected, str) or not HASH.fullmatch(expected) or self.digest(path) != expected:
                 issue('structured-review-asset-missing-or-changed', assetId=asset_id)
-        return {'status': 'passed' if not issues else 'invalid', 'requiresReimport': bool(issues), 'issues': issues}
+        report = {'status': 'passed' if not issues else 'invalid', 'requiresReimport': bool(issues), 'issues': issues}
+        if optional:
+            report.update(mode='prepared-assets', originalSourcesVerified=not omitted_originals,
+                          optionalOriginalsMissing=len(omitted_originals))
+        return report
 
     def freeze_assets(self, session, exam):
         manifest = {}
@@ -220,6 +234,12 @@ class SourceIntegrity:
             'assetSha256ByUrl': {item['url']: item['sha256'] for item in manifest.values()},
             'reviewAssetSha256ByUrl': {item['url']: item['sha256'] for item in review_manifest.values()},
             'status': self.check_exam(exam)['status']}
+        if inputs.get('packDirectionsPath'):
+            session['verificationSnapshot']['packDirectionsPath'] = inputs['packDirectionsPath']
+        report = self.check_exam(exam)
+        if report.get('mode') == 'prepared-assets':
+            session['verificationSnapshot'].update(verificationMode='prepared-assets',
+                originalSourcesVerified=report['originalSourcesVerified'])
 
     def historical_media_hash(self, session, asset_id):
         """Find only a hash already carried by the frozen question metadata."""

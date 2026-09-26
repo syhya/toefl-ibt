@@ -16,13 +16,25 @@ it("renders actionable server errors in both languages without changing resource
   }
   expect(
     localizeServerMessage(
-      "The demo pack is missing. Restore examples/demo/pack.json.",
+      "The TOEFL iBT Practice Test 1 example is missing. Restore examples/ets-practice-test-1.",
       "zh-CN",
     ),
-  ).toContain("examples/demo/pack.json");
+  ).toContain("examples/ets-practice-test-1");
   expect(
     localizeServerMessage("Unknown timing setting: readingCommon", "zh-CN"),
   ).toBe("未知的计时设置：readingCommon");
+  expect(
+    localizeServerMessage(
+      "Bundled example file is missing or changed: assets/speaking.wav",
+      "zh-CN",
+    ),
+  ).toBe("内置示例文件缺失或已更改：assets/speaking.wav");
+  expect(
+    localizeServerMessage(
+      "Existing TOEFL iBT Practice Test 1 has missing or changed sources. Reimport or restore it before installing the example.",
+      "zh-CN",
+    ),
+  ).toContain("请先重新导入或恢复原资料");
 });
 
 it("translates generated cloze scaffolding while preserving prefix, answer, suffix, and length", () => {

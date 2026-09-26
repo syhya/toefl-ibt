@@ -1,0 +1,47 @@
+# Source text fidelity and transcription corrections
+
+On 2026-09-07, two reported listening options exposed transcription defects in the private source collection. The source page says **“I’ll have to get back to you on that.”** and **“It’s a nice room.”**, while the structured text had dropped letters, apostrophes, and spaces. A structured schema or a file hash proves consistency with an imported record; it does not by itself prove that OCR copied the visible source correctly.
+
+## Corpus review and resulting corrections
+
+| Reviewed source group | Review scope | Confirmed field corrections |
+| --- | --- | --- |
+| Packs 1–3 | 246 screens; fresh English-only OCR for all source images; 1,764 text leaves compared, additional complete-option/body coverage checks, all seven cloze paragraphs and thirty Build images checked | 176 across 98 screens |
+| Packs 4–6 | 251 screens; independent OCR comparison of 1,735 nontrivial fields, prompt/choice review, and complete cloze/Email/Discussion source checks | 83 across 49 screens |
+| Experience, Student, Teacher, Essentials | 839 screens and 8,120 inventoried text leaves; independent source-page OCR (163 paper pages plus 286 Essentials pages), candidate visual adjudication, all seventy paper Build crops checked | 280 across 188 screens |
+| Source-equivalent paid aliases | Inherit only exact matching fields from their explicitly linked canonical Pack source | 114 additional field occurrences |
+
+The complete catalog has **1,518 question screens**. The review produced **653 field corrections on 398 screens**, including canonical aliases. A field occurrence is not an additional question. Automatic field comparison and manual visual adjudication are distinct: the record does not claim that every character was independently read by a human.
+
+Corrections include missing initial `I`, apostrophes, merged words, truncated options, text from a following passage accidentally included in an option, capitalization, and omitted printed sentence literals/punctuation. For example, Pack 2 Reading module 1 question 14 option B was truncated to `To avoid a`; its original is `To avoid additional charges`.
+
+Printed source anomalies such as `presense`, `assitance`, `robiotics`, `The store`, and `Artic` were retained where the original really contains them. This is a transcription audit, not a grammar rewrite or an answer-key audit. ASR-only review transcripts with no corresponding printed passage are outside the image-to-text verification scope. No audio or test timing was changed.
+
+## Reproducible correction mechanism
+
+The private `scripts/verified_text_corrections.json` manifest binds each change to its question ID, original material ID, physical PDF page, source SHA-256, exact field path, before/after text, and review evidence. The private PDF importer now requires this manifest with the other curation files. Reimport reapplies these exact corrections after source structuring and media attachment, before final content hashes and catalog publication. A missing/stale correction cannot silently revert the corrected catalog to raw OCR text.
+
+The implementation is in `backend/text_corrections.py`. Allowed paths are textual leaves. Choice IDs, word-block indices, answer order, gap lengths, media URLs, and deadlines are not rewrite targets. Build reference-answer changes are restricted to capitalization-only equality; answer letters cannot change. Source-verified sentence prefaces and final punctuation are display metadata, not new response gaps.
+
+The importer validates all correction candidates before publishing corrected exam metadata. Early raw exam/question-bank writes have been deferred. Original PDF/audio files are untouched. The complete private import and errata manifest remain excluded from Git; the selected public example subset is described below.
+
+## Bundled Practice Test 1 subset
+
+`examples/ets-practice-test-1/text-corrections.json` includes 74 verified field corrections across 40 of that example's 79 screens. Its provenance and manifest bind the original material IDs/hashes; `verificationInputs.textCorrectionsPath` points to the installed subset under `generated/assets/ets-practice-test-1/`. A new installation does not need the full private errata file. The example's English bundle filenames do not alter correction identities or installed source references.
+
+The later Complete the Words change only affects input presentation and normalization during new typing. The observed online phrase “than any other group activity” differs from “than of any other group activity” printed in the supplied Student 1 PDF; the extra `of` is therefore retained, not treated as an OCR error. See [the 2026-09-26 interface comparison](EXAM_UI_REFERENCE.md#live-reading-interaction-checked-on-2026-09-26).
+
+## Existing practice and review
+
+Current and historical question displays can apply a hash-bound correction when the original source hash/page and exact old field match. A direct review/export/feedback request refreshes the current catalog before projection. The database's original plan, submitted answers, media references, deadlines, and frozen score snapshot remain intact. Review identifies corrected text explicitly.
+
+New practice uses the corrected source text. One corrected fixed-slot comma also makes the original valid sentence in `teacher-2-w-build-7` reachable by the existing grader; historical scores are not retroactively rewritten. Restart/review tests confirm that old selected choice IDs display the corrected option text without changing the selected ID or historical result.
+
+## Verification and local evidence
+
+- `backend/tests/test_text_corrections.py` covers source binding, exact before matching, permitted paths, direct historical review after import, restart, idempotence, and immutable saved answers/scores.
+- `tests/data/test_text_fidelity.py` verifies every installed correction and the canonical aliases, including the two user-reported examples.
+- The private full import reports `textCorrections` in `generated/audit.json`; all 653 changes were applied successfully.
+- Local audit files and image contact sheets are under `tmp/qa/text-fidelity-20260907/`, including before snapshots, per-group correction reports, merged counts, and scoring-impact checks. These private artifacts are not bundled with public code.
+
+See [materials](MATERIALS.md), [testing](TESTING.md), and [acceptance](ACCEPTANCE.md) for the broader application boundaries.

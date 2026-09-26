@@ -263,7 +263,8 @@ def canonical_content(question):
     """The answer-free presentation payload bound by the optional curation manifest."""
     keys = ['id', 'type', 'taskType', 'prompt', 'passage', 'passageTemplate', 'context', 'choices', 'blanks',
             'tokens', 'fixedTokens', 'extraTokens', 'slots', 'wordLimit', 'recommendedWords', 'interaction',
-            'presentationSchema', 'structuredContentStatus', 'stemBlocks', 'assets', 'stimulusSource']
+            'presentationSchema', 'structuredContentStatus', 'stemBlocks', 'assets', 'stimulusSource',
+            'sentencePrefix', 'terminalPunctuation']
     return {key: question[key] for key in keys if key in question}
 
 

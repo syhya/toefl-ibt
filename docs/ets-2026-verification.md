@@ -1,7 +1,5 @@
 # Independent ETS 2026 verification
 
-English | [简体中文](ets-2026-verification.zh-CN.md)
-
 Checked on 2026-09-05 for TOEFL iBT from 2026-01-21. This dated review used ETS pages and PDFs and compared `OFFICIAL_RULES.md` with `shared/rules.json`. A separate source check then supplemented existing teacher questions with matching ETS audio; no new questions were authored or added. The bilingual documentation update does not imply a new live verification.
 
 ## Sequence and countdowns

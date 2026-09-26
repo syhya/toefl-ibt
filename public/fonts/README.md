@@ -1,7 +1,5 @@
 # Open Sans
 
-English | [简体中文](README.zh-CN.md)
-
 These unmodified WOFF2 files are the normal-style Latin and Latin-ext variable
 fonts explicitly referenced by the Google Fonts stylesheet imported by the
 public ETS TOEFL client toolbar stylesheet, checked on 2026-09-05.

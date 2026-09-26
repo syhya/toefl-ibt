@@ -1,7 +1,5 @@
 # Code of conduct
 
-English | [简体中文](CODE_OF_CONDUCT.zh-CN.md)
-
 We want contributors and learners to participate regardless of background, language, disability, experience, or identity. Treat others with respect and focus disagreement on ideas and evidence.
 
 Expected behavior includes constructive feedback, acknowledging mistakes, respecting privacy and copyright, and making room for people who are learning. Harassment, threats, discriminatory abuse, sexualized attention, doxxing, and publishing someone's private materials or recordings without permission are not acceptable.

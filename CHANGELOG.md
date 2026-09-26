@@ -1,7 +1,5 @@
 # Changelog
 
-English | [简体中文](CHANGELOG.zh-CN.md)
-
 Changes are grouped by user-facing impact. `Unreleased` describes work in the current tree, not a published release or tag. Historical verification dates do not imply that newer code passed those same checks.
 
 ## Unreleased
@@ -12,12 +10,19 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 - Review shortcuts to collect selected words with context and source, or save a Complete the Words reference as a full word. Meanings and notes are entered manually.
 - Incorrect-question jump links and clearer question markers alongside the review filter.
 - GPT-6 Astra development attribution and the project's purpose of exploring the model's current capabilities and limits.
-- English and Simplified Chinese application language selection and paired documentation.
-- Public newcomer workflow, demonstration content, and portable resource import guidance.
+- English and Simplified Chinese application language selection, a bilingual root README, and English-only detailed documentation.
+- A complete TOEFL iBT® Practice Test 1 reference set for the newcomer workflow, derived from the ETS-hosted question paper and separately supplied companion audio/explanations, with corrected structured questions, prepared media, and portraits. Source attribution and third-party rights are documented in the example notice.
 - Installation, usage, architecture, contribution, troubleshooting, and security documentation.
 - Open-source issue/PR templates and a clean-checkout CI workflow.
 
 ### Changed
+
+- All 13 optional local original files for the sample use lowercase English filenames. Manifest mappings and the exporter preserve unchanged bytes, source IDs, and original installation paths; private data and saved-session references are not renamed.
+- README, package inventory, import/recovery instructions, and documentation policy now reflect the current example and distinguish it from dated private-collection audits. The default runtime payload is now approximately 17.8 MB; 13 original PDFs/full tracks are optional and excluded from Git. Missing originals do not disable prepared practice, but corrupt/missing runtime assets still fail verification.
+
+- Only the root README retains English and Simplified Chinese editions. Other Markdown documents are English-only. The in-app reader serves English guides without changing the chosen interface language, and legacy localized documentation endpoints remain compatible.
+
+- `npm run demo` and the newcomer action now install **TOEFL iBT® Practice Test 1** (`student-1`, 97 items, 79 screens). Reading, Listening, and Writing support eligible strict practice; the known Interview question 1 paper/audio mismatch keeps Speaking and full-test strict mode disabled. Existing verified Student Sample 1 is reused without replacing personal records. The former synthetic pack remains a test fixture; TPO Pack 1 is no longer the default example.
 
 - The task library now organizes source tests into module/part and category groups. Each entry starts the full ordered group, with item/screen counts and aggregate progress; search, pagination, and deduplication preserve group membership. Group selection retains its original branch and rejects stale content at start.
 
@@ -29,6 +34,8 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 - Vocabulary reads and changes follow the existing strict-session review lock, including requests from another tab.
 
 ### Fixed
+
+- Complete the Words now retains per-letter strokes while typing and uses the observed expanded monospace editor, completed-answer collapse on blur, and re-entry on focus. Partially filled answers remain expanded. Source wording and counts remain those of the supplied PDF, including the documented online-edition differences.
 
 - Eligible older Listening-only guided sessions can use **Repair audio and continue** when audio verification records are missing. Recovery requires matching questions, reference answers, and currently verified media; it preserves answers, progress, deadlines, and frozen rules, and records the repair as an interruption without claiming historical verification.
 - Audio failures now show the service error or HTTP status. Verification failures offer eligible recovery instead of a repeated playback retry; actual source changes still require matching resources or new practice.

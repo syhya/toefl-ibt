@@ -489,6 +489,7 @@ export function AnswerInput({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        examStyle={examStyle}
       />
     );
   if (q.type === "cloze") {
@@ -568,11 +569,13 @@ function ClozePassage({
   value,
   onChange,
   disabled,
+  examStyle,
 }: {
   q: Question;
   value: Answer | undefined;
   onChange: (v: Answer) => void;
   disabled: boolean;
+  examStyle: boolean;
 }) {
   useI18n();
   const values =
@@ -641,7 +644,7 @@ function ClozePassage({
             <span className="cloze-word" key={i}>
               {prefix && <span className="cloze-word-part">{prefix}</span>}
               <span
-                className="cloze-blank-wrap"
+                className={`cloze-blank-wrap${examStyle && currentValue.length === requiredLength ? " is-complete" : ""}`}
                 style={{ "--blank-slots": requiredLength } as CSSProperties}
               >
                 <input
@@ -653,15 +656,19 @@ function ClozePassage({
                   disabled={disabled}
                   onFocus={() => setActiveBlankId(id)}
                   onChange={(e) => {
-                    const nextValue = e.target.value
+                    const letters = e.target.value
                       .replace(/[^a-z]/gi, "")
                       .slice(0, requiredLength);
                     setActiveBlankId(id);
-                    onChange({ ...values, [id]: nextValue });
+                    onChange({
+                      ...values,
+                      [id]: examStyle ? letters.toLowerCase() : letters,
+                    });
                   }}
                   spellCheck={false}
                   autoComplete="off"
                   autoCapitalize="off"
+                  autoCorrect="off"
                   aria-label={tx(
                     "Missing letters for word {number}, {length} letters required",
                     { number: blankNumber, length: requiredLength },
@@ -669,11 +676,9 @@ function ClozePassage({
                   aria-describedby={guideId}
                   placeholder={"_".repeat(requiredLength)}
                 />
-                {!currentValue && (
-                  <span className="cloze-placeholder" aria-hidden="true">
-                    {Array.from({ length: requiredLength }, (_, slot) => (
-                      <i key={slot} />
-                    ))}
+                {examStyle && currentValue.length === requiredLength && (
+                  <span className="cloze-completed-text" aria-hidden="true">
+                    {currentValue}
                   </span>
                 )}
               </span>
@@ -837,6 +842,11 @@ function SentenceBuilder({
         role="group"
         aria-label={tx("Sentence word slots")}
       >
+        {q.sentencePrefix && (
+          <span className="fixed-token" lang="en">
+            {q.sentencePrefix}
+          </span>
+        )}
         {slots.map((slot, i) => {
           const text = fixed(slot);
           if (text)
@@ -917,6 +927,11 @@ function SentenceBuilder({
             </button>
           );
         })}
+        {q.terminalPunctuation && (
+          <span className="fixed-token" lang="en">
+            {q.terminalPunctuation}
+          </span>
+        )}
       </div>
       <div className="word-bank" aria-label={tx("Available word blocks")}>
         {tokens.map((token, i) => {

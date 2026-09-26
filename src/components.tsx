@@ -318,7 +318,7 @@ export function Home({
             "{count} 套 · 共 {files} 份本地资料",
             {
               count: visible.length,
-              files: materials.length,
+              files: materials.filter((m) => m.available !== false).length,
               testNoun: visible.length === 1 ? "test" : "tests",
               resourceNoun: materials.length === 1 ? "resource" : "resources",
             },
@@ -384,6 +384,7 @@ function ExamCard({
   const family = fam[exam.family] || tr("Local resources", "本地资料"),
     number = String(exam.id.match(/\d+/)?.[0] || index + 1).padStart(2, "0"),
     ready = exam.structuredReady !== false,
+    hasTimedSection = ORDER.some((id) => exam.scopedEligibility?.[id] === true),
     canOpen = ready || !!exam.resourcesOnly;
   return (
     <article className="exam-card">
@@ -392,13 +393,15 @@ function ExamCard({
         <div className="card-topline">
           <span>{family}</span>
           <span
-            className={`availability ${ready && exam.strictEligible ? "ready" : "guided"}`}
+            className={`availability ${ready && (exam.strictEligible || hasTimedSection) ? "ready" : "guided"}`}
           >
             {!ready
               ? tr("Presentation not ready", "题面整理中")
               : exam.strictEligible
                 ? tr("Strict timing", "严格计时")
-                : tr("Guided only", "辅助练习")}
+                : hasTimedSection
+                  ? tr("Per-section timing", "单项计时")
+                  : tr("Guided only", "辅助练习")}
           </span>
         </div>
         <h3>{localizeDynamic(exam.title)}</h3>
@@ -574,8 +577,8 @@ export function Library({ materials }: { materials: Material[] }) {
       <Heading
         title={tr("Your resource library", "你的资料，都在这里。")}
         subtitle={tr(
-          "Browse original questions, audio, transcripts, and rubrics. Resource access is locked during strict practice.",
-          "原始资料完整保留。查阅试题、音频、原文与评分标准。严格模考进行中，资料访问暂时锁定。",
+          "Browse available originals and source references. Lightweight samples may omit original files; their practice audio and questions remain available. Resource access is locked during strict practice.",
+          "查阅已安装原文件及来源记录。轻量示例可不附原文件，但仍保留练习题目和播放音频。严格模考进行中，资料访问暂时锁定。",
         )}
       />
       <div className="toolbar">
@@ -632,15 +635,21 @@ export function Library({ materials }: { materials: Material[] }) {
               </span>
             )}
             <span className="file-meta">{size(m.bytes)}</span>
-            <a
-              href={m.url}
-              target="_blank"
-              rel="noopener"
-              className="btn small outline"
-            >
-              {" "}
-              {tr("Open", "打开")} <Icon name="external" />
-            </a>
+            {m.url ? (
+              <a
+                href={m.url}
+                target="_blank"
+                rel="noopener"
+                className="btn small outline"
+              >
+                {" "}
+                {tr("Open", "打开")} <Icon name="external" />
+              </a>
+            ) : (
+              <span className="muted">
+                {tr("Original not installed", "未安装原文件")}
+              </span>
+            )}
           </article>
         ))}
       </div>

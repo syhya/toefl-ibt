@@ -23,11 +23,12 @@ jobs:
           npm ci
       - name: Type, UI, API, security, and import tests
         run: npm test
-      - name: Smoke-test portable-only catalog
+      - name: Install and verify the complete bundled TOEFL iBT Practice Test 1
         run: |
+          test ! -d examples/ets-practice-test-1/materials
           npm run demo
           npm run test:data
-      - name: Check paired documentation and links
+      - name: Check documentation language policy and links
         run: python scripts/check_docs.py
       - name: Build production frontend
         run: npm run build

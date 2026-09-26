@@ -13,6 +13,7 @@ import { Rules, Settings, ReviewPage } from "../../src/pages";
 import QuestionLibrary, { type PracticeGroup } from "../../src/QuestionLibrary";
 import Mistakes, { type Mistake } from "../../src/Mistakes";
 import type { Review } from "../../src/types";
+import { Library } from "../../src/components";
 
 beforeEach(() => {
   setLocale("en");
@@ -22,6 +23,36 @@ afterEach(() => {
   setLocale("en");
   vi.useRealTimers();
   vi.unstubAllGlobals();
+});
+
+it("labels omitted originals without offering broken resource links", () => {
+  render(
+    <Library
+      materials={[
+        {
+          id: "omitted",
+          name: "practice-test-1.pdf",
+          kind: "pdf",
+          url: "",
+          available: false,
+        },
+        {
+          id: "present",
+          name: "local.pdf",
+          kind: "pdf",
+          url: "/api/library/present",
+          available: true,
+        },
+      ]}
+    />,
+  );
+  expect(screen.getByText("Original not installed")).toBeTruthy();
+  expect(screen.getAllByRole("link", { name: /Open/ })).toHaveLength(1);
+  expect(screen.getByRole("link", { name: /Open/ }).getAttribute("href")).toBe(
+    "/api/library/present",
+  );
+  act(() => setLocale("zh-CN"));
+  expect(screen.getByText("未安装原文件")).toBeTruthy();
 });
 
 it("switches the complete rules page while retaining official numeric limits", () => {

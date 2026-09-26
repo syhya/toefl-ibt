@@ -18,19 +18,15 @@ const originalCode =
   'npm run import:pack -- "/path/with spaces/pack.json"\nconst text = "<script>not executable</script>";\n';
 const pages: Record<string, string> = {
   "/api/documentation/en/USER_GUIDE":
-    "# User guide\n\nEnglish | [简体中文](USER_GUIDE.zh-CN.md)\n\n## First steps\n\n[Import resources](IMPORTING.md) · [Project overview](../README.md)\n\n```sh\n" +
+    "# User guide\n\n## First steps\n\n[Import resources](IMPORTING.md) · [Project overview](../README.md)\n\n```sh\n" +
     originalCode +
     "```\n\n| Setting | Value |\n| --- | --- |\n| Mode | Practice |\n\n<script>window.untrusted = true</script>\n\n[Source code](../backend/packs.py) · [Official site](https://www.ets.org/toefl)\n",
-  "/api/documentation/zh-CN/USER_GUIDE":
-    "# 使用指南\n\n[English](USER_GUIDE.md) | 简体中文\n\n## 开始使用\n\n[资源导入](IMPORTING.zh-CN.md)\n\n```sh\n" +
-    originalCode +
-    "```\n",
   "/api/documentation/en/IMPORTING":
     "# Resource imports\n\n[User guide](USER_GUIDE.md)\n",
-  "/api/documentation/zh-CN/IMPORTING":
-    "# 资源导入\n\n[使用指南](USER_GUIDE.zh-CN.md)\n",
   "/api/documentation/en/README":
-    "# Project overview\n\n[User guide](docs/USER_GUIDE.md)\n",
+    "# Project overview\n\nEnglish | [简体中文](README.zh-CN.md)\n\n[User guide](docs/USER_GUIDE.md)\n",
+  "/api/documentation/zh-CN/README":
+    "# 项目介绍\n\n[English](README.md) | 简体中文\n\n[User guide](docs/USER_GUIDE.md)\n",
 };
 
 beforeEach(() => {
@@ -68,7 +64,7 @@ it("opens rendered documentation inside Help, follows relative links, and return
   expect(screen.getByRole("heading", { name: "Help & setup" })).toBeTruthy();
 });
 
-it("switches the currently open document while preserving code fences and original command text", async () => {
+it("keeps documentation in English when the interface changes language, preserving code and safe Markdown", async () => {
   const { container } = render(
     <Documentation initialDocument="USER_GUIDE" onBack={vi.fn()} />,
   );
@@ -81,28 +77,37 @@ it("switches the currently open document while preserving code fences and origin
       .href,
   ).toBe("https://www.ets.org/toefl");
   act(() => setLocale("zh-CN"));
-  await screen.findByRole("heading", { name: "使用指南" });
+  await screen.findByRole("button", { name: "← 返回" });
+  expect(screen.getByRole("heading", { name: "User guide" })).toBeTruthy();
+  expect(container.querySelector("article")?.lang).toBe("en");
   expect(container.querySelector("pre code")?.textContent).toBe(originalCode);
-  fireEvent.click(screen.getByRole("link", { name: "资源导入" }));
-  await screen.findByRole("heading", { name: "资源导入" });
+  fireEvent.click(screen.getByRole("link", { name: "Import resources" }));
+  await screen.findByRole("heading", { name: "Resource imports" });
+  expect(document.documentElement.lang).toBe("zh-CN");
   expect(fetch).toHaveBeenCalledWith(
-    "/api/documentation/zh-CN/IMPORTING",
+    "/api/documentation/en/IMPORTING",
     expect.anything(),
   );
 });
 
-it("lets Markdown language links switch the interface and resolves root documentation correctly", async () => {
-  render(<Documentation initialDocument="USER_GUIDE" onBack={vi.fn()} />);
-  await screen.findByRole("heading", { name: "User guide" });
-  fireEvent.click(screen.getByRole("link", { name: "简体中文" }));
-  await screen.findByRole("heading", { name: "使用指南" });
-  expect(document.documentElement.lang).toBe("zh-CN");
-  fireEvent.click(screen.getByRole("link", { name: "English" }));
-  await screen.findByRole("heading", { name: "User guide" });
-  fireEvent.click(screen.getByRole("link", { name: "Project overview" }));
+it("keeps the root README bilingual without changing UI language when navigating to English-only guides", async () => {
+  const { container } = render(
+    <Documentation initialDocument="README" onBack={vi.fn()} />,
+  );
   await screen.findByRole("heading", { name: "Project overview" });
+  fireEvent.click(screen.getByRole("link", { name: "简体中文" }));
+  await screen.findByRole("heading", { name: "项目介绍" });
+  expect(container.querySelector("article")?.lang).toBe("zh-CN");
+  expect(document.documentElement.lang).toBe("zh-CN");
   fireEvent.click(screen.getByRole("link", { name: "User guide" }));
   await screen.findByRole("heading", { name: "User guide" });
+  expect(container.querySelector("article")?.lang).toBe("en");
+  expect(document.documentElement.lang).toBe("zh-CN");
+  fireEvent.click(screen.getByRole("button", { name: "← 返回" }));
+  await screen.findByRole("heading", { name: "项目介绍" });
+  fireEvent.click(screen.getByRole("link", { name: "English" }));
+  await screen.findByRole("heading", { name: "Project overview" });
+  expect(document.documentElement.lang).toBe("en");
 });
 
 it("does not serve arbitrary Markdown paths and offers a readable retry for missing documents", async () => {
@@ -121,6 +126,28 @@ it("does not serve arbitrary Markdown paths and offers a readable retry for miss
   expect(
     resolveDocumentationLink("../README.zh-CN.md#安装", "USER_GUIDE"),
   ).toEqual({ id: "README", locale: "zh-CN", hash: "%E5%AE%89%E8%A3%85" });
+  expect(
+    resolveDocumentationLink(
+      "../examples/ets-practice-test-1/README.md",
+      "IMPORTING",
+    ),
+  ).toEqual({ id: "BUNDLED_ETS_PRACTICE_TEST_1", locale: "en", hash: "" });
+  expect(
+    resolveDocumentationLink("NOTICE.zh-CN.md", "BUNDLED_ETS_PRACTICE_TEST_1"),
+  ).toEqual({
+    id: "BUNDLED_ETS_PRACTICE_TEST_1_NOTICE",
+    locale: "en",
+    hash: "",
+  });
+  expect(
+    resolveDocumentationLink(
+      "../../docs/IMPORTING.md",
+      "BUNDLED_ETS_PRACTICE_TEST_1",
+    ),
+  ).toEqual({ id: "IMPORTING", locale: "en", hash: "" });
+  expect(
+    resolveDocumentationLink("/api/documentation/zh-CN/USER_GUIDE", "README"),
+  ).toEqual({ id: "USER_GUIDE", locale: "en", hash: "" });
   render(<Documentation initialDocument="TESTING" onBack={vi.fn()} />);
   await screen.findByRole("alert");
   expect(screen.getByRole("button", { name: "Try again" })).toBeTruthy();

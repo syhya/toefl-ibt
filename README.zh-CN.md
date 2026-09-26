@@ -6,9 +6,9 @@
 
 支持中英文导航的本地 TOEFL 风格练习网站，提供结构化题目、写作编辑器、已支持校核资料的倒计时、麦克风录音与历史复盘。采用 **React + TypeScript + Vite、FastAPI、SQLite**。安装依赖和导入资源后，日常练习可离线运行，不需要账号或云端 AI。
 
-**新用户从安装、体验演示题、导入自己的资源包开始。** 公开仓库包含原创演示，不附带作者的私有 PDF、题库或录音。
+**默认样题为 TOEFL iBT® Practice Test 1，题目来源：[TOEFL iBT® Practice Test 1](https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-full-length-practice-test-1.pdf)。** 原题来自 ETS 网站上的这份 PDF，文档中统一使用英文资料名称 **TOEFL iBT® Practice Test 1 — Question Paper**。轻量包包含四科结构化原题、音频切片、已提取解析和必要图片，不附原始 PDF 或整轨音频；音频和解析来自单独提供的本地资料，不是上述 PDF 链接提供的下载，见[来源声明](examples/ets-practice-test-1/NOTICE.md)。2026-09-14（Asia/Shanghai）已核对本地题目 PDF 与 ETS 下载文件逐字节一致，SHA-256 记录在来源声明中。不包含作者其余私有题库与个人录音。
 
-这是独立练习工具，不是 ETS 产品。严格模式执行选定本地规则，部分时间明确标为近似设置；不复刻 ETS 专有自适应，也不把正确率换成官方 1–6 或 120 分。依据见[规则说明](docs/OFFICIAL_RULES.zh-CN.md)。
+这是独立练习工具，不是 ETS 产品。严格模式执行选定本地规则，部分时间明确标为近似设置；不复刻 ETS 专有自适应，也不把正确率换成官方 1–6 或 120 分。依据见[规则说明](docs/OFFICIAL_RULES.md)。
 
 ## 快速开始
 
@@ -22,7 +22,7 @@ npm start
 
 打开 **[http://127.0.0.1:4173](http://127.0.0.1:4173)**，保持终端运行，**Control+C** 停止。不要直接打开 `index.html`。
 
-演示含四屏原创读写内容，无音频、不限时，用于熟悉软件，不是官方模考。空首页也可点击 **Try the demo / 体验演示题** 安装。默认界面英文，顶部 **EN / 中文** 切换并由浏览器记住；原题、姓名、答案与音频保持来源语言。
+内置 **TOEFL iBT® Practice Test 1** 含 **97 个小题、79 个题面**：阅读 40 小题/22 题面、听力 34/34、写作 12/12、口语 11/11。保留原模块、修正后的结构化文字、配套原音、讨论头像、参考答案和复盘出处。空首页点击 **Try Practice Test 1 / 体验官方样题第1套** 或运行 `npm run demo`；已有 `student-1` 时直接复用，不替换个人记录。**阅读、听力、写作可使用符合条件的严格练习；口语及整套暂以辅助练习使用，因为访谈第 1 题存在尚未解决的纸面与音频版本差异。** 不替换原题或合成音频来绕过告警。默认界面英文，顶部 **EN / 中文** 切换操作界面及根目录 README；详细指南统一使用英文，原题与音频保持来源语言。
 
 安装脚本创建 `.venv/`、安装锁定前端依赖和 Python 依赖、构建 `dist/`，不会执行 OCR、下载私有资料或修改全局 Homebrew/FFmpeg。macOS 后续可双击 [`scripts/start.command`](scripts/start.command)。
 
@@ -46,13 +46,19 @@ py -3 -m venv .venv
 .venv\Scripts\python.exe -m pip install -r backend/requirements.txt -r requirements-import.txt
 npm ci
 npm run build
-.venv\Scripts\python.exe scripts/import_pack.py examples/demo/pack.json
+.venv\Scripts\python.exe scripts/install_example.py
 npm start
 ```
 
-`.sh`/`.command` 启动器及调用 `.venv/bin/python` 的 npm 便利命令使用 POSIX 路径；Windows 用 `.venv\Scripts\python.exe` 运行对应 Python 脚本，或使用 WSL。CI 当前运行 Linux，历史交互验收使用 macOS，不代表所有 Windows/设备组合均已验证。
+`.sh`/`.command` 启动器及调用 `.venv/bin/python` 的 npm 便利命令使用 POSIX 路径；Windows 用 `.venv\Scripts\python.exe` 运行对应 Python 脚本，或使用 WSL。CI 配置面向 Linux，本地验证使用 macOS，不代表所有 Windows/设备组合均已验证。
 
-换端口可用 `npm start -- --port 4174`，仅监听 `127.0.0.1`。问题见[故障排查](docs/TROUBLESHOOTING.zh-CN.md)。
+换端口可用 `npm start -- --port 4174`，仅监听 `127.0.0.1`。问题见[故障排查](docs/TROUBLESHOOTING.md)。
+
+## 新环境需要哪些文件
+
+应用代码需附带 Git 中的 [`examples/ets-practice-test-1/`](examples/ets-practice-test-1/README.md)：**56 个经过哈希校验的文件，约 17.8 MB**，另有清单和说明。保留全部结构化题目、33 个 WAV 音频切片、16 张复盘图片和 3 张头像。两个原始 PDF 与 11 个整轨 MP3 为可选资料，已排除于 Git，新用户安装不需要它们。
+
+轻量安装器校验已准备的题目、全部必需媒体和绑定哈希的来源记录；原始文件身份仍保留，但不会声称已在新环境重新校验未附带的原文件。未安装原文件时不提供其打开链接，已有解析、答案、图片与音频切片仍可使用。新用户无需私有 `data/`、`generated/`、`storage/`，也不必额外下载资料。已有完整／私有安装继续保留原来源检查与文件，不能直接删除其原文件。个人数据不要上传 Git，请保留[来源声明](examples/ets-practice-test-1/NOTICE.md)。
 
 ## 加入资源
 
@@ -64,19 +70,21 @@ npm run import:pack -- "/absolute/path/to/my-practice/pack.json"
 
 刷新后选导入标题。自定义包用于不限时辅助练习；同 ID 内容更新时加 `--replace`，已有会话保留冻结内容与版本化资产，新建练习看新版。
 
-[资源导入](docs/IMPORTING.zh-CN.md)包含最小 JSON、题型、媒体路径/限制、出处、更新和备份。[`examples/demo/pack.json`](examples/demo/pack.json) 是可运行起点。
+[TOEFL iBT® Practice Test 1 参考包说明](examples/ets-practice-test-1/README.md)介绍完整内容和来源。它由专用的校核套题安装器处理，不要通过自定义 JSON 入口上传其内部 `exam.json`。[资源导入](docs/IMPORTING.md)另行介绍自定义资源包、题型、媒体、更新和备份。创作自己的题目可从指南中的[最小 JSON 示例](docs/IMPORTING.md#minimal-complete-pack)开始；简短自编题仅用于测试夹具，不向用户安装。
 
-独立的 `scripts/import_materials.py` 只处理原私有 PDF 集合和配套 `scripts/verified_*.json`，这些不公开分发。它不是任意 PDF 转换器；只放入 PDF 不会得到已核验题目。新用户无需该集合或 OCR，使用资源包即可开始。
+独立的 `scripts/import_materials.py` 处理完整原私有 PDF 集合和配套 `scripts/verified_*.json`，完整集合的这些输入不公开分发；内置 TOEFL iBT® Practice Test 1 已准备完成，无需运行该导入器。它不是任意 PDF 转换器；只放入 PDF 不会得到已核验题目。新用户无需该集合或 OCR，使用资源包即可开始。
 
 ## 练习与复盘
 
 - 选择整份可用套题，或用 **R / L / W / S** 单科直达；专项题库按原套题、模块 / Part 和连续类别小节组织，每个入口启动完整题组。
 - 辅助练习支持暂停；专项练习须在开始前勾选，才开放重播与即时答案。完整流程保持关闭，结束后仍可正常复盘；严格模式仅对符合条件的校核范围开放，执行服务器截止时间和导航限制。自定义包、Essentials 等补充资源保持不限时。
-- 阅读缺字显示需输入字母数，选择题保留原文；组句支持词块/固定片段，邮件和讨论使用分栏与字数统计。
+- 计时阅读缺字题在编辑时保留每个字母的下划线，使用放大的等宽字体；填满后失焦恢复正文大小。选择题保留原文；组句支持词块/固定片段，邮件和讨论使用分栏与字数统计。
 - 口语在本地分段保存、提示未完成上传并支持回放/下载；正式使用前在本地地址测试真实麦克风。
 - 历史保留接受的答案、客观结果、作文、录音与量表自评；错题集保留错误和后续掌握情况。
 
-刷新和后台不重置倒计时。新完成会话冻结客观成绩，题库/规则升级不静默重写历史。模式、题型、恢复、评分边界和备份见[使用指南](docs/USER_GUIDE.zh-CN.md)。
+当前样题的纸面版本与已观察的在线 Sampler 有差异：本地阅读第一模块为 20 小题，在线页显示 17 小题，缺字段落另有一处措辞差异。输入交互对齐不会改写 PDF 版本或删题，见[有日期的界面对照记录](docs/EXAM_UI_REFERENCE.md#live-reading-interaction-checked-on-2026-09-26)。
+
+刷新和后台不重置倒计时。新完成会话冻结客观成绩，题库/规则升级不静默重写历史。模式、题型、恢复、评分边界和备份见[使用指南](docs/USER_GUIDE.md)。
 
 ## 本地数据与隐私
 
@@ -90,7 +98,7 @@ npm run import:pack -- "/absolute/path/to/my-practice/pack.json"
 
 浏览器 IndexedDB 还可能保存待上传录音，清站点数据前等待完成。备份时停服务，复制**完整 `storage/`、`data/`、`generated/`**，使用私有校核时也保留其清单；不要只拷贝运行中主数据库而遗漏 WAL。JSON 导出含答卷和录音引用，音频需另下载或备份目录。
 
-项目无云同步、多用户鉴权，请保持本地使用。不要提交资料、生成题目、录音或私有校核。MIT 代码许可不赋予第三方试题再分发权，见[安全政策](SECURITY.zh-CN.md)及[资料说明](docs/MATERIALS.zh-CN.md)。
+项目无云同步、多用户鉴权，请保持本地使用。个人学习资料、生成的本地题库、录音和私有校核清单应排除于 Git。明确附带的 `examples/ets-practice-test-1/` 参考套题另有[来源声明](examples/ets-practice-test-1/NOTICE.md)；MIT 仅适用于项目代码，不改变第三方试题的原有权利，见[安全政策](SECURITY.md)及[资料说明](docs/MATERIALS.md)。
 
 ## 开发
 
@@ -99,7 +107,7 @@ npm test
 npm run build
 ```
 
-检查类型、UI、API、安全和导入/来源。缺私有集合时相关检查跳过，是公开检出的正常状态，不等于私有题库验收通过。分项及可选隔离浏览器工具见[测试说明](docs/TESTING.zh-CN.md)。
+检查类型、UI、API、安全和导入/来源。缺私有集合时相关检查跳过，是公开检出的正常状态，不等于私有题库验收通过。分项及可选隔离浏览器工具见[测试说明](docs/TESTING.md)。
 
 分别在两个终端启动后端和前端开发：
 
@@ -108,22 +116,24 @@ npm run build
 npm run dev
 ```
 
-Vite 通常在 5173，将 `/api` 代理到 4173。生产源码改动后重新构建并重启。架构、约束和英文注释规范见[架构](docs/ARCHITECTURE.zh-CN.md)与[贡献指南](CONTRIBUTING.zh-CN.md)。
+Vite 通常在 5173，将 `/api` 代理到 4173。生产源码改动后重新构建并重启。架构、约束和英文注释规范见[架构](docs/ARCHITECTURE.md)与[贡献指南](CONTRIBUTING.md)。
 
 ## 文档与项目规范
 
-| 主题 | English | 简体中文 |
-| --- | --- | --- |
-| 全部文档 | [Documentation index](docs/README.md) | [文档索引](docs/README.zh-CN.md) |
-| 入门/练习 | [User guide](docs/USER_GUIDE.md) | [使用指南](docs/USER_GUIDE.zh-CN.md) |
-| 资源导入 | [Import guide](docs/IMPORTING.md) | [资源导入](docs/IMPORTING.zh-CN.md) |
-| 故障恢复 | [Troubleshooting](docs/TROUBLESHOOTING.md) | [故障排查](docs/TROUBLESHOOTING.zh-CN.md) |
-| 开发设计 | [Architecture](docs/ARCHITECTURE.md) | [架构](docs/ARCHITECTURE.zh-CN.md) |
-| 贡献 | [Contributing](CONTRIBUTING.md) | [贡献指南](CONTRIBUTING.zh-CN.md) |
-| 安全 | [Security policy](SECURITY.md) | [安全政策](SECURITY.zh-CN.md) |
-| 社区 | [Code of conduct](CODE_OF_CONDUCT.md) | [行为准则](CODE_OF_CONDUCT.zh-CN.md) |
-| 更新 | [Changelog](CHANGELOG.md) | [变更记录](CHANGELOG.zh-CN.md) |
+仅根目录 README 保留中英文版本，其余项目文档统一使用英文。应用的中英文界面不受影响。
 
-[历史验收](docs/ACCEPTANCE.zh-CN.md)和[资料审计](docs/DATA_QA.zh-CN.md)描述特定日期的私有资料/构建，不代表公开检出附带这些内容，也不是所有当前 ETS 状态的认证。
+| 主题 | Documentation (English) |
+| --- | --- |
+| 全部文档 | [Documentation index](docs/README.md) |
+| 入门/练习 | [User guide](docs/USER_GUIDE.md) |
+| 资源导入 | [Import guide](docs/IMPORTING.md) |
+| 故障恢复 | [Troubleshooting](docs/TROUBLESHOOTING.md) |
+| 开发设计 | [Architecture](docs/ARCHITECTURE.md) |
+| 贡献 | [Contributing](CONTRIBUTING.md) |
+| 安全 | [Security policy](SECURITY.md) |
+| 社区 | [Code of conduct](CODE_OF_CONDUCT.md) |
+| 更新 | [Changelog](CHANGELOG.md) |
+
+[历史验收](docs/ACCEPTANCE.md)和[资料审计](docs/DATA_QA.md)描述特定日期的私有资料/构建，不代表公开检出附带这些内容，也不是所有当前 ETS 状态的认证。
 
 项目代码使用 [MIT](LICENSE)，Open Sans 使用自己的 [SIL Open Font License](public/fonts/OFL-OpenSans.txt)，第三方学习资料保留原权利。

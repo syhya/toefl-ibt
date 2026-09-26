@@ -14,7 +14,7 @@ from PIL import Image
 
 from backend.app import create_app
 from backend.catalog import Catalog
-from backend.engine import ExamError, grade
+from backend.engine import ExamError, grade, media_sequence
 from backend.integrity import SourceIntegrity
 from backend.packs import import_pack
 from backend.tests.test_api import action, begin, env, start
@@ -51,13 +51,11 @@ def checked_action(clean, current, name, **extra):
     return response.json()
 
 
-def test_empty_install_demo_walkthrough_saves_and_grades_all_four_screens(clean):
+def test_custom_portable_pack_walkthrough_saves_and_grades_all_four_screens(clean):
     root, client = clean['root'], clean['client']
     assert client.get('/api/catalog').json()['exams'] == []
-    demo_dir = root / 'examples/demo'
-    demo_dir.mkdir(parents=True)
-    shutil.copyfile(PROJECT / 'examples/demo/pack.json', demo_dir / 'pack.json')
-    response = client.post('/api/resource-packs/demo')
+    manifest = json.loads((PROJECT / 'tests/fixtures/portable-pack.json').read_text())
+    response = client.post('/api/resource-packs', json=manifest)
     assert response.status_code == 200, response.text
     result = response.json()
     assert result['questions'] == 4
@@ -100,6 +98,104 @@ def test_empty_install_demo_walkthrough_saves_and_grades_all_four_screens(clean)
         assert review['answers'][q['id']] == answers[q['id'].removeprefix('user-welcome-demo-')]
     exam = clean['app'].state.catalog.exams[result['id']]
     assert clean['app'].state.source_integrity.check_exam(exam)['status'] == 'passed'
+
+
+def test_bundled_demo_installs_official_sample_and_preserves_its_scoped_timing(clean):
+    root, client = clean['root'], clean['client']
+    shutil.copytree(PROJECT / 'examples/ets-practice-test-1', root / 'examples/ets-practice-test-1')
+    response = client.post('/api/resource-packs/demo', json={'path': '/ignored/client/path'})
+    assert response.status_code == 200, response.text
+    assert response.json()['id'] == 'student-1'
+    assert response.json()['questions'] == 97
+    assert response.json()['screens'] == 79
+    entries = client.get('/api/catalog').json()['exams']
+    assert [entry['id'] for entry in entries] == ['student-1']
+    entry = entries[0]
+    assert entry['strictEligible'] is False
+    assert entry['scopedEligibility'] == {'reading': True, 'listening': True, 'writing': True, 'speaking': False}
+    assert entry['runtimeVerification']['status'] == 'passed'
+    assert entry['interactiveQuestionCount'] == 97
+    assert entry['interactiveScreenCount'] == 79
+    assert [(section['id'], section['questionCount']) for section in entry['sections']] == [
+        ('reading', 22), ('listening', 34), ('writing', 12), ('speaking', 11)]
+    exam = clean['app'].state.catalog.exams['student-1']
+    questions = {q['id']: q for section in exam['sections'] for module in section['modules'] for q in module['questions']}
+    for question in questions.values():
+        if question['id'].startswith(('student-1-l', 'student-1-s')) and question['id'] != 'student-1-s-interview-1':
+            assert question['audio']['verified'] is True
+            url = question['audio']['url']
+            catalog = clean['app'].state.catalog
+            assert catalog.path_for(catalog.register(url)).is_file()
+    # A known paper/audio version conflict must not be promoted into a strict exam.
+    assert not questions['student-1-s-interview-1'].get('audio')
+    for scope in ['all', 'speaking']:
+        rejected = client.post('/api/sessions', json={'examId': 'student-1', 'mode': 'strict', 'scope': scope})
+        assert rejected.status_code == 422, rejected.text
+    for scope in ['listening', 'writing']:
+        scoped = start(clean, examId='student-1', mode='strict', scope=scope)
+        assert scoped['stage']['section'] == scope
+        checked_action(clean, scoped, 'finish')
+    current = start(clean, examId='student-1', mode='strict', scope='reading')
+    assert current['phase'] == 'directions'
+    assert current['stage']['seconds'] == 690
+    assert current['deadline'] is None
+    current = begin(clean, current)
+    assert current['phase'] == 'response'
+    assert current['question']['id'] == 'student-1-r1-cloze'
+    assert current['remainingSeconds'] == 690
+    assert current['deadline'] == current['serverNow'] + 690_000
+    current = checked_action(clean, current, 'finish')
+    saved = client.get('/api/sessions').json()['sessions']
+    assert any(item['id'] == current['id'] for item in saved)
+    repeated = client.post('/api/resource-packs/demo')
+    assert repeated.status_code == 200, repeated.text
+    assert repeated.json()['reused'] is True
+    assert client.get('/api/sessions').json()['sessions'] == saved
+    assert [item['id'] for item in client.get('/api/catalog').json()['exams']] == ['student-1']
+
+
+def test_frozen_alternate_listening_directions_path_rejects_changed_hash(env):
+    # This compatibility behavior is independent of the default example; keep
+    # testing it without bundling an unrelated Pack 1 instruction recording.
+    from tests.security.test_direction_projection import install_directions, PDF_INSTRUCTION
+
+    root, client = env['root'], env['client']
+    original = install_directions(env)
+    relative = 'generated/assets/example-directions/pack-directions.json'
+    path = root / relative
+    path.parent.mkdir(parents=True)
+    original.rename(path)
+    exam_path = root / 'generated/exams/exam.json'
+    exam = json.loads(exam_path.read_text())
+    inputs = exam['verificationInputs']
+    inputs['packDirectionsPath'] = relative
+    inputs['curationSha256ByPath'][relative] = inputs['curationSha256ByPath'].pop('scripts/verified_pack_directions.json')
+    exam_path.write_text(json.dumps(exam))
+    catalog_path = root / 'generated/catalog.json'
+    catalog_path.write_text(catalog_path.read_text() + ' ')
+    current = start(env, mode='strict', scope='listening')
+    store = env['app'].state.store
+    with store.transaction() as db:
+        frozen = deepcopy(store.get(db, current['id']))
+    snapshot = frozen['verificationSnapshot']
+    assert snapshot['packDirectionsPath'] == relative
+    original_manifest = path.read_bytes()
+    assert hashlib.sha256(original_manifest).hexdigest() == snapshot['curationSha256ByPath'][relative]
+    first = media_sequence(frozen['plan'][0]['questions'][0])[0]
+    assert first['kind'] == 'directions'
+    current = begin(env, current)
+    assert current['phase'] == 'audio'
+    assert current['question']['audio']['instructions'] == PDF_INSTRUCTION
+    assert client.get(current['question']['audio']['url']).status_code == 200
+    path.write_bytes(original_manifest + b' ')
+    rejected = client.get(f"/api/sessions/{current['id']}")
+    assert rejected.status_code == 200, rejected.text
+    assert 'instructions' not in rejected.json()['question']['audio']
+    path.write_bytes(original_manifest)
+    restored = client.get(f"/api/sessions/{current['id']}").json()
+    assert restored['question']['audio']['instructions'] == PDF_INSTRUCTION
+    assert restored['question']['audio']['url'] == current['question']['audio']['url']
+    assert restored['deadline'] == current['deadline']
 
 
 def media_pack(folder):

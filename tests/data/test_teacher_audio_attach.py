@@ -21,6 +21,9 @@ class TeacherAudioProvenance(unittest.TestCase):
         self.manifest = json.loads(MANIFEST.read_text())
         (self.root / 'scripts').mkdir()
         (self.root / 'scripts/verified_teacher_audio.json').write_text(MANIFEST.read_text())
+        errata = ROOT / 'scripts/verified_text_corrections.json'
+        if errata.is_file():
+            (self.root / 'scripts/verified_text_corrections.json').write_bytes(errata.read_bytes())
         self.materials = []
         self.exams = []
         for archive in self.manifest['archives']:

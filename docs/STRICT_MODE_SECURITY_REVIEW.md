@@ -1,7 +1,5 @@
 # Strict-mode API isolation review
 
-English | [简体中文](STRICT_MODE_SECURITY_REVIEW.zh-CN.md)
-
 Review date: 2026-09-01. The review used isolated FastAPI TestClient fixtures and temporary storage, without calling the running 4173 service or changing private sources or user records. The reviewer reported findings; the backend owner implemented fixes. This historical report is not a fresh certification of later code.
 
 ## Confirmed findings and retested fixes

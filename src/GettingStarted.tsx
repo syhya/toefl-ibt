@@ -80,16 +80,16 @@ export default function GettingStarted({
             : t("Help & setup", "使用与导入指南")
         }
         subtitle={t(
-          "Choose a demo or import your own material. Everything runs on this computer.",
-          "先体验演示题，或导入自己的资料。所有操作都在本机完成。",
+          "Start with TOEFL iBT Practice Test 1 or import your own material. Everything runs on this computer.",
+          "先体验 TOEFL iBT Practice Test 1，或导入自己的资料。所有操作都在本机完成。",
         )}
       />
       <section className="onboarding-card">
         <h2>{t("1. Add a practice resource", "1. 添加练习资料")}</h2>
         <p>
           {t(
-            "Try a short, original reading and writing demo to learn the controls. It is an untimed tutorial, not an official TOEFL test.",
-            "可先用原创的阅读和写作演示熟悉操作。演示不限时，用于学习软件使用方式。",
+            "TOEFL iBT Practice Test 1 includes all four sections: 97 items across 79 screens, with source audio, images, and references. Reading, Listening, and Writing support strict timed practice. Speaking uses guided practice because Interview question 1 has different paper and audio versions.",
+            "托福改革样题第 1 套（TOEFL iBT Practice Test 1）包含完整四科：97 道小题、79 个题目页面，保留来源音频、图片与原始资料。阅读、听力和写作支持严格计时；口语因采访第 1 题纸面与音频版本不一致，仅支持专项练习。",
           )}
         </p>
         <div className="onboarding-actions">
@@ -99,7 +99,7 @@ export default function GettingStarted({
           >
             {busy
               ? t("Importing…", "正在导入…")
-              : t("Try the demo", "体验演示题")}
+              : t("Try Practice Test 1", "体验官方样题第1套")}
           </Button>
           <Button
             kind="outline"
@@ -132,8 +132,8 @@ export default function GettingStarted({
         </pre>
         <p>
           {t(
-            "Start with examples/demo/pack.json and edit its English questions. Image and audio file paths are relative to that JSON file. Arbitrary PDFs require transcription into the resource-pack format.",
-            "可以复制 examples/demo/pack.json 并编辑其中的英文题目。图片和音频路径相对于该 JSON 文件。任意 PDF 需先将题目整理为资源包格式。",
+            "For your own material, start with the JSON example in the resource import guide. Image and audio paths are relative to the JSON file. Custom portable packs use untimed guided practice; arbitrary PDFs need their questions transcribed into that format.",
+            "自己的资料可参考资源导入指南中的 JSON 示例。图片和音频路径相对于 JSON 文件。自定义资源包采用不限时辅助练习，任意 PDF 需先将题目整理为该格式。",
           )}
         </p>
         {error && (
@@ -152,8 +152,8 @@ export default function GettingStarted({
         </p>
         <p>
           {t(
-            "Strict practice is available only for verified complete source sets. Guided practice lets you pause, replay audio, and check visited questions. Before speaking, use Check microphone and play back the test recording.",
-            "只有通过核验的完整套题可使用严格模考。专项练习允许暂停、重听及查看已访问题目的解析。口语前请检测麦克风并回放测试录音。",
+            "Strict practice is available only for verified sections; a full strict test requires all four sections to qualify. Guided practice lets you pause, replay audio, and check visited questions. Before speaking, use Check microphone and play back the test recording.",
+            "通过核验的单科可使用严格计时；整套严格模考需四科均符合条件。专项练习允许暂停、重听及查看已访问题目的解析。口语前请检测麦克风并回放测试录音。",
           )}
         </p>
       </section>
@@ -176,8 +176,8 @@ export default function GettingStarted({
         <h2>{t("Language and detailed documentation", "语言与详细文档")}</h2>
         <p>
           {t(
-            "Use EN / 中文 in the header to switch the entire interface, including exam controls. Your choice is remembered. Source passages, answer options, written responses, and recordings retain their original language.",
-            "使用顶部 EN / 中文切换整个操作界面，包括考试控制按钮，软件会记住选择。文章、题目选项、你的作答和录音保留原语言。",
+            "Use EN / 中文 in the header to switch the interface, including exam controls. Your choice is remembered. Only the project README is bilingual; detailed documentation is in English. Source passages, answer options, written responses, and recordings retain their original language.",
+            "使用顶部 EN / 中文切换操作界面，包括考试控制按钮，软件会记住选择。仅项目 README 保留双语，详细文档统一使用英文。文章、题目选项、你的作答和录音保留原语言。",
           )}
         </p>
         <div className="guide-links">
@@ -190,7 +190,7 @@ export default function GettingStarted({
           ].map(([id, label]) => (
             <a
               key={id}
-              href={`/api/documentation/${locale}/${id}`}
+              href={`/api/documentation/en/${id}`}
               onClick={(event) => {
                 event.preventDefault();
                 setDocument(id as DocumentId);
@@ -209,8 +209,8 @@ export default function GettingStarted({
           </summary>
           <p>
             {t(
-              "The collection-specific importer needs the original data/ folder and its matching scripts/verified_*.json curation files. Those copyrighted resources and private manifests are not included with the open-source code. Use portable packs if you do not have that collection.",
-              "原题库导入器需要原始 data/ 目录及匹配的 scripts/verified_*.json 校对清单。受版权保护的资料和私有清单不随开源代码提供；没有该资料集时请使用通用资源包。",
+              "TOEFL iBT Practice Test 1 installs directly from the bundled example. Restoring the larger private collection additionally requires its original data/ folder and matching scripts/verified_*.json curation files, which are not bundled. Use portable packs for other personal resources.",
+              "TOEFL iBT Practice Test 1 可直接从内置示例安装。恢复更大的私有题库还需要原始 data/ 目录及匹配的 scripts/verified_*.json 校对清单，这部分不随仓库提供。其他个人资料可使用通用资源包导入。",
             )}
           </p>
           <pre>

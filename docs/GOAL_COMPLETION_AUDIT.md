@@ -1,7 +1,5 @@
 # Historical examination-fidelity goal audit
 
-English | [简体中文](GOAL_COMPLETION_AUDIT.zh-CN.md)
-
 Audit date: 2026-09-05, with a 2026-09-06 follow-up. This records the earlier goal of matching 2026 test flow, timing, and current official screens. It is not the completion audit for the later bilingual/open-source documentation work. A working local configuration does not prove all official production rules.
 
 | Earlier requirement | Evidence at the audit | Conclusion |

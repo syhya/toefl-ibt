@@ -16,6 +16,11 @@ const documents = {
   MATERIALS: ["docs/MATERIALS", "Materials", "资料说明"],
   OFFICIAL_RULES: ["docs/OFFICIAL_RULES", "Rules and evidence", "规则与依据"],
   DATA_QA: ["docs/DATA_QA", "Source-data audit", "来源数据审核"],
+  TEXT_FIDELITY: [
+    "docs/TEXT_FIDELITY",
+    "Source text corrections",
+    "原题文字修正",
+  ],
   ACCEPTANCE: ["docs/ACCEPTANCE", "Acceptance record", "验收记录"],
   DESIGN_REFERENCES: [
     "docs/DESIGN_REFERENCES",
@@ -44,6 +49,16 @@ const documents = {
     "Strict-mode security review",
     "严格模式安全审查",
   ],
+  BUNDLED_ETS_PRACTICE_TEST_1: [
+    "examples/ets-practice-test-1/README",
+    "TOEFL iBT Practice Test 1 example",
+    "TOEFL iBT Practice Test 1 示例",
+  ],
+  BUNDLED_ETS_PRACTICE_TEST_1_NOTICE: [
+    "examples/ets-practice-test-1/NOTICE",
+    "TOEFL iBT Practice Test 1 source notice",
+    "TOEFL iBT Practice Test 1 来源声明",
+  ],
   README: ["README", "Project overview", "项目介绍"],
   CONTRIBUTING: ["CONTRIBUTING", "Contributing", "贡献指南"],
   SECURITY: ["SECURITY", "Security policy", "安全政策"],
@@ -52,6 +67,10 @@ const documents = {
 } as const;
 export type DocumentId = keyof typeof documents;
 type DocumentLocation = { id: DocumentId; hash: string };
+
+function documentLocale(id: DocumentId, requested: Locale): Locale {
+  return id === "README" ? requested : "en";
+}
 
 /** Resolve repository-relative Markdown links against a public logical path.
  * Never build a fetch path from unchecked Markdown text or a local filesystem URL.
@@ -72,7 +91,10 @@ export function resolveDocumentationLink(
     if (apiRoute && Object.hasOwn(documents, apiRoute[2]))
       return {
         id: apiRoute[2] as DocumentId,
-        locale: apiRoute[1] as Locale,
+        locale: documentLocale(
+          apiRoute[2] as DocumentId,
+          apiRoute[1] as Locale,
+        ),
         hash: link.hash.slice(1),
       };
     const suffix = path.endsWith(".zh-CN.md")
@@ -88,7 +110,7 @@ export function resolveDocumentationLink(
     return id
       ? {
           id,
-          locale: suffix === ".zh-CN.md" ? "zh-CN" : "en",
+          locale: documentLocale(id, suffix === ".zh-CN.md" ? "zh-CN" : "en"),
           hash: link.hash.slice(1),
         }
       : undefined;
@@ -154,13 +176,15 @@ export default function Documentation({
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
   const article = useRef<HTMLElement>(null);
-  const loaded = content?.id === location.id && content.locale === locale;
+  const contentLocale = documentLocale(location.id, locale);
+  const loaded =
+    content?.id === location.id && content.locale === contentLocale;
 
   useEffect(() => {
     const controller = new AbortController();
     setError("");
     setContent(null);
-    fetch(`/api/documentation/${locale}/${location.id}`, {
+    fetch(`/api/documentation/${contentLocale}/${location.id}`, {
       signal: controller.signal,
     })
       .then(async (response) => {
@@ -175,14 +199,18 @@ export default function Documentation({
           throw new Error(message);
         }
         if (!controller.signal.aborted)
-          setContent({ id: location.id, locale, markdown: text });
+          setContent({
+            id: location.id,
+            locale: contentLocale,
+            markdown: text,
+          });
       })
       .catch((error) => {
         if (!controller.signal.aborted)
           setError(error instanceof Error ? error.message : String(error));
       });
     return () => controller.abort();
-  }, [location.id, locale, retry]);
+  }, [location.id, contentLocale, retry]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -211,7 +239,7 @@ export default function Documentation({
       setHistory((previous) => [...previous, location]);
       setLocation({ id: next.id, hash: next.hash });
     }
-    if (next.locale) setLocale(next.locale);
+    if (next.id === "README" && next.locale) setLocale(next.locale);
   };
   const back = () => {
     const previous = history.at(-1);
@@ -252,7 +280,11 @@ export default function Documentation({
           {t("Loading documentation…", "正在读取文档…")}
         </p>
       ) : (
-        <article className="documentation-markdown" ref={article} lang={locale}>
+        <article
+          className="documentation-markdown"
+          ref={article}
+          lang={contentLocale}
+        >
           <Markdown
             skipHtml
             remarkPlugins={[remarkGfm, documentationHeadings]}

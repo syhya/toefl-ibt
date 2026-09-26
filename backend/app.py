@@ -32,6 +32,7 @@ from .integrity import SourceIntegrity
 from .legacy_audio import recovery_flags, recover_audio
 from .practice_groups import build_practice_groups, public_group, group_session_options, group_revision, SESSION_FIELDS as GROUP_SESSION_FIELDS
 from .presentation import asset_is_active, is_structured, manifest_issues, safe_stem_blocks
+from .text_corrections import TextCorrections
 
 ROOT = Path(__file__).resolve().parents[1]
 ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$')
@@ -79,6 +80,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
     clock = clock or (lambda: int(time.time() * 1000))
     catalog, store = Catalog(root), Storage(root)
     source_integrity = SourceIntegrity(root, catalog)
+    text_corrections = TextCorrections(root, catalog, source_integrity)
     app = FastAPI(title='TOEFL Local Lab', docs_url='/api/docs' if testing else None, redoc_url=None,
                   openapi_url='/api/openapi.json' if testing else None)
     app.state.store, app.state.catalog, app.state.clock = store, catalog, clock
@@ -89,14 +91,17 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         """Only expose the original PDF instruction paired with this signed clip."""
         if media.get('kind') != 'directions' or not media.get('segmentId'):
             return None
-        relative = 'scripts/verified_pack_directions.json'
-        expected = (a.get('verificationSnapshot') or {}).get('curationSha256ByPath', {}).get(relative)
+        snapshot = a.get('verificationSnapshot') or {}
+        relative = snapshot.get('packDirectionsPath', 'scripts/verified_pack_directions.json')
+        if not isinstance(relative, str):
+            return None
+        expected = snapshot.get('curationSha256ByPath', {}).get(relative)
         if not expected:
             return None
+        path = (root / relative).resolve()
+        if source_integrity.digest(path) != expected:
+            return None
         if expected not in directions_cache:
-            path = (root / relative).resolve()
-            if not path.is_relative_to(root) or not path.is_file():
-                return None
             content = path.read_bytes()
             if hashlib.sha256(content).hexdigest() != expected:
                 return None
@@ -156,6 +161,8 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         asset_id = catalog.register(url)
         if not asset_id:
             return None
+        if review and urlsplit(url).path.startswith('/materials/') and not catalog.path_for(asset_id):
+            return None
         route = 'review-assets' if review else 'assets'
         fragment = urlsplit(url).fragment if isinstance(url, str) else ''
         suffix = '#' + fragment if re.fullmatch(r'page=\d+', fragment) else ''
@@ -169,10 +176,13 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
         """
         if not q:
             return None
+        # A source-backed transcription correction updates display only. The
+        # stored plan still supplies grading, answer IDs, deadlines and media.
+        q = text_corrections.project(a, q)
         keys = ['id', 'type', 'taskType', 'number', 'numberEnd', 'prompt', 'passage', 'passageTemplate', 'context', 'tokens',
                 'fixedTokens', 'slots', 'wordLimit', 'recommendedWords', 'warnings', 'verificationStatus',
                 'interaction', 'sourceImageContainsQuestionAndChoices', 'referenceOnly', 'sourcePromptAvailable', 'practiceMode', 'subjective',
-                'presentationSchema', 'structuredContentStatus']
+                'presentationSchema', 'structuredContentStatus', 'textCorrection', 'sentencePrefix', 'terminalPunctuation']
         if review:
             keys += ['answer', 'transcript', 'explanation', 'explanations', 'answerStatus', 'rubric',
                      'sourceReferenceAnswer', 'answerConflict', 'resolutionEvidence', 'answerEvidence', 'auditStatus',
@@ -423,7 +433,8 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
                 'questionMap': [{'index': index, 'questionId': item['id'], 'answered': engine.has_answer(a['answers'].get(item['id'])),
                                   'flagged': bool(a['flags'].get(item['id']))} for index, item in enumerate(st['questions'])] if st and st.get('canBack') else [],
                 'integrity': {'interrupted': a['interrupted'], 'recordingsComplete': recording_status['status'] == 'complete',
-                              'sourcesVerified': (a.get('verificationSnapshot') or {}).get('status') == 'passed',
+                              'sourcesVerified': (a.get('verificationSnapshot') or {}).get('status') == 'passed' and (a.get('verificationSnapshot') or {}).get('originalSourcesVerified', True),
+                              'preparedAssetsVerified': (a.get('verificationSnapshot') or {}).get('status') == 'passed' and (a.get('verificationSnapshot') or {}).get('verificationMode') == 'prepared-assets',
                               'eligibleForContinuousStrict': a['mode'] == 'strict' and a['status'] == 'completed' and not a['interrupted'] and recording_status['status'] == 'complete' and (a.get('verificationSnapshot') or {}).get('status') == 'passed',
                               'events': [event for event in a['events'] if event['type'] in ['interrupted', 'resumed', 'missing-audio', 'recording-error', 'clock-gap', 'source-changed', 'legacy-audio-unverified', 'legacy-audio-recovered']]},
                 'progress': {'stageIndex': a['stageIndex'], 'totalStages': len(a['plan']), 'questionIndex': a['questionIndex'],
@@ -471,21 +482,28 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
             'TESTING', 'MATERIALS', 'OFFICIAL_RULES', 'DATA_QA', 'ACCEPTANCE',
             'DESIGN_REFERENCES', 'EXAM_UI_REFERENCE', 'GOAL_COMPLETION_AUDIT',
             'MEDIA_SEGMENTS', 'ets-2026-verification', 'PROJECT_HISTORY',
-            'STRICT_MODE_SECURITY_REVIEW',
+            'STRICT_MODE_SECURITY_REVIEW', 'TEXT_FIDELITY',
         ]
         paths = {name: root / 'docs' / name for name in public_docs}
         paths['DOCUMENTATION_INDEX'] = root / 'docs' / 'README'
+        paths['BUNDLED_ETS_PRACTICE_TEST_1'] = root / 'examples/ets-practice-test-1/README'
+        paths['BUNDLED_ETS_PRACTICE_TEST_1_NOTICE'] = root / 'examples/ets-practice-test-1/NOTICE'
         for name in ['README', 'CONTRIBUTING', 'SECURITY', 'CODE_OF_CONDUCT', 'CHANGELOG']:
             paths[name] = root / name
         if locale not in ['en', 'zh-CN'] or document not in paths:
             raise engine.ExamError('Documentation not found.', 404)
-        suffix = '.zh-CN.md' if locale == 'zh-CN' else '.md'
+        # Preserve old localized endpoints as aliases without maintaining
+        # translated copies. Only the project README follows the UI language.
+        content_locale = locale if document == 'README' else 'en'
+        suffix = '.zh-CN.md' if content_locale == 'zh-CN' else '.md'
         path = Path(str(paths[document]) + suffix)
         # Do not follow symlinks even when an allowlisted filename was replaced locally.
-        if (not path.is_file() or path.is_symlink() or path.parent.is_symlink()
+        if (not path.is_file() or path.is_symlink()
+                or any(parent.is_symlink() for parent in path.parents if parent.is_relative_to(root))
                 or not path.resolve().is_relative_to(root.resolve())):
             raise engine.ExamError('Documentation not found.', 404)
-        return FileResponse(path, media_type='text/plain; charset=utf-8')
+        return FileResponse(path, media_type='text/plain; charset=utf-8',
+                            headers={'Content-Language': content_locale})
 
     @app.get('/api/catalog')
     def get_catalog():
@@ -524,15 +542,13 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
 
     @app.post('/api/resource-packs/demo')
     async def import_demo(request: Request):
-        from .packs import import_pack
+        from .example_pack import install_example
+        # Install the signed native exam, retaining its clocks, media and provenance.
         # No client-selected filesystem path is accepted by this endpoint.
         with store.transaction() as db:
             if any(a['status'] == 'active' and a['mode'] == 'strict' for a in store.all(db)):
                 raise engine.ExamError('Finish the active strict session before importing resources.', 409)
-            path = root / 'examples/demo/pack.json'
-            if not path.is_file():
-                raise engine.ExamError('The demo pack is missing. Restore examples/demo/pack.json.', 404)
-            result = import_pack(root, json.loads(path.read_text()))
+            result = install_example(root)
         catalog.refresh()
         return result
 

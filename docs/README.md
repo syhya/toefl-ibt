@@ -1,15 +1,15 @@
 # Documentation
 
-English | [简体中文](README.zh-CN.md)
+Start with the [project README](../README.md). Only the root README has English and Simplified Chinese versions. This documentation, project policies, and example/source notices are maintained in English. Interface language switching continues to translate application controls while preserving English documentation and source questions/media.
 
-Start with the [project README](../README.md). Every document has a language link below its title. Interface language switching changes application controls/help while preserving source questions and media.
+For the current packaged example and latest local validation, use the [package README](../examples/ets-practice-test-1/README.md) and [current acceptance record](ACCEPTANCE.md#current-working-tree-verification-2026-09-26). Historical reports below retain the counts, languages, and behavior of their stated revisions; they are not specifications for today's default sample.
 
 ## New users
 
 | Guide | What you will learn |
 | --- | --- |
 | [User guide](USER_GUIDE.md) | Start, language, modes, each task, timers, recording, review, backup |
-| [Importing resources](IMPORTING.md) | Demo, text-only website import, media folders, JSON schema, updates, private PDF limits |
+| [Importing resources](IMPORTING.md) | Complete TOEFL iBT® Practice Test 1, text-only website import, media folders, JSON schema, updates, private PDF limits |
 | [Troubleshooting](TROUBLESHOOTING.md) | Startup, ports, imports, microphone, recording recovery, changed resources |
 
 ## Contributors
@@ -18,7 +18,7 @@ Start with the [project README](../README.md). Every document has a language lin
 | --- | --- |
 | [Architecture](ARCHITECTURE.md) | Components, server state, presentation, scoring, recording, invariants |
 | [Testing](TESTING.md) | Public tests/build and optional isolated private-source QA |
-| [Contributing](../CONTRIBUTING.md) | Workflow, English comments, paired translations, pull requests |
+| [Contributing](../CONTRIBUTING.md) | Workflow, English documentation, bilingual README/UI, pull requests |
 | [Security](../SECURITY.md) | Local trust boundary and vulnerability reporting |
 | [Code of conduct](../CODE_OF_CONDUCT.md) | Community expectations and reporting |
 | [Changelog](../CHANGELOG.md) | Current unreleased changes and historical verification |
@@ -32,6 +32,7 @@ These documents retain observations about the original private collection and sp
 | [Official rules](OFFICIAL_RULES.md) | Verified/observed/approximate/unsupported timing and scoring |
 | [Independent ETS verification](ets-2026-verification.md) | 2026-09-05 primary-source and audio supplement review |
 | [Materials](MATERIALS.md) | Private importer, source structure, media/portrait provenance |
+| [Source text corrections](TEXT_FIDELITY.md) | 2026-09-07 OCR audit, exact source-bound fixes, historical review behavior |
 | [Data QA](DATA_QA.md) | Source inventory, corrections, migration batches, verification limits |
 | [Media segmentation](MEDIA_SEGMENTS.md) | Local acoustic/ASR workflow and known source mismatches |
 | [Exam interface reference](EXAM_UI_REFERENCE.md) | Source PDF measurements, public CSS, authorized Sampler observations |

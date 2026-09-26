@@ -1,12 +1,47 @@
 # Local application acceptance record
 
-English | [简体中文](ACCEPTANCE.zh-CN.md)
+## Current working-tree verification: 2026-09-26
+
+The current default is the **runtime-only** Practice Test 1 package: 56 required payload files, 17,818,617 bytes (about 17.8 MB), with all 13 original PDFs/full MP3s excluded from Git. No original-source `data/` folder, private curation set, or external material download was needed for the fresh installation. Dependencies were reused from the local development environment; this is not a fresh dependency-download or remote Linux-CI claim.
+
+- Full local suite: **632 passed** (193 UI, 404 backend/security, 35 data/import), plus type checking and production build.
+- Published-file-only checkout: **607 passed, 25 private-dependent checks skipped**; first `npm run demo` copied 55 files and merged the catalog, and the second call reused the installation without copying files.
+- Complete four-section API walkthrough: all **79 screens / 97 items**, 68 saved non-speaking responses, **84/84 objective units**, and eleven complete, playable recording takes. This uses an explicit test clock and synthetic one-second WAV recordings; it is not a natural full-length test, real microphone check, or assessment of speech quality.
+- Browser check on the isolated new installation: sample visible, strict Reading opens at 11:30, source text and missing-letter input render and save, Tab navigation works, and no console error was observed.
+- Integrity regression: missing/corrupt required media, altered provenance, mismatched source descriptors, false profile markers, and present-but-corrupt originals fail. Omitted originals are reported as not reverified; the prepared assets remain hash-checked. Private archives retain full-source checks.
+- Source limits remain: first Interview prompt has unmatched paper/audio versions; full-test and Speaking strict mode stay disabled. Other supported sections retain their timers.
+
+Local logs and evidence are under `tmp/qa/minimal-release/`. The earlier full-original-package results below remain historical. The [example README](../examples/ets-practice-test-1/README.md) describes the current payload and optional-source boundary.
+
+## Earlier full-source bundle verification: 2026-09-26
+
+This earlier review checked the then-current local code, README pair, English-only guides, and complete Practice Test 1 bundle. It did not change exam content, publish a GitHub release, rerun the long microphone examination, or freshly re-fetch the historical ETS rule sources. Earlier dated sections remain evidence for their own revisions.
+
+| Check | Result for the earlier full-source working tree |
+| --- | --- |
+| Full local test suite | 620 passed: 192 UI, 393 backend/security, 35 data/import; type checking passed |
+| Isolated source-only checkout | No private `data/`, `generated/`, `storage/`, or private curation manifests before sample installation; existing local dependency installations reused |
+| First sample install | CLI installed only `student-1`: 97 items / 79 screens, 13 originals, 68 copied files; the separately validated catalog was merged |
+| Repeat install | `reused: true`, zero copied files; existing native example retained |
+| Isolated-checkout suite | 595 passed: 192 UI, 392 backend/security, 11 data/import; 25 private-dependent checks skipped (1 backend, 24 data) |
+| Source and packaging | All 69 payload hashes passed; 13 English material filenames matched the exporter mapping; 52 derived assets and all source references retained |
+| Strict eligibility | Reading/Listening/Writing available; Speaking and full strict test remain disabled for the recorded Interview question 1 source mismatch |
+| Documentation | Only root README has EN/zh-CN editions; other Markdown is English-only; links and local section anchors checked |
+| Production build | Passed in the isolated source tree; no browser microphone or real-device claim is added by this build |
+
+The local host used Node.js 25.9.0 and Python 3.14.3 on macOS. This is not a fresh dependency-download test or a run on the configured Linux CI host/minimum supported versions. The [testing guide](TESTING.md#validate-a-clean-sample-installation) documents the repeatable clean-sample flow.
+
+Logs and the machine-readable report are under `tmp/qa/docs-consistency-20260926/`, excluded from the repository. The public [example README](../examples/ets-practice-test-1/README.md) is the current package inventory. The September 5–8 full-private-bank counts and former bilingual-document totals below are historical, not today's public sample or documentation policy.
+
+## Source-text repair — 2026-09-07–08
+
+The full private reimport applied 653 verified field corrections across 398 of 1,518 screens. A second import reproduced the corrected values. All 572 checks passed (187 UI, 354 backend/security, 31 data/import), and the production build passed. Directly reopening the user-reported completed listening session showed the correct `I’ll have…` and `It’s a nice room.` options, retained selected IDs D and C, and preserved its answer map and score snapshot. All 29 stored session rows were byte-for-byte unchanged after restart and that review request; all 18 runtime source checks passed. Details: [source text fidelity](TEXT_FIDELITY.md), with local proof in `tmp/qa/text-fidelity-20260907/final-verification.json`.
 
 ## Bilingual and open-source onboarding verification — 2026-09-06
 
-The current update was verified against both the installed private collection and a separate public-only copy without original PDFs, generated private exams, or private curation manifests.
+That September 6 update was verified against both the installed private collection and a separate public-only copy without original PDFs, generated private exams, or private curation manifests. It predates the current real-source example package.
 
-| Check | Current result |
+| Check | Result at that date |
 | --- | --- |
 | English/Chinese interface | 101 UI tests passed, including live switches without losing answers, editor history, settings, ratings, countdowns, or recording state |
 | API and resource import | 185 backend/security checks passed in the working project; portable JSON validation, local media, idempotent import, revision updates, and preserved old assets covered |

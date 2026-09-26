@@ -1,24 +1,22 @@
 # User guide
 
-English | [简体中文](USER_GUIDE.zh-CN.md)
-
 ## Start and choose a language
 
 After [installation](../README.md), run `npm start` from the repository directory and open [http://127.0.0.1:4173](http://127.0.0.1:4173). Keep the terminal open. Stop with Control+C. macOS also has `scripts/start.command` for launching after installation.
 
-The default application language is English. Use the header **EN / 中文** selector to change it; the browser remembers the choice for that site in local storage (`toefl-lab-language`). Application navigation, setup, feedback, and help follow your choice. Source passages, question prompts, names, answer choices, transcripts, and original audio stay in their original language so practice content is not changed by translation. Every documentation page has an English/简体中文 link near its title.
+The default application language is English. Use the header **EN / 中文** selector to change it; the browser remembers the choice for that site in local storage (`toefl-lab-language`). Application navigation, setup, feedback, and help follow your choice. Source passages, question prompts, names, answer choices, transcripts, and original audio stay in their original language so practice content is not changed by translation. Only the root project README has English and Simplified Chinese editions. Detailed guides, policies, and example notices are in English, even when application controls are in Chinese. Opening an English guide does not change the interface language.
 
 A different browser profile or port is a different site-storage context and may use the default again. Switching interface language does not restart a session or grant extra time.
 
 ## Your first practice
 
-1. On an empty catalog, choose **Try the demo**. It installs four short original reading/writing screens, with no audio or time limit. You can also run `npm run demo`.
-2. Select the demo or an imported archive. Direct R/L/W/S actions choose one section; the whole-test action uses the archive's available scope.
+1. On an empty catalog, choose **Try Practice Test 1**, or run `npm run demo`. It installs the complete Reading, Listening, Writing, and Speaking reference set, including original audio and supported curated timing.
+2. Select **TOEFL iBT® Practice Test 1** or an imported archive. An existing full private catalog may label the same `student-1` archive **Official Student Sample 1**; look under **Official samples** or **All** if **Full strict tests** is selected. Its **Per-section timing** badge means Reading/Listening/Writing can be timed, not that the full test is strict-eligible. Direct R/L/W/S actions choose one section; the whole-test action uses the archive's available scope.
 3. Choose an available mode and route, then start. An archive only exposes modes supported by its content.
 4. Answer through the page controls and use Next when ready. The app saves accepted answers locally.
 5. Complete or end the practice to open review. Check your answers, read explanations where available, and return to history later.
 
-To add your own questions or media, open **Help & setup** and follow [Importing resources](IMPORTING.md). Public code does not include the original private 18-archive collection. A resource pack is untimed guided practice; it is not a full official mock simply because it includes four sections.
+To add your own questions or media, open **Help & setup** and follow [Importing resources](IMPORTING.md). The prepared bundle contains TOEFL iBT® Practice Test 1, not the rest of the original private collection; see its [source notice](../examples/ets-practice-test-1/NOTICE.md). Its 97 items span 79 screens; a reading cloze screen contains multiple items. Reading, Listening, and Writing support eligible strict practice. Speaking and the whole test remain guided because Interview question 1 has a documented paper/audio version mismatch. This limitation stays visible; the installer does not relax it. Your own portable JSON packs are untimed guided resources; adding four sections alone does not enable strict timing.
 
 ## Practice groups in the task library
 
@@ -50,7 +48,7 @@ Starting from a test or section opens preparation; use **Continue practice** in 
 
 | Task | What to do |
 | --- | --- |
-| Complete the Words | Type only missing letters in the inline blanks. Given letters remain visible. The blank width/letter markers show the required count; Tab moves between inputs. |
+| Complete the Words | Type only missing letters in the inline blanks. In the timed exam presentation, letter strokes remain visible while editing; empty/partial fields use a larger monospace font, and filled fields contract to paragraph text on blur and expand again on focus. Tab follows blank order. Given letters are not editable. |
 | Reading choices | Read the source material and choose one option. Use source scrolling when the material is longer than its panel. |
 | Listening | Let the source play. Short-response choices may be visible but disabled during audio. Answer when enabled; strict Listening cannot go back. |
 | Build a Sentence | Place given tokens into slots by click, keyboard, or supported drag/drop. Fixed words/punctuation stay supplied; repeated tokens remain separate tokens. |
@@ -60,6 +58,8 @@ Starting from a test or section opens preparation; use **Continue practice** in 
 | Interview | Listen to the original question and respond in its recording window; no new-format preparation period is added. |
 
 Word count is a writing aid. Recommended length, including the discussion's 100-word guidance, is not a software minimum that blocks submission. Strict writing disables spelling assistance and outside clipboard import; the editor's internal Cut/Paste/Undo/Redo remain available according to their state.
+
+The bundled sample retains the specified paper edition. Its first Reading module has 20 items; the observed online sampler showed 17 and omitted one `of` present in the paper's cloze paragraph. The ten prefixes and blank lengths agree. The input styling follows observed interaction without changing the paper text, module count, answers, or saved scores. See the [dated cloze comparison](EXAM_UI_REFERENCE.md#live-reading-interaction-checked-on-2026-09-26).
 
 ## Timers and navigation
 

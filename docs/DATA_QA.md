@@ -1,12 +1,14 @@
 # Source-material and question-bank acceptance
 
-English | [简体中文](DATA_QA.zh-CN.md)
+**2026-09-07–08 transcription audit:** the complete 1,518-screen catalog was checked for image/text inconsistencies. 653 source-bound field corrections across 398 screens are installed, including canonical aliases. Schema/hash verification alone had not caught these OCR defects. See [source text fidelity](TEXT_FIDELITY.md) for coverage, original anomalies retained, and exclusions.
 
-Latest material review: 2026-09-05 (Asia/Shanghai). This is a dated audit of the private source collection, which is not distributed with the public repository. The first full content review used a stable 2026-09-01 00:26:22 snapshot; all eighteen archives migrated to structured content on 2026-09-02. September 5 rechecked sources/manifests, fixed cache provenance and scene alternative text, and added matching ETS teacher audio. The original 321 resources, answers, and counts were preserved except explicitly source-audited presentation corrections described below.
+Baseline material review: 2026-09-05 (Asia/Shanghai). This is a dated audit of the private source collection, which is not distributed with the public repository. The first full content review used a stable 2026-09-01 00:26:22 snapshot; all eighteen archives migrated to structured content on 2026-09-02. September 5 rechecked sources/manifests, fixed cache provenance and scene alternative text, and added matching ETS teacher audio. The original 321 resources, answers, and counts were preserved except explicitly source-audited presentation corrections described below.
 
 The final read-only catalog SHA was `19338201ba3ebfb6cf59324df45819782f92846fa7f01df8d07c933f334f7843`; all eighteen runtime source gates passed. That check did not modify sources, generated data, manifests, or user records. Earlier counts/test totals below remain historical, not current expectations for newly imported portable packs.
 
 `tests/data` covers sources, manifests, teacher active/transcript isolation, and cache behavior using temporary plain-color PDF pages. AES PDF page counts and all eighteen Discussion portraits were checked without encryption-related skips; the PDF dependency is `pypdf[crypto]`.
+
+The current bundled example is a separate subset: `student-1`, 13 optional original-source references, 97 items / 79 screens, and 74 corrected fields across 40 screens. English bundle filenames leave original bytes and installation references unchanged. See [the package inventory](../examples/ets-practice-test-1/README.md#package-format) and [current validation](ACCEPTANCE.md#current-working-tree-verification-2026-09-26); do not apply this historical full-bank inventory to a new user's installation.
 
 ## Snapshot inventory
 

@@ -98,6 +98,9 @@ export type Question = {
   context?: string;
   presentationSchema?: string;
   structuredContentStatus?: string;
+  textCorrection?: { version: string; changedFields: number };
+  sentencePrefix?: string;
+  terminalPunctuation?: string;
   stemBlocks?: StemBlock[];
   transcript?: string;
   displayTranscriptDuringPractice?: boolean;
@@ -137,7 +140,8 @@ export type Question = {
 export type Material = {
   id: string;
   assetId?: string;
-  url: string;
+  url: string | null;
+  available?: boolean;
   name: string;
   path?: string;
   category?: string;

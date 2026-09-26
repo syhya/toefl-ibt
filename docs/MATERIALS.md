@@ -1,8 +1,14 @@
 # Local materials and import validation
 
-English | [简体中文](MATERIALS.zh-CN.md)
+This document describes the original private collection and its specialized importer. New users should install the [bundled Practice Test 1](../examples/ets-practice-test-1/README.md); use [portable resources](IMPORTING.md) for additional custom content. The full-collection counts below are dated private snapshots, not the size of the example. Private original bytes, generated banks, OCR, and full curation manifests stay local, except for the explicitly prepared example subset described next.
 
-This document describes the original private collection and its specialized importer. For a public checkout or new custom content, start with [portable resources](IMPORTING.md). The counts below are a dated personal snapshot, not material distributed by the open-source repository. Original files remain unchanged; generated questions, OCR, crops, audio segments, and private curation records stay local.
+## Included example versus private collection
+
+`examples/ets-practice-test-1/` contains one native `student-1` exam: 97 items / 79 screens and 52 prepared assets (33 WAV, 16 JPG, 3 PNG). Four metadata JSON files make **56 required hash-checked files, 17,818,617 bytes**; the manifest and two Markdown files are additional. The 13 original sources (2 PDFs / 11 MP3s) are optional references and remain excluded from Git. No private source collection or original-file download is required.
+
+Optional local original filenames are English. The manifest maps them to unchanged installation paths; original material IDs, bytes, source URLs, and existing private filenames remain compatible. The bundled correction subset covers 40 screens / 74 fields. Companion explanations/audio have separate attribution from the ETS-hosted question paper. See [source notice](../examples/ets-practice-test-1/NOTICE.md).
+
+## Dated private inventory
 
 The 2026-09-05 inventory contained 396 files: 393 learning resources and three excluded `.DS_Store` files. Resources comprised 56 PDFs (1,582 pages, 1,348 scanned/not directly extractable), 319 audio files, and eighteen videos. All 321 resources in the 2026-09-02 baseline retained their bytes; 72 original MP3s were added from ETS's matching teacher audio packages.
 
@@ -20,7 +26,7 @@ A changed PDF or a cache without matching source hash requires fresh page render
 
 `scripts/attach_pack_directions.py` restores Pack/Paid directions after structured validation. Its private manifest preserves source rules/scenarios, pages, and explicit source-audio intervals: 33 modules retain text; 44 audio segments serve 22 modules and thirteen listening groups. Group titles play only at group start and do not consume answer time. Missing reliable direction audio remains text; it is not synthesized.
 
-Back up `data/`, complete `generated/`, and matching `scripts/verified_*.json` together. The dated collection uses ten private curation manifests. Automatic audio verification and `humanReviewed` are distinct. Missing or mismatched hashes close affected strict scopes and require recheck, rather than inventing questions from OCR or numbering.
+Back up `data/`, complete `generated/`, and matching `scripts/verified_*.json` together. The September 5 snapshot used ten private curation manifests; the later source-text repair added `verified_text_corrections.json` to the full private import contract. The public example instead has its own self-contained metadata subset. Automatic audio verification and `humanReviewed` are distinct. Missing or mismatched hashes close affected strict scopes and require recheck, rather than inventing questions from OCR or numbering.
 
 ## Outputs
 

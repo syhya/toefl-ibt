@@ -1,7 +1,5 @@
 # Architecture and developer notes
 
-English | [简体中文](ARCHITECTURE.zh-CN.md)
-
 TOEFL Local Lab is a single-user local web application. React renders the practice interface; FastAPI owns the session state and exposes only the content permitted at the current stage; SQLite and local media directories preserve the user's work. Internet access is needed to install dependencies or obtain materials, not for ordinary practice after setup.
 
 ## Repository map
@@ -11,6 +9,7 @@ TOEFL Local Lab is a single-user local web application. React renders the practi
 | `src/App.tsx`, `src/pages.tsx`, `src/components.tsx` | Application navigation, catalog, preparation, history, and shared controls |
 | `src/Exam.tsx`, `src/Questions.tsx` | Examination stages and source-based question interactions |
 | `src/types.ts` | Frontend contracts for questions, sessions, answers, and review |
+| `src/Documentation.tsx`, `scripts/check_docs.py` | Allowlisted Markdown navigation, README-only bilingual policy, and repository-link validation |
 | `public/styles.css`, `public/fonts/` | Local presentation and licensed fonts |
 | `backend/app.py` | HTTP routes, request validation, active/review projection, and asset authorization |
 | `backend/engine.py` | Versioned examination state machine, deadlines, navigation, and scoring |
@@ -21,6 +20,9 @@ TOEFL Local Lab is a single-user local web application. React renders the practi
 | `backend/mistakes.py`, `backend/explanations.py` | Cross-session mistake review and source-based/local explanations |
 | `backend/practice_groups.py` | Source-ordered module/category groups, membership fingerprints, and aggregate progress |
 | `shared/rules.json` | Versioned timing, evidence levels, and navigation policy |
+| `examples/ets-practice-test-1/` | Complete prepared exam, derived assets, optional-source provenance, and file manifest |
+| `backend/example_pack.py` | Verified installation of the bundled curated example, preserving native modules and timing metadata |
+| `backend/packs.py` | Separate portable custom-pack schema and untimed import |
 | `scripts/` | Installation, startup, source import, and isolated QA utilities |
 | `tests/`, `backend/tests/` | UI, API, security, import, and source-data checks |
 | `data/`, `generated/`, `storage/` | Local materials, derived catalog, and user records; excluded from Git |
@@ -45,6 +47,22 @@ Cloze placeholders represent missing letters only. Given prefixes and suffixes r
 Only necessary source photographs, portraits, scenes, or maps belong in active `assets`. They require a specific semantic alternative description, `role: essentialVisual`, and high-resolution source evidence. Original full-question crops belong in review-only `sourceEvidenceAssets`. `source.page` is a one-based physical PDF page; `source.originalNumber` is the printed question number, which may differ from the application's position.
 
 For the curated private importer, a `source-verified` label alone is insufficient: manifests bind source hashes, page identity, content identity, visual bounds, and derived-file hashes. Portable custom resources are a separate authoring workflow; their validation does not certify ETS provenance. See the [import guide](IMPORTING.md).
+
+## Bundled example and portable packs
+
+The default newcomer dataset is the complete source-based `examples/ets-practice-test-1/` package. Its manifest binds the native exam and required prepared/metadata files. The example installer checks these dependencies before registration and preserves source question IDs, modules, timing eligibility, and audio segmentation. It reuses an already installed `student-1`, preserving a full personal catalog and existing sessions. Installation runs locally without OCR or the private collection. It preserves the known Interview question 1 paper/audio mismatch: Reading, Listening, and Writing can retain eligible strict scopes, while Speaking and the full test remain guided.
+
+The default bundle has the allowlisted `runtime-only` profile (version 2). It installs 52 prepared assets and metadata, retaining the 13 source identities as optional references. `backend/prepared_sources.py` permits absent originals only when the profile, provenance hash, source records, structured-content hashes and runtime-asset map agree. A missing/changed required asset, corrupted proof, conflicting source record, or present-but-corrupt original still fails verification. Other archives keep the original full-source gate. Optional original filenames are English; source URLs/IDs remain stable for old installations.
+
+The bundle carries only the example's `provenance.json` and `text-corrections.json`, installed under `generated/assets/ets-practice-test-1/`. `verificationInputs.textCorrectionsPath` selects its hash-bound errata; corrections are already applied in the prepared questions. Historical correction projection still requires actual matching original bytes and does not weaken that guard for omitted files. These are not the full private `scripts/verified_*.json` collection, and checksums are not publisher digital signatures.
+
+Portable custom packs use the separately validated authoring schema in `backend/packs.py` and remain untimed supplementary resources. The native example exam must not be accepted as an arbitrary portable JSON import: internal provenance and strict-mode fields are not user-authored capabilities. The tiny synthetic `tests/fixtures/portable-pack.json` is confined to import tests and is never the installed welcome dataset. See [TOEFL iBT® Practice Test 1 package details](../examples/ets-practice-test-1/README.md) and [importing resources](IMPORTING.md).
+
+## Documentation language and routes
+
+Only root `README.md` / `README.zh-CN.md` are maintained as a language pair. All other project Markdown is English-only, including `docs/`, policies, example notices, and the font README. `GET /api/documentation/{locale}/{document}` uses an explicit file allowlist and rejects symlinks/path traversal. For non-README documents, both `en` and legacy `zh-CN` routes return the English file with `Content-Language: en`. Only the root README follows the requested language.
+
+The frontend requests English guide content and sets the article's language accordingly, while toolbar controls retain the chosen UI language. Reading an English guide does not switch the application language. README language links retain their explicit language-selection behavior. `scripts/check_docs.py` enforces the root pair, rejects extra translated editions, and checks local Markdown links.
 
 ## Scoring and history
 

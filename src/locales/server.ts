@@ -6,6 +6,10 @@ import type { Locale } from "../i18n";
  */
 const messages: [string, string][] = [
   [
+    "Lightweight example: prepared questions and assets are verified; original PDFs and full audio tracks are optional and not included.",
+    "轻量示例已校验题目和运行资源；原始 PDF 与整轨音频为可选资料，默认不附带。",
+  ],
+  [
     "Practice groups require practice mode and a fixed source route.",
     "题组需使用专项练习模式，并保留原卷固定路线。",
   ],
@@ -357,8 +361,127 @@ const messages: [string, string][] = [
     "严格模考完成后才能自评。",
   ],
   [
-    "The demo pack is missing. Restore examples/demo/pack.json.",
-    "缺少示例资源包，请恢复 examples/demo/pack.json。",
+    "The TOEFL iBT Practice Test 1 example is missing. Restore examples/ets-practice-test-1.",
+    "缺少 TOEFL iBT Practice Test 1 示例，请恢复 examples/ets-practice-test-1。",
+  ],
+  [
+    "Existing TOEFL iBT Practice Test 1 has missing or changed sources. Reimport or restore it before installing the example.",
+    "现有 TOEFL iBT Practice Test 1 的来源缺失或已更改，请先重新导入或恢复原资料，再安装示例。",
+  ],
+  [
+    "An unregistered TOEFL iBT Practice Test 1 file already exists. Restore its catalog before installing the example.",
+    "已存在未登记的 TOEFL iBT Practice Test 1 文件，请先恢复其题库目录，再安装示例。",
+  ],
+  [
+    "The local catalog is invalid. Restore it before installing the example.",
+    "本地题库目录无效，请先恢复目录，再安装示例。",
+  ],
+  [
+    "Bundled example contains an unsafe file path.",
+    "内置示例包含不安全的文件路径。",
+  ],
+  [
+    "Bundled example paths cannot contain symbolic links.",
+    "内置示例路径不能包含符号链接。",
+  ],
+  [
+    "Bundled example path is outside the project folder.",
+    "内置示例路径超出项目目录。",
+  ],
+  [
+    "Bundled example JSON is missing or invalid.",
+    "内置示例的 JSON 缺失或无效，请恢复完整的 examples/ets-practice-test-1 目录。",
+  ],
+  [
+    "Bundled example JSON must contain an object.",
+    "内置示例的 JSON 必须包含对象。",
+  ],
+  [
+    "Bundled example catalog is missing materials or exams.",
+    "内置示例目录缺少来源资料或试卷。",
+  ],
+  [
+    "Bundled example catalog must contain only TOEFL iBT Practice Test 1.",
+    "内置示例目录只能包含 TOEFL iBT Practice Test 1。",
+  ],
+  [
+    "Bundled example material metadata is invalid.",
+    "内置示例的资料元数据无效。",
+  ],
+  [
+    "Bundled example conflicts with an existing source material.",
+    "内置示例与现有来源资料冲突，未覆盖原资料。",
+  ],
+  [
+    "Bundled example requires schemaVersion 1 and examId student-1.",
+    "内置示例要求 schemaVersion 为 1，examId 为 student-1。",
+  ],
+  ["Bundled example file manifest is empty.", "内置示例文件清单为空。"],
+  ["Bundled example file metadata is invalid.", "内置示例的文件元数据无效。"],
+  [
+    "Bundled example lists a source file more than once.",
+    "内置示例清单重复登记了来源文件。",
+  ],
+  [
+    "Bundled example may install only its exam and local resource files.",
+    "内置示例只能安装自身试卷和本地资源文件。",
+  ],
+  [
+    "Bundled example lists a destination more than once.",
+    "内置示例清单重复登记了安装路径。",
+  ],
+  [
+    "Bundled example manifest must verify exam.json and catalog.json.",
+    "内置示例清单必须校验 exam.json 和 catalog.json。",
+  ],
+  [
+    "Bundled example exam or catalog destination is invalid.",
+    "内置示例的试卷或目录安装位置无效。",
+  ],
+  [
+    "Bundled example must preserve the native timed TOEFL iBT Practice Test 1 exam.",
+    "内置示例必须保留 TOEFL iBT Practice Test 1 的原生计时试卷。",
+  ],
+  [
+    "Bundled example practice must retain every source question.",
+    "内置示例练习必须保留全部原题。",
+  ],
+  [
+    "Bundled example must preserve its verified reading, listening, and writing scopes.",
+    "内置示例必须保留通过核验的阅读、听力和写作练习范围。",
+  ],
+  [
+    "Bundled example must include all four ordered sections.",
+    "内置示例必须包含按原顺序排列的完整四科。",
+  ],
+  [
+    "Bundled example contains missing or unverified question content.",
+    "内置示例包含缺失或未核验的题目内容。",
+  ],
+  [
+    "Bundled example changed during validation.",
+    "内置示例在核验期间发生更改，请重试。",
+  ],
+  [
+    "Bundled example destination parent is not a directory.",
+    "内置示例安装位置的上级路径不是目录。",
+  ],
+  ["The project folder does not exist.", "项目目录不存在。"],
+  [
+    "A local resource changed during example installation.",
+    "本地资源在示例安装期间发生更改，未继续覆盖。",
+  ],
+  [
+    "An installed example file failed verification.",
+    "已安装的示例文件未通过核验。",
+  ],
+  [
+    "The local catalog changed during example installation. Try again.",
+    "本地题库目录在示例安装期间发生更改，请重试。",
+  ],
+  [
+    "Installed example failed source integrity.",
+    "已安装示例未通过来源完整性核验。",
   ],
   [
     "The frontend is not built. Run npm run build, or use the Vite development server.",
@@ -1057,6 +1180,28 @@ export function localizeServerMessage(
     }
   }
   if (locale === "zh-CN") {
+    const exampleErrors: [RegExp, string][] = [
+      [
+        /^Bundled example file is missing or changed: ([\s\S]*)$/,
+        "内置示例文件缺失或已更改：",
+      ],
+      [
+        /^Bundled example would overwrite an existing file: ([\s\S]*)$/,
+        "内置示例与现有文件冲突，未覆盖：",
+      ],
+      [
+        /^Bundled example failed source integrity: ([\s\S]*)$/,
+        "内置示例未通过来源完整性核验：",
+      ],
+      [
+        /^Bundled example could not be installed: ([\s\S]*)$/,
+        "无法安装内置示例：",
+      ],
+    ];
+    for (const [pattern, prefix] of exampleErrors) {
+      const match = text.match(pattern);
+      if (match) return `${prefix}${match[1]}`;
+    }
     const timing = text.match(/^Unknown timing setting: (.+)$/);
     if (timing) return `未知的计时设置：${timing[1]}`;
     const presentation = text.match(

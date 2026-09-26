@@ -13,6 +13,6 @@ python3 -m venv .venv
 if [ -f package-lock.json ]; then npm ci; else npm install; fi
 npm run build
 if [ ! -f generated/catalog.json ]; then
-  printf '%s\n' 'No library yet. Start the app and choose Try the demo or import a pack. / 尚无题库，启动后可体验演示题或导入资源包。'
+  printf '%s\n' 'No library yet. Start the app and choose Try Practice Test 1, or run npm run demo. / 尚无题库，启动后可点击“体验官方样题第1套”，或运行 npm run demo。'
 fi
 printf '%s\n' 'Ready: npm start, then http://127.0.0.1:4173 / 安装完成：运行 npm start 后打开上述网址。'

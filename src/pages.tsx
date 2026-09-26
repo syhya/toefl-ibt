@@ -926,6 +926,14 @@ export function ReviewPage({
                         t("Manual review", "人工复盘")}
                   </span>
                 </div>
+                {q.textCorrection && (
+                  <p className="muted" style={{ fontSize: 12 }}>
+                    {t(
+                      "Text corrected against the original page. Your saved answer and score are unchanged.",
+                      "题目文字已按原页校正，你的作答与原成绩保持不变。",
+                    )}
+                  </p>
+                )}
                 <div className="prompt" style={{ fontSize: 13 }}>
                   {q.prompt}
                 </div>
@@ -1180,18 +1188,20 @@ function RatingForm({
               )}
         </h3>
         {!supplemental &&
-          rubrics.map((r) => (
-            <a
-              key={r.id}
-              className="btn small"
-              href={r.url}
-              target="_blank"
-              rel="noopener"
-            >
-              {t("Open rubric", "打开 Rubric")}
-              <Icon name="external" />
-            </a>
-          ))}
+          rubrics.map((r) =>
+            r.url ? (
+              <a
+                key={r.id}
+                className="btn small"
+                href={r.url}
+                target="_blank"
+                rel="noopener"
+              >
+                {t("Open rubric", "打开 Rubric")}
+                <Icon name="external" />
+              </a>
+            ) : null,
+          )}
       </div>
       <div style={{ display: "flex", gap: 12 }}>
         <label className="field">
