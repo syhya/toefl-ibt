@@ -11,6 +11,8 @@ import {
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { ReviewPage } from "../../src/pages";
 import type { Review } from "../../src/types";
+import englishExplanations from "../../shared/example1-explanations.en.json";
+import chineseExplanations from "../../shared/example1-explanations.zh-CN.json";
 
 beforeEach(() => setLocale("zh-CN"));
 
@@ -147,7 +149,7 @@ function show(review: Review) {
   );
 }
 
-it("keeps reviewed rationales in English under Chinese UI without misattributing them to the source", () => {
+it("keeps legacy English-only rationales readable without misattributing them to the source", () => {
   const review = reviewFixture();
   const q = review.sections![1].modules[0].questions![0];
   q.explanation = {
@@ -188,6 +190,93 @@ it("keeps reviewed rationales in English under Chinese UI without misattributing
   expect(screen.queryByText(/旧版中文键差异/)).toBeNull();
   expect(screen.queryByText(/旧版中文解析冲突/)).toBeNull();
   expect(screen.queryByText(/资料解析来源 · 第 18 页/)).toBeNull();
+});
+
+it("switches the full reviewed rationale, distractors and warnings with the interface language", () => {
+  const review = reviewFixture();
+  const q = review.sections![1].modules[0].questions![0];
+  const en = englishExplanations.questions["student-1-l1-8"];
+  const zh = chineseExplanations.questions["student-1-l1-8"];
+  q.explanation = {
+    origin: "local_assistance",
+    label: "Reviewed explanation · Not ETS-authored",
+    language: "en",
+    reviewed: true,
+    text: en.text,
+    evidence: en.evidence,
+    warnings: en.warnings,
+    source: { page: 18, materialId: "question-paper" },
+    translations: {
+      "zh-CN": {
+        language: "zh-CN",
+        label: "校核解析 · 非 ETS 官方编写",
+        text: zh.text,
+        evidence: zh.evidence,
+        warnings: zh.warnings,
+      },
+    },
+  };
+  q.resolutionEvidence = { oldNote: "旧版中文解析校核内容" };
+  q.explanationConflict = { resolutionEvidence: "旧版中文解析冲突" };
+  const saved = JSON.stringify(review);
+  show(review);
+  for (const language of ["zh-CN", "en", "zh-CN"] as const) {
+    act(() => setLocale(language));
+    const expected = language === "zh-CN" ? zh : en;
+    const hidden = language === "zh-CN" ? en : zh;
+    expect(
+      screen.getByText(expected.text.replace(/\s+/g, " ")).getAttribute("lang"),
+    ).toBe(language);
+    for (const reason of expected.evidence) {
+      expect(screen.getByText(reason).closest("ul")?.getAttribute("lang")).toBe(
+        language,
+      );
+    }
+    expect(screen.getByText(expected.warnings[0]).getAttribute("lang")).toBe(
+      language,
+    );
+    expect(screen.queryByText(hidden.text.replace(/\s+/g, " "))).toBeNull();
+    expect(screen.queryByText(hidden.evidence[0])).toBeNull();
+    expect(screen.queryByText(hidden.warnings[0])).toBeNull();
+    expect(
+      screen.getByText(
+        language === "zh-CN"
+          ? "校核解析 · 非 ETS 官方编写"
+          : "Reviewed explanation · Not ETS-authored",
+      ),
+    ).toBeTruthy();
+    expect(screen.queryByText(/旧版中文解析/)).toBeNull();
+    expect(JSON.stringify(review)).toBe(saved);
+  }
+});
+
+it("shows the withheld-explanation notice in Chinese when the source binding fails", () => {
+  const review = reviewFixture();
+  const q = review.sections![1].modules[0].questions![0];
+  q.explanation = {
+    origin: "unavailable",
+    reviewed: true,
+    language: "en",
+    label: "Explanation requires a new source check",
+    text: "This saved question differs from the reviewed version.",
+    translations: {
+      "zh-CN": {
+        language: "zh-CN",
+        label: "解析需要重新核验来源",
+        text: "此题与校核版本不一致，暂不展示校核解析。",
+        evidence: [],
+        warnings: [],
+      },
+    },
+  };
+  show(review);
+  expect(screen.getByText("解析需要重新核验来源")).toBeTruthy();
+  expect(
+    screen
+      .getByText("此题与校核版本不一致，暂不展示校核解析。")
+      .getAttribute("lang"),
+  ).toBe("zh-CN");
+  expect(screen.queryByText(q.explanation.text)).toBeNull();
 });
 
 it("offers manual original-prompt playback in review without autoplay or optional PDFs", () => {

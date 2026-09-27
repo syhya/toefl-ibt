@@ -1371,10 +1371,10 @@ export function Feedback({
   );
 }
 
-// Translate product guidance while keeping source-authored explanations and quotations verbatim.
+// Select authored rationale translations without altering the saved question or source quotations.
 function Explanation({ question: q }: { question: Question }) {
   const { t, locale } = useI18n();
-  const explanation: Exclude<Question["explanation"], string> =
+  const original: Exclude<Question["explanation"], string> =
     typeof q.explanation === "string"
       ? {
           origin: "source",
@@ -1382,9 +1382,13 @@ function Explanation({ question: q }: { question: Question }) {
           text: q.explanation,
         }
       : q.explanation;
-  const english = explanation?.language === "en";
+  const explanation = original && {
+    ...original,
+    ...original.translations?.[locale],
+  };
+  const language = explanation?.language;
   const explanationText = (text: string) =>
-    english || explanation?.origin === "source"
+    language || explanation?.origin === "source"
       ? text
       : localizeDynamic(text, locale);
   return (
@@ -1395,7 +1399,7 @@ function Explanation({ question: q }: { question: Question }) {
         <span
           className={`pill ${explanation?.origin === "source" ? "teal" : "gray"}`}
         >
-          {(english
+          {(language
             ? explanation?.label
             : localizeDynamic(explanation?.label, locale)) ||
             t("Source evidence", "原资料依据")}
@@ -1419,18 +1423,14 @@ function Explanation({ question: q }: { question: Question }) {
                     "查看有冲突的资料附带解析原文",
                   )}
                 </summary>
-                <p lang={english ? "en" : undefined}>
-                  {explanationText(explanation.text)}
-                </p>
+                <p lang={language}>{explanationText(explanation.text)}</p>
               </details>
             </>
           ) : (
-            <p lang={english ? "en" : undefined}>
-              {explanationText(explanation.text)}
-            </p>
+            <p lang={language}>{explanationText(explanation.text)}</p>
           )}
           {explanation.reviewed && explanation.evidence?.length ? (
-            <ul className="explanation-reasons" lang="en">
+            <ul className="explanation-reasons" lang={language}>
               {explanation.evidence?.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
@@ -1445,11 +1445,7 @@ function Explanation({ question: q }: { question: Question }) {
             ))
           )}
           {explanation.warnings?.map((warning, index) => (
-            <p
-              className="explanation-warning"
-              key={index}
-              lang={english ? "en" : undefined}
-            >
+            <p className="explanation-warning" key={index} lang={language}>
               {explanationText(warning)}
             </p>
           ))}

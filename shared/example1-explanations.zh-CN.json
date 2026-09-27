@@ -1,0 +1,830 @@
+{
+  "schemaVersion": 1,
+  "language": "zh-CN",
+  "reviewedAt": "2026-09-27",
+  "origin": "project-reviewed-source-based",
+  "official": false,
+  "questions": {
+    "student-1-r1-11": {
+      "fingerprint": "b02cf3bd2d4e8bca0e2d66110561ed42acd1f22eb35e6c59b5b70e2d9ae29254",
+      "text": "正确答案：D. A bank（银行）\n\n通知介绍的是储蓄账户的电子月结单。储蓄账户属于银行业务，因此发布通知的是银行。paperless（无纸化）说明的是账单的发送方式。",
+      "evidence": [
+        "A: 通知介绍的产品并非互联网接入服务。",
+        "B: 应用程序只是访问账户的方式，通知没有销售电脑。",
+        "C: 采用无纸化账单不能说明发布通知的是造纸公司。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-12": {
+      "fingerprint": "e0f6647056355b4404847806885b31778c3ca91c6223c8022ae251bc41448800",
+      "text": "正确答案：C. By using the Municipal Charter app（使用 Municipal Charter 应用程序）\n\n通知要求客户通过手机应用访问账户，再选择右上角的账户偏好设置。这就是文中明确给出的开通方式。",
+      "evidence": [
+        "A: 通知没有要求客户前往营业网点。",
+        "B: 文中明确指定手机应用，没有要求通过网站操作。",
+        "D: 文中没有提供电话开通流程。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-13": {
+      "fingerprint": "dfeab6180192037b7ef82977e724e15b3a9a36199ac04c523bb9557c05541b19",
+      "text": "正确答案：B. To describe the variety of products available at the farmer's market（介绍农贸市场丰富的商品种类）\n\n帖子介绍了市场里的农产品、烘焙食品和手工艺品，并提到现场音乐这一额外亮点。介绍市场的丰富商品是全文的主要目的。",
+      "evidence": [
+        "A: 有机农产品只是一个例子，文章没有讨论有机农业的益处。",
+        "C: 文章没有将这个市场与其他市场比较。",
+        "D: 帖子的读者是购物者，没有说明如何开设摊位。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-14": {
+      "fingerprint": "be84c2349035ef180fb93300a5f57496828dee6aea42a43aaed5654c09a9b70a",
+      "text": "正确答案：C. They provide friendly service and excellent products.（他们提供友好的服务和优质的商品。）\n\n文中说 Thompson 一家的摊位以商品质量和 cordial service 著称。cordial 表示热情、友好，C 同时概括了这两个受欢迎的原因。",
+      "evidence": [
+        "A: 文中没有提到烹饪建议或食谱。",
+        "B: 文中没有说他们的价格最低。",
+        "D: 文中没有将摊位装饰作为受欢迎的原因。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-15": {
+      "fingerprint": "df91963831e266b021aeac127a5d39cc30f037a3a08ba165f069a88b709ff2cf",
+      "text": "正确答案：B. To get freshly baked bread and pastries before they are gone（在售罄前买到新鲜出炉的面包和糕点）\n\n作者建议早点到，因为面包和糕点很快就会卖完。提早到达能增加在售罄前买到这些食品的机会。",
+      "evidence": [
+        "A: 文中没有提到早晨免费试吃。",
+        "C: 文中没有说面包师很有名。",
+        "D: 帖子没有提到早晨打折。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-16": {
+      "fingerprint": "6cd1fbcd6e339ca0f5aa264e7813c757703499d097f00cec55b098ed9f41c4d2",
+      "text": "正确答案：B. Research on animal cognition（动物认知研究）\n\n文章介绍动物能否认出自己的研究，解释镜子测试，并列举多个物种的研究结果。动物认知能够概括这些例子，是全文的主题。",
+      "evidence": [
+        "A: 儿童仅在开头出现，用来引出自我识别的概念。",
+        "C: 文章没有围绕所提到的三种哺乳动物之间的差异展开。",
+        "D: 清洁鱼是最后一个例子，不能概括整篇文章。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-17": {
+      "fingerprint": "a4c87c47c51922b49746fd94a716b9917d86a78c73527dd332d15d7421cc7774",
+      "text": "正确答案：A. accomplishment（成就）\n\n这里的 milestone 指一项重要的发展成就，即能够在镜子里认出自己。在该语境中，accomplishment 的含义最接近。",
+      "evidence": [
+        "B: 此处并非表示实际距离的里程标记。",
+        "C: 句子没有涉及重量。",
+        "D: 重点是儿童取得的进步，而非研究者的发现。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-18": {
+      "fingerprint": "75c48ab6b4a1cd4e439a01558005984c7465c4ae5108703ce44c8e0f6661605a",
+      "text": "正确答案：B. It helped them determine whether the animals recognized themselves.（这帮助他们判断动物能否认出自己。）\n\n猿看到镜中的标记后，如果试图去掉自己身上的标记，就说明它将镜像与自身联系了起来。因此，标记可以帮助研究者检验动物的自我识别能力。",
+      "evidence": [
+        "A: 标记并非用于追踪动物的移动。",
+        "C: 文中所述目的不是区分不同的动物个体。",
+        "D: 文章描述的是自我识别测试，没有测试颜色辨别能力。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-19": {
+      "fingerprint": "1ad50c8818cd93aa23880170b5948ece7808485df90274a8648d05add7333d1e",
+      "text": "正确答案：D. They understand certain signs from other animals.（它们能理解其他动物发出的某些信号。）\n\n本题是 EXCEPT 题，需要选出原文未支持的陈述。文中提到大象具有镜像自我识别能力和较高智力，并将它们与猿类比较，但没有说明大象能理解其他动物的信号。",
+      "evidence": [
+        "A: 文中明确提到大象表现出自我识别的迹象，因此不选。",
+        "B: 文中明确说大象和海豚具有较高智力，因此不选。",
+        "C: 文中将它们的智力及自我识别能力与猿类比较，因此不选。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-20": {
+      "fingerprint": "8d90b67cc7d1fdb23f432bcad28ab667ce1f868593288b72b4e0f7cf7f3b1338",
+      "text": "正确答案：A. To suggest that a wide range of animals may possess self-awareness（说明更多种类的动物可能具有自我意识）\n\n清洁鱼的例子把讨论范围从高智力的哺乳动物扩展到其他动物。作者借此说明，具有自我意识的动物种类可能比此前认为的更广。",
+      "evidence": [
+        "B: 重点是智力相对较低的动物也可能表现出自我意识，并没有声称所有海洋动物都很聪明。",
+        "C: 作者没有把清洁鱼的结果作为实验存在缺陷的证据。",
+        "D: 文中的鱼对自身标记作出了反应，因此不是测试失败的例子。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-11": {
+      "fingerprint": "926d36323acf245f65667543de33501b7a27688434118215e1f407b0d99cc8c5",
+      "text": "正确答案：C. September 20th（9 月 20 日）\n\n9 月 10 日是预约日期。邮件另行说明，工作坊将在 9 月 20 日下午 3 点举行。本题问的是活动日期，需要区分预约时间与实际举办时间。",
+      "evidence": [
+        "A: 这是预约日期，不是工作坊举办日期。",
+        "B: 文中没有将 9 月 12 日列为活动日期。",
+        "D: 文中没有将 9 月 30 日列为活动日期。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-12": {
+      "fingerprint": "9667f4a56132ba17db8a5757d9902357791d9a278052f4cc13a3bf3e09ebaeea",
+      "text": "正确答案：C. A protective garment（防护衣物）\n\n邮件要求 Edwards 女士自带 apron 或 smock，分别指围裙和罩衫，都是绘画等活动中用于保护衣服的衣物。因此 C 是对应的同义概括。",
+      "evidence": [
+        "A: 邮件没有要求她携带付款工具。",
+        "B: 必需的美术用品会由主办方提供，没有要求额外带颜料。",
+        "D: 邮件没有要求携带预约凭证。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-13": {
+      "fingerprint": "a74961b9fe94b04ff144876da2e8abc297e834f0089e40c6b06a75f139e7d9ea",
+      "text": "正确答案：A. To attract customers to a new fitness center（吸引顾客前往新健身中心）\n\n邮件邀请会员及其来宾参加新分店的活动，介绍设施与项目，并鼓励带上亲朋好友。主要目的是吸引大家前往新健身中心，折扣是支持这一邀请的细节。",
+      "evidence": [
+        "B: 私人训练是中心提供的服务，没有向 Nguyen 女士提供工作。",
+        "C: 庆祝的是新店开业，并非她个人取得的成就。",
+        "D: 折扣只是一个细节，不能概括邮件的整体目的。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-14": {
+      "fingerprint": "117b3c5d6114786cfedc260964fd9665f0faba1c23170d705d4e211660ec8e2e",
+      "text": "正确答案：C. She is a member at one of the fitness center's other locations.（她是该健身中心另一家分店的会员。）\n\n邀请信称收件人为尊贵会员，同时介绍一家新分店的开业。这两点共同支持这样的推断：Nguyen 女士已经是该健身中心其他分店的会员。",
+      "evidence": [
+        "A: 收到邀请不能说明她负责组织中心的活动。",
+        "B: 邀请提供参观新设施的机会，没有说她已经去过。",
+        "D: 对会员的称呼表明双方已有联系，不能据此认定她从未接触过健身中心。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-15": {
+      "fingerprint": "029b55949d7c26c0b6375ce5f88cad9f3e15449ec957b1e267484707709c4d49",
+      "text": "正确答案：D. Community members of all fitness levels（各种健身水平的社区居民）\n\n邮件明确说场所适合所有健身水平的人，并强调以社区为中心。因此，目标使用者是不同能力水平的社区居民。",
+      "evidence": [
+        "A: 专业教练是服务提供者，并非唯一的目标使用者。",
+        "B: 中心没有限制只有高水平运动员才能使用。",
+        "C: 活动邀请会员及其来宾，也没有说设施仅供现有会员使用。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-16": {
+      "fingerprint": "bd2da1a99c4626573e77a6ed2a3770e8f348cf8b792fcd1bf67fde4851b36428",
+      "text": "正确答案：D. Limiting consumer choices can lead to higher satisfaction.（限制消费者的选择可能提高满意度。）\n\n文章指出，选项过多可能引发焦虑并降低满意度，而较少的选项有助于简化决策。D 概括了全文讨论和果酱实验共同支持的中心观点。",
+      "evidence": [
+        "A: 文章质疑增加选项总能带来好处的假设。",
+        "B: 文章没有声称消费文化由减少产品种类的需求推动。",
+        "C: 文中把个人主义文化与较大的决策负担联系起来，没有据此认定其满意度更高。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-17": {
+      "fingerprint": "d0810ed3a70d73855bf0d5971005aa7c48f45c9547c4622e11293e6bbc35d57d",
+      "text": "正确答案：B. Anxiety about making the wrong choice（担心作出错误选择而产生焦虑）\n\n第一段把选项过多与焦虑、决策疲劳及害怕选错联系起来。B 对应文中描述的焦虑，无需引入原文以外的心理学判断。",
+      "evidence": [
+        "A: 本段没有描述模仿其他消费者的愿望。",
+        "C: 文中没有提到对某种消费文化的偏好。",
+        "D: 文中将更大自由与过多选项的负担对照；更大自由不是题目所问的负面影响。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-18": {
+      "fingerprint": "c6e2811b332b9bb2bac3082759adeb1d67a07fb1332656bfe497065e8deadead",
+      "text": "正确答案：C. To provide evidence supporting the paradox of choice（为选择悖论提供证据）\n\n实验显示，提供 6 种果酱时，顾客比面对 24 种果酱时更可能购买。作者用这一结果支持核心观点：更多选择并不总是更好。",
+      "evidence": [
+        "A: 文中虽讨论营销启示，但实验在此处的直接作用是支持选择悖论。",
+        "B: 文章报告的是实验发现，没有详细介绍研究方法。",
+        "D: 例子的主要作用是支持论点，而非批评现代市场。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-19": {
+      "fingerprint": "f91016f514b5bb725cd1843825893f325031902f72a4d25f1881dff174901e71",
+      "text": "正确答案：B. organizing（组织、安排）\n\n在 curating their offerings 中，curating 表示零售商有意识地挑选并安排所提供的商品。各选项中，organizing 最能体现对商品组合的精心管理。",
+      "evidence": [
+        "A: 删除商品的含义过窄，无法涵盖挑选和安排。",
+        "C: 增加商品数量与文中适当限制选择、便于决策的观点相反。",
+        "D: 改变的含义过于宽泛，未体现精心挑选和组织。"
+      ],
+      "warnings": []
+    },
+    "student-1-r2-20": {
+      "fingerprint": "cbcc0e9dd73c98133a773d94663e7b613d9d0416b2ec53a891f4facc66389ff2",
+      "text": "正确答案：C. They generally have fewer choices available.（他们通常可作的选择更少。）\n\n最后一段指出，集体主义文化通常提供较少的选择。C 直接对应这一描述，无需把它扩大为关于所有集体主义社会的普遍断言。",
+      "evidence": [
+        "A: 文中比较时提到的是更高的满足感。",
+        "B: 文中将更重的选择负担归于个人主义文化。",
+        "D: 原文没有支持偏好个人决策这一说法。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-1": {
+      "fingerprint": "92efdc78651059b22cf17d88649502047b4d5f853d47c06c03fbc545a0d23831",
+      "text": "正确答案：A. As a matter of fact, I was returning a book.（事实上，我当时是在还书。）\n\n女士想确认自己早些时候是否在图书馆看到了对方。A 通过解释当时在还书，确认了这次到访。否定疑问句并不要求回答必须以 No 开头。",
+      "evidence": [
+        "B: 这回答的是去哪里找某样东西，没有回应对方当时是否在图书馆。",
+        "C: 这涉及是否有足够时间做某事，与此前的到访无关。",
+        "D: 这讨论未来的到达时间，没有回应过去的碰面。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-2": {
+      "fingerprint": "048008f96e855e4e64aef0599446eb3aaaae05817787dafdca2f849e6deb3427",
+      "text": "正确答案：C. I can help you find it.（我可以帮你找到它。）\n\n说话者询问最近的公交车站在哪里。主动提出帮忙寻找，能够恰当地回应这个问题，即使没有立即给出地址或方向。",
+      "evidence": [
+        "A: 错过公交车既没有说明车站位置，也没有提出寻找办法。",
+        "B: 每 30 分钟一次说明的是频率，不是地点。",
+        "D: 改乘其他交通工具没有回答车站位置的问题。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-3": {
+      "fingerprint": "07729c12633a03383605610e7cc60710cbc422c1c1793f43d9e9472f4126d520",
+      "text": "正确答案：B. Use the convenient chat feature.（使用便捷的聊天功能。）\n\n问题询问如何联系客服。B 给出了具体的联系方法：使用聊天功能。",
+      "evidence": [
+        "A: 允许做某事没有说明联系客服的方法。",
+        "C: 这适合回应请求许可或帮忙，没有提供操作指引。",
+        "D: 对服务质量的评价没有说明如何联系该服务。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-4": {
+      "fingerprint": "a3f36610cb09c26a759f20bb29eb04b43088019a5b79a9149398fab018814124",
+      "text": "正确答案：B. How about tomorrow night then?（那明天晚上怎么样？）\n\n女士礼貌地表示今晚没有空。提出改为明晚，为时间安排上的问题提供了合适的替代方案。",
+      "evidence": [
+        "A: 女士没有提出某个过早的时间，因此无需否定时间太早。",
+        "C: 另一个人今天下午到达，与女士是否有空无关。",
+        "D: 此处没有需要评价为多此一举的提议或行动。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-5": {
+      "fingerprint": "1b82165948e6eebb5da18434b60e1615a0c617316d91da5eba2f9dc5c84b9ae8",
+      "text": "正确答案：D. Let's check the schedule online.（我们上网查一下营业时间吧。）\n\n说话者想知道邮局今天是否营业。查看网上的营业时间，是解决这一疑问的合理办法。",
+      "evidence": [
+        "A: 包裹属于谁与营业时间无关。",
+        "B: 邮局在拐角处只能说明位置，不能确认是否营业。",
+        "C: 某人到家没有回应关于邮局的问题。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-6": {
+      "fingerprint": "044273d5e45887fabc0800721c9eb61e23d4aecac355152651c293f752de6e2c",
+      "text": "正确答案：D. You haven't given me your number yet.（你还没有把电话号码给我。）\n\n女士表示有需要时可以给她发短信。D 指出发短信所缺少的前提：对方还需要知道她的电话号码。",
+      "evidence": [
+        "A: 女士是在提供联系方式，没有请求对方帮助完成任务。",
+        "B: 对方仍可能需要联系信息，这个回应不适合当前的提议。",
+        "C: 这只评论问题的数量，没有回应发短信的提议。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-7": {
+      "fingerprint": "a52f6980616b342a46b8d87736c5c8f386ae0cd4d7ffe87c52823aeb12818656",
+      "text": "正确答案：D. Yes, they're having a huge sale.（是的，他们正在举行大促销。）\n\nD 的确认与后续说明相互一致：商店营业，而且正在促销。在本段对话中，促销这一信息与周末营业的说法相符；不能把它推成只要促销就一定整个周末营业的普遍规则。",
+      "evidence": [
+        "A: 严重停电不能自然地支持毫无保留地确认商店营业。",
+        "B: 正在装修不能清楚地支持营业这一回答。",
+        "C: 星期日全天关门与整个周末营业相矛盾。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-8": {
+      "fingerprint": "3e39a1e0e658ac445c0b6b1acb83840a8810ffe72e0c9ec306082277a7a77de9",
+      "text": "正确答案：A. I overslept.（我睡过头了。）\n\n原问题是 Did you attend the seminar?，意思是“你参加那场研讨会了吗？”attend 在这里表示出席或参加，Did 表明询问的是过去的事情。I overslept 表示醒得比计划晚，在这段对话中自然暗含“没有，我因为睡过头而错过了”。这是通过说明原因作出的间接回答，attend 的词义并没有改变。",
+      "evidence": [
+        "B: Not very well（不太好）评价某件事做得如何，不能自然地回答是否出席活动。",
+        "C: 询问教授的情况，没有回答这个人是否参加了研讨会。",
+        "D: I forgot to look（我忘记看了）不能解释是否出席研讨会，look 也不能替代 attend。"
+      ],
+      "warnings": [
+        "旧版导入解析中混入的下一任务内容已移除。"
+      ]
+    },
+    "student-1-l1-9": {
+      "fingerprint": "e85615c72feab5bd44e4d286e163130c541cac88d1a56009a7ada02e5311494a",
+      "text": "正确答案：C. Go shopping（去购物）\n\n对话开头，女士询问男士是否需要从超市带些什么，表明她原本正准备去购物。后来她请男士代她去。提到换衣服的是男士，他先前记错了两人去看戏的日期。",
+      "evidence": [
+        "A: 女士说戏剧在明天，因此不是她现在准备做的事。",
+        "B: 换衣服是男士提到的，不能据此判断女士的计划。",
+        "D: 两人虽然讨论了晚餐，但开头询问超市购物需求及后来请男士代购，说明女士原本打算去购物。"
+      ],
+      "warnings": [
+        "附带解析混淆了说话者而选择 B。原始答案键为 C，应用的评分答案保持为 C。"
+      ]
+    },
+    "student-1-l1-10": {
+      "fingerprint": "ee8eb1329803cf93d65f7b1e1e4170f721bcb579e61be9a34d8ac0bb08aa6a1d",
+      "text": "正确答案：B. He forgot about the timing of their plans.（他忘记了两人计划的具体时间。）\n\n男士以为他们马上要去看戏，女士提醒他那是明天。他用夸张的表达形容自己很健忘，在这里指弄混了两人的活动时间。",
+      "evidence": [
+        "A: 此时女士还没有给他购物清单，因此不存在忘记该清单的问题。",
+        "C: 这句话出现在他们决定吃什么之前。",
+        "D: 三文鱼和沙拉是在后面才提出的，他还没有忘记购买这些东西。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-11": {
+      "fingerprint": "1bec704fec22cae2e034ed615aee1d0b310b81963ed85b58f5e82518fc24bfe1",
+      "text": "正确答案：B. A room is too hot.（房间太热。）\n\n由于空调无法正常工作，房间越来越热，让人感到不舒服。这就是女士联系维修人员的原因。",
+      "evidence": [
+        "A: 对话没有提到空调漏水。",
+        "C: 对话没有讨论电梯故障。",
+        "D: 对话没有提到窗户卡住。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-12": {
+      "fingerprint": "4ce6aea92a562cd970169a831affc93802b8a86982e7992cfd01de99810cbb6f",
+      "text": "正确答案：D. Take a break early（提前休息）\n\n女士建议男士在等待空调修好期间提前出去吃午饭。这相当于提前休息，没有要求他留在房间等维修人员。",
+      "evidence": [
+        "A: 女士没有提到任务或作业。",
+        "B: 她建议出去吃午饭，而非留在房间等候。",
+        "C: 她没有建议开门。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-13": {
+      "fingerprint": "befdf904fdb1bced869a3d57792d378b37cebed6c3ec4889f3bb92addfc89a3b",
+      "text": "正确答案：A. A guest lecture（嘉宾讲座）\n\n通知介绍了 Cynthia Palmer 博士即将举办的嘉宾讲座，包括主题、时间和地点。",
+      "evidence": [
+        "B: 告知讲座地点不等于宣布课程更换教室。",
+        "C: 通知没有宣布课程要求。",
+        "D: 这是嘉宾活动，没有介绍一门新的大学课程。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-14": {
+      "fingerprint": "fcb6e5b7aa12712df1432f70e0e431cc99cb2ff7ae955fc03adbdf049ab9b485",
+      "text": "正确答案：D. To explain why students should arrive early（解释学生为什么应该提早到场）\n\n说话者提到 Palmer 博士很受欢迎，大家对她的研究很感兴趣，随后建议提早到场以确保有座位。受欢迎这一信息解释了提早到场的实际原因。",
+      "evidence": [
+        "A: 说话者没有要求学生阅读她的出版物。",
+        "B: 提到受欢迎的直接目的是说明座位需求较大，没有解释为何邀请她。",
+        "C: 说话者没有将她与其他嘉宾比较。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-15": {
+      "fingerprint": "23fb97f2b34c00b1ce79edd316078b033c79865d51c84dc7cf5c3136e43b2788",
+      "text": "正确答案：C. Two types of fascination（两种吸引注意力的方式）\n\n讲座对比 hard fascination（强吸引）与 soft fascination（柔性吸引），举例说明它们如何以不同方式占用注意力并影响精神疲劳。主题包含这两种类型。",
+      "evidence": [
+        "A: 说话者解释概念并举例，没有介绍心理学家使用的研究方法。",
+        "B: 保持专注不是主要建议；讲座也肯定为其他想法留出空间的作用。",
+        "D: 说话者描述了强吸引带来的疲劳，没有把重点放在其益处上。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-16": {
+      "fingerprint": "6ea9ae6bb38355db8af5c9c3eb928c5ddfb0fec2a49a1d6dd2c6aade1a8cbef9",
+      "text": "正确答案：B. To introduce a concept in psychology（引入一个心理学概念）\n\n说话者先用引人入胜的电影作为熟悉的例子，再引出 hard fascination（强吸引）这一概念。这个例子的作用是介绍该心理学概念。",
+      "evidence": [
+        "A: 说话者没有比较不同电影或电影类型。",
+        "C: 例子关注注意力被完全吸引，重点不在情绪反应。",
+        "D: 讲座没有建议大家多看电影。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-17": {
+      "fingerprint": "2bec359827f2e8dcab8675a959fd3340d6cf0678724721139e26789a17a99fda",
+      "text": "正确答案：B. Her mind has space for thoughts unrelated to nature.（她的头脑仍有空间思考与自然无关的事情。）\n\n说话者在享受公园环境时，还能思考晚餐安排。这体现了 soft fascination（柔性吸引）：注意力受到吸引，同时仍能容纳其他想法。",
+      "evidence": [
+        "A: 电影例子中的注意力完全投入，与散步时还能思考其他事情不同。",
+        "C: 讲座将柔性吸引描述为不费力，而非需要特别努力。",
+        "D: 散步体现的是柔性吸引，没有体现与疲劳相关的强吸引。"
+      ],
+      "warnings": []
+    },
+    "student-1-l1-18": {
+      "fingerprint": "c94b6f1578d46199ccd5fdbc1076213dda7ffdd272d5e708721b296a666ed815",
+      "text": "正确答案：A. It is involved in soft fascination.（它参与柔性吸引过程。）\n\n说话者将 Default Mode Network（默认模式网络，DMN）与柔性吸引联系起来，并说它能舒缓心神、帮助缓解精神疲劳。A 对应讲座实际描述的关系。",
+      "evidence": [
+        "B: 易怒和压力被描述为精神疲劳可能造成的后果，没有归因于 DMN。",
+        "C: 讲座没有说 DMN 会因过度使用而容易疲劳。",
+        "D: 说话者解释了 DMN 的作用，没有说其影响尚不清楚。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-1": {
+      "fingerprint": "5579cc0cbac0b16d8918c91ae06e2c984857fd086ba3b2eb44bf4e143d6a5145",
+      "text": "正确答案：B. I'm unsure, but I can find out.（我不确定，但我可以查一下。）\n\n问题询问新经理是谁。B 表示目前不知道，并主动提出查明身份，因此是对身份问题的恰当回应。",
+      "evidence": [
+        "A: 这给出开始时间，没有说明身份或获取身份信息的办法。",
+        "C: 欢迎经理没有说明这个人是谁。",
+        "D: 知道职位已有任职者，仍不能回答具体由谁担任。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-2": {
+      "fingerprint": "7c806043b86c857a477161feb29fa21791893f7124d8fa0ed31088d5b95d0810",
+      "text": "正确答案：A. Please wait while I look that up.（请稍等，我查一下。）\n\n说话者询问报告的截止日期。A 提出查询所需信息，即使没有立即报出日期，也能恰当地回应。",
+      "evidence": [
+        "B: 询问没有明确所指的日期，没有回应这份报告的截止日期。",
+        "C: 另一件事的到期日期与这份报告无关。",
+        "D: 是或否的确认不能回答 when 引导的时间问题。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-3": {
+      "fingerprint": "e2dcecc93f79b18ef027e2c9a96ebdfbb49f804d880d275408df9c35786592c6",
+      "text": "正确答案：D. Let's go together.（我们一起去吧。）\n\n说话者表示打算去购买食品杂货，建议一起去能够自然地回应这个计划。",
+      "evidence": [
+        "A: 每周几次的频率没有回应刚提出的计划。",
+        "B: 货架通道的位置适合回答商品在哪里，没有回应是否结伴前往。",
+        "C: 电影院的营业时间与购买食品杂货无关。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-4": {
+      "fingerprint": "fde3318460d08d9184ac13f10629f926871996471aa4b8335729ff5e25728a84",
+      "text": "正确答案：B. That would be great.（那太好了。）\n\n女士提出提供一份自己的笔记，B 礼貌地接受了这一提议。",
+      "evidence": [
+        "A: 说出设施名称不能表达接受或拒绝。",
+        "C: 休息时间与是否需要笔记无关。",
+        "D: 要点的数量不能回答对方是否想要一份笔记。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-5": {
+      "fingerprint": "65db9afa92617377548b88cc839230eef60e5ea31aab1ab8c76926151bf86c27",
+      "text": "正确答案：A. Should we join them?（我们要不要和他们一起去？）\n\n说话者说 Sami 和 Layla 正要去咖啡馆。A 提议加入他们，直接回应了这一信息。",
+      "evidence": [
+        "B: 对话没有提到音乐会。",
+        "C: 过去的时间不能对应这些人现在正在做的事。",
+        "D: 称赞咖啡没有回应他们的出行计划。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-6": {
+      "fingerprint": "d015508d0d30e11a520e35296e4001933227a6d8d859de8a29c4ba11d96a6a41",
+      "text": "正确答案：B. I'll set up a meeting for us to talk.（我会安排一次会议，让我们聊一聊。）\n\n女士想讨论求职候选人。安排会议为交流她所询问的意见提供了机会。",
+      "evidence": [
+        "A: 修改听话者自己的简历，没有回应讨论其他候选人的请求。",
+        "C: 某人升职没有回应当前请求。",
+        "D: 话题是对候选人的看法，没有询问培训是否完成。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-7": {
+      "fingerprint": "8cf3213fe6c451dc4981b9904e022eaf9225b1bb9892638fbdabd0478ffa840e",
+      "text": "正确答案：C. We don't offer that.（我们不提供那项服务。）\n\n问题询问 expedited shipping（加急运输）的价格。C 说明没有提供这项服务，因此也就没有相应报价。恰当的回应可以纠正问题背后的假设，不一定直接给出数字。",
+      "evidence": [
+        "A: 这个含糊的描述既没有给出价格，也没有说明服务是否提供。",
+        "B: 上周两次表示频率，不是价格。",
+        "D: 索要账单没有回答运输费用的问题。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-8": {
+      "fingerprint": "353bd24256fffe3eeda18c6924063b3a19c0689b46cfd577c06277f90a9098dd",
+      "text": "正确答案：B. What is her role in the company?（她在公司担任什么职务？）\n\n说话者已经指明需要联系 Lee 女士。进一步询问她在公司的职责，能够帮助理解她负责什么，是与前文相关的追问。",
+      "evidence": [
+        "A: 说话者是在告知联系对象，没有请求听话者帮忙。",
+        "C: 这只评论提问的人，没有澄清联系指引。",
+        "D: 前文刚明确说要联系 Lee 女士，再问联系谁没有恰当承接信息。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-9": {
+      "fingerprint": "133d1f51a5f430ae1cd55e3440f4907dfa8587d01745078009523983f98adb44",
+      "text": "正确答案：B. A smartphone and a tablet（智能手机和平板电脑）\n\n男士明确说自己正在决定购买智能手机还是平板电脑。B 准确列出了这两个选择。",
+      "evidence": [
+        "A: 笔记本电脑不是文中提到的两个选择之一。",
+        "C: 文中没有把台式电脑列为备选项。",
+        "D: 文中没有把智能手表列为备选项。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-10": {
+      "fingerprint": "1eff9164b741e9a36956c84493d1ceadfd1cb440420d2073d6b7b244f8e08496",
+      "text": "正确答案：B. The device is easier to use on the go.（该设备在外出时更方便使用。）\n\n女士说，如果男士需要便于携带、外出时易于使用的设备，就推荐智能手机。B 是这一理由的同义表达。更大的屏幕是男士考虑平板电脑的原因，不能混淆说话者和设备。",
+      "evidence": [
+        "A: 女士没有比较价格。",
+        "C: 这混淆了说话者及设备；看重平板电脑较大屏幕的是男士。",
+        "D: 对话没有讨论电池续航。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-11": {
+      "fingerprint": "89404d6cbce52c32806d1bd6356ba661f4db04c25bc29124e040f0f835382f6e",
+      "text": "正确答案：A. To inform students about a schedule change（通知学生开放安排有变）\n\n通知说，学生休息室明天下午 1 点至 3 点将因维修临时关闭。在给定选项中，告知学生这一开放时间变化最能概括主要目的。",
+      "evidence": [
+        "B: 通知没有宣布新增休息室设施。",
+        "C: 休息室已经存在，并非宣布设立新设施。",
+        "D: 通知是在提醒临时关闭，没有鼓励大家更多使用休息室。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-12": {
+      "fingerprint": "67c08e7b2a8af2ecece1dbfebe064a074d70c18ba4dda0ff62feccc6e3c6eb68",
+      "text": "正确答案：C. Use alternate spaces（使用其他场所）\n\n休息室关闭期间，通知建议学生使用图书馆或校园咖啡馆。这两个地方都是可替代的场所。",
+      "evidence": [
+        "A: 通知没有建议在已关闭的休息室内等待。",
+        "B: 通知没有要求学生帮助修水管。",
+        "D: 说话者建议前往图书馆，而非访问图书馆网站。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-13": {
+      "fingerprint": "46f818769a1124af52d9da015649b21f697af2af424b934bd20f47143b8b4117",
+      "text": "正确答案：B. A measure of environmental impact（一种衡量环境影响的指标）\n\n讲座将 ecological footprint（生态足迹）定义为衡量环境影响的指标，解释其衡量内容并举例说明用途。B 能概括全文围绕的主题。",
+      "evidence": [
+        "A: 消费差异用于说明这一指标，随时间发生的变化不是中心。",
+        "C: 造成环境损害的活动是解释指标时的例子，不能概括整个主题。",
+        "D: 政府政策在结尾作为一种应用出现，并非整篇讲座的主要话题。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-14": {
+      "fingerprint": "c6b2eaff75d31a26dd71734b122cb88a1e77182b43a37a9f8a73e961912c8114",
+      "text": "正确答案：C. To illustrate the usefulness of comparing ecological footprints（说明比较生态足迹的作用）\n\n这个比较展示了生态足迹如何反映与消费水平、废弃物产量相关的差异，从而说明比较生态足迹为什么有用。",
+      "evidence": [
+        "A: 这一比较支持前面的解释，没有与之矛盾。",
+        "B: 例子强调生活方式相关的差异，没有说无论生活方式如何，资源消耗都一样。",
+        "D: 讲者没有把这种差异归因于生产效率。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-15": {
+      "fingerprint": "56515b593d454cb940eba7ac2f0a856ca7f4faa9d6e14572f265fab03c9660a4",
+      "text": "正确答案：D. By eating locally produced food（食用本地生产的食物）\n\n说话者明确建议食用本地食物，因为运输所需的能源更少。D 正是讲座实际给出的例子。",
+      "evidence": [
+        "A: 处理废弃物并非这个例子所建议的具体行动。",
+        "B: 讲座没有提到加入环保团体。",
+        "C: 交通运输会影响生态足迹，但此处的建议针对食物运输，而非个人改换出行方式。"
+      ],
+      "warnings": []
+    },
+    "student-1-l2-16": {
+      "fingerprint": "41af89251e68dd5d3066b18458c499257ee46320248ba5177973c62a74ee227e",
+      "text": "正确答案：A. How information about ecological footprints has been used in creating policies（生态足迹信息如何用于制定政策）\n\n结尾说，政府和组织可以利用生态足迹数据制定可持续发展政策，并预告接下来会举例。因此，后面的例子应围绕数据在政策制定中的应用。",
+      "evidence": [
+        "B: 结尾预告的是数据的使用，没有说要讨论如何收集数据。",
+        "C: 讲者没有预告会讨论误解。",
+        "D: 讲者承诺举政策应用的例子，没有预告讨论可持续发展为何困难。"
+      ],
+      "warnings": []
+    },
+    "student-1-r1-cloze": {
+      "fingerprint": "096b65df63b4501e0133c7a294c2565a2d4d022df9435c63f8a471f625a7973c",
+      "text": "每个空只填写缺失的字母。结合题面已给字母和句子结构，还原完整单词。",
+      "evidence": [
+        "第 1 空：mi + ght = might。might 是表示可能性或假设的情态动词，后接动词原形 think。",
+        "第 2 空：th + at = that。that 引导我们可能持有的想法，后面的从句描述史前人类。",
+        "第 3 空：peo + ple = people。people 指本段讨论的史前人类，是 concentrated 的主语。",
+        "第 4 空：on + ly = only。only 是表示“仅仅”的副词。后面的介词 on 已印在题面中，组成 concentrated only on basic survival（只专注于基本生存）。",
+        "第 5 空：ba + sic = basic。basic 是形容词，修饰 survival，指与舞蹈活动形成对照的基本生存需求。",
+        "第 6 空：How + ever = However。However 表示转折，将前面的假设与舞蹈具有重要意义的证据对照。",
+        "第 7 空：i + s = is。is 补全 it is clear 这一结构；单数主语 it 与 is 搭配。",
+        "第 8 空：fr + om = from。from 引出结论的依据，构成 clear from the record（从记录中可以清楚看出）。",
+        "第 9 空：rec + ord = record。原文 the record 中使用单数名词 record，指留存的证据。已给前缀及三字母空格要求填写 ord，不能填写 ords。",
+        "第 10 空：dan + cing = dancing。dancing 是表示舞蹈活动的动名词，在 dancing was important to them 中作主语。"
+      ],
+      "warnings": [
+        "旧版附带解析遗漏了 only，并使用了 records。原题空格和答案键要求 only（填 ly）及 record（填 ord）。"
+      ]
+    },
+    "student-1-r2-cloze": {
+      "fingerprint": "a7b410a03300d9d450b41ce93410e31c50c243dbce170af0be74f4eb12e66b5e",
+      "text": "每个空只填写缺失的字母。结合题面已给字母和句子结构，还原完整单词。",
+      "evidence": [
+        "第 1 空：i + s = is。is 与过去分词 divided 构成被动结构 is divided（被划分）。",
+        "第 2 空：in + to = into。into 用于 divided into several regions，表示把整体划分为几个区域。",
+        "第 3 空：reg + ions = regions。regions 指大脑的不同区域，前有 several，需用复数形式。",
+        "第 4 空：wi + th = with。with 引出每个区域所具有的特定功能。",
+        "第 5 空：ro + les = roles。roles 指各区域的作用或功能，在 specific roles 中用复数形式。",
+        "第 6 空：i + ts = its。its 是指代大脑的物主限定词，说明大脑（cerebrum）是脑（brain）最大的部分。its 不带撇号。",
+        "第 7 空：pa + rt = part。part 在 its largest part 中使用单数形式，这个短语描述大脑（cerebrum）。",
+        "第 8 空：invo + lved = involved。involved 补全 is involved in，表示参与这些功能。",
+        "第 9 空：cogn + itive = cognitive。cognitive 是形容词，修饰 functions；推理、规划和语言都是文中列出的认知功能。",
+        "第 10 空：su + ch = such。such 与后面的 as 构成 such as，用于引出例子。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-1": {
+      "fingerprint": "ca8605303e798a6f4d92698576aa90bbec8d782eaf9ee25bf5757a658243787e",
+      "text": "参考句：The tour guides who showed us around the old city were fantastic.\n\n主句是 The tour guides were fantastic。定语从句 who showed us around the old city 修饰 tour guides。主语是复数，因此使用 were；单数形式 was 是未使用的干扰词块。",
+      "evidence": [
+        "词块顺序：tour guides → who → showed us around → the → old city → were。",
+        "未使用的词块：was。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-2": {
+      "fingerprint": "8f3ddaadf3e6319c78c9edde1912f48b8890dd1a12b0447b7434455a56d66720",
+      "text": "参考句：Do you know if she will be moving to a different department?\n\n主句采用 Do + you + know 的疑问语序。if 引导表示“是否”的嵌入式疑问从句，从句使用陈述语序 she will be moving，不能倒装为 will she be moving。题面固定的 she will be 保留原位。",
+      "evidence": [
+        "词块顺序：do → you → know → if → moving to → a different department。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-3": {
+      "fingerprint": "ac18f07530ef28f685b21f5fdbab53a4b8c38c47e7fcbd885fbb8f520808d194",
+      "text": "参考句：Can you tell me whether the cabins will be available?\n\n主句中 Can 放在 you 前面。whether 后使用陈述语序 the cabins will be available，不要在从句内部把 will 与 the cabins 倒装。",
+      "evidence": [
+        "词块顺序：can → you → whether → the cabins → will be → available。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-4": {
+      "fingerprint": "7ad306d8c91ee8110556e9ce24994d2b19c3355da578cb401e9ad8d52e9b20e8",
+      "text": "参考句：What time does it start?\n\nWhat time 是疑问短语，本句属于特殊疑问句。助动词 does 放在单数主语 it 前，后面的实义动词使用原形 start。",
+      "evidence": [
+        "词块顺序：what → time → does → it → start。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-5": {
+      "fingerprint": "846d35ac976e5e63037f44849470f6188270ffd63af6733d91d5407bfd3ffee1",
+      "text": "参考句：Do you know how much tickets will cost?\n\nDo you know 是主句，嵌入的疑问从句以 how much 开头，内部使用陈述语序 tickets will cost。题面词库有 tickets，没有 the，因此不能加入词库中不存在的词。",
+      "evidence": [
+        "词块顺序：do → you → know → how → much → tickets → will cost。"
+      ],
+      "warnings": [
+        "纸质答案键和附带解析写作 the tickets，但原题词库没有 the 词块。应用保留经来源核验、可用给定词块拼出的参考句，不添加该冠词。"
+      ]
+    },
+    "student-1-w-build-6": {
+      "fingerprint": "3422f73fc68624ef7d14aac21732b401a69d2b9402d6fa43fd9879b64e28eb5a",
+      "text": "参考句：What is the water temperature like this time of year?\n\nWhat is X like? 用于询问某事物的情况。这里 X 是 the water temperature，this time of year 说明时间。time of year 是一个整体词块，排列时应保持完整。",
+      "evidence": [
+        "词块顺序：what → is → the water → temperature → like → this → time of year。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-7": {
+      "fingerprint": "745c8773a35b59871728a0b05e410b08ac2468c077c56c452df06dcd6ecb6e9e",
+      "text": "参考句：Do you have a shopping list?\n\n本句是一般疑问句，采用 Do + you + have 的结构。a shopping list 是宾语，其中 shopping 修饰 list，说明清单的用途，因此放在 list 前。",
+      "evidence": [
+        "词块顺序：do → you → have → a → shopping → list。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-8": {
+      "fingerprint": "66e44cb97f457f95a960ef3d6649243953a7d22e83397ce31c8292a2e5b605d5",
+      "text": "参考句：What recipes will you learn?\n\nWhat recipes 是疑问短语，情态动词 will 放在主语 you 前，动词原形 learn 放在主语后，组成 What recipes will you learn?。",
+      "evidence": [
+        "词块顺序：what → recipes → will → you → learn。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-9": {
+      "fingerprint": "7524377634af46d327282378e425103db4f859912f3bcb784ed12048fe9d75f9",
+      "text": "参考句：She wanted to know where she could buy a copy.\n\nShe wanted to know 引出嵌入式疑问从句。where she could buy a copy 使用陈述语序，she 位于 could 前。句首 She 已印在题面中，独立的 she 词块仍需用于从句内部。",
+      "evidence": [
+        "词块顺序：wanted → to know → where → she → could → buy → a copy。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-build-10": {
+      "fingerprint": "0cce17f0944fefcd2ef2d038f4d543b5095804a190e4c6112b389fd1881fed78",
+      "text": "参考句：I used the study guide that was provided by the professor.\n\n主句是 I used the study guide，定语从句 that was provided by the professor 修饰 study guide。that 已充当从句主语，再加入 it 就会造成主语重复，因此 it 是未使用的干扰词块。",
+      "evidence": [
+        "词块顺序：the study guide → that → was provided → by → the professor。",
+        "未使用的词块：it。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-email": {
+      "fingerprint": "21d0f39306a0f324e18e7862d2dbb891a3bc1981c600d12a63f74145dcac3363",
+      "text": "本题没有唯一正确的邮件。应回应题目要求的三点：说明喜欢新杂志的哪些方面，描述提交两首诗时遇到的问题，并询问投稿是否收到。当前情况是尚不确定是否收到投稿，不能直接认定稿件被拒。",
+      "evidence": [
+        "可以按以下顺序组织：称呼；具体表达欣赏；清楚说明投稿问题；礼貌请求确认收件情况或下一步指引；结尾。",
+        "使用适合写给编辑的专业、礼貌语气。缩写形式本身不等于错误，题目也没有要求完全排除所有口语化表达。",
+        "可补充合理的技术故障细节，但应与题目情境一致。不要遗漏询问投稿状态这一要求。",
+        "检查任务是否完成，以及表达清晰度、组织、语法和词汇。题目没有规定唯一范文或段落数量，应用也不提供官方写作分数。"
+      ],
+      "warnings": []
+    },
+    "student-1-w-academic_discussion": {
+      "fingerprint": "fce6c272260c5f69eafd7861d1eed079abfff4758cf192d76dedea7f12ce65df",
+      "text": "对于高中是否应强制学生参加志愿服务，本题没有唯一正确立场。请用自己的话表达并支持观点，推动讨论。可以赞同、反对或提出有条件的看法，但理由应回应“是否应该强制参加”这一问题。",
+      "evidence": [
+        "第一位学生强调公民责任，第二位学生强调学生已有的事务负担与潜在压力。可以回应这些观点或补充相关角度，避免只抄写同学的发言。",
+        "用具体解释或例子展开理由。题目没有硬性要求至少两条理由、个人经历或独立的结论段。",
+        "按照题目对有效回应的建议，争取写到至少 100 词。字数本身既不能保证高质量，也不是本应用中的自动评分规则。",
+        "检查内容是否切题、有依据、连贯且表达清楚。该任务需要依据量表评阅，不能通过与某一篇固定范文比较来判断正误。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-1": {
+      "fingerprint": "ef6eebb35a26289f989e746dc290668f7c44e1e63318e672b1f74f2925aa2691",
+      "text": "参考句：We have a variety of wildlife.\n\n按照听到的原句复述一次，保留词语及顺序，不要作答或改写。",
+      "evidence": [
+        "保留完整短语 a variety of wildlife，不要换成 many animals 等同义说法。",
+        "wildlife 是最后一个词。检查是否保留 we have，以及 a、of 等短词。",
+        "将自己的录音与原音比较，检查词语完整度、清晰度和节奏。应用不提供官方口语分数，也不要求采用某一种书面口音标注。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-2": {
+      "fingerprint": "d378204dea69e1f0d0f1e705dfe6673418f5578acc3deabc9063bc711be6e945",
+      "text": "参考句：Bears, wolves, and large cats are to the right.\n\n按照听到的原句复述一次，保留词语及顺序，不要作答或改写。",
+      "evidence": [
+        "列举了三类动物：bears、wolves 和 large cats。三类都要保留，并注意复数词尾。",
+        "复数列表后使用 are to the right，不要遗漏 the 或改变方向。",
+        "将自己的录音与原音比较，检查词语完整度、清晰度和节奏。应用不提供官方口语分数，也不要求采用某一种书面口音标注。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-3": {
+      "fingerprint": "eb0eadf6ec8311585f3a274a41a35a56d9c713fb087e18635d403441a5c9c34e",
+      "text": "参考句：You can find sea lions and elephants further down the path.\n\n按照听到的原句复述一次，保留词语及顺序，不要作答或改写。",
+      "evidence": [
+        "保留 sea lions 和 elephants 两个动物名称，以及连接它们的 and。",
+        "保留 You can find 和完整的地点短语 further down the path，并以原始录音作为发音参照。",
+        "将自己的录音与原音比较，检查词语完整度、清晰度和节奏。应用不提供官方口语分数，也不要求采用某一种书面口音标注。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-4": {
+      "fingerprint": "f0c5ee21a710b253e000ac4aec99a1286d13a40868931bf6ea81db39741105ba",
+      "text": "参考句：Please, no outside food or drinks, and do not feed the animals.\n\n按照听到的原句复述一次，保留词语及顺序，不要作答或改写。",
+      "evidence": [
+        "句子包含两条规则：不要携带外来食物或饮料，以及不要给动物喂食。",
+        "保留 food 和 drinks 之间的 or，以及第二条规则前的 and。注意 do not 的否定含义，不能复述成允许喂食。",
+        "将自己的录音与原音比较，检查词语完整度、清晰度和节奏。应用不提供官方口语分数，也不要求采用某一种书面口音标注。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-5": {
+      "fingerprint": "84eee167304c039dd88cbd2e280a3b8480e208171c2a88a2da43b61f533c8c49",
+      "text": "参考句：Avoid banging or tapping on the displays and enclosures.\n\n按照听到的原句复述一次，保留词语及顺序，不要作答或改写。",
+      "evidence": [
+        "Avoid 后接 banging 和 tapping 两个 -ing 形式，中间用 or 连接。",
+        "保留 on the displays and enclosures 及复数词尾。任务是复述指示，无需解释这条规则为什么重要。",
+        "将自己的录音与原音比较，检查词语完整度、清晰度和节奏。应用不提供官方口语分数，也不要求采用某一种书面口音标注。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-6": {
+      "fingerprint": "8a4a4933f43d807e6d90e30aff9ece3991c9bb47f6d5305d4e7759e4734dde19",
+      "text": "参考句：For those with children, we offer summer camps and educational opportunities.\n\n按照听到的原句复述一次，保留词语及顺序，不要作答或改写。",
+      "evidence": [
+        "保留开头的 For those with children，以及主谓部分 we offer。",
+        "提供的两类项目是 summer camps 和 educational opportunities。不要遗漏任何一项，也不要添加日期或价格信息。",
+        "将自己的录音与原音比较，检查词语完整度、清晰度和节奏。应用不提供官方口语分数，也不要求采用某一种书面口音标注。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-listen_repeat-7": {
+      "fingerprint": "fa69c926b8785e1e1b14c60f9f69116540e24d998d4b4908d7cb3cea8e5ddc62",
+      "text": "参考句：The visitor's center, located near the front entrance, can give you more information.\n\n按照听到的原句复述一次，保留词语及顺序，不要作答或改写。",
+      "evidence": [
+        "句子的主要结构是 The visitor's center can give you more information。",
+        "located near the front entrance 描述游客中心的位置，也必须复述。留意 near、the 和 can 等短词，不要遗漏。",
+        "将自己的录音与原音比较，检查词语完整度、清晰度和节奏。应用不提供官方口语分数，也不要求采用某一种书面口音标注。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-1-audio": {
+      "fingerprint": "1d0584b549d197ba2604eb57d682becb1e8952b938deaf08aaa080c57178c2ad",
+      "text": "本题没有唯一正确回答。请描述本国一座你去过但没有居住过的城市，说明前往的原因，以及你喜欢那里的哪些方面。题目询问过去的一次旅行经历。",
+      "evidence": [
+        "简要说出城市或交代旅行背景，然后回应两个问题：为什么去，以及具体喜欢什么。",
+        "使用相关的个人细节和清楚表达过去时间的语言。简短而充分展开的例子，比冗长开场后漏答其中一问更有效。",
+        "本音频版问题与纸质 PDF 中询问当前居住地的问题不同。应依据本次练习的音频转写作答，不能直接套用只描述现居地的回答。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-2": {
+      "fingerprint": "51645888645825ced9087837db18d5fd88db874274f36acb3abfe4f9679ea7a2",
+      "text": "本题没有唯一正确观点。请说明城市带给你怎样的感受，并解释原因。你可以觉得兴奋、疲惫，或两者兼有，但理由应与所描述的感受对应。",
+      "evidence": [
+        "直接表达感受，再用节奏、人群、机会、噪声或熟悉程度等具体因素解释。",
+        "可以用一段具体经历支持解释，但题目没有强制要求某种个人故事。",
+        "不要只罗列城市特点，应说明这些特点怎样影响你的感受，以及你为什么会有这样的反应。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-3": {
+      "fingerprint": "03e1c7181863b727083187bc60f50e129310282d8814478b0393147c9b4c7feb",
+      "text": "本题没有唯一正确立场。请回应城市居民的生活是否更有趣，并支持自己的观点。题目提到的职业和休闲机会是供思考的例子，无需全部赞同。",
+      "evidence": [
+        "选择清楚的立场或作有条件的比较，并说明你的论述中“有趣”具体指什么。",
+        "用具体例子展开相关理由。如果不同意，可以解释住在城市以外的人怎样也能拥有有趣的生活。",
+        "围绕生活是否有趣作答。如果讨论城市是否更便宜或更健康，需要明确说明这与题目有什么关系。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-4": {
+      "fingerprint": "458c875a81e742872182e6d7b28276a887f37eaa5d8b5685d2b172351a5119d0",
+      "text": "本题没有唯一正确立场。请说明市政府是否应该建设更多公园来提升居民的幸福感和生活满意度，并解释理由。",
+      "evidence": [
+        "将论点与居民福祉联系起来。可以讨论休闲、社交或减轻压力，也可以说明相关限制和取舍。",
+        "只要论述连贯充分，赞同或反对都可以回应题目。题目没有要求必须支持增建公园。",
+        "使用具体例子或解释，避免无依据地宣称精确的医学或心理效果。该口语任务需要依据量表评阅，没有唯一标准范文。"
+      ],
+      "warnings": []
+    },
+    "student-1-s-interview-1": {
+      "fingerprint": "f48a50ecc8be78fc83d0e6caf60bc02d584970374fd9253001bcc7714a3f9d95",
+      "text": "本题没有唯一正确回答。保留的纸质版问题询问你目前住在大城市、小镇还是村庄。请说明当前居住地的类型，必要时补充简短的相关细节。",
+      "evidence": [
+        "不要用过去的旅行经历代替回答；旅行经历属于另一版本的首道音频访谈题。",
+        "这道旧版纸质题的配套音频与印刷题目不一致，因此继续作为资料学习题。展示本解析不会改变已保存的计时设置和答案。"
+      ],
+      "warnings": []
+    }
+  },
+  "scope": {
+    "currentScreens": 79,
+    "currentItems": 97,
+    "legacyPaperInterviewScreens": 1
+  },
+  "sourceEvidence": {
+    "questionPaperSha256": "33e37aac4324d36a01af7ac0eb67b06aa438dfdf4fc96e31f4bdb72d9b8d9a2d",
+    "answerKeyPhysicalPages": [
+      14,
+      15,
+      26,
+      27,
+      33
+    ],
+    "note": "All 54 choice keys and 20 cloze fragments checked against the printed tables. Build 5 retains the documented word-bank/article exception. Speaking follows the selected audio edition."
+  }
+}

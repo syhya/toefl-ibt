@@ -130,13 +130,25 @@ export type Question = {
     | string
     | {
         origin: "source" | "local_assistance" | "unavailable";
-        language?: "en";
+        language?: "en" | "zh-CN";
         reviewed?: boolean;
         reviewedAt?: string;
         label: string;
         text: string;
         evidence?: string[];
         warnings?: string[];
+        translations?: Partial<
+          Record<
+            "en" | "zh-CN",
+            {
+              language: "en" | "zh-CN";
+              label: string;
+              text: string;
+              evidence?: string[];
+              warnings?: string[];
+            }
+          >
+        >;
         source?: { page?: number; materialId?: string; url?: string };
       };
   assets?: Asset[];

@@ -25,7 +25,7 @@ Vite proxies `/api` to the local service. The bundled TOEFL iBT® Practice Test 
 1. Describe the problem and expected behavior in an issue, or explain a small fix directly in a pull request.
 2. Use a focused branch, such as `codex/improve-import-errors`. Keep unrelated formatting and content changes out of the patch.
 3. Read the code around the change. Preserve frozen session rules, server-owned deadlines, recording integrity, and active/review content separation.
-4. Keep English and Simplified Chinese UI text and the root README versions synchronized. Maintain every other Markdown document in English only. Keep exam prompts, names, answers, and source evidence in their original language.
+4. Keep English and Simplified Chinese UI text and the root README versions synchronized. Maintain every other Markdown document in English only. Keep exam prompts, names, answers, and source evidence in their original language. Maintain the English and Simplified Chinese project-authored explanation manifests together, with matching question fingerprints and equivalent reasons and correction notices.
 5. Add meaningful regression coverage for changed behavior. A visual adjustment can be verified in the browser; do not add a test merely to duplicate CSS values.
 6. Run the relevant tests and production build, and report exactly what ran and what was skipped.
 

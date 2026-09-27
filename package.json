@@ -1,6 +1,6 @@
 {
   "name": "toefl-local-lab",
-  "version": "0.1.0-dev",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "Offline TOEFL iBT practice with bilingual UI and portable personal resources",

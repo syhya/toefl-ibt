@@ -2,9 +2,11 @@
 
 Changes are grouped by user-facing impact. `Unreleased` describes work in the current tree, not a published release or tag. Historical verification dates do not imply that newer code passed those same checks.
 
-## Unreleased
+## 0.1.0 — Unreleased
 
 ### Added
+
+- Reviewed English and Simplified Chinese explanations for all 79 current Practice Test 1 screens and the retained paper Interview 1. The explanation body, distractor reasons, per-blank grammar notes, correction notices, and authorship label follow the selected interface language. Both editions are bound to the same question and answer fingerprint.
 
 - A bilingual [Vocabulary](docs/USER_GUIDE.md#vocabulary) page with manual entry, search, learning/mastered filters, editing, confirmed deletion, and local SQLite persistence. Duplicate additions preserve the existing entry and source.
 - Review shortcuts to collect selected words with context and source, or save a Complete the Words reference as a full word. Meanings and notes are entered manually.
@@ -16,6 +18,8 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 - Open-source issue/PR templates and a clean-checkout CI workflow.
 
 ### Changed
+
+- Prepare the initial `0.1.0` release, replacing the development package version `0.1.0-dev`. The intended Git tag is `v0.1.0`; this unreleased entry does not claim a published GitHub Release.
 
 - The default Practice Test 1 package is now the disclosed original-audio edition (v3): all four Interview prompts play before automatic 45-second recording windows. Question 1 differs from the paper PDF; review preserves that comparison and excludes the incompatible paper sample answer. The 57-file runtime payload is about 18.3 MB. Explicit lightweight v2 upgrades keep saved sessions and old assets intact.
 

@@ -4,7 +4,7 @@ This is TOEFL Local Lab's default example: **TOEFL iBT® Practice Test 1**. The 
 
 This lightweight package contains all prepared questions, source-derived playback clips, extracted explanations, discussion portraits and review images. Original PDFs and full MP3 tracks are optional and excluded from Git. Companion audio/explanations came from separately supplied local sources, not the official PDF URL. See [NOTICE.md](NOTICE.md).
 
-Current review uses project-authored English explanations for every screen, maintained in `shared/example1-explanations.en.json` with the application code. These replace faulty companion commentary in the displayed review, while the raw imported extracts remain archived in this unchanged v3 package. The notes are not ETS-authored, require no extra original materials or package upgrade, and do not change saved answers or scores. See the [explanation audit](../../docs/TEXT_FIDELITY.md#practice-test-1-explanation-audit-2026-09-26).
+Current review uses project-authored English and Simplified Chinese explanations for every screen, maintained in `shared/example1-explanations.en.json` and `shared/example1-explanations.zh-CN.json` with the application code. Explanation bodies, reasons, correction notices, and labels follow the selected interface language. These replace faulty companion commentary in the displayed review, while the raw imported extracts remain archived in this unchanged v3 package. The notes are not ETS-authored, require no extra original materials or package upgrade, and do not change saved answers or scores. See the [explanation audit](../../docs/TEXT_FIDELITY.md#practice-test-1-explanation-audit-2026-09-26).
 
 ## Install and practice
 
@@ -15,7 +15,7 @@ npm run demo
 npm start
 ```
 
-Open [http://127.0.0.1:4173](http://127.0.0.1:4173), select the official student sample 1, and choose a whole test or **R / L / W / S**. An empty homepage and **Help & setup** also provide **Try Practice Test 1**. Source questions and audio stay in English; the site's **EN / 中文** selector changes application controls. Only the root project README is bilingual; this package guide and the detailed documentation stay in English.
+Open [http://127.0.0.1:4173](http://127.0.0.1:4173), select the official student sample 1, and choose a whole test or **R / L / W / S**. An empty homepage and **Help & setup** also provide **Try Practice Test 1**. Source questions and audio stay in English; the site's **EN / 中文** selector changes application controls and project-authored explanations. Only the root project README is bilingual; this package guide and the detailed documentation stay in English.
 
 For an installed lightweight v2 example, stop the service and run `npm run demo -- --upgrade` before restarting. The upgrade replaces only verified example metadata and adds the missing original prompt clip; old sessions, media and versioned proof files remain intact. Full private imports are reused, not upgraded.
 

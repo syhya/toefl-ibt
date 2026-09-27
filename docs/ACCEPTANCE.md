@@ -1,6 +1,16 @@
 # Local application acceptance record
 
-## Current working-tree verification: 2026-09-26
+## Current working-tree verification: 2026-09-27
+
+The prepared application version is **0.1.0**; no GitHub Release or tag is claimed by this working-tree record. All 79 current Practice Test 1 screens and the retained paper Interview 1 now have English and Simplified Chinese explanations selected by the interface language.
+
+- **701 checks passed**: 212 UI, 454 API/security, and 35 data/import. Type checking, production build, documentation links, and whitespace checks passed.
+- Both explanation manifests cover the same 80 question fingerprints and preserve reference keys, reference sentences, all 20 cloze fragments, distractor coverage, and correction notices. Regressions cover immediate language switching, mismatched translations, immutable saved answers/scores, authorized guided feedback, and strict-session isolation.
+- A fresh minimal-package browser check confirmed English and Chinese bodies, distractor reasons, authorship labels, and warning notices for the seminar and shopping questions. The browser console reported no errors or warnings. Screenshots are in `output/playwright/explanation-en.png` and `output/playwright/explanation-zh-CN.png`; isolated sample data is in `tmp/qa/bilingual-explanations/`.
+
+This update does not change dependencies, grading keys, session timing, source media, or the bundled example payload. The preceding September 26 walkthrough below remains the evidence for complete exam and recording flow; it was not repeated for this localization change.
+
+## Earlier English-explanation verification: 2026-09-26
 
 The current example is **Practice Test 1 · Audio edition**, lightweight profile v3: 97 items / 79 screens, nine stages, and 57 required payload files totaling **18,326,505 bytes**. All four sections have eligible local strict practice. The first Interview prompt intentionally follows the supplied original audio, whose wording matches ETS Test Overview page 19, while preserving the different paper prompt in review. No synthetic prompt or examiner video is claimed.
 
