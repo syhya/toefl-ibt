@@ -101,8 +101,14 @@ def test_recorded_official_pdf_identity_and_readme_attribution():
     source = BUNDLE / original['bundlePath']
     if source.is_file():
         assert hashlib.sha256(source.read_bytes()).hexdigest() == expected
+    # The concise project READMEs delegate source details to the linked notice.
+    # Keep that attribution path intact and verify the notice's source identity.
+    notice_path = 'examples/ets-practice-test-1/NOTICE.md'
     for language in ['', '.zh-CN']:
-        assert '](' + url + ')' in (ROOT / ('README' + language + '.md')).read_text()
+        assert f']({notice_path})' in (ROOT / ('README' + language + '.md')).read_text()
+    notice = (ROOT / notice_path).read_text()
+    assert f']({url})' in notice
+    assert expected in notice
     # No source data from the superseded TPO example belongs in the new bundle.
     assert not (ROOT / 'examples/tpo-pack-1').exists()
     assert all('student-1' in f['path'] or not f['path'].startswith('assets/') for f in read('manifest.json')['files'])
