@@ -2,7 +2,7 @@
 
 Changes are grouped by user-facing impact. `Unreleased` describes work in the current tree, not a published release or tag. Historical verification dates do not imply that newer code passed those same checks.
 
-## 0.1.0 — Unreleased
+## [0.1.0](https://github.com/syhya/toefl-ibt/releases/tag/v0.1.0) — 2026-09-27
 
 ### Added
 
@@ -19,20 +19,20 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 
 ### Changed
 
-- Prepare the initial `0.1.0` release, replacing the development package version `0.1.0-dev`. The intended Git tag is `v0.1.0`; this unreleased entry does not claim a published GitHub Release.
+- Initial public release as `v0.1.0`, with package version `0.1.0`.
 
 - The default Practice Test 1 package is now the disclosed original-audio edition (v3): all four Interview prompts play before automatic 45-second recording windows. Question 1 differs from the paper PDF; review preserves that comparison and excludes the incompatible paper sample answer. The 57-file runtime payload is about 18.3 MB. Explicit lightweight v2 upgrades keep saved sessions and old assets intact.
 
 - Reading defaults to the user-selected balanced 30-minute practice profile (15:00 + 15:00), replacing the earlier 21:00/09:00 allocation and original 20:30 total. The equal split matches this paper's two 20-item modules; it is not claimed as verified official module timing. Unchanged legacy browser presets upgrade; custom settings, source-specific clocks, and existing session deadlines remain intact.
 
-- Re-audited Practice Test 1 timing against ETS sources. Start pages now identify official limits, source settings, local presets and untimed study; shared-budget subsets explicitly retain the full task/module time. New v6 sessions preserve repeat durations by original position when filtering, and only the unmatched Interview question remains untimed while matched questions retain 45 seconds. Existing saved plans and strict source gates are unchanged.
+- Re-audited Practice Test 1 timing against ETS sources. Start pages identify official limits, source settings, local presets and untimed study; shared-budget subsets explicitly retain the full task/module time. Filtered repeat tasks preserve durations by original position. New audio-edition sessions use matched Interview prompts with 45-second response windows; legacy paper sessions retain their original timing and eligibility.
 
 - All 13 optional local original files for the sample use lowercase English filenames. Manifest mappings and the exporter preserve unchanged bytes, source IDs, and original installation paths; private data and saved-session references are not renamed.
-- README, package inventory, import/recovery instructions, and documentation policy now reflect the current example and distinguish it from dated private-collection audits. The default runtime payload is now approximately 17.8 MB; 13 original PDFs/full tracks are optional and excluded from Git. Missing originals do not disable prepared practice, but corrupt/missing runtime assets still fail verification.
+- README, package inventory, import/recovery instructions, and documentation policy now reflect the current example and distinguish it from dated private-collection audits. The default runtime payload is approximately 18.3 MB; 13 original PDFs/full tracks are optional and excluded from Git. Missing originals do not disable prepared practice, but corrupt/missing runtime assets still fail verification.
 
 - Only the root README retains English and Simplified Chinese editions. Other Markdown documents are English-only. The in-app reader serves English guides without changing the chosen interface language, and legacy localized documentation endpoints remain compatible.
 
-- `npm run demo` and the newcomer action now install **TOEFL iBT® Practice Test 1** (`student-1`, 97 items, 79 screens). Reading, Listening, and Writing support eligible strict practice; the known Interview question 1 paper/audio mismatch keeps Speaking and full-test strict mode disabled. Existing verified Student Sample 1 is reused without replacing personal records. The former synthetic pack remains a test fixture; TPO Pack 1 is no longer the default example.
+- `npm run demo` and the newcomer action now install **TOEFL iBT® Practice Test 1** (`student-1`, 97 items, 79 screens). The current audio edition supports eligible strict practice in all four sections and the full test. Legacy paper-edition sessions retain their original restrictions. Existing verified Student Sample 1 is reused without replacing personal records. The former synthetic pack remains a test fixture; TPO Pack 1 is no longer the default example.
 
 - The task library now organizes source tests into module/part and category groups. Each entry starts the full ordered group, with item/screen counts and aggregate progress; search, pagination, and deduplication preserve group membership. Group selection retains its original branch and rejects stale content at start.
 
@@ -44,6 +44,8 @@ Changes are grouped by user-facing impact. `Unreleased` describes work in the cu
 - Vocabulary reads and changes follow the existing strict-session review lock, including requests from another tab.
 
 ### Fixed
+
+- Source-attribution CI checks follow the concise root READMEs to the source notice and verify its official PDF URL and recorded SHA-256.
 
 - Sentence-builder selection and drag state reset on question changes, preventing a prior question's gap index from misplacing or rejecting the next answer.
 - A verified sentence token order can be graded with its printed fixed literals when only those literals' punctuation differs from the answer key; word identity/order remain exact and saved score snapshots are not rewritten.

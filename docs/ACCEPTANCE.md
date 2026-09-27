@@ -2,7 +2,7 @@
 
 ## Current working-tree verification: 2026-09-27
 
-The prepared application version is **0.1.0**; no GitHub Release or tag is claimed by this working-tree record. All 79 current Practice Test 1 screens and the retained paper Interview 1 now have English and Simplified Chinese explanations selected by the interface language.
+The application version is **0.1.0**. This record describes the dated local checks below; see the [changelog](../CHANGELOG.md) for release history. All 79 current Practice Test 1 screens and the retained paper Interview 1 now have English and Simplified Chinese explanations selected by the interface language.
 
 - **701 checks passed**: 212 UI, 454 API/security, and 35 data/import. Type checking, production build, documentation links, and whitespace checks passed.
 - Both explanation manifests cover the same 80 question fingerprints and preserve reference keys, reference sentences, all 20 cloze fragments, distractor coverage, and correction notices. Regressions cover immediate language switching, mismatched translations, immutable saved answers/scores, authorized guided feedback, and strict-session isolation.

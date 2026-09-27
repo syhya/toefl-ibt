@@ -21,7 +21,7 @@ For the current packaged example and latest local validation, use the [package R
 | [Contributing](../CONTRIBUTING.md) | Workflow, English documentation, bilingual README/UI, pull requests |
 | [Security](../SECURITY.md) | Local trust boundary and vulnerability reporting |
 | [Code of conduct](../CODE_OF_CONDUCT.md) | Community expectations and reporting |
-| [Changelog](../CHANGELOG.md) | Current unreleased changes and historical verification |
+| [Changelog](../CHANGELOG.md) | Release notes and historical verification |
 
 ## Dated rules, source work, and acceptance
 
