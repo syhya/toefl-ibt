@@ -949,7 +949,7 @@ export function ReviewPage({
                 <div className="prompt" style={{ fontSize: 13 }}>
                   {q.prompt}
                 </div>
-                {q.sourceVariant?.id === "student-1-interview-audio" && (
+                {q.sourceVariant?.paperPrompt && (
                   <details className="source-edition-note">
                     <summary>
                       {t(
@@ -958,22 +958,29 @@ export function ReviewPage({
                       )}
                     </summary>
                     <p>
-                      {t(
-                        "This practice used the original audio prompt. The paper PDF asks a different question; its attached sample response is not used for this audio version.",
-                        "本次练习使用原始音频提问。纸面 PDF 的问题不同，纸面资料附带的示范回答不用于此音频版本。",
-                      )}
+                      {q.sourceVariant.id === "student-1-interview-audio"
+                        ? t(
+                            "This practice used the original audio prompt. The paper PDF asks a different question; its attached sample response is not used for this audio version.",
+                            "本次练习使用原始音频提问。纸面 PDF 的问题不同，纸面资料附带的示范回答不用于此音频版本。",
+                          )
+                        : t(
+                            "This practice uses the supplied original recording. Its wording or question order differs from the paper PDF. The paper text is retained below for comparison.",
+                            "本次练习使用资料中的原始录音，其措辞或题目顺序与纸面 PDF 存在差异。下方保留纸面原文供对照。",
+                          )}
                     </p>
                     <p lang="en">{q.sourceVariant.paperPrompt}</p>
-                    <a
-                      href="https://www.ets.org/pdfs/toefl/toefl-ibt-test-overview.pdf#page=19"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {t(
-                        "ETS Test Overview · audio-version wording",
-                        "ETS Test Overview · 音频版题目原文",
-                      )}
-                    </a>
+                    {q.sourceVariant.id === "student-1-interview-audio" && (
+                      <a
+                        href="https://www.ets.org/pdfs/toefl/toefl-ibt-test-overview.pdf#page=19"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {t(
+                          "ETS Test Overview · audio-version wording",
+                          "ETS Test Overview · 音频版题目原文",
+                        )}
+                      </a>
+                    )}
                   </details>
                 )}
                 {q.choices && (

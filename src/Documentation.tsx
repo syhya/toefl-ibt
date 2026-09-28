@@ -14,6 +14,11 @@ const documents = {
   ARCHITECTURE: ["docs/ARCHITECTURE", "Architecture", "架构说明"],
   TESTING: ["docs/TESTING", "Testing", "测试指南"],
   MATERIALS: ["docs/MATERIALS", "Materials", "资料说明"],
+  SOURCE_RECOVERY: [
+    "docs/SOURCE_RECOVERY",
+    "Source reconstruction",
+    "题库重建记录",
+  ],
   OFFICIAL_RULES: ["docs/OFFICIAL_RULES", "Rules and evidence", "规则与依据"],
   DATA_QA: ["docs/DATA_QA", "Source-data audit", "来源数据审核"],
   TEXT_FIDELITY: [

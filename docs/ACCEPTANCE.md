@@ -1,6 +1,17 @@
 # Local application acceptance record
 
-## Current working-tree verification: 2026-09-27
+## Current working-tree verification: 2026-09-29
+
+The [private source reconstruction](SOURCE_RECOVERY.md) restores 18 archives, 1,514 screens and 1,811 archival items from 393 original files. The public Practice Test 1 v3 file remains unchanged.
+
+- **686 tests passed**: 213 UI, 453 API/security and 20 data/import, plus **5,004 recovered-data subtests**. Twenty-five checks requiring the older, deleted private curation or paper edition were skipped; the new recovered snapshot has separate source/proof, layout, media and grading tests. Type checking, production build, documentation and whitespace checks passed.
+- All 18 source-integrity gates passed. Nineteen isolated complete API paths cover every archive and both Paid 1 branches with synthetic responses and recording takes. No personal sessions were used.
+- Thirteen archives have complete local strict scopes. Experience 2 Listening has a paper/audio omission; Paid 2 Writing lacks four original Build items. Those incomplete scopes remain unavailable for strict practice. Essentials remains untimed, and 18 unresolved scoring units remain unscored.
+- Recovery checks preserve the installed public sample's bytes and existing storage. Audio/paper differences are disclosed in review. The portable Essentials decoder uses the project-bundled FFmpeg without altering original audio files.
+
+This is source reconstruction and local protocol validation, not official ETS scoring or a fresh human-microphone/browser run. Browser automation could not complete its security-policy check. Local evidence is in `tmp/recovery-v1/` and the installed immutable proofs in `generated/recovery/2026-09-28/`.
+
+## Earlier bilingual-explanation verification: 2026-09-27
 
 The application version is **0.1.0**. This record describes the dated local checks below; see the [changelog](../CHANGELOG.md) for release history. All 79 current Practice Test 1 screens and the retained paper Interview 1 now have English and Simplified Chinese explanations selected by the interface language.
 

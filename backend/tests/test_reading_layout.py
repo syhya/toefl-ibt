@@ -100,11 +100,22 @@ def test_all_available_audited_source_layouts_preserve_text_and_unrelated_fields
     for qid, (source, layout) in layouts().items():
         if qid not in questions: continue
         q = questions[qid]; old = deepcopy(q)
+        blocks = q.get('stemBlocks', [])
+        index = source['blockIndex']
+        # A re-reviewed source version can have different block boundaries or
+        # wording. Old character spans must then be a no-op, not a forced edit.
+        if (any(q.get('source', {}).get(k) != source[k] for k in ['materialId', 'page'])
+                or index >= len(blocks)
+                or blocks[index].get('type') != layout.get('blockType', 'message')):
+            assert project_reading_layout(q) == old, qid
+            continue
         def text(item):
             block = item['stemBlocks'][source['blockIndex']]
             return ' '.join(block['paragraphs']) if block['type'] == 'message' else block['text']
         before = normalized(text(q))
-        assert hashlib.sha256(before.encode()).hexdigest() == layout['textSha256'], qid
+        if hashlib.sha256(before.encode()).hexdigest() != layout['textSha256']:
+            assert project_reading_layout(q) == old, qid
+            continue
         restored = project_reading_layout(q)
         expected = before[layout['runs'][0]['start']:]
         assert normalized(text(restored)) == expected, qid
@@ -112,4 +123,13 @@ def test_all_available_audited_source_layouts_preserve_text_and_unrelated_fields
         assert {k:v for k,v in restored.items() if k != 'stemBlocks'} == {k:v for k,v in q.items() if k != 'stemBlocks'}
         if layout.get('omitRepeatedInstruction'):
             assert restored['stemBlocks'][source['blockIndex']-1] == q['stemBlocks'][source['blockIndex']-1]
-        assert restored['stemBlocks'][source['blockIndex']] != q['stemBlocks'][source['blockIndex']], qid
+        expected_paragraphs = []
+        for run in layout['runs']:
+            part = before[run['start']:run['end']]
+            if run['breakBefore'] == 'line' and expected_paragraphs:
+                expected_paragraphs[-1] += '\n' + part
+            else:
+                expected_paragraphs.append(part)
+        block = restored['stemBlocks'][index]
+        actual = block['paragraphs'] if block['type'] == 'message' else block['text'].split('\n\n')
+        assert actual == expected_paragraphs, qid

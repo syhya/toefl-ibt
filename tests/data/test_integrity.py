@@ -133,12 +133,17 @@ class RealDataIntegrity(unittest.TestCase):
         private_ids = {e['id'] for e in initial.get('exams', []) + initial.get('supplementalExams', [])}
         if (initial.get('bundledExample') in [
                 {'id': 'ets-practice-test-1', 'version': 1},
-                {'id': 'ets-practice-test-1', 'version': 2, 'profile': 'runtime-only'}]
+                {'id': 'ets-practice-test-1', 'version': 2, 'profile': 'runtime-only'},
+                {'id': 'ets-practice-test-1', 'version': 3, 'profile': 'runtime-only'}]
                 and private_ids == {'student-1'}
                 and not (ROOT / 'scripts/verified_paper.json').is_file()):
             raise unittest.SkipTest('The official Practice Test 1 bundle is checked by test_bundled_example; the private 18-pack archive is not installed')
         if not private_ids and not initial.get('materials'):
             raise unittest.SkipTest("Portable packs are installed; the private source collection is not installed")
+        if not (ROOT / 'scripts/verified_paper.json').is_file():
+            raise unittest.SkipTest(
+                'The legacy private curation is not installed; reconstructed snapshots '
+                'are checked independently by test_recovered_collection')
         # Portable registries are validated separately. Their generated exams do
         # not become extra members of the fixed, historical source collection.
         files = [catalog_path, *sorted((ROOT / 'generated/exams' / f'{eid}.json') for eid in private_ids)]

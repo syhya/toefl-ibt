@@ -2,7 +2,7 @@
 
 Start with the [project README](../README.md). Only the root README has English and Simplified Chinese versions. This documentation, project policies, and example/source notices are maintained in English. Interface language switching continues to translate application controls while preserving English documentation and source questions/media.
 
-For the current packaged example and latest local validation, use the [package README](../examples/ets-practice-test-1/README.md) and [current acceptance record](ACCEPTANCE.md#current-working-tree-verification-2026-09-27). Historical reports below retain the counts, languages, and behavior of their stated revisions; they are not specifications for today's default sample.
+For the current packaged example and latest local validation, use the [package README](../examples/ets-practice-test-1/README.md) and [current acceptance record](ACCEPTANCE.md#current-working-tree-verification-2026-09-29). Historical reports below retain the counts, languages, and behavior of their stated revisions; they are not specifications for today's default sample.
 
 ## New users
 
@@ -32,6 +32,7 @@ These documents retain observations about the original private collection and sp
 | [Official rules](OFFICIAL_RULES.md) | Verified/observed/approximate/unsupported timing and scoring |
 | [Independent ETS verification](ets-2026-verification.md) | 2026-09-05 primary-source and audio supplement review |
 | [Materials](MATERIALS.md) | Private importer, source structure, media/portrait provenance |
+| [Source reconstruction](SOURCE_RECOVERY.md) | 2026-09-28 private collection recovery, original audio, missing items, source proofs and backup |
 | [Source text corrections](TEXT_FIDELITY.md) | 2026-09-07 OCR audit, exact source-bound fixes, historical review behavior |
 | [Data QA](DATA_QA.md) | Source inventory, corrections, migration batches, verification limits |
 | [Media segmentation](MEDIA_SEGMENTS.md) | Local acoustic/ASR workflow and known source mismatches |

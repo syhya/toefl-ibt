@@ -149,6 +149,21 @@ function show(review: Review) {
   );
 }
 
+it("discloses other recovered audio editions without linking them to the unrelated Student 1 overview", () => {
+  const review = reviewFixture();
+  review.sections![3].modules[0].questions![1].sourceVariant = {
+    id: "experience-2-original-audio",
+    paperPrompt: "The retained paper prompt differs from this recording.",
+    paperPage: 40,
+  };
+  show(review);
+  expect(screen.getByText("音频版本 · 查看与纸面题目的差异")).toBeTruthy();
+  expect(
+    screen.getByText("The retained paper prompt differs from this recording."),
+  ).toBeTruthy();
+  expect(screen.queryByRole("link", { name: /ETS Test Overview/ })).toBeNull();
+});
+
 it("keeps legacy English-only rationales readable without misattributing them to the source", () => {
   const review = reviewFixture();
   const q = review.sections![1].modules[0].questions![0];

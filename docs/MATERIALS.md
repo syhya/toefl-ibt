@@ -80,3 +80,9 @@ The fifteen iBT arrangements include duplicates and genuine upper/lower branches
 Fourteen iBT arrangements became strict-eligible after teacher audio supplementation. Student 1 remains ineligible for a complete strict mock because Interview Q1's paper/audio versions disagree. Teacher Listening/Speaking's ninety existing tasks expose only original printed instructions/questions/choices while transcripts remain review-only. Three source MP3s with trailing wait use auditable WAV intervals; full originals stay archived. Missing/changed media disables affected strict scopes rather than generating substitute official questions.
 
 Objective counts are practice comparisons; long writing and speech use rubric self-assessment, not uncalibrated official 1–6/120 conversion. Final interactive/deduplicated counts, branches, issues, and eligibility come from the particular import's `audit.json`, not the phrase “included in the catalog.”
+
+## Private source reconstruction: 2026-09-28
+
+The deleted private bank is being reconstructed from the original PDFs and recordings. See [Source Recovery](SOURCE_RECOVERY.md) for the current inventory, explicit source omissions, answer-key evidence, paper/audio variants, and backup requirements. The older private-import counts and eligibility statements above describe earlier snapshots; they are not acceptance results for this reconstruction.
+
+Keep `data/`, the complete `generated/` directory, and the matching private reconstruction authoring/audit backup together. New snapshot proofs are recorded under `generated/recovery/2026-09-28/`; the legacy manifest importer alone cannot recreate them. The public v3 Practice Test 1 example remains unchanged at 97 items / 79 screens and does not require the private collection.

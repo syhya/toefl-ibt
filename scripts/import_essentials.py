@@ -68,6 +68,14 @@ LISTENING_RANGES = {
 }
 
 
+def decode_source_pcm(source, destination):
+    """Decode with the project's portable binary, not macOS codec services."""
+    from backend.media import ffmpeg_executable
+    subprocess.run([ffmpeg_executable(), '-nostdin', '-hide_banner', '-loglevel', 'error',
+                    '-i', str(source), '-ac', '1', '-ar', '16000', '-c:a', 'pcm_s16le',
+                    '-f', 'wav', str(destination)], check=True, capture_output=True)
+
+
 def prepare_listening_media(materials, n):
     mid, expected_hash = LISTENING_SOURCES[n]
     source = next(m for m in materials if m["id"] == mid)
@@ -81,7 +89,7 @@ def prepare_listening_media(materials, n):
     result = {}
     with tempfile.TemporaryDirectory(prefix="toefl-essentials-listening-") as temp:
         pcm = Path(temp) / "source.wav"
-        subprocess.run(["/usr/bin/afconvert", "-f", "WAVE", "-d", "LEI16@16000", "-c", "1", str(ROOT / "data" / source["path"]), str(pcm)], check=True, capture_output=True)
+        decode_source_pcm(ROOT / "data" / source["path"], pcm)
         with wave.open(str(pcm), "rb") as original:
             for first, last, start, end in LISTENING_RANGES[n]:
                 gid = f"essentials-{n}-listening-{first}-{last}"
@@ -133,7 +141,7 @@ def prepare_speech_media(materials, n):
     folder.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="toefl-essentials-") as temp:
         pcm = Path(temp) / "source.wav"
-        subprocess.run(["/usr/bin/afconvert", "-f", "WAVE", "-d", "LEI16@16000", "-c", "1", str(ROOT / "data" / source["path"]), str(pcm)], check=True, capture_output=True)
+        decode_source_pcm(ROOT / "data" / source["path"], pcm)
         with wave.open(str(pcm), "rb") as original:
             for number, spans in SPEECH_RANGES[n].items():
                 qid = f"essentials-{n}-s-{number}"

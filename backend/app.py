@@ -487,7 +487,7 @@ def create_app(root_dir=ROOT, clock=None, testing=False):
             'TESTING', 'MATERIALS', 'OFFICIAL_RULES', 'DATA_QA', 'ACCEPTANCE',
             'DESIGN_REFERENCES', 'EXAM_UI_REFERENCE', 'GOAL_COMPLETION_AUDIT',
             'MEDIA_SEGMENTS', 'ets-2026-verification', 'PROJECT_HISTORY',
-            'STRICT_MODE_SECURITY_REVIEW', 'TEXT_FIDELITY',
+            'STRICT_MODE_SECURITY_REVIEW', 'TEXT_FIDELITY', 'SOURCE_RECOVERY',
         ]
         paths = {name: root / 'docs' / name for name in public_docs}
         paths['DOCUMENTATION_INDEX'] = root / 'docs' / 'README'
