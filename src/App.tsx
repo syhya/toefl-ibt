@@ -1208,8 +1208,8 @@ export function Prepare({
                 )}{" "}
                 <br />{" "}
                 {tr(
-                  "Server timer · Automatic submission at expiry",
-                  "服务端计时 · 到时自动提交",
+                  "Standard timing profile · Automatic submission at expiry",
+                  "固定计时预设 · 到时自动提交",
                 )}{" "}
               </small>
             </label>

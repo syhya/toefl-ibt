@@ -2,6 +2,23 @@
 
 Changes are grouped by user-facing impact. `Unreleased` describes work in the current tree, not a published release or tag. Historical verification dates do not imply that newer code passed those same checks.
 
+## 0.1.1 — 2026-10-07
+
+### Changed
+
+- Applied the existing 15:00/15:00 Reading practice profile consistently to all iBT sets. Strict iBT sessions freeze the standard server profile; guided practice honors custom settings. Older Pack preview clocks no longer override Reading settings, and saved sessions retain their original rules and deadlines.
+- Updated English and Chinese timing guidance and the v9 rules contract to distinguish confirmed ETS limits from local practice presets.
+
+### Fixed
+
+- Requests for unavailable fixed branches now fail instead of starting only the first module as a full section. Explicit common-module guided practice remains available.
+- Section totals count every cloze blank as a question item and report screen counts separately.
+- The local recovered collection's Paid 1 Reading question 24 was corrected against its matching Pack source. The original truncated option, supplied key and previous proof remain in private correction evidence. Private sources and generated archives are not included in Git; genuine omissions and unresolved keys remain documented.
+
+### Verification
+
+- Added regression coverage for all iBT families, fixed routes, custom/strict timing, post-audio answer windows, frozen sessions, catalogue counts and the installed source correction. Full validation is recorded in [Acceptance](docs/ACCEPTANCE.md).
+
 ## [0.1.0](https://github.com/syhya/toefl-ibt/releases/tag/v0.1.0) — 2026-09-27
 
 ### Added

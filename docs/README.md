@@ -2,7 +2,7 @@
 
 Start with the [project README](../README.md). Only the root README has English and Simplified Chinese versions. This documentation, project policies, and example/source notices are maintained in English. Interface language switching continues to translate application controls while preserving English documentation and source questions/media.
 
-For the current packaged example and latest local validation, use the [package README](../examples/ets-practice-test-1/README.md) and [current acceptance record](ACCEPTANCE.md#current-working-tree-verification-2026-09-29). Historical reports below retain the counts, languages, and behavior of their stated revisions; they are not specifications for today's default sample.
+For the current packaged example and latest local validation, use the [package README](../examples/ets-practice-test-1/README.md) and [current acceptance record](ACCEPTANCE.md). Historical reports below retain the counts, languages, and behavior of their stated revisions; they are not specifications for today's default sample.
 
 ## New users
 

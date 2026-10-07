@@ -8,7 +8,7 @@ The final read-only catalog SHA was `19338201ba3ebfb6cf59324df45819782f92846fa7f
 
 `tests/data` covers sources, manifests, teacher active/transcript isolation, and cache behavior using temporary plain-color PDF pages. AES PDF page counts and all eighteen Discussion portraits were checked without encryption-related skips; the PDF dependency is `pypdf[crypto]`.
 
-The current bundled example is a separate subset: `student-1`, 13 optional original-source references, 97 items / 79 screens, and 71 corrected fields across 39 screens in v3 (v2 had 74 across 40). English bundle filenames leave original bytes and installation references unchanged. See [the package inventory](../examples/ets-practice-test-1/README.md#package-format) and [current validation](ACCEPTANCE.md#current-working-tree-verification-2026-09-29); do not apply this historical full-bank inventory to a new user's installation.
+The current bundled example is a separate subset: `student-1`, 13 optional original-source references, 97 items / 79 screens, and 71 corrected fields across 39 screens in v3 (v2 had 74 across 40). English bundle filenames leave original bytes and installation references unchanged. See [the package inventory](../examples/ets-practice-test-1/README.md#package-format) and [current validation](ACCEPTANCE.md); do not apply this historical full-bank inventory to a new user's installation.
 
 ## Snapshot inventory
 

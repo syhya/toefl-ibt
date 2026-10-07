@@ -2,6 +2,12 @@
 
 This reconstruction rebuilds the deleted private question bank from the retained original PDFs and recordings. It is separate from installing the public [Practice Test 1 example](../examples/ets-practice-test-1/README.md).
 
+## Follow-up audit: 2026-10-04
+
+Paid 1 Reading Q24 had a genuinely truncated final option and an inconsistent supplied key. A visual comparison with Pack 1's corresponding question established the complete option and answer. The local correction retains the original question/key, matching source pages, rationale, and previous proof in an additive record under `generated/recovery/2026-10-04/`. All other 1,513 question screens and original files remain unchanged. The archive still contains 1,811 items; unique content is now 1,640 items and 17 disputed grading units remain unscored.
+
+The [v9 timing audit](OFFICIAL_RULES.md#collection-timing-audit-2026-10-04) supersedes the timing behavior recorded in the original reconstruction below. Source-file clocks remain evidence, while new strict iBT sessions use the current fixed practice profile. The original missing prompts/items have not been filled with inferred content.
+
 ## Reconstruction inventory
 
 The working inventory contains 18 archives: 15 iBT arrangements and three supplementary TOEFL Essentials archives. It lists 1,811 archival items across 1,514 native question screens. These are collection counts, not a claim of 18 independent full tests: duplicate occurrences and both branches of Paid Practice Test 1 are included. A selected exam route uses only its applicable branch. Essentials remains separate from iBT timing and scoring.

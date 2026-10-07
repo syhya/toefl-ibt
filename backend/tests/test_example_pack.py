@@ -110,7 +110,8 @@ def test_native_install_validates_sources_and_keeps_timed_modules(example):
     plan = make_plan(exam, {'scope': 'all', 'mode': 'practice'}, DEFAULT_TIMING)
     assert [stage['section'] for stage in plan] == ['reading', 'listening', 'writing', 'speaking']
     assert [stage['timer'] for stage in plan] == ['shared', 'item', 'shared', 'untimed']
-    assert plan[0]['seconds'] == 690 and plan[2]['seconds'] == 420
+    assert plan[0]['seconds'] == 900 and plan[2]['seconds'] == 420
+    assert exam['sections'][0]['modules'][0]['durationSeconds'] == 690
     assert exam['strictEligible'] is False
     for scope in ['reading', 'listening', 'writing']:
         assert new_session(exam, {'scope': scope, 'mode': 'strict'}, 0)['mode'] == 'strict'

@@ -117,6 +117,8 @@ def test_bundled_demo_installs_official_sample_and_preserves_its_scoped_timing(c
     assert entry['interactiveQuestionCount'] == 97
     assert entry['interactiveScreenCount'] == 79
     assert [(section['id'], section['questionCount']) for section in entry['sections']] == [
+        ('reading', 40), ('listening', 34), ('writing', 12), ('speaking', 11)]
+    assert [(section['id'], section['screenCount']) for section in entry['sections']] == [
         ('reading', 22), ('listening', 34), ('writing', 12), ('speaking', 11)]
     exam = clean['app'].state.catalog.exams['student-1']
     questions = {q['id']: q for section in exam['sections'] for module in section['modules'] for q in module['questions']}

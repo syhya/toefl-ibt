@@ -161,7 +161,7 @@ def test_history_does_not_advance_locked_practice_branches_as_a_status_oracle(en
 
 def test_scoring_policy_version_clarifies_unknown_keys_without_changing_old_sessions(env):
     a = start(env, scope='reading')
-    assert a['rulesVersion'] == '2026-09-26-balanced-reading-v8'
+    assert a['rulesVersion'] == '2026-10-04-ibt-timing-v9'
     assert a['scoringPolicy'] == {'verifiedAnswersRequiredForScoring': True, 'unresolvedAnswersExcludedFromScoring': True}
     store = env['app'].state.store
     with store.transaction() as db:

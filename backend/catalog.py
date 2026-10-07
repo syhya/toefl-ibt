@@ -118,7 +118,9 @@ class Catalog:
             blocked = [q for q in structured if validate_question(q, strict=True)]
             legacy_images = [q for q in questions if has_legacy_question_image(q)]
             result['sections'].append({'id': section['id'], 'title': section.get('title', section['id']),
-                'modules': len(section.get('modules', [])), 'questionCount': len(questions),
+                'modules': len(section.get('modules', [])),
+                'questionCount': sum(len(q.get('blanks', [])) if q.get('type') == 'cloze' else 1 for q in questions),
+                'screenCount': len(questions),
                 'structuredScreenCount': len(structured),
                 'sourceVerifiedStructuredCount': len(verified),
                 'structuredReviewOnlyCount': sum(q.get('structuredContentStatus') in ['needs-review', 'source-review-only'] for q in structured),

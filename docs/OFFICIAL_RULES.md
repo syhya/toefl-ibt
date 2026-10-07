@@ -2,7 +2,7 @@
 
 First checked: 2026-08-31; independently rechecked: 2026-09-05. Applies to the test introduced on 2026-01-21. This is a dated evidence record, not a claim that all linked pages were rechecked during the bilingual documentation update. Sources are ETS pages, technical documents, and official samples; screenshots in the private `data/` collection support observations about those specific materials. See the [independent verification](ets-2026-verification.md).
 
-Practice Test 1 timing was re-audited on **2026-09-26** against the current ETS content page, blueprint, sample paper and Test Overview. See the [per-part results](#practice-test-1-timing-audit-2026-09-26); this narrower check does not refresh unrelated scoring or test-day claims below.
+Timing for all fifteen installed iBT arrangements was re-audited on **2026-10-04** against ETS's content page, blueprint, teacher sample and Test Overview. See the [current collection audit](#collection-timing-audit-2026-10-04). The September 26 sample audit below is retained as historical evidence; this timing review does not refresh unrelated scoring or test-day claims.
 
 The application is not an ETS examination client. **Strict timing means enforcing a selected local practice configuration, not reproducing every production examination rule, screen, or scoring system.**
 
@@ -17,7 +17,33 @@ The application is not an ETS examination client. **Strict timing means enforcin
 
 The structured contract is `shared/rules.json`. `referenceElapsed` is a duration reference, not an answer timer. A `null` verified value means unknown, not zero.
 
+## Collection timing audit: 2026-10-04
+
+**v9 fixes inconsistent local clocks across the installed iBT collection. It does not claim that ETS publishes exact deadlines for every task.** Pack 1–6 and Paid 1–2 previously overrode the browser's 30-minute Reading preset with the old Pack screenshots' 11:30/09:00 clocks. Paid 1's lower route mixed 11:30 with the 15:00 fallback. The source observations are valid for that supplied preview edition, but silently overriding the selected practice profile was inconsistent and prevented users from adjusting these archives.
+
+New sessions for Experience, Student, Teacher, Pack and Paid now use the same Reading profile: **15:00 + 15:00 = 30:00**. This retains the user's existing equal allocation, and is explicitly a practice configuration. The current ETS overview says approximately 30 minutes; its blueprint estimates 18–21 minutes for a router and 9 for a second module, so neither source establishes 15-minute official module deadlines. The old screenshots and their timing metadata remain unchanged for provenance.
+
+| Task | New strict iBT session | Evidence level |
+| --- | --- | --- |
+| Reading | Two separate 15-minute clocks; no time carried between modules | Local equal-allocation profile; approximate section total from ETS |
+| Listening | 20 seconds for response/conversation/announcement; 30 for academic talk, after audio | Supplied-material observation, not a universal ETS exact window |
+| Build a Sentence | 6 minutes shared by the task | Local approximation; an exact official initial limit remains unconfirmed |
+| Write an Email | 7 minutes shared by reading and writing | Explicit ETS rule |
+| Academic Discussion | 10 minutes shared by reading and writing | Explicit ETS rule |
+| Listen and Repeat | 8/8/10/10/10/12/12 seconds, retaining verified per-item source windows | ETS confirms 8–12 seconds; the exact sequence is a local/source preset |
+| Take an Interview | 45 seconds for each answer after the prompt, without preparation | Explicit ETS rule |
+
+Strict iBT sessions freeze the standard profile on the server and ignore customized browser practice presets. Guided iBT practice honors its saved Reading settings even when a legacy source module contains a different clock. Essentials and other untimed supplements remain untimed. Existing sessions retain their frozen plans, rules, accepted answers and scores; begin a new session to use v9.
+
+Directions do not consume an answer budget. Reading/Build navigation cannot restart their shared deadline. Listening/Speaking stimulus playback precedes each response window; shared recordings are not replayed for every question. The overview's approximately **29/23/8 minutes** for Listening/Writing/Speaking includes form-dependent activity and does not establish three freely distributable answer clocks. Questions and recordings are neither shortened nor padded to force those totals.
+
+The audit also closes an API completeness gap: requesting a missing second-module branch now fails instead of silently starting only module 1. Explicit common-module question selections remain available for guided practice. Catalogue section counts now distinguish question items (including each cloze blank) from screens.
+
+Evidence rechecked: [ETS current content and structure](https://www.ets.org/toefl/test-takers/ibt/about/content.html), [ETS blueprint, PDF pages 2–3](https://www.eu.ets.org/pdfs/toefl/toefl-enki-test-specifications-2026.pdf), [teacher sample 1](https://www.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-teachers-resources-practice-test-1.pdf), and [ETS Test Overview](https://www.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf). Pack Begin-page clocks were also checked against the supplied PDFs. Recording screenshots already showing 7 or 3 seconds remaining were rejected as initial repeat-window evidence.
+
 ## Practice Test 1 timing audit: 2026-09-26
+
+The v6–v8 results in this section are historical. For current precedence and strict-mode behavior, use the v9 audit above.
 
 **The bundled `student-1` sample does not have fully verified official deadlines for every part.** Its Reading and Listening clocks, sentence-building limit, and exact repeat sequence are practice settings. The initial v6 audit retained a 20:30 Reading preset, which did not provide a 30-minute practice run. Following that correction, v7 initially used 21:00/09:00 from the blueprint estimates. **The current v8 default is 15:00/15:00**, following the user's preference to split 30 minutes evenly between this fixed paper's two 20-item modules. This is a personal practice allocation, not a newly verified official deadline or a reproduction of adaptive module timing.
 

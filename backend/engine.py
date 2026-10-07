@@ -8,12 +8,25 @@ import uuid
 from .presentation import is_interactive as presentation_is_interactive, validate_question as validate_presentation
 
 ORDER = ['reading', 'listening', 'writing', 'speaking']
-RULES_VERSION = '2026-09-26-balanced-reading-v8'
+RULES_VERSION = '2026-10-04-ibt-timing-v9'
 SCORING_ENGINE_VERSION = '2026-09-26-fixed-literals-v2'
 DEFAULT_TIMING = {'readingCommon': 900, 'readingSecond': 900, 'listeningResponse': 20, 'listeningAcademic': 30,
                   'buildSentence': 360, 'email': 420, 'academicDiscussion': 600,
                   'repeat': [8, 8, 10, 10, 10, 12, 12], 'interview': 45}
 SUBJECTIVE = {'email', 'academic_discussion', 'listen_repeat', 'interview', 'read_aloud', 'picture_writing'}
+IBT_FAMILIES = {'experience', 'student', 'teacher', 'pack', 'paid'}
+
+
+def uses_ibt_timing(exam):
+    """The fixed 2026 practice profile does not apply to supplemental imports."""
+    return exam.get('family') in IBT_FAMILIES and not exam.get('supplemental') and exam.get('timingPolicy') != 'untimed'
+
+
+def effective_timing(exam, options, timing):
+    # A strict iBT run cannot inherit a customized browser practice preset.
+    # The profile includes explicitly labelled approximations where ETS has
+    # not published an exact per-module/per-item limit.
+    return deepcopy(DEFAULT_TIMING if uses_ibt_timing(exam) and options.get('mode') == 'strict' else timing)
 
 
 class ExamError(Exception):
@@ -146,13 +159,15 @@ def timing_config(overrides):
     return timing
 
 
-def make_plan(exam, options, timing):
+def make_plan(exam, options, timing, *, validate_fixed_route=True):
     """Freeze requested source modules into ordered, independently timed stages.
 
     Reading/writing share a module deadline; listening/speaking use individual
     response windows after media. Supplemental packs always remain untimed.
     Canonical section and task IDs must stay language-independent.
     """
+    timing = effective_timing(exam, options, timing)
+    ibt_timing = uses_ibt_timing(exam)
     scope, route_mode, route = options.get('scope', 'all'), options.get('routeMode', 'fixed'), options.get('route', 'upper')
     if scope not in ['all', *ORDER] or route_mode not in ['fixed', 'adaptive'] or route not in ['upper', 'lower']:
         raise ExamError('Invalid scope or route.', 422)
@@ -177,6 +192,20 @@ def make_plan(exam, options, timing):
         repeat_positions = {q['id']: i for i, q in enumerate(
             q for mod in modules for q in mod.get('questions', []) if q.get('type') == 'listen_repeat')}
         adaptive = route_mode == 'adaptive' and section_id in ['reading', 'listening']
+        if not adaptive and validate_fixed_route:
+            branch_modules = [m for m in modules if m.get('route', 'common') in ['upper', 'lower']]
+            if branch_modules and not any(m.get('route') == route and m.get('questions') for m in branch_modules):
+                # A missing fixed branch must not silently turn a full section
+                # into its router alone. Explicit practice selections may still
+                # target common questions (or a different section) on this paper.
+                selected_modules = [m for m in modules if any(
+                    (not types or q.get('type') in types or q.get('taskType') in types)
+                    and (not selected_ids or q['id'] in selected_ids)
+                    for q in m.get('questions', []))]
+                common_only_practice = options.get('mode', 'practice') == 'practice' and bool(types or selected_ids) and all(
+                    m.get('route', 'common') == 'common' for m in selected_modules)
+                if not common_only_practice:
+                    raise ExamError('The selected fixed route has no second-module branch for this section. Choose an available route.', 422)
         if adaptive:
             routes = {m.get('route', 'common') for m in modules}
             if not {'common', 'upper', 'lower'}.issubset(routes):
@@ -235,7 +264,13 @@ def make_plan(exam, options, timing):
                     if options.get('mode') == 'strict' and section_id == 'speaking' and question['type'] == 'listen_repeat' and not 8 <= seconds <= 12:
                         raise ExamError('Strict repeat response windows must remain within the verified 8–12 second range.', 422)
                     question['_responseSeconds'] = seconds
-                seconds = mod.get('durationSeconds') or timing['readingCommon' if mi == 0 else 'readingSecond']
+                configured_seconds = timing['readingCommon' if mi == 0 else 'readingSecond']
+                # The old Pack Begin screenshots show an earlier preview's
+                # 11:30/09:00 clocks. Retain that evidence in the source exam,
+                # but do not let it override today's 30-minute iBT profile or
+                # an explicitly customized guided-practice reading allocation.
+                source_clock = not ibt_timing and mod.get('durationSeconds')
+                seconds = source_clock or configured_seconds
                 if section_id == 'writing':
                     seconds = timing['email'] if chunk_type == 'email' else timing['academicDiscussion'] if chunk_type == 'academic_discussion' else timing['buildSentence']
                 if type(seconds) not in (int, float) or not math.isfinite(seconds) or not 0 < seconds <= 7200:
@@ -246,7 +281,8 @@ def make_plan(exam, options, timing):
                                (seconds if timer == 'shared' else q['_responseSeconds']) == official_seconds[q['type']]
                                for q in items)
                 timing_basis = 'untimed' if untimed else 'official' if official else 'source' if (
-                    section_id == 'reading' and mod.get('durationSeconds')) else 'local'
+                    section_id == 'reading' and source_clock or timer == 'item' and all(
+                        q.get('timingSource') and q.get('responseSeconds') == q['_responseSeconds'] for q in items)) else 'local'
                 suffix = f'-{chunk_type}' if section_id == 'writing' else f'-part-{chunk_index + 1}' if chunk_index else ''
                 created.append({'id': mod['id'] + suffix, 'section': section_id,
                                 'title': mod.get('title', section_id.title()), 'route': mod_route,
@@ -291,7 +327,7 @@ def _plan_question_ids(plan):
 
 
 def new_session(exam, options, now):
-    timing = timing_config(options.get('timing'))
+    timing = effective_timing(exam, options, timing_config(options.get('timing')))
     mode = options.get('mode', 'practice')
     if mode not in ['strict', 'practice']:
         raise ExamError('Choose strict or practice mode.', 422)
@@ -326,7 +362,10 @@ def new_session(exam, options, now):
     if mode == 'practice' and selected_scope == 'all' and filters:
         unfiltered_options = {key: value for key, value in options.items()
                               if key not in ['taskType', 'questionIds', 'types', 'questionTypes']}
-        unfiltered_plan = make_plan(exam, unfiltered_options, timing)
+        # The actual selection above has already passed route validation. This
+        # comparison only computes the available question universe; unrelated
+        # missing branches must not block a valid common-only practice filter.
+        unfiltered_plan = make_plan(exam, unfiltered_options, timing, validate_fixed_route=False)
         # A filter name is not proof of a subset: selecting every question or
         # every type must not turn a full exam into an assisted practice.
         aids_eligible = _plan_question_ids(plan) < _plan_question_ids(unfiltered_plan)

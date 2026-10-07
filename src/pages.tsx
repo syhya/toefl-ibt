@@ -64,8 +64,8 @@ export function Rules() {
                 </td>
                 <td>
                   {t(
-                    "Timed by source module; navigation within the module is allowed.",
-                    "按资料分模块计时；同模块可返回",
+                    "Two separate 15-minute practice clocks; navigation within the module is allowed.",
+                    "两个模块分别按 15 分钟练习预设计时；同模块可返回",
                   )}
                   <br />
                   {t(
@@ -303,14 +303,14 @@ export function Settings({
         <h2>{t("Local timing presets", "本地计时预设")}</h2>
         <p>
           {t(
-            "Officially specified email, discussion, and interview limits remain fixed. The settings below are local practice parameters, not official limits. Verified timing overrides in a source module take precedence.",
-            "官方明确规定的邮件、讨论和采访时间固定保留。以下参数允许调整，变更不会被称为官方考试时限；资料中已核验的模块覆盖值优先。",
+            "These settings customize new guided practice. Strict iBT practice uses the standard profile, including Email 7 minutes, Discussion 10 minutes and Interview 45 seconds. Exact limits not published by ETS remain labelled practice presets.",
+            "以下设置用于新建的辅助练习。严格 iBT 模考使用固定预设，其中邮件 7 分钟、讨论 10 分钟、采访每题 45 秒。ETS 未公布的精确时限仍标为练习预设。",
           )}
         </p>
         <p>
           {t(
-            "Reading default: 15:00 + 15:00 = 30:00. This personal practice allocation gives equal time to the sample's two 20-item modules; it is not a verified official module limit. Source-specific module limits still take precedence.",
-            "阅读默认：15:00＋15:00＝30:00。这是为本套两个各 20 题的模块均分时间的个人练习预设，并非已核实的官方模块时限。题包自身的模块时限仍优先。",
+            "Reading default for all iBT sets: 15:00 + 15:00 = 30:00. This retains the equal practice allocation; ETS's approximate 30-minute overview does not establish exact module deadlines. Older preview clocks no longer override this profile.",
+            "所有 iBT 套题的阅读默认：15:00＋15:00＝30:00，保留均分时间的练习配置。ETS 公布的约 30 分钟不代表已确认的逐模块时限；旧版资料时钟不再覆盖当前预设。",
           )}
         </p>
         <div className="settings-grid">

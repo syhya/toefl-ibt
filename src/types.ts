@@ -198,6 +198,7 @@ export type Exam = {
     id: SectionId;
     title?: string;
     questionCount?: number;
+    screenCount?: number;
     taskTypes?: string[];
     modules?: {
       id: string;

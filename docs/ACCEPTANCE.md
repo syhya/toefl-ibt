@@ -1,6 +1,26 @@
 # Local application acceptance record
 
-## Current working-tree verification: 2026-09-29
+## Current version verification: v0.1.1 — 2026-10-07
+
+Package metadata and the lockfile identify **v0.1.1**. The timing, fixed-route, item-count and source-correction updates below are included in this local version commit; a Git tag or remote release has not been published.
+
+- Fresh required checks passed: **744 tests** (213 UI, 492 API/security, 39 data/import) and **5,004 recovered-data subtests**. Twenty-five historical/optional tests were skipped. Type checking, production build, documentation links and whitespace checks passed.
+- Private source files, generated question banks/proofs, test logs and personal storage remain excluded from Git. The installed correction is checked locally; it is not distributed as a new public question package.
+- This packaging check did not repeat the October 4 browser walkthrough. Its observations and remaining source/timing limitations are recorded below. Logs for the current validation are in `tmp/qa/version-0.1.1/`.
+
+## Timing and data audit: 2026-10-04
+
+The [collection timing audit](OFFICIAL_RULES.md#collection-timing-audit-2026-10-04) covers every installed iBT arrangement and both Paid 1 routes. New strict sessions freeze v9; legacy sessions keep their existing clocks and content.
+
+- **744 tests passed**: 213 UI, 492 API/security and 39 data/import, plus **5,004 recovered-data subtests**. Twenty-five historical/optional checks were skipped. Production build, documentation links and whitespace checks passed.
+- All 18 runtime source-integrity gates passed. Question counts remain 1,811 items / 1,514 screens. Paid 1 Reading Q24's truncated option and wrong supplied key were corrected against the matching complete Pack question; previous originals and proof remain intact. Unique content now totals 1,640 units, with 17 unresolved scoring units excluded.
+- Tests cover current timers on all installed routes, strict exclusion of browser custom timing, actual guided Reading overrides, post-audio windows, unchanged source data, preserved old sessions, unavailable fixed branches and cloze item/screen counts.
+- A real-browser check used Pack 1 strict Reading in an isolated preview: both English and Chinese direction pages show 15:00, the countdown begins at Begin, and Next/Back retain the running clock. No browser errors/warnings were captured. This was not a timed full examination or microphone test.
+- Known original gaps remain: Paid 2 Build questions 7–10, Essentials 2's two absent speaking prompts, and the Experience 2 listening text/audio mismatch. Their existing strict/availability restrictions remain in place. Passing structural and hash checks does not claim every original answer is correct.
+
+Local timing test logs and screenshot are under `tmp/qa/full-catalog-preview-timing-20261004/`. The additive source correction and replay script are under `generated/recovery/2026-10-04/`. Personal session/recording storage was not used for tests.
+
+## Previous working-tree verification: 2026-09-29
 
 The [private source reconstruction](SOURCE_RECOVERY.md) restores 18 archives, 1,514 screens and 1,811 archival items from 393 original files. The public Practice Test 1 v3 file remains unchanged.
 

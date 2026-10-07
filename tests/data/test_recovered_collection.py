@@ -454,6 +454,39 @@ class RecoveredCollectionIntegrity(unittest.TestCase):
             self.assertEqual(exam['timingPolicy'], 'untimed')
             self.assertIs(exam['strictEligible'], False)
 
+    def test_paid_one_webinar_correction_preserves_both_source_editions(self):
+        exam = self.exams['paid-1']
+        if exam.get('recoveryReview', {}).get('amendedAt') != '2026-10-04':
+            self.skipTest('Optional October 4 source correction is not installed')
+        question = self.questions['paid-1-r1-24']
+        matching = self.questions['pack-1-reading-m1-24']
+        self.assertEqual(question['choices'], matching['choices'])
+        self.assertEqual(question['stemBlocks'], matching['stemBlocks'])
+        self.assertEqual(question['answer'], 'D')
+        self.assertEqual(question['sourceReferenceAnswer'], 'B')
+        self.assertEqual(question['editionReferenceAnswer'], 'B')
+        self.assertEqual(question['resolutionEvidence']['originalOptionD'],
+                         'They will have a chance to talk to others during the')
+        self.assertEqual(question['choices'][3]['text'],
+                         'They will have a chance to talk to others during the webinar.')
+        self.assertEqual(question['canonicalQuestionId'], matching['id'])
+        self.assertEqual(question['contentId'], matching['contentId'])
+        self.assertTrue(question['sourceVariant']['notice'])
+        self.assertEqual(question['source']['materialId'], 'mat-41197f393dad')
+        self.assertEqual(question['resolutionEvidence']['matchingSource']['materialId'], 'mat-e028047bd7f0')
+        self.assertEqual(grade(question, 'D'), {'correct': 1, 'total': 1})
+        self.assertEqual(grade(question, 'B'), {'correct': 0, 'total': 1})
+        proof = self.proofs['paid-1']
+        amendment = proof['reviewReports']['amendment-2026-10-04']
+        previous = proof['revision']['previousProof']
+        self.assertEqual(self.digest(self.root / previous), proof['revision']['previousProofSha256'])
+        self.assertEqual(amendment['before']['choices'][3]['text'],
+                         question['resolutionEvidence']['originalOptionD'])
+        self.assertIsNone(amendment['before']['answer'])
+        self.assertEqual(content_digest(amendment['after']), content_digest(question))
+        self.assertEqual(read_json(self.root / previous)['nativeContentSha256ByQuestionId'][question['id']],
+                         content_digest(amendment['before']))
+
 
 if __name__ == '__main__':
     unittest.main()

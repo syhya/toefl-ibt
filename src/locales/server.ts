@@ -153,6 +153,10 @@ const messages: [string, string][] = [
   ],
   ["Invalid answer format.", "答案格式无效。"],
   ["Invalid scope or route.", "练习范围或路径无效。"],
+  [
+    "The selected fixed route has no second-module branch for this section. Choose an available route.",
+    "所选路径没有本部分的第二模块。请选择资料中实际提供的路径。",
+  ],
   ["Invalid sentence token index.", "造句词块编号无效。"],
   ["Navigation is unavailable in this phase.", "当前阶段不能切换题目。"],
   ["No current audio segment.", "当前没有音频片段。"],
